@@ -38,3 +38,6 @@ Route::get('qr-code-g', function () {
         ->generate('https://demofan.clusterstacks.com/campaign/donate/8/MQ%3D%3D', public_path('images/qrcode.png'));
     return redirect('/images/qrcode.png');
 });
+Route::get('test', function () {
+     return view('test');
+});
