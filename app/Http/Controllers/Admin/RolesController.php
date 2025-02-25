@@ -23,9 +23,9 @@ class RolesController extends Controller
 
     public function index()
     {
-        if (!Gate::allows('Role_Index')) {
-            return abort(503);
-        }
+//        if (!Gate::allows('Role_Index')) {
+//            return abort(503);
+//        }
         return view('admin.roles.index');
     }
 

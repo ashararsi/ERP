@@ -26,9 +26,10 @@ class UserController extends Controller
 
     public function index()
     {
-        if (!Gate::allows('User_Index')) {
-            return abort(503);
-        }
+//        if (!Gate::allows('User_Index')) {
+//            return abort(503);
+//        }
+
         return view('admin.Users.index');
     }
 

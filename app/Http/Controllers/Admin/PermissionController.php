@@ -24,9 +24,9 @@ class PermissionController extends Controller
     public function index(Request $request)
     {
 
-        if (!Gate::allows('Permission_Index')) {
-            return abort(503);
-        }
+//        if (!Gate::allows('Permission_Index')) {
+//            return abort(503);
+//        }
         return view('admin.Permision.index');
 
     }

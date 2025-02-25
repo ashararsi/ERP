@@ -24,30 +24,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'role' => 'admin',
         ]);
-        User::create([
-            'name' => 'usman User',
-            'email' => 'imusmanali44@gmail.com',
-            'first_name' => 'imusmanali44@gmail.com',
-            'last_name' => 'imusmanali44@gmail.com',
-            'password' => Hash::make('12345678'),
-            'role' => 'user',
-        ]);
-        User::create([
-            'name' => 'usman User',
-            'email' => 'teammember@gmail.com',
-            'first_name' => 'imusmanali44@gmail.com',
-            'last_name' => 'imusmanali44@gmail.com',
-            'password' => Hash::make('12345678'),
-            'role' => 'team_member',
-        ]);
-        User::create([
-            'name' => 'coach User',
-            'email' => 'coach@gmail.com',
-            'first_name' => 'coach@gmail.com',
-            'last_name' => 'coach@gmail.com',
-            'password' => Hash::make('12345678'),
-            'role' => 'coach',
-        ]);
+
+
         $user=User::find(1);
 
         $roles =  ['admin'];

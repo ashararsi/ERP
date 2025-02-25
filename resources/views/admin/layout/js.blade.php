@@ -17,6 +17,8 @@
 <script src="{!! asset('admin/assets/libs/simplebar/simplebar.min.js') !!}"></script>
 <script src="{!! asset('admin/assets/js/simplebar.js') !!}"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <!-- Color Picker JS -->
 <script src="{!! asset('admin/assets/libs/@simonwep/pickr/pickr.es5.min.js') !!}"></script>
 
