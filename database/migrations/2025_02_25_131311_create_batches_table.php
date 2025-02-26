@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('batches', function (Blueprint $table) {
+            $table->foreignId('formulation_id')->constrained('formulations')->onDelete('cascade');
+            $table->string('batch_code');
+            $table->date('production_date');
+            $table->date('expiry_date');
+            $table->enum('status', ['in_progress', 'completed', 'failed']);
+            $table->SoftDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('batches');
+    }
+};
