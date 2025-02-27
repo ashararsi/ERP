@@ -20,7 +20,7 @@ class SupplierController extends Controller
 
     public function index()
     {
-         return view('admin.suppliers.index');
+        return view('admin.suppliers.index');
     }
 
     /**
@@ -36,7 +36,12 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $supplier = $this->SuppliersServices->store($request);
+            return redirect()->route('admin.suppliers.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -44,7 +49,13 @@ class SupplierController extends Controller
      */
     public function show(string $id)
     {
-        return view('admin.suppliers.view');
+        try {
+            $supplier = $this->SuppliersServices->edit($id);
+            return view('admin.suppliers.view', compact('supplier'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
     }
 
     /**
@@ -52,7 +63,16 @@ class SupplierController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.suppliers.edit');
+
+
+        try {
+            $supplier = $this->SuppliersServices->edit($id);
+            return view('admin.suppliers.edit', compact('supplier'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
+
     }
 
     /**
@@ -60,7 +80,12 @@ class SupplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
+        try {
+            $raw = $this->SuppliersServices->update($request, $id);
+            return redirect()->route('admin.suppliers.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -68,8 +93,15 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
+        try {
 
+            $raw = $this->SuppliersServices->destroy($id);
+            return redirect()->route('admin.suppliers.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
+
     public function getdata(Request $request)
     {
         return $this->SuppliersServices->getdata($request);

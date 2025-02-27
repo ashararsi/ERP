@@ -27,7 +27,8 @@ class RawMaterialController extends Controller
     public function create()
     {
         $units = $this->RawMaterialServices->create();
-        return view('admin.raw-material.create', compact('units'));
+        $supplier = $this->RawMaterialServices->suptlier_get();
+        return view('admin.raw-material.create', compact('units', 'supplier'));
     }
 
     /**

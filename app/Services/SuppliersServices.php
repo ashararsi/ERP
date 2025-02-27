@@ -65,19 +65,12 @@ class SuppliersServices
 
     public function getdata($request)
     {
-        $data = Supplier::with('parent')->select('*')->orderBy('id', 'desc');
+        $data = Supplier::select('*')->orderBy('id', 'desc');
         return Datatables::of($data)->addIndexColumn()
-            ->addColumn('parent_id', function ($row) {
-                $html = '';
-                if ($row->parent_id) {
-                    $html = $row->parent->name;
-                }
-                return $html;
-            })
             ->addColumn('action', function ($row) {
-                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.units.destroy", $row->id) . '"> ';
-                $btn = $btn . '<a href=" ' . route("admin.units.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
-                $btn = $btn . ' <a href="' . route("admin.units.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
+                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.suppliers.destroy", $row->id) . '"> ';
+                $btn = $btn . '<a href=" ' . route("admin.suppliers.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
+                $btn = $btn . ' <a href="' . route("admin.suppliers.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
                 $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';

@@ -31,7 +31,7 @@
                                         <div class="input-label">
                                             <label>Name</label>
                                         </div>
-                                        <input  type="text" required class="form-control" value=" " name="name">
+                                        <input type="text" required class="form-control" value=" " name="name">
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -39,8 +39,8 @@
                                         <div class="input-label">
                                             <label>unit</label>
                                         </div>
-                                         <select required name="unit" class="form-control">
-                                        <option value="">Select option</option>
+                                        <select required name="unit" class="form-control">
+                                            <option value="">Select option</option>
                                             @foreach($units as $unit)
                                                 <option value="{!! $unit->id !!}">{!! $unit->name !!}</option>
                                             @endforeach
@@ -55,7 +55,7 @@
                                         <div class="input-label">
                                             <label>Quantity</label>
                                         </div>
-                                        <input  type="text" required class="form-control" value=" " name="quantity">
+                                        <input type="text" required class="form-control" value=" " name="quantity">
                                     </div>
                                 </div>
 
@@ -67,7 +67,14 @@
                                         <div class="input-label">
                                             <label>Supplier</label>
                                         </div>
-                                        <input type="text" required class="form-control" value=" " name="supplier">
+                                        <select required name="supplier" class="form-control">
+                                            <option value="">Select option</option>
+                                            @foreach($supplier as $unit)
+                                                <option value="{!! $unit->id !!}">{!! $unit->name !!}</option>
+                                            @endforeach
+
+                                        </select>
+
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -75,7 +82,8 @@
                                         <div class="input-label">
                                             <label>Cost</label>
                                         </div>
-                                        <input  type="number" step="0.01" required class="form-control" value=" " name="cost">
+                                        <input type="number" step="0.01" required class="form-control" value=" "
+                                               name="cost">
                                     </div>
                                 </div>
 

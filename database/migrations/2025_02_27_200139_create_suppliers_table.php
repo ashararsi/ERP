@@ -21,9 +21,10 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('postal_code')->nullable();
-            $table->string('tax_id')->nullable(); // For VAT/GST
-            $table->decimal('conversion_factor', 10, 2)->default(1.00); // For material unit conversion
+            $table->string('tax_id')->nullable();
+            $table->decimal('conversion_factor', 10, 2)->default(1.00);
             $table->timestamps();
+            $table->SoftDeletes();
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\RawMaterials;
+use App\Models\Supplier;
 use App\Models\Unit;
 use DataTables;
 
@@ -28,6 +29,10 @@ class RawMaterialServices
     public function create()
     {
         return Unit::all();
+    }
+  public function suptlier_get()
+    {
+        return Supplier::all();
     }
 
     public function store($request)

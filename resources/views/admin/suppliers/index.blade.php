@@ -11,20 +11,27 @@
         </div>
         <div class="row    mt-4 mb-4 ">
             <div class="col-12 " style="text-align: right">
-                <a href="{!! route('admin.units.create') !!}" class="btn btn-primary btn-sm ">Create Supplier</a>
+                <a href="{!! route('admin.suppliers.create') !!}" class="btn btn-primary btn-sm ">Create Supplier</a>
             </div>
         </div>
         <div class="card">
             <div class="card-body">
                 <div class="row w-100 ">
-                    <div class="col-12">
+                    <div class="col-12 table-responsive" >
                         <table class="table table-striped   table-hover" id="data-table">
                             <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Name</th>
+                                <th>Contact Person</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Country</th>
+                                <th>City</th>
+                                <th>Postal Code</th>
+                                <th>Tax ID</th>
                                 <th>Conversion Factor</th>
-                                <th>Parent</th>
                                 <th width="200px">Action</th>
                             </tr>
                             </thead>
@@ -44,7 +51,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 @endsection
 @section('js')
-@include('admin.layout.datatable')
+    @include('admin.layout.datatable')
     <script type="text/javascript">
         $(document).ready(function () {
             $('#data-table').DataTable({
@@ -58,8 +65,15 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
+                    {data: 'contact_person', name: 'contact_person'},
+                    {data: 'email', name: 'email'},
+                    {data: 'phone', name: 'phone'},
+                    {data: 'address', name: 'address'},
+                    {data: 'country', name: 'country'},
+                    {data: 'city', name: 'city'},
+                    {data: 'postal_code', name: 'postal_code'},
+                    {data: 'tax_id', name: 'tax_id'},
                     {data: 'conversion_factor', name: 'conversion_factor'},
-                    {data: 'parent_id', name: 'parent_id'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
                 dom: 'Bfrtip', // Enable buttons at the top
