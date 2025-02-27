@@ -13,8 +13,10 @@ class ActivityLogger
         ActivityLog::create([
             'user_id' => Auth::check() ? Auth::id() : null,
             'action' => $action,
+            'module' => $currentUrl = url()->current(),
             'description' => $description,
             'data' => $data,
+            'ip_address' => request()->ip(),
             'name' => Auth::check() ? Auth::user()->name : null,
         ]);
     }

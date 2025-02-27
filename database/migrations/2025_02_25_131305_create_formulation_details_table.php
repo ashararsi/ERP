@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('formulation_id')->constrained('formulations')->onDelete('cascade');
             $table->foreignId('raw_material_id')->constrained('raw_materials')->onDelete('cascade');
             $table->float('standard_quantity');
+            $table->float('actual')->nullable();
             $table->timestamps();
             $table->softDeletes(); // Fix: Correct casing
         });

@@ -11,8 +11,10 @@ class CreateActivityLogsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name')->nullable();
+            $table->string('module')->nullable();
             $table->string('action');
             $table->text('description')->nullable();
+            $table->text('ip_address')->nullable();
             $table->json('data')->nullable();
             $table->timestamps();
 

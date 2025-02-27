@@ -30,7 +30,7 @@
                             <tbody>
                             @foreach($logs as $log)
                                 <tr>
-                                    <td>{{ $log->user->name ?? 'Guest' }}</td>
+                                    <td>@if(isset($log->user)) {{ $log->user->name ?? 'Guest' }} @else Guest @endif</td>
                                     <td>{{ $log->module }}</td>
                                     <td>{{ $log->action }}</td>
                                     <td>{{ $log->description }}</td>
