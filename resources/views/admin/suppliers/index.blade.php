@@ -1,17 +1,17 @@
 @extends('admin.layout.main')
 
 @section('title')
-    Raw Material
+    Suppliers
 @stop
 
 @section('content')
     <div class="container-fluid">
         <div class="row w-100  mt-4 ">
-            <h3 class="text-22 text-center text-bold w-100 mb-4">Units</h3>
+            <h3 class="text-22 text-center text-bold w-100 mb-4">Suppliers</h3>
         </div>
         <div class="row    mt-4 mb-4 ">
             <div class="col-12 " style="text-align: right">
-                <a href="{!! route('admin.units.create') !!}" class="btn btn-primary btn-sm ">Create Units</a>
+                <a href="{!! route('admin.units.create') !!}" class="btn btn-primary btn-sm ">Create Supplier</a>
             </div>
         </div>
         <div class="card">
@@ -51,7 +51,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.units.getdata') }}",
+                    url: "{{ route('admin.suppliers.getdata') }}",
                     type: "POST",
                     data: {_token: "{{ csrf_token() }}"}
                 },

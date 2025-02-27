@@ -10,6 +10,11 @@ use Config;
 
 class UnitServices
 {
+    public function create()
+    {
+        return Unit::where('parent_id', null)->orderBy('created_at', 'desc')->get();
+    }
+
     public function index($request)
     {
         $perPage = $request->get('per_page', 20);
@@ -27,7 +32,9 @@ class UnitServices
 
     public function store($request)
     {
-        return Unit::create($request->all());
+        $data = $request->all();
+        $data['parent_id'] = ($request->parent_id == 0) ? null : $request->parent_id;
+        return Unit::create($data);
 
     }
 
@@ -58,8 +65,15 @@ class UnitServices
 
     public function getdata($request)
     {
-        $data = Unit::select('*')->orderBy('id', 'desc');
+        $data = Unit::with('parent')->select('*')->orderBy('id', 'desc');
         return Datatables::of($data)->addIndexColumn()
+            ->addColumn('parent_id', function ($row) {
+                $html = '';
+                if ($row->parent_id) {
+                    $html = $row->parent->name;
+                }
+                return $html;
+            })
             ->addColumn('action', function ($row) {
                 $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.units.destroy", $row->id) . '"> ';
                 $btn = $btn . '<a href=" ' . route("admin.units.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';

@@ -2,18 +2,23 @@
 
 namespace App\Services;
 
-use App\Models\RawMaterials;
-use App\Models\Unit;
+use App\Models\Supplier;
+
 use DataTables;
 
 use Config;
 
-class RawMaterialServices
+class SuppliersServices
 {
+    public function create()
+    {
+
+    }
+
     public function index($request)
     {
         $perPage = $request->get('per_page', 20);
-        $posts = RawMaterials::orderBy('created_at', 'desc')->paginate($perPage);
+        $posts = Supplier::orderBy('created_at', 'desc')->paginate($perPage);
         return response()->json([
             'data' => $posts->items(),
             'current_page' => $posts->currentPage(),
@@ -25,27 +30,24 @@ class RawMaterialServices
         ]);
     }
 
-    public function create()
-    {
-        return Unit::all();
-    }
-
     public function store($request)
     {
-        return RawMaterials::create($request->all());
+        $data = $request->all();
+//        $data['parent_id'] = ($request->parent_id == 0) ? null : $request->parent_id;
+        return Supplier::create($data);
 
     }
 
     public function edit($id)
     {
-        return RawMaterials::findOrFail($id);
+        return Supplier::findOrFail($id);
 
     }
 
     public function update($request, $id)
     {
         $validated = $request->all();
-        $transaction = RawMaterials::find($id);
+        $transaction = Supplier::find($id);
         if ($transaction) {
             $transaction->update($validated);
         }
@@ -54,7 +56,7 @@ class RawMaterialServices
 
     public function destroy($id)
     {
-        $Transaction = RawMaterials::findOrFail($id);
+        $Transaction = Supplier::findOrFail($id);
         if ($Transaction) {
             $Transaction->delete();
         }
@@ -63,12 +65,19 @@ class RawMaterialServices
 
     public function getdata($request)
     {
-        $data = RawMaterials::select('*')->orderBy('id', 'desc');
+        $data = Supplier::with('parent')->select('*')->orderBy('id', 'desc');
         return Datatables::of($data)->addIndexColumn()
+            ->addColumn('parent_id', function ($row) {
+                $html = '';
+                if ($row->parent_id) {
+                    $html = $row->parent->name;
+                }
+                return $html;
+            })
             ->addColumn('action', function ($row) {
-                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.raw-material.destroy", $row->id) . '"> ';
-                $btn = $btn . '<a href=" ' . route("admin.raw-material.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
-                $btn = $btn . ' <a href="' . route("admin.raw-material.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
+                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.units.destroy", $row->id) . '"> ';
+                $btn = $btn . '<a href=" ' . route("admin.units.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
+                $btn = $btn . ' <a href="' . route("admin.units.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
                 $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';

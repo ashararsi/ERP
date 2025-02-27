@@ -26,7 +26,8 @@ class RawMaterialController extends Controller
      */
     public function create()
     {
-        return view('admin.raw-material.create');
+        $units = $this->RawMaterialServices->create();
+        return view('admin.raw-material.create', compact('units'));
     }
 
     /**
@@ -38,6 +39,7 @@ class RawMaterialController extends Controller
             $this->RawMaterialServices->store($request);
             return redirect()->route('admin.raw-material.index');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -55,7 +57,13 @@ class RawMaterialController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            $units = $this->RawMaterialServices->create();
+            $raw = $this->RawMaterialServices->edit($id);
+            return view('admin.raw-material.edit', compact('raw', 'units'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -63,7 +71,13 @@ class RawMaterialController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+
+            $raw = $this->RawMaterialServices->update($request, $id);
+            return redirect()->route('admin.raw-material.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -71,7 +85,13 @@ class RawMaterialController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+
+            $raw = $this->RawMaterialServices->destroy($id);
+            return redirect()->route('admin.raw-material.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function getdata(Request $request)

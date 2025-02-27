@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\Admin\TransactionController;
 //use App\Http\Controllers\Admin\StripeController;
 use App\Http\Controllers\Admin\RawMaterialController;
+use App\Http\Controllers\Admin\SupplierController;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('units', UnitController::class);
     Route::post('/units/getdata', [UnitController::class, 'getdata'])->name('units.getdata');
+
+
+    Route::resource('suppliers', SupplierController::class);
+    Route::post('/suppliers/getdata', [SupplierController::class, 'getdata'])->name('suppliers.getdata');
 
     Route::get('/logs-view', [ActionLogController::class, 'showLogs'])->name('logs.view');
 

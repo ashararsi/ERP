@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Services\UnitServices;
 use Illuminate\Http\Request;
+use function Symfony\Component\String\u;
 
 class UnitController extends Controller
 {
@@ -27,7 +28,8 @@ class UnitController extends Controller
      */
     public function create()
     {
-        return view('admin.units.create');
+        $units = $this->UnitServices->create();
+        return view('admin.units.create', compact('units'));
     }
 
     /**
@@ -41,10 +43,10 @@ class UnitController extends Controller
                 'conversion_factor' => 'nullable|numeric|min:0',
                 'parent_id' => 'nullable|exists:units,id'
             ]);
-
             $this->UnitServices->store($request);
             return redirect()->route('admin.units.index');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -62,10 +64,13 @@ class UnitController extends Controller
      */
     public function edit(string $id)
     {
+
         try {
-            $this->UnitServices->edit($id);
-            return redirect()->route('admin.units.index');
+            $units = $this->UnitServices->create();
+            $unit = $this->UnitServices->edit($id);
+            return view('admin.units.edit', compact('unit', 'units'));
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
         return view('admin.units.edit');
