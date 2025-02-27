@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\RawMaterialServices;
 use Illuminate\Http\Request;
 
 class RawMaterialController extends Controller
@@ -10,9 +11,14 @@ class RawMaterialController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct(RawMaterialServices $RawMaterialServices)
+    {
+        $this->RawMaterialServices = $RawMaterialServices;
+    }
+
     public function index()
     {
-        //
+        return view('admin.raw-material.index');
     }
 
     /**
@@ -20,7 +26,7 @@ class RawMaterialController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.raw-material.create');
     }
 
     /**
@@ -28,7 +34,12 @@ class RawMaterialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $this->RawMaterialServices->store($request);
+            return redirect()->route('admin.raw-material.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -61,5 +72,11 @@ class RawMaterialController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getdata(Request $request)
+    {
+        return $this->RawMaterialServices->getdata($request);
+
     }
 }

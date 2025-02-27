@@ -14,28 +14,26 @@ class CampaignController extends Controller
     }
 
 
-
     public function index(Request $request)
     {
 
-   return     $this->CampaignServices->website_index($request);
+        return $this->CampaignServices->website_index($request);
 
 
     }
 
 
-    public function getdata(){
+    public function getdata()
+    {
         return $this->CampaignServices->getdata();
     }
 
-    public function show($id){
+    public function show($id)
+    {
 
         return $this->CampaignServices->websiteshow($id);
 
     }
-
-
-
 
 
 }

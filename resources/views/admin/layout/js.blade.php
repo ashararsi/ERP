@@ -40,3 +40,9 @@
 
 <!-- Custom JS -->
 <script src="{!! asset('admin/assets/js/custom.js') !!}"></script>
+
+<!-- notifications -->
+<script src="{!! asset('admin/assets/libs/awesome-notifications/index.var.js') !!}"></script>
+<script src="{!! asset('admin/assets/js/notifications.js') !!}"></script>
+
+

@@ -31,3 +31,7 @@
 
 <!-- Jsvector Maps CSS -->
 <link rel="stylesheet" href="{!! asset('admin/assets/libs/jsvectormap/css/jsvectormap.min.css') !!}">
+
+<link rel="stylesheet" href="{!! asset('admin/assets/libs/awesome-notifications/style.css')!!}">
+
+

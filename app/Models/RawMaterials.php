@@ -10,5 +10,7 @@ class RawMaterials extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
     protected $table = 'raw_materials';
+    protected $fillable = ['name', 'unit', 'quantity', 'supplier', 'cost', 'expiry_date'];
 }
