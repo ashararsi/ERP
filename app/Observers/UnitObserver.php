@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Unit;
 
 class UnitObserver
@@ -11,7 +12,8 @@ class UnitObserver
      */
     public function created(Unit $unit): void
     {
-        //
+        ActivityLogger::log('Unit  created', ' Unit created.', ['Unit' => $unit]);
+
     }
 
     /**
@@ -19,7 +21,8 @@ class UnitObserver
      */
     public function updated(Unit $unit): void
     {
-        //
+        ActivityLogger::log('Unit  update', ' Unit update.', ['Unit' => $unit]);
+
     }
 
     /**
@@ -27,7 +30,8 @@ class UnitObserver
      */
     public function deleted(Unit $unit): void
     {
-        //
+        ActivityLogger::log('Unit  delete', ' Unit delete.', ['Unit' => $unit]);
+
     }
 
     /**
@@ -35,7 +39,8 @@ class UnitObserver
      */
     public function restored(Unit $unit): void
     {
-        //
+        ActivityLogger::log('Unit  restored', ' Unit restored.', ['Unit' => $unit]);
+
     }
 
     /**
@@ -43,6 +48,7 @@ class UnitObserver
      */
     public function forceDeleted(Unit $unit): void
     {
-        //
+        ActivityLogger::log('Unit  Force Deleted', ' Unit Frce Deleted.', ['Unit' => $unit]);
+
     }
 }

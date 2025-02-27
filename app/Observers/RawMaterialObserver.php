@@ -20,7 +20,7 @@ class RawMaterialObserver
      */
     public function updated(RawMaterial $rawMaterial): void
     {
-        ActivityLogger::log('Raw Material Update', 'A new Raw Material was Updated.', ['rawMaterial'=>$rawMaterial]);
+        ActivityLogger::log('Raw Material Update', 'A   Raw Material was Updated.', ['rawMaterial'=>$rawMaterial]);
 
     }
 
@@ -29,7 +29,7 @@ class RawMaterialObserver
      */
     public function deleted(RawMaterial $rawMaterial): void
     {
-        ActivityLogger::log('Raw Material delete', 'A   Raw Material was deleted.', ['rawMaterial'=>$rawMaterial]);
+        ActivityLogger::log('Raw Material delete', 'A     Material was deleted.', ['rawMaterial'=>$rawMaterial]);
 
     }
 
@@ -38,7 +38,7 @@ class RawMaterialObserver
      */
     public function restored(RawMaterial $rawMaterial): void
     {
-        ActivityLogger::log('Raw Material restore', 'A   Raw Material was restore.', ['rawMaterial'=>$rawMaterial]);
+        ActivityLogger::log('Raw Material restore', 'A     Material was restore.', ['rawMaterial'=>$rawMaterial]);
     }
 
     /**
@@ -46,6 +46,7 @@ class RawMaterialObserver
      */
     public function forceDeleted(RawMaterial $rawMaterial): void
     {
-        //
+        ActivityLogger::log('Raw Material force Deleted  ', 'A     Material was restore.', ['rawMaterial'=>$rawMaterial]);
+
     }
 }
