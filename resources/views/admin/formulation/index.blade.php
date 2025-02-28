@@ -1,17 +1,17 @@
 @extends('admin.layout.main')
 
 @section('title')
-    Batches
+    Formulations
 @stop
 
 @section('content')
     <div class="container-fluid">
         <div class="row w-100  mt-4 ">
-            <h3 class="text-22 text-center text-bold w-100 mb-4">Batches</h3>
+            <h3 class="text-22 text-center text-bold w-100 mb-4">Formulations</h3>
         </div>
         <div class="row    mt-4 mb-4 ">
             <div class="col-12 " style="text-align: right">
-                <a href="{!! route('admin.batches.create') !!}" class="btn btn-primary btn-sm ">Create Batch</a>
+                <a href="{!! route('admin.formulations.create') !!}" class="btn btn-primary btn-sm ">Create Formulations</a>
             </div>
         </div>
         <div class="card">
@@ -23,8 +23,6 @@
                             <tr>
                                 <th>No</th>
                                 <th>Name</th>
-                                <th>Conversion Factor</th>
-                                <th>Parent</th>
                                 <th width="200px">Action</th>
                             </tr>
                             </thead>
@@ -51,15 +49,13 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.batches.getdata') }}",
+                    url: "{{ route('admin.formulations.getdata') }}",
                     type: "POST",
                     data: {_token: "{{ csrf_token() }}"}
                 },
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
-                    {data: 'conversion_factor', name: 'conversion_factor'},
-                    {data: 'parent_id', name: 'parent_id'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
                 dom: 'Bfrtip', // Enable buttons at the top
