@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Formulations;
 use App\Models\FormulationDetail;
 use App\Models\Batche;
+use App\Models\Processe;
 use App\Models\User;
 
 use App\Models\RawMaterials;
@@ -30,6 +31,10 @@ class FormulationServices
             $query->where('name', 'QA');
         })->get();
         return ['suppliers' => $suppliers, 'qaUsers' => $qaUsers];
+    }
+    public function getprocess()
+    {
+      return  $suppliers = Processe::get();
     }
 
     public function index($request)

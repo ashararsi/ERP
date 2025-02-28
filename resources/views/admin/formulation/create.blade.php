@@ -36,10 +36,13 @@
                                 </div>
                             </div>
 
-                            <h4 class="mt-4"> Details</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3"><h4 class="mt-4"> Material Details</h4></div>
+                                <div class="col-md-6 mb-3"><h4 class="mt-4"> Process Details</h4></div>
+                            </div>
 
-                            <div id="formulaDetailsContainer">
-                                <div class="formula-detail col-md-6 ">
+                            <div class="row">
+                                <div id="formulaDetailsContainer" class="formula-detail col-md-6 ">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <select class="form-control" name="raw_material_id[]" required>
@@ -58,12 +61,40 @@
                                             <button type="button" class="btn btn-danger removeRow">X</button>
                                         </div>
                                     </div>
+
                                 </div>
-                                <div class="process-detail col-md-6 "></div>
 
+
+                            <div class="process-detail  col-md-6 " id="processDetailsContainer">
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <select class="form-control" name="process[]" required>
+                                            <option value="">Select  Process</option>
+                                            @foreach($process as $p)
+                                                <option value="{{$p->id}}">{{$p->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text"   name="remarks[]"
+                                               class="form-control"
+                                               placeholder="Remarks" required>
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-center">
+                                        <button type="button" class="btn btn-danger removeRow">X</button>
+                                    </div>
+                                </div>
                             </div>
-
-                            <button type="button" class="btn btn-primary mt-3" id="addRow">Add More</button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary mt-3" id="addRow">Add More</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary mt-3" id="addprocessRow">Add More</button>
+                                </div>
+                            </div>
                             <div class="row mt-4">
 
                                 <div class="col-md-3 ">
@@ -86,10 +117,10 @@
         $(document).ready(function () {
             // Add new row
             $("#addRow").click(function () {
-                var newRow = `  <div class="row">
+                var newRow = `
 
                 <div class=" row mt-3">
-                                    <div class="col-md-3">
+                                    <div class="col-md-5">
                                         <select class="form-control" name="raw_material_id[]" required>
                                             <option value="">Select Raw Material</option>
                                             @foreach($raw as $rawMaterial)
@@ -97,17 +128,41 @@
                                             @endforeach
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-5">
                 <input type="number" step="0.01" name="standard_quantity[]" class="form-control"
                        placeholder="Standard Quantity" required>
             </div>
-            <div class="col-md-3 d-flex align-items-center">
+            <div class="col-md-2 d-flex align-items-center">
                 <button type="button" class="btn btn-danger removeRow">X</button>
             </div>
-              </div>
+
         </div>
         `;
                 $("#formulaDetailsContainer").append(newRow);
+            });
+            $("#addprocessRow").click(function () {
+                var newRow = `
+
+                <div class=" row mt-3">
+                                    <div class="col-md-5">
+                                        <select class="form-control" name="process[]" required>
+                                            <option value="">Select  Process</option>
+                                            @foreach($process as $p)
+                <option value="{{$p->id}}">{{$p->name}}</option>
+                                            @endforeach
+                </select>
+            </div>
+            <div class="col-md-5">
+                <input type="text"  name="remarks[]" class="form-control"
+                       placeholder="remarks" required>
+            </div>
+            <div class="col-md-2 d-flex align-items-center">
+                <button type="button" class="btn btn-danger removeRow">X</button>
+            </div>
+
+        </div>
+        `;
+                $("#processDetailsContainer").append(newRow);
             });
 
             // Remove row

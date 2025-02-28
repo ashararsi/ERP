@@ -30,9 +30,10 @@ class FormulationController extends Controller
     {
         $raw = $this->FormulationServices->create();
         $users = $this->FormulationServices->getusers();
+        $process = $this->FormulationServices->getprocess();
 
 
-        return view('admin.formulation.create', compact('raw', 'users'));
+        return view('admin.formulation.create', compact('raw', 'users','process'));
     }
 
     /**

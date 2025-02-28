@@ -10,5 +10,5 @@ class Processe extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = 'processe';
+    protected $table = 'processes';
 }
