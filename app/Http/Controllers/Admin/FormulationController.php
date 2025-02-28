@@ -79,6 +79,6 @@ class FormulationController extends Controller
 
     public function getdata(Request $request)
     {
-        $data = $this->FormulationServices->getdata($request);
+      return $this->FormulationServices->getdata($request);
     }
 }
