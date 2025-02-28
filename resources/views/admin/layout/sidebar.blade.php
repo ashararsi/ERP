@@ -231,7 +231,10 @@
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
                                 <li class="slide">
-                                    <a href="javascript:void(0);" class="side-menu__item">create</a>
+                                    <a href="{!! route('admin.formulations.index') !!}" class="side-menu__item">List</a>
+                                </li>
+                                <li class="slide">
+                                    <a href="{!! route('admin.formulations.create') !!}" class="side-menu__item">Create</a>
                                 </li>
 
                             </ul>

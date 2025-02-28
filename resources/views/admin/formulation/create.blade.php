@@ -52,15 +52,15 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <select class="form-control" name="raw_material_id[]" required>
-                                                <option value="">Select Unit</option>
+                                                <option value="">Unit</option>
                                                 @foreach($units as $unit)
                                                     <option value="{{$unit->id}}">{{$unit->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-4">
                                             <input type="number" step="0.01" name="standard_quantity[]"
                                                    class="form-control"
                                                    placeholder="Standard Quantity" required>
