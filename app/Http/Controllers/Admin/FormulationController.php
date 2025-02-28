@@ -3,16 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\FormulationServices;
 use Illuminate\Http\Request;
 
 class FormulationController extends Controller
 {
+
+
+    public function __construct(FormulationServices $FormulationServices)
+    {
+        $this->FormulationServices = $FormulationServices;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('admin.formulation.index');
     }
 
     /**
@@ -20,7 +28,11 @@ class FormulationController extends Controller
      */
     public function create()
     {
-        //
+        $raw = $this->FormulationServices->create();
+        $users = $this->FormulationServices->getusers();
+
+
+        return view('admin.formulation.create', compact('raw', 'users'));
     }
 
     /**
@@ -61,5 +73,10 @@ class FormulationController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getdata(Request $request)
+    {
+        $data = $this->FormulationServices->getdata($request);
     }
 }

@@ -11,4 +11,17 @@ class FormulationDetail extends Model
     protected $table = 'formulation_detail';
     use HasFactory;
     use SoftDeletes;
+    protected $fillable = [
+        'formulation_id',
+        'raw_material_id',
+        'standard_quantity',
+        'actual',
+    ];
+
+
+
+    public function rawMaterial()
+    {
+        return $this->belongsTo(RawMaterials::class,'raw_material_id');
+    }
 }

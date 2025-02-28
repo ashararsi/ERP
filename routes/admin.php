@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\ActionLogController;
 use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\Admin\RawMaterialController;
 use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\FormulationController;
+use App\Models\Formulations;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Admin\BatchController;
@@ -58,6 +60,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('batches', BatchController::class);
     Route::post('/batches/getdata', [BatchController::class, 'getdata'])->name('batches.getdata');
+
+
+
+    Route::resource('formulations', FormulationController::class);
+    Route::post('/formulations/getdata', [FormulationController::class, 'getdata'])->name('formulations.getdata');
+
+
+ Route::resource('formulations', FormulationController::class);
+    Route::post('/formulations/getdata', [FormulationController::class, 'getdata'])->name('formulations.getdata');
 
     Route::get('/logs-view', [ActionLogController::class, 'showLogs'])->name('logs.view');
 

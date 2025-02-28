@@ -11,5 +11,15 @@ class Formulations extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = "formulations";
+    protected $fillable = ['name', 'description'];
+
+
+
+    public function formulationDetail()
+    {
+        return $this->hasMany(FormulationDetail::class,'formulation_id');
+    }
+
+
 
 }
