@@ -55,7 +55,7 @@
                                         <div class="col-md-4">
                                             <select class="form-control" name="raw_material_id[]" required>
                                                 <option value="">Select Unit</option>
-                                                @foreach(formulations as $unit)
+                                                @foreach($units as $unit)
                                                     <option value="{{$unit->id}}">{{$unit->name}}</option>
                                                 @endforeach
                                             </select>
