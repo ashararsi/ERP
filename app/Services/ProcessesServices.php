@@ -55,8 +55,6 @@ class ProcessesServices
     public function store($request)
     {
         $data = $request->all();
-//        $data['parent_id'] = ($request->parent_id == 0) ? null : $request->parent_id;
-
         if ($request->hasfile('image')) {
             $file = $request->file('image');
             $filenameWithExt = $file->getClientOriginalName();

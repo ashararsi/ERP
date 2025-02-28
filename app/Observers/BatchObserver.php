@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Batch;
 
 class BatchObserver
@@ -11,7 +12,8 @@ class BatchObserver
      */
     public function created(Batch $batch): void
     {
-        //
+        ActivityLogger::log('Batch created', 'A Batch created.', ['Batch' => $Batch]);
+
     }
 
     /**
@@ -19,7 +21,8 @@ class BatchObserver
      */
     public function updated(Batch $batch): void
     {
-        //
+        ActivityLogger::log('Batch updated', 'A Batch updated.', ['Batch' => $Batch]);
+
     }
 
     /**
@@ -27,7 +30,8 @@ class BatchObserver
      */
     public function deleted(Batch $batch): void
     {
-        //
+        ActivityLogger::log('Batch deleted', 'A Batch deleted.', ['Batch' => $Batch]);
+
     }
 
     /**
@@ -35,7 +39,8 @@ class BatchObserver
      */
     public function restored(Batch $batch): void
     {
-        //
+        ActivityLogger::log('Batch restored', 'A Batch restored.', ['Batch' => $Batch]);
+
     }
 
     /**
@@ -43,6 +48,7 @@ class BatchObserver
      */
     public function forceDeleted(Batch $batch): void
     {
-        //
+        ActivityLogger::log('Batch deleted', 'A Batch deleted.', ['Batch' => $Batch]);
+
     }
 }

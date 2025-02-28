@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Formulation;
 
 class FormulationObserver
@@ -11,7 +12,8 @@ class FormulationObserver
      */
     public function created(Formulation $formulation): void
     {
-        //
+        ActivityLogger::log('Formulation created', 'A formulation deleted.', ['formulation' => $formulation]);
+
     }
 
     /**
@@ -19,7 +21,8 @@ class FormulationObserver
      */
     public function updated(Formulation $formulation): void
     {
-        //
+        ActivityLogger::log('Formulation created', 'A formulation update.', ['formulation' => $formulation]);
+
     }
 
     /**
@@ -27,7 +30,8 @@ class FormulationObserver
      */
     public function deleted(Formulation $formulation): void
     {
-        //
+        ActivityLogger::log('Formulation created', 'A formulation deleted.', ['formulation' => $formulation]);
+
     }
 
     /**
@@ -35,7 +39,8 @@ class FormulationObserver
      */
     public function restored(Formulation $formulation): void
     {
-        //
+        ActivityLogger::log('Formulation restored', 'A formulation restore.', ['formulation' => $formulation]);
+
     }
 
     /**
@@ -43,6 +48,7 @@ class FormulationObserver
      */
     public function forceDeleted(Formulation $formulation): void
     {
-        //
+        ActivityLogger::log('Formulation deleted', 'A formulation deleted.', ['formulation' => $formulation]);
+
     }
 }
