@@ -53,15 +53,19 @@
                                     <div class="col-md-2">
                                         <input type="text" name="operator_initials[]" class="form-control"
                                                placeholder="Operator Initials">
+                                        <select name="operator_initials[]" class="form-control">
+                                            <option value="">Select QA Initials</option>
+                                            @foreach($users['qaUsers'] as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" name="qa_initials[]" class="form-control"
-                                               placeholder="QA Initials">
 
                                         <select name="qa_initials[]" class="form-control">
-                                            <option value="">Select Raw Material</option>
-                                            @foreach($raw as $rawMaterial)
-                                                <option value="{{$rawMaterial->id}}">{{$rawMaterial->name}}</option>
+                                            <option value="">Select QA Initials</option>
+                                            @foreach($users['suppliers'] as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
