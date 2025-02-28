@@ -44,11 +44,19 @@
                             <div class="row">
                                 <div id="formulaDetailsContainer" class="formula-detail col-md-6 ">
                                     <div class="row">
-                                        <div class="col-md-5">
+                                        <div class="col-md-4">
                                             <select class="form-control" name="raw_material_id[]" required>
                                                 <option value="">Select Raw Material</option>
                                                 @foreach($raw as $rawMaterial)
                                                     <option value="{{$rawMaterial->id}}">{{$rawMaterial->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-control" name="raw_material_id[]" required>
+                                                <option value="">Select Unit</option>
+                                                @foreach($units as $unit)
+                                                    <option value="{{$unit->id}}">{{$unit->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
