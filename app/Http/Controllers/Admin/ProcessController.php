@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\ProcessesServices;
 use Illuminate\Http\Request;
 
 class ProcessController extends Controller
@@ -10,9 +11,13 @@ class ProcessController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct(ProcessesServices $ProcessesServices)
+    {
+        $this->ProcessesServices = $ProcessesServices;
+    }
     public function index()
     {
-        //
+         return view('admin.processes.index');
     }
 
     /**
@@ -20,7 +25,7 @@ class ProcessController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.processes.create');
     }
 
     /**
@@ -28,7 +33,14 @@ class ProcessController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            $this->ProcessesServices->store($request);
+            return redirect()->route('admin.processes.index');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -36,7 +48,14 @@ class ProcessController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+
+          $processes=  $this->ProcessesServices->edit($id);
+            return view('admin.processes.show',compact('processes'));
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -44,7 +63,14 @@ class ProcessController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+
+            $processes=$this->ProcessesServices->edit($id);
+            return view('admin.processes.edit',compact('processes'));
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -52,7 +78,14 @@ class ProcessController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+
+            $this->ProcessesServices->update($request,$id);
+            return redirect()->route('admin.processes.index');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -60,6 +93,17 @@ class ProcessController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+
+            $this->ProcessesServices->destroy($id);
+            return redirect()->route('admin.processes.index');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function getdata(Request $request){
+        return $this->ProcessesServices->getdata($request);
     }
 }

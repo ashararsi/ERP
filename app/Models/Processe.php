@@ -11,4 +11,5 @@ class Processe extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'processes';
+    protected $fillable=['name','description','sequence_order','image','duration_minutes','remarks','requires_quality_check'];
 }
