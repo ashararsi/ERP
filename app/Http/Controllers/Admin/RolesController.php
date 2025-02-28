@@ -41,11 +41,15 @@ class RolesController extends Controller
      */
     public function create()
     {
-        if (!Gate::allows('Role_Create')) {
-            return abort(503);
+//        if (!Gate::allows('Role_Create')) {
+//            return abort(503);
+//        }
+        try {
+            $permissions = $this->RolesServise->create();
+            return view('admin.roles.create', compact('permissions'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
-        $permissions = $this->RolesServise->create();
-        return view('admin.roles.create', compact('permissions'));
     }
 
     /**
@@ -59,9 +63,13 @@ class RolesController extends Controller
         $validated = $request->validate([
             'name' => 'required|unique:roles|max:255',
         ]);
-        $Permisions = $this->RolesServise->store($request);
-        Session::flash('flash_message_sucess', 'Role Sucessfully Add!!!.');
-        return redirect()->route('admin.roles.index');
+        try {
+            $this->RolesServise->store($request);
+            Session::flash('flash_message_sucess', 'Role Sucessfully Add!!!.');
+            return redirect()->route('admin.roles.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -72,7 +80,7 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -83,18 +91,21 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        if (!Gate::allows('Role_Edit')) {
-            return abort(503);
+        try {
+            if (!Gate::allows('Role_Edit')) {
+                return abort(503);
+            }
+            $permissions = $this->RolesServise->create();
+            $AllowedPermissions = $this->RolesServise->AllowedPermissions($id);
+            $AllowedPermissions = $AllowedPermissions->toArray();
+            if (!$AllowedPermissions) {
+                $AllowedPermissions = [];
+            }
+            $role = $this->RolesServise->edit($id);
+            return view('admin.roles.edit', compact('role', 'permissions', 'AllowedPermissions'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
-        $permissions = $this->RolesServise->create();
-        $AllowedPermissions = $this->RolesServise->AllowedPermissions($id);
-        $AllowedPermissions = $AllowedPermissions->toArray();
-
-        if (!$AllowedPermissions) {
-            $AllowedPermissions = [];
-        }
-        $role = $this->RolesServise->edit($id);
-        return view('admin.roles.edit', compact('role', 'permissions', 'AllowedPermissions'));
     }
 
     /**
@@ -106,9 +117,14 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $role = $this->RolesServise->update($request, $id);
-        Session::flash('flash_message_sucess', 'Role  create Successfully!!!.');
-        return redirect()->route('admin.roles.index');
+        try {
+            $role = $this->RolesServise->update($request, $id);
+            Session::flash('flash_message_sucess', 'Role  create Successfully!!!.');
+            return redirect()->route('admin.roles.index');
+        } catch (\Exception $e) {
+dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -119,12 +135,16 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        if (!Gate::allows('Role_Delete')) {
-            return abort(503);
-        }
-        $this->RolesServise->destroy($id);
-        Session::flash('flash_message_sucess', 'Role Delete Successfully!!!.');
+        try {
+            if (!Gate::allows('Role_Delete')) {
+                return abort(503);
+            }
+            $this->RolesServise->destroy($id);
+            Session::flash('flash_message_sucess', 'Role Delete Successfully!!!.');
+            return redirect()->route('admin.roles.index');
+        } catch (\Exception $e) {
 
-        return redirect()->route('admin.roles.index');
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

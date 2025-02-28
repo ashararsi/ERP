@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('batches', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('formulation_id')->constrained('formulations')->onDelete('cascade');
             $table->string('batch_code');
             $table->date('production_date');
             $table->date('expiry_date');
             $table->enum('status', ['in_progress', 'completed', 'failed']);
+            $table->timestamps();
             $table->SoftDeletes();
         });
     }

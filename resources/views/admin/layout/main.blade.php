@@ -11,6 +11,12 @@
     <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
     @yield('meta')
     @include('admin.layout.css')
+    <style>
+        .fas.fa-edit {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    </style>
     @yield('css')
 </head>
 <body>

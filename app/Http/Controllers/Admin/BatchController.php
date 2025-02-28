@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\BatchServices;
+
 use Illuminate\Http\Request;
 
 class BatchController extends Controller
@@ -10,9 +12,15 @@ class BatchController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct(BatchServices $BatchServices)
+    {
+        $this->BatchServices = $BatchServices;
+    }
+
     public function index()
     {
-        //
+        return view('admin.batch.index');
     }
 
     /**
@@ -20,7 +28,10 @@ class BatchController extends Controller
      */
     public function create()
     {
-        //
+      $raw=  $this->BatchServices->create();
+      $users=  $this->BatchServices->getusers();
+
+        return view('admin.batch.create',compact('raw','users'));
     }
 
     /**
@@ -28,7 +39,13 @@ class BatchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $this->BatchServices->store($request);
+            return redirect()->route('admin.batches.index');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -36,7 +53,8 @@ class BatchController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('admin.batch.view');
+
     }
 
     /**
@@ -44,7 +62,8 @@ class BatchController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.batch.edit');
+
     }
 
     /**
@@ -52,7 +71,13 @@ class BatchController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $this->BatchServices->update($request, $id);
+            return redirect()->route('admin.batches.index');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -61,5 +86,9 @@ class BatchController extends Controller
     public function destroy(string $id)
     {
         //
+    } public function getdata(Request $request )
+    {
+        return $this->BatchServices->getdata($request);
+
     }
 }

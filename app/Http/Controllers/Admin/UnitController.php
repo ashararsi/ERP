@@ -40,8 +40,7 @@ class UnitController extends Controller
         try {
             $request->validate([
                 'name' => 'required|string|max:255',
-                'conversion_factor' => 'nullable|numeric|min:0',
-                'parent_id' => 'nullable|exists:units,id'
+                'conversion_factor' => 'nullable|numeric|min:0'
             ]);
             $this->UnitServices->store($request);
             return redirect()->route('admin.units.index');

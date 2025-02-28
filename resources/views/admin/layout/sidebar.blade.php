@@ -92,7 +92,7 @@
 
 
 
-                <li class="slide has-sub">
+                <li class="slide has-sub open">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0V0z" fill="none"/>
@@ -107,11 +107,11 @@
                     </a>
                     <ul class="slide-menu child1">
 
-                        <li class="slide has-sub">
+                        <li class="slide has-sub open ">
                             <a href="javascript:void(0);" class="side-menu__item">Units
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
-                                <li class="slide">
+                                <li class="slide active">
                                     <a href="{!! route('admin.units.index') !!}" class="side-menu__item">Units</a>
                                 </li>
 

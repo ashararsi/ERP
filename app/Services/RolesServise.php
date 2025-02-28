@@ -34,6 +34,9 @@ class RolesServise
     {
         $permissions = [];
         $permissions = $request->permisions;
+        if (is_array($permissions)) {
+            $permissions = Permission::whereIn('id', $permissions)->pluck('name')->toArray();
+        }
         $role = Role::create(['name' => $request->name, 'guard_name' => 'web']);
         $role->givePermissionTo($permissions);
     }
@@ -76,7 +79,9 @@ class RolesServise
         $role->name = $request->name;
         $role->save();
         $permissions = $request->permisions;
-
+        if (is_array($permissions)) {
+            $permissions = Permission::whereIn('id', $permissions)->pluck('name')->toArray();
+        }
         $role->syncPermissions($permissions);
     }
 

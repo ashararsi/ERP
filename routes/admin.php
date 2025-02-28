@@ -9,12 +9,11 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ActionLogController;
 use App\Http\Controllers\Admin\UnitController;
-use App\Http\Controllers\Admin\TransactionController;
-//use App\Http\Controllers\Admin\StripeController;
 use App\Http\Controllers\Admin\RawMaterialController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\Admin\BatchController;
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web']], function () {
@@ -47,7 +46,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::resource('/pages', PageController::class);
     Route::post('/pages/getdata', [PageController::class, 'getdata'])->name('pages.getdata');
 
-     Route::resource('/raw-material', RawMaterialController::class);
+    Route::resource('/raw-material', RawMaterialController::class);
     Route::post('/raw-material/getdata', [RawMaterialController::class, 'getdata'])->name('raw-material.getdata');
 
     Route::resource('units', UnitController::class);
@@ -57,9 +56,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::resource('suppliers', SupplierController::class);
     Route::post('/suppliers/getdata', [SupplierController::class, 'getdata'])->name('suppliers.getdata');
 
+    Route::resource('batches', BatchController::class);
+    Route::post('/batches/getdata', [BatchController::class, 'getdata'])->name('batches.getdata');
+
     Route::get('/logs-view', [ActionLogController::class, 'showLogs'])->name('logs.view');
-
-
 
 
 });
