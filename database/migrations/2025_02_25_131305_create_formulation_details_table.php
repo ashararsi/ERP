@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('formulation_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('formulation_id')->constrained('formulations')->onDelete('cascade');
-            $table->foreignId('raw_material_id')->constrained('raw_materials')->onDelete('cascade');
+            $table->foreignId('formulation_id');
+            $table->foreignId('raw_material_id');
             $table->float('standard_quantity');
+            $table->text('remarks')->nullable();
+            $table->integer('unit_id')->nullable();
             $table->float('actual')->nullable();
             $table->timestamps();
             $table->softDeletes(); // Fix: Correct casing

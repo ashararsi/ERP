@@ -14,6 +14,8 @@ class FormulationDetail extends Model
     protected $fillable = [
         'formulation_id',
         'raw_material_id',
+        'remarks',
+        'unit_id',
         'standard_quantity',
         'actual',
     ];

@@ -69,12 +69,14 @@ class FormulationServices
 
         $f = Formulations::create($data);
 
-        foreach ($request->raw_material_id as  $key => $value) {
+        foreach ($request->raw_material_id as $key => $value) {
 
             $data1 = [
                 'formulation_id' => $f->id,
-                'raw_material_id' => $request->raw_material_id[$key],
-                'standard_quantity' => $request->standard_quantity[$key],
+                'raw_material_id' => $request->raw_material_id[$key] ?? '',
+                'unit_id' => $request->unit[$key] ?? '',
+                'standard_quantity' => $request->standard_quantity[$key] ?? 1,
+                'remarks' => $request->remarks[$key] ?? '',
             ];
 
             FormulationDetail::create($data1);

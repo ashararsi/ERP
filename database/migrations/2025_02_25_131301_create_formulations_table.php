@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('formulations', function (Blueprint $table) {
             $table->id();
             $table->string('formula_name');
+
             $table->text('description')->nullable();
             $table->timestamps();
             $table->SoftDeletes();
