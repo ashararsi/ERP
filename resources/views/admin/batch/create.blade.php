@@ -25,6 +25,16 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-3">
+                                    <label for="batchName" class="form-label">Formulation</label>
+                                    <select class="form-control">
+                                        <option value="">Select Formulation</option>
+                                        @foreach($formulation as $formulations)
+
+                                            <option value="{{$formulations->id}}">{{$formulations->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
                                     <label for="batchName" class="form-label">Batch Name</label>
                                     <input type="text" class="form-control" id="batchName" name="batch_name" required>
                                 </div>

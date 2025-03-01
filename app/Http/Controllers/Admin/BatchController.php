@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\BatchServices;
+use App\Services\FormulationServices;
 
 use Illuminate\Http\Request;
 
@@ -13,9 +14,10 @@ class BatchController extends Controller
      * Display a listing of the resource.
      */
 
-    public function __construct(BatchServices $BatchServices)
+    public function __construct(BatchServices $BatchServices, FormulationServices $FormulationServices)
     {
         $this->BatchServices = $BatchServices;
+        $this->FormulationServices = $FormulationServices; // Assign the service
     }
 
     public function index()
@@ -28,10 +30,14 @@ class BatchController extends Controller
      */
     public function create()
     {
+
       $raw=  $this->BatchServices->create();
+
+      $formulation=  $this->FormulationServices->create();
+
       $users=  $this->BatchServices->getusers();
 
-        return view('admin.batch.create',compact('raw','users'));
+        return view('admin.batch.create',compact('raw','users','formulation'));
     }
 
     /**
