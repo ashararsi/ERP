@@ -92,22 +92,34 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3"><h4 class="mt-4"> Process Details</h4></div>
-
                             </div>
-                            <div class="row" id="process_detail">
-                                <div class="col-md-2">
-                                    <select class="form-control" name="process[]" required>
-                                        <option value="">Select Process</option>
-                                        @foreach($process as $p)
-                                            <option value="{{$p->id}}">{{$p->name}}</option>
-                                        @endforeach
-                                    </select>
+                            <div id="process_detail">
+                                <div class="row process_detail">
+                                    <div class="col-md-2">
+                                        <select class="form-control" name="process_only[]" required>
+                                            <option value="">Select Process</option>
+                                            @foreach($process as $p)
+                                                <option value="{{$p->id}}">{{$p->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" name="process_remarks[]"
+                                               class="form-control"
+                                               placeholder="Remarks" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-danger removeRow">X</button>
+                                    </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <input type="text" name="remarks[]"
-                                           class="form-control"
-                                           placeholder="Remarks" required>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary mt-3" id="addRow_p">Add More</button>
                                 </div>
+
                             </div>
                             <div class="row mt-4">
 
@@ -173,11 +185,36 @@
                 $("#formulaDetailsContainer").append(newRow);
 
             });
+            $("#addRow_p").click(function () {
+                var newRow = ` <div class="row process_detail mt-4" >
+                                    <div class="col-md-2">
+                                        <select class="form-control" name="process_only[]" required>
+                                            <option value="">Select Process</option>
+                                            @foreach($process as $p)
+                <option value="{{$p->id}}">{{$p->name}}</option>
+                                            @endforeach
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="process_remarks[]"
+                       class="form-control"
+                       placeholder="Remarks" required>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-danger removeRow">X</button>
+            </div>
+        </div>`;
+                $("#process_detail").append(newRow);
+
+            });
 
 
             // Remove row
             $(document).on("click", ".removeRow", function () {
                 $(this).closest(".formula-detail").remove();
+            });
+            $(document).on("click", ".removeRow", function () {
+                $(this).closest(".process_detail").remove();
             });
 
             // Submit form
