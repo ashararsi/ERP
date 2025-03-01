@@ -11,7 +11,7 @@ class Formulations extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = "formulations";
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['formula_name', 'description'];
 
 
 

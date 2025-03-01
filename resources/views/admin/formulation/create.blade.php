@@ -25,8 +25,8 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="batchName" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="batchName" name="batch_name" required>
+                                    <label for="formula_name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="formula_name" name="formula_name" required>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="description" class="form-label">Description</label>
@@ -53,7 +53,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <select class="form-control" name="raw_material_id[]" required>
+                                            <select class="form-control" name="unit[]" required>
                                                 <option value="">Unit</option>
                                                 @foreach($units as $unit)
                                                     <option value="{{$unit->id}}">{{$unit->name}}</option>
@@ -148,7 +148,7 @@
                                             <select class="form-control" name="raw_material_id[]" required>
                                                 <option value="">Select Raw Material</option>
                                                 @foreach($raw as $rawMaterial)
-                <option value="{{$rawMaterial->id}}">{{$rawMaterial->name}}</option>
+                                                <option value="{{$rawMaterial->id}}">{{$rawMaterial->name}}</option>
                                                 @endforeach
                 </select>
             </div>

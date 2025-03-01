@@ -31,13 +31,13 @@ class BatchController extends Controller
     public function create()
     {
 
-      $raw=  $this->BatchServices->create();
+        $raw = $this->BatchServices->create();
 
-      $formulation=  $this->FormulationServices->create();
+        $formulation = $this->FormulationServices->create();
 
-      $users=  $this->BatchServices->getusers();
+        $users = $this->BatchServices->getusers();
 
-        return view('admin.batch.create',compact('raw','users','formulation'));
+        return view('admin.batch.create', compact('raw', 'users', 'formulation'));
     }
 
     /**
@@ -92,7 +92,9 @@ class BatchController extends Controller
     public function destroy(string $id)
     {
         //
-    } public function getdata(Request $request )
+    }
+
+    public function getdata(Request $request)
     {
         return $this->BatchServices->getdata($request);
 

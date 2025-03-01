@@ -3,23 +3,23 @@
 namespace App\Observers;
 
 use App\Helpers\ActivityLogger;
-use App\Models\Formulation;
+use App\Models\Formulations;
 
 class FormulationObserver
 {
     /**
      * Handle the Formulation "created" event.
      */
-    public function created(Formulation $formulation): void
+    public function created(Formulations $formulation): void
     {
-        ActivityLogger::log('Formulation created', 'A formulation deleted.', ['formulation' => $formulation]);
+        ActivityLogger::log('Formulation created', 'A formulation created.', ['formulation' => $formulation]);
 
     }
 
     /**
      * Handle the Formulation "updated" event.
      */
-    public function updated(Formulation $formulation): void
+    public function updated(Formulations $formulation): void
     {
         ActivityLogger::log('Formulation created', 'A formulation update.', ['formulation' => $formulation]);
 
@@ -28,7 +28,7 @@ class FormulationObserver
     /**
      * Handle the Formulation "deleted" event.
      */
-    public function deleted(Formulation $formulation): void
+    public function deleted(Formulations $formulation): void
     {
         ActivityLogger::log('Formulation created', 'A formulation deleted.', ['formulation' => $formulation]);
 
@@ -37,7 +37,7 @@ class FormulationObserver
     /**
      * Handle the Formulation "restored" event.
      */
-    public function restored(Formulation $formulation): void
+    public function restored(Formulations $formulation): void
     {
         ActivityLogger::log('Formulation restored', 'A formulation restore.', ['formulation' => $formulation]);
 
@@ -46,7 +46,7 @@ class FormulationObserver
     /**
      * Handle the Formulation "force deleted" event.
      */
-    public function forceDeleted(Formulation $formulation): void
+    public function forceDeleted(Formulations $formulation): void
     {
         ActivityLogger::log('Formulation deleted', 'A formulation deleted.', ['formulation' => $formulation]);
 

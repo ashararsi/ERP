@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         Supplier::observe(SupplierObserver::class);
         Unit::observe(UnitObserver::class);
         Formulations::observe(FormulationObserver::class);
+
         Processe::observe(ProcessObserver::class);
 
     }

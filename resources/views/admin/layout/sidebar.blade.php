@@ -109,19 +109,12 @@
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
                                 <li class="slide">
-                                    <a href="javascript:void(0);" class="side-menu__item">List</a>
+                                    <a href="{!! route('admin.users.index') !!}" class="side-menu__item">List</a>
                                 </li>
                                 <li class="slide has-sub">
-                                    <a href="javascript:void(0);" class="side-menu__item"> Create New
+                                    <a href="{!! route('admin.users.create') !!}" class="side-menu__item"> Create New
                                         <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                                    <ul class="slide-menu child3">
-                                        <li class="slide">
-                                            <a href="javascript:void(0);" class="side-menu__item">Level-2-2-1</a>
-                                        </li>
-                                        <li class="slide">
-                                            <a href="javascript:void(0);" class="side-menu__item">Level-2-2-2</a>
-                                        </li>
-                                    </ul>
+
                                 </li>
                             </ul>
                         </li>
@@ -130,19 +123,12 @@
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
                                 <li class="slide">
-                                    <a href="javascript:void(0);" class="side-menu__item">List</a>
+                                    <a href="{!! route('admin.roles.index') !!}" class="side-menu__item">List</a>
                                 </li>
                                 <li class="slide has-sub">
-                                    <a href="javascript:void(0);" class="side-menu__item"> Create New
+                                    <a href="{!! route('admin.roles.create') !!}" class="side-menu__item"> Create New
                                         <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                                    <ul class="slide-menu child3">
-                                        <li class="slide">
-                                            <a href="javascript:void(0);" class="side-menu__item">Level-2-2-1</a>
-                                        </li>
-                                        <li class="slide">
-                                            <a href="javascript:void(0);" class="side-menu__item">Level-2-2-2</a>
-                                        </li>
-                                    </ul>
+
                                 </li>
                             </ul>
                         </li>
@@ -151,19 +137,12 @@
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
                                 <li class="slide">
-                                    <a href="javascript:void(0);" class="side-menu__item">List</a>
+                                    <a href="{!! route('admin.permissions.index') !!}"  class="side-menu__item">List</a>
                                 </li>
                                 <li class="slide has-sub">
-                                    <a href="javascript:void(0);" class="side-menu__item"> Create New
+                                    <a href="{!! route('admin.permissions.create') !!}"  class="side-menu__item"> Create New
                                         <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                                    <ul class="slide-menu child3">
-                                        <li class="slide">
-                                            <a href="javascript:void(0);" class="side-menu__item">Level-2-2-1</a>
-                                        </li>
-                                        <li class="slide">
-                                            <a href="javascript:void(0);" class="side-menu__item">Level-2-2-2</a>
-                                        </li>
-                                    </ul>
+
                                 </li>
                             </ul>
                         </li>

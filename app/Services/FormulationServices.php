@@ -18,7 +18,8 @@ class FormulationServices
 {
     public function create()
     {
-        return Formulations::all();
+        return RawMaterials::all();
+
     }
 
     public function getusers()
@@ -33,12 +34,15 @@ class FormulationServices
         })->get();
         return ['suppliers' => $suppliers, 'qaUsers' => $qaUsers];
     }
+
     public function getprocess()
     {
-      return  $suppliers = Processe::get();
-    } public function units()
+        return $suppliers = Processe::get();
+    }
+
+    public function units()
     {
-      return  Unit::get();
+        return Unit::get();
     }
 
     public function index($request)
@@ -59,11 +63,22 @@ class FormulationServices
     public function store($request)
     {
         $data = $request->all();
+
 //        $data['parent_id'] = ($request->parent_id == 0) ? null : $request->parent_id;
-        Formulations::create($data);
 
 
-        FormulationDetail::create($request->all());
+        $f = Formulations::create($data);
+
+        foreach ($request->raw_material_id as  $key => $value) {
+
+            $data1 = [
+                'formulation_id' => $f->id,
+                'raw_material_id' => $request->raw_material_id[$key],
+                'standard_quantity' => $request->standard_quantity[$key],
+            ];
+
+            FormulationDetail::create($data1);
+        }
 
 
     }
@@ -97,7 +112,7 @@ class FormulationServices
 
     public function getdata($request)
     {
-        $data = Batche::select('*')->orderBy('id', 'desc');
+        $data = Formulations::select('*')->orderBy('id', 'desc');
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function ($row) {
                 $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.formulations.destroy", $row->id) . '"> ';

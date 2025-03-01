@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FormulationDetail extends Model
 {
-    protected $table = 'formulation_detail';
+    protected $table = 'formulation_details';
     use HasFactory;
     use SoftDeletes;
     protected $fillable = [

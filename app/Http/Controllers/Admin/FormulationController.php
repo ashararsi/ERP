@@ -42,7 +42,13 @@ class FormulationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $this->FormulationServices->store($request);
+            return redirect()->route('admin.formulations.index');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
