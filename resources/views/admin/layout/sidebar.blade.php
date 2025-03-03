@@ -3,12 +3,12 @@
     <!-- Start::main-sidebar-header -->
     <div class="main-sidebar-header">
         <a href="{!! route('dashboard') !!}" class="header-logo">
-            <img src="{!! asset('logo.png') !!}" alt="logo"
+            <img src="{!! asset('logo.png') !!}" style="height: 5rem;" alt="logo"
                  class="desktop-logo">
-            <img src="{!! asset('logo.png') !!}" alt="logo" class="toggle-logo">
-            <img src="{!! asset('logo.png') !!}" alt="logo"
+            <img src="{!! asset('logo.png') !!}" style="height: 5rem;" alt="logo" class="toggle-logo">
+            <img src="{!! asset('logo.png') !!}" style="height: 5rem;" alt="logo"
                  class="desktop-white">
-            <img src="{!! asset('logo.png') !!}" alt="logo"
+            <img src="{!! asset('logo.png') !!}" style="height: 5rem;" alt="logo"
                  class="toggle-white">
 
         </a>

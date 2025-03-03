@@ -90,7 +90,7 @@ class PurchaseOrderController extends Controller
     public function destroy(string $id)
     {
         try {
-            $this->PurchaseOrderServices->destroy( $id);
+            $this->PurchaseOrderServices->destroy($id);
             return redirect()->route('admin.purchaseorders.index');
         } catch (\Exception $e) {
             dd($e->getMessage());
