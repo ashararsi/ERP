@@ -1,17 +1,17 @@
 @extends('admin.layout.main')
 
 @section('title')
-    Raw Material
+    Purchase-orders
 @stop
 
 @section('content')
     <div class="container-fluid">
         <div class="row w-100  mt-4 ">
-            <h3 class="text-22 text-center text-bold w-100 mb-4">Units</h3>
+            <h3 class="text-22 text-center text-bold w-100 mb-4"> Purchase-orders</h3>
         </div>
         <div class="row    mt-4 mb-4 ">
             <div class="col-12 " style="text-align: right">
-                <a href="{!! route('admin.units.create') !!}" class="btn btn-primary btn-sm ">Create Units</a>
+                <a href="{!! route('admin.purchaseorders.create') !!}" class="btn btn-primary btn-sm ">Create    Purchase-order </a>
             </div>
         </div>
         <div class="card">
@@ -22,9 +22,11 @@
                             <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Name</th>
-                                <th>Conversion Factor</th>
-                                <th>Parent</th>
+                                <th>Po Number</th>
+                                <th>Order Date</th>
+                                <th>Status</th>
+                                <th>Total Amount</th>
+
                                 <th width="200px">Action</th>
                             </tr>
                             </thead>
@@ -51,15 +53,16 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.units.getdata') }}",
+                    url: "{{ route('admin.purchaseorders.getdata') }}",
                     type: "POST",
                     data: {_token: "{{ csrf_token() }}"}
                 },
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'conversion_factor', name: 'conversion_factor'},
-                    {data: 'parent_id', name: 'parent_id'},
+                    {data: 'po_number', name: 'po_number'},
+                    {data: 'order_date', name: 'order_date'},
+                    {data: 'status', name: 'status'},
+                    {data: 'total_amount', name: 'total_amount'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
                 dom: 'Bfrtip', // Enable buttons at the top

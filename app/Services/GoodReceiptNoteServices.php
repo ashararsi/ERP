@@ -11,7 +11,7 @@ use DataTables;
 
 use Config;
 
-class PurchaseOrderServices
+class GoodReceiptNoteServices
 {
     public function index($request)
     {

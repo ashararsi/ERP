@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\RawMaterialController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\FormulationController;
 use App\Http\Controllers\Admin\ProcessController;
+use App\Http\Controllers\Admin\PurchaseOrderController;
+use App\Http\Controllers\Admin\GoodReceiptNoteController;
 use App\Models\Formulations;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
@@ -63,13 +65,21 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::post('/batches/getdata', [BatchController::class, 'getdata'])->name('batches.getdata');
 
 
-
     Route::resource('processes', ProcessController::class);
     Route::post('/processes/getdata', [ProcessController::class, 'getdata'])->name('processes.getdata');
 
 
- Route::resource('formulations', FormulationController::class);
+    Route::resource('formulations', FormulationController::class);
     Route::post('/formulations/getdata', [FormulationController::class, 'getdata'])->name('formulations.getdata');
+
+
+    Route::resource('purchaseorders', PurchaseOrderController::class);
+    Route::post('/purchaseorders/getdata', [PurchaseOrderController::class, 'getdata'])->name('purchaseorders.getdata');
+
+
+    Route::resource('grns', GoodReceiptNoteController::class);
+    Route::post('/grns/getdata', [GoodReceiptNoteController::class, 'getdata'])->name('grns.getdata');
+
 
     Route::get('/logs-view', [ActionLogController::class, 'showLogs'])->name('logs.view');
 

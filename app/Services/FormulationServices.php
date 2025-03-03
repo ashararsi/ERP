@@ -73,8 +73,8 @@ class FormulationServices
 
             $data1 = [
                 'formulation_id' => $f->id,
-                'raw_material_id' => $request->raw_material_id[$key] ?? '',
-                'unit_id' => $request->unit[$key] ?? '',
+                'raw_material_id' => $request->raw_material_id[$key] ?? null,
+                'unit_id' => $request->unit[$key] ?? null,
                 'standard_quantity' => $request->standard_quantity[$key] ?? 1,
                 'remarks' => $request->remarks[$key] ?? '',
             ];
