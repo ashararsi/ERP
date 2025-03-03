@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\PurchaseOrderServices;
 use Illuminate\Http\Request;
 
-class GoodReceiptNoteControllerPurchaseOrderController extends Controller
+class PurchaseOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
