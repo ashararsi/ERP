@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\FormulationController;
 use App\Http\Controllers\Admin\ProcessController;
 use App\Http\Controllers\Admin\PurchaseOrderController;
+use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\GoodReceiptNoteController;
 use App\Models\Formulations;
 use App\Models\Transaction;
@@ -72,17 +73,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::resource('formulations', FormulationController::class);
     Route::post('/formulations/getdata', [FormulationController::class, 'getdata'])->name('formulations.getdata');
 
+//companies curd
+    Route::resource('companies', CompaniesController::class);
+    Route::post('/companies/getdata', [CompaniesController::class, 'getdata'])->name('companies.getdata');
 
 
     Route::resource('purchaseorders', PurchaseOrderController::class);
     Route::post('/purchaseorders/getdata', [PurchaseOrderController::class, 'getdata'])->name('purchaseorders.getdata');
 
 
-   Route::resource('grns', GoodReceiptNoteController::class);
+    Route::resource('grns', GoodReceiptNoteController::class);
     Route::post('/grns/getdata', [GoodReceiptNoteController::class, 'getdata'])->name('grns.getdata');
     Route::post('/grns/fetch/records/{id}', [GoodReceiptNoteController::class, 'fetch_po_record'])->name('grns.fetch_po_record');
-
-
 
 
     Route::get('/logs-view', [ActionLogController::class, 'showLogs'])->name('logs.view');
