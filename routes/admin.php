@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\FormulationController;
 use App\Http\Controllers\Admin\ProcessController;
 use App\Http\Controllers\Admin\PurchaseOrderController;
+use App\Http\Controllers\Admin\GoodReceiptNoteController;
 use App\Models\Formulations;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
@@ -77,8 +78,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::post('/purchaseorders/getdata', [PurchaseOrderController::class, 'getdata'])->name('purchaseorders.getdata');
 
 
-   Route::resource('grns', PurchaseOrderController::class);
-    Route::post('/grns/getdata', [PurchaseOrderController::class, 'getdata'])->name('grns.getdata');
+   Route::resource('grns', GoodReceiptNoteController::class);
+    Route::post('/grns/getdata', [GoodReceiptNoteController::class, 'getdata'])->name('grns.getdata');
+    Route::post('/grns/fetch/records/{id}', [GoodReceiptNoteController::class, 'fetch_po_record'])->name('grns.fetch_po_record');
 
 
 

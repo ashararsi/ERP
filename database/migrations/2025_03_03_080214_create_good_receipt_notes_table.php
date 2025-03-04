@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('good_receipt_notes', function (Blueprint $table) {
             $table->id();
+            $table->string('grn_number')->unique();
             $table->foreignId('purchase_order_id')->constrained()->onDelete('cascade');
-            $table->date('receipt_date');
+            $table->date('receipt_date')->nullable();
+            $table->float('total_amount')->nullable();
+            $table->text('notes')->nullable();
             $table->enum('status', ['pending', 'verified', 'rejected'])->default('pending');
             $table->timestamps();
         });

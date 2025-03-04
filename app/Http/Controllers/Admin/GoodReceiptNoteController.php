@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\G;
+use App\Services\GoodReceiptNoteServices;
 use Illuminate\Http\Request;
 
 class GoodReceiptNoteController extends Controller
@@ -11,9 +11,15 @@ class GoodReceiptNoteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function __construct(PurchaseOrderServices $PurchaseOrderServices)
+    public function __construct(GoodReceiptNoteServices $GoodReceiptNoteServices)
     {
-        $this->PurchaseOrderServices = $PurchaseOrderServices;
+        $this->GoodReceiptNoteServices = $GoodReceiptNoteServices;
+    }
+
+
+    public function index(){
+        return view('admin.good-recipit.index');
+
     }
 
     /**
@@ -21,7 +27,8 @@ class GoodReceiptNoteController extends Controller
      */
     public function create()
     {
-        //
+       $data= $this->GoodReceiptNoteServices->create();
+        return view('admin.good-recipit.create',compact('data'));
     }
 
     /**
@@ -62,8 +69,15 @@ class GoodReceiptNoteController extends Controller
     public function destroy(string $id)
     {
         //
-    }  public function getdata(Request $request)
+    }
+
+    public function getdata(Request $request)
     {
+
+    }
+    public function fetch_po_record($id)
+    {
+        return $this->GoodReceiptNoteServices->fetch_po_record($id);
 
     }
 }

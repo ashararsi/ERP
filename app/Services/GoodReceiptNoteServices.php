@@ -28,6 +28,13 @@ class GoodReceiptNoteServices
         ]);
     }
 
+    public function fetch_po_record($id)
+    {
+
+        return PurchaseOrder::with('items', 'supplier')->where('id', id)->first();
+
+    }
+
     public function create()
     {
         $data['units'] = Unit::all();
