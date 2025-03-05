@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -25,15 +24,15 @@ return new class extends Migration
             $table->decimal('cr_total', 11, 2)->default(0.00);
             $table->text('narration')->nullable();
             $table->text('remarks')->nullable();
-            $table->foreignId('entry_type_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('branch_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('department_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('company_id')->nullable()->constrained()->nullOnDelete();
+            $table->integer('entry_type_id')->nullable();
+            $table->integer('employee_id')->nullable();
+            $table->integer('branch_id')->nullable();
+            $table->integer('department_id')->nullable();
+            $table->integer('company_id')->nullable();
             $table->smallInteger('status')->unsigned()->default(1);
-            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->integer('created_by')->nullable()->nullable();
+            $table->integer('updated_by')->nullable()->nullable();
+            $table->integer('deleted_by')->nullable()->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -3,25 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\CompanyServices;
+use App\Services\BranchesServices;
 use Illuminate\Http\Request;
 
-class CompaniesController extends Controller
+class BranchesController extends Controller
 {
+
+
+    public function __construct(BranchesServices $BranchesServices)
+    {
+        $this->BranchesServices = $BranchesServices;
+    }
+
+
     /**
      * Display a listing of the resource.
      */
 
 
-    public function __construct(CompanyServices $CompanyServices)
-    {
-        $this->CompanyServices = $CompanyServices;
-    }
-
-
     public function index()
     {
-        return view('admin.companies.index');
+        return view('admin.branches.index');
     }
 
     /**
@@ -29,7 +31,8 @@ class CompaniesController extends Controller
      */
     public function create()
     {
-        return view('admin.companies.create');
+        $companies = $this->BranchesServices->create();
+        return view('admin.branches.create', compact('companies'));
     }
 
     /**
@@ -38,8 +41,8 @@ class CompaniesController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->CompanyServices->store($request);
-            return redirect()->route('admin.companies.index');
+            $this->BranchesServices->store($request);
+            return redirect()->route('admin.branches.index');
         } catch (\Exception $e) {
 
             return redirect()->back()->with('error', $e->getMessage());
@@ -51,13 +54,7 @@ class CompaniesController extends Controller
      */
     public function show(string $id)
     {
-        try {
-            $c = $this->CompanyServices->edit($id);
-            return view('admin.companies.view', compact('c'));
-        } catch (\Exception $e) {
-
-            return redirect()->back()->with('error', $e->getMessage());
-        }
+        //
     }
 
     /**
@@ -66,10 +63,11 @@ class CompaniesController extends Controller
     public function edit(string $id)
     {
         try {
-            $c = $this->CompanyServices->edit($id);
-            return view('admin.companies.edit', compact('c'));
+            $companies = $this->BranchesServices->create();
+            $b = $this->BranchesServices->edit($id);
+            return view('admin.branches.edit', compact('companies', 'b'));
         } catch (\Exception $e) {
-           
+
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -80,10 +78,10 @@ class CompaniesController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $c = $this->CompanyServices->update($request, $id);
-            return redirect()->route('admin.companies.index');
+            $this->BranchesServices->update($request, $id);
+            return redirect()->route('admin.branches.index');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -94,15 +92,21 @@ class CompaniesController extends Controller
     public function destroy(string $id)
     {
         try {
-            $c = $this->CompanyServices->destroy($id);
-            return redirect()->route('admin.companies.index');
+            $this->BranchesServices->destroy($id);
+            return redirect()->route('admin.branches.index');
         } catch (\Exception $e) {
+
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
     public function getdata(Request $request)
     {
-        return $this->CompanyServices->getdata($request);
+        return $this->BranchesServices->getdata($request);
+
+    }   public function getBranches($company_id)
+    {
+        return $this->BranchesServices->getBranches($company_id);
+
     }
 }

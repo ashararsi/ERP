@@ -1,6 +1,6 @@
 @extends('admin.layout.main')
 @section('title')
-    Company create
+    Branch create
 @stop
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card ">
                     <div class="card-header bg-light">
-                        <h3 class="text-22 text-midnight text-bold mb-4">Create Company </h3>
+                        <h3 class="text-22 text-midnight text-bold mb-4">Create Branch </h3>
                     </div>
                     <div class="card-body">
                         @if ($errors->any())
@@ -20,53 +20,53 @@
                                 </ul>
                             </div>
                         @endif
-                        <form method="post" action="{!! route('admin.companies.store') !!}"
+                        <form method="post" action="{!! route('admin.branches.store') !!}"
                               enctype="multipart/form-data">
-                          @csrf
+                            @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="name" class="form-label">Company Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="description" class="form-label">Description</label>
-                                    <input type="text" class="form-control" id="description" name="description">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="ntn" class="form-label">NTN</label>
-                                    <input type="text" class="form-control" id="ntn" name="ntn">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="gst" class="form-label">GST</label>
-                                    <input type="text" class="form-control" id="gst" name="gst">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="gst_type" class="form-label">GST Type</label>
-                                    <select class="form-control" id="gst_type" name="gst_type">
-                                        <option value="">Select GST Type</option>
-                                        <option value="fixed">Fixed</option>
-                                        <option value="percentage">Percentage</option>
+                                    <label for="company_id" class="form-label">Company ID</label>
+                                    <select id="company_id" class="form-control" name="company_id">
+                                        <option value="">Select Company</option>
+                                        @foreach($companies as $company)
+                                            <option value="{{$company->id}}">{{$company->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="vat" class="form-label">VAT</label>
-                                    <input type="text" class="form-control" id="vat" name="vat">
+                                    <label for="name" class="form-label">Branch Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="branch_code" class="form-label">Branch Code</label>
+                                    <input type="text" class="form-control" id="branch_code" name="branch_code">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="phone" class="form-label">Phone</label>
                                     <input type="text" class="form-control" id="phone" name="phone">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="fax" class="form-label">Fax</label>
-                                    <input type="text" class="form-control" id="fax" name="fax">
+                                    <label for="cell" class="form-label">Cell</label>
+                                    <input type="text" class="form-control" id="cell" name="cell">
+                                </div>
+{{--                                <div class="col-md-6 mb-3">--}}
+{{--                                    <label for="city_id" class="form-label">City</label>--}}
+{{--                                    <select class="form-control" id="city_id" name="city_id">--}}
+{{--                                        <option value="">Select City</option>--}}
+{{--                                        --}}{{-- Add dynamic city options here --}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+                                <div class="col-md-6 mb-3">
+                                    <label for="country_id" class="form-label">Country</label>
+                                    <select class="form-control" id="country_id" name="country_id">
+                                        <option value="">Select Country</option>
+                                        <option value="1">Pakistan</option>
+                                        {{-- Add dynamic country options here --}}
+                                    </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="address" class="form-label">Address</label>
                                     <input type="text" class="form-control" id="address" name="address">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="logo" class="form-label">Logo</label>
-                                    <input type="file" class="form-control" id="logo" name="logo">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="status" class="form-label">Status</label>
@@ -78,8 +78,8 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="text-end">
-                                    <button type="submit" class="btn btn-primary">Save Company</button>
-                                    <a href="{!! route('admin.units.index') !!}"
+                                    <button type="submit" class="btn btn-primary">Save  Branch</button>
+                                    <a href="{!! route('admin.branches.index') !!}"
                                        class=" btn btn-sm btn-danger">Cancel </a>
                                 </div>
                             </div>

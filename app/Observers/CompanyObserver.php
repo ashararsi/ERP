@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Company;
 
 class CompanyObserver
@@ -11,7 +12,8 @@ class CompanyObserver
      */
     public function created(Company $company): void
     {
-        //
+        ActivityLogger::log('company  created', ' company created.', ['company' => $company]);
+
     }
 
     /**
@@ -19,7 +21,8 @@ class CompanyObserver
      */
     public function updated(Company $company): void
     {
-        //
+        ActivityLogger::log('company  updated', ' company updated.', ['company' => $company]);
+
     }
 
     /**
@@ -27,7 +30,8 @@ class CompanyObserver
      */
     public function deleted(Company $company): void
     {
-        //
+        ActivityLogger::log('company  deleted', ' company deleted.', ['company' => $company]);
+
     }
 
     /**
@@ -35,7 +39,8 @@ class CompanyObserver
      */
     public function restored(Company $company): void
     {
-        //
+        ActivityLogger::log('company  restored', ' company restored.', ['company' => $company]);
+
     }
 
     /**
@@ -43,6 +48,7 @@ class CompanyObserver
      */
     public function forceDeleted(Company $company): void
     {
-        //
+        ActivityLogger::log('company  forceDeleted', ' company forceDeleted.', ['company' => $company]);
+
     }
 }

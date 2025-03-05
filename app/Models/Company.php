@@ -14,4 +14,8 @@ class Company extends Model
         'phone', 'fax', 'address', 'logo', 'status', 'created_by',
         'updated_by', 'deleted_by'
     ];
+    public function branches()
+    {
+        return $this->hasMany(Branch::class);
+    }
 }
