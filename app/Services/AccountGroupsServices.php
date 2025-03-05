@@ -49,7 +49,8 @@ class AccountGroupsServices
 
     public function store($request)
     {
-        return Branch::create($request->all());
+       return CoreAccounts::createGroup($request->all());
+
 
     }
 

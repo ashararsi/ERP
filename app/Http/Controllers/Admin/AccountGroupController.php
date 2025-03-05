@@ -14,14 +14,13 @@ class AccountGroupController extends Controller
     }
 
 
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $Groups=$this->AccountGroupsServices->index();
-        return view('admin.accountgroup.index',compact('Groups'));
+        $Groups = $this->AccountGroupsServices->index();
+        return view('admin.accountgroup.index', compact('Groups'));
     }
 
     /**
@@ -29,8 +28,8 @@ class AccountGroupController extends Controller
      */
     public function create()
     {
-        $groups=$this->AccountGroupsServices->create();
-        return view('admin.accountgroup.create',compact('groups'));
+        $groups = $this->AccountGroupsServices->create();
+        return view('admin.accountgroup.create', compact('groups'));
     }
 
     /**
@@ -38,7 +37,16 @@ class AccountGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $this->AccountGroupsServices->store($request);
+            if ($response['status']) {
+                return redirect()->route('admin.account_groups.index')->with('success', 'New Groups SuccessFully!');
+            }
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
     }
 
     /**
@@ -71,8 +79,10 @@ class AccountGroupController extends Controller
     public function destroy(string $id)
     {
         //
-    } public function getdata( Request $request)
+    }
+
+    public function getdata(Request $request)
     {
-         return $this->AccountGroupsServices->getdata($request);
+        return $this->AccountGroupsServices->getdata($request);
     }
 }
