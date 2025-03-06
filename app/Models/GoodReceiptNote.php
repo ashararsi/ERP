@@ -19,8 +19,8 @@ class GoodReceiptNote extends Model
 
         static::creating(function ($order) {
             $lastOrder = GoodReceiptNote::latest('id')->first();
-            $nextNumber = $lastOrder ? intval(substr($lastOrder->po_number, -4)) + 1 : 1;
-            $order->po_number = 'GRN-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+            $nextNumber = $lastOrder ? intval(substr($lastOrder->grn_number, -4)) + 1 : 1;
+            $order->grn_number = 'GRN-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
         });
     }
 }

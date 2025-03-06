@@ -101,7 +101,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     // GRN curd
     Route::resource('grns', GoodReceiptNoteController::class);
     Route::post('/grns/getdata', [GoodReceiptNoteController::class, 'getdata'])->name('grns.getdata');
-    Route::post('/grns/fetch/records/{id}', [GoodReceiptNoteController::class, 'fetch_po_record'])->name('grns.fetch_po_record');
+    Route::post('/grns/fetch/records', [GoodReceiptNoteController::class, 'fetch_po_record'])->name('grns.fetch_po_record');
 
     Route::get('/logs-view', [ActionLogController::class, 'showLogs'])->name('logs.view');
 

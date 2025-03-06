@@ -1503,7 +1503,7 @@
         </div>
     </div>
     <!-- End::app-content -->
-@include('admin.layout.notification')
+{{--@include('admin.layout.notification')--}}
 
     <!-- Footer Start -->
     <footer class="footer mt-auto py-3 bg-white text-center">

@@ -161,7 +161,7 @@
                             <div class="row">
                                 <div class="form-group text-right">
                                     <button type="submit" class="btn btn-sm btn-primary">Save</button>
-                                    <a href="{!! route('admin.units.index') !!}"
+                                    <a href="{!! route('admin.purchaseorders.index') !!}"
                                        class=" btn btn-sm btn-danger">Cancel </a>
                                 </div>
                             </div>

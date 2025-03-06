@@ -47,7 +47,7 @@
                                     <div class="form-group">
                                         <label for="order_date">Order Date</label>
                                         <input type="date" required class="form-control" id="order_date"
-                                               name="order_date">
+                                               value="{{ date('Y-m-d') }}" readonly   name="order_date">
                                     </div>
                                 </div>
 

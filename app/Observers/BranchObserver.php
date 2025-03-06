@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Branch;
 
 class BranchObserver
@@ -11,7 +12,8 @@ class BranchObserver
      */
     public function created(Branch $branch): void
     {
-        //
+        ActivityLogger::log('branch  created', ' branch created.', ['branch' => $branch]);
+
     }
 
     /**
@@ -19,7 +21,8 @@ class BranchObserver
      */
     public function updated(Branch $branch): void
     {
-        //
+        ActivityLogger::log('branch  updated', ' branch updated.', ['branch' => $branch]);
+
     }
 
     /**
@@ -27,7 +30,8 @@ class BranchObserver
      */
     public function deleted(Branch $branch): void
     {
-        //
+        ActivityLogger::log('branch  deleted', ' branch deleted.', ['branch' => $branch]);
+
     }
 
     /**
@@ -35,7 +39,8 @@ class BranchObserver
      */
     public function restored(Branch $branch): void
     {
-        //
+        ActivityLogger::log('branch  restored', ' branch restored.', ['branch' => $branch]);
+
     }
 
     /**
@@ -43,6 +48,7 @@ class BranchObserver
      */
     public function forceDeleted(Branch $branch): void
     {
-        //
+        ActivityLogger::log('branch  forceDeleted', ' branch forceDeleted.', ['branch' => $branch]);
+
     }
 }

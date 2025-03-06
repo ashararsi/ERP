@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\GoodReceiptNote;
+use App\Models\GoodReceiptNoteItem;
 use App\Models\RawMaterials;
 use App\Models\Supplier;
 use App\Models\Unit;
@@ -28,11 +30,12 @@ class GoodReceiptNoteServices
         ]);
     }
 
-    public function fetch_po_record($id)
+    public function fetch_po_record($request)
     {
+        $data = $this->create();
+        $p = PurchaseOrder::with('items', 'supplier')->where('id', $request->id)->first();
 
-        return PurchaseOrder::with('items', 'supplier')->where('id', id)->first();
-
+        return view('admin.good-receipt.purchaseorder', compact('p', 'data'));
     }
 
     public function create()
@@ -40,6 +43,7 @@ class GoodReceiptNoteServices
         $data['units'] = Unit::all();
         $data['Supplier'] = Supplier::all();
         $data['RawMaterials'] = RawMaterials::all();
+        $data['po'] = PurchaseOrder::all();
         return $data;
     }
 
@@ -51,24 +55,27 @@ class GoodReceiptNoteServices
     public function store($request)
     {
         $data = $request->all();
-        $total = 0;
-        $p = PurchaseOrder::create($data);
 
-        foreach ($request->items['raw_material_id'] as $key => $item) {
+
+        $p = GoodReceiptNote::create($data);
+        $id = $p->id;
+        PurchaseOrder::find($request->purchase_order_id)->update(['status' => 'approved']);
+
+
+        foreach ($data['items'] as $key => $item) {
+            $item_p = PurchaseOrderItem::find($key);
+
             $data1 = [
-                'raw_material_id' => $request->items['raw_material_id'][$key],
-                'quantity' => $request->items['quantity'][$key],
-                'unit_id' => $request->items['unit_id'][$key],
-                'unit_price' => $request->items['unit_price'][$key],
-                'subtotal' => $request->items['subtotal'][$key],
-                'purchase_order_id' => $p->id
+                'product_id' => $key,
+                'quantity_received' => $item_p->quantity,
+                'unit_id' => $item_p->unit_id,
+                'unit_price' => $item_p->unit_price,
+                'subtotal' => $item_p->subtotal,
+                'good_receipt_note_id' => $id
             ];
-
-            $total = $total + $request->items['subtotal'][$key];
-            PurchaseOrderItem::create($data1);
+            GoodReceiptNoteItem::create($data1);
         }
-        $p->total_amount = $total;
-        $p->save();
+
         return $p;
 
 
@@ -118,16 +125,16 @@ class GoodReceiptNoteServices
 
     public function getdata($request)
     {
-        $data = PurchaseOrder::select('*')->orderBy('id', 'desc');
+        $data = GoodReceiptNote::select('*')->orderBy('id', 'desc');
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function ($row) {
-                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.purchaseorders.destroy", $row->id) . '"> ';
-                $btn = $btn . '<a href=" ' . route("admin.purchaseorders.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
-                $btn = $btn . ' <a href="' . route("admin.purchaseorders.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
-                $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
-                $btn = $btn . method_field('DELETE') . '' . csrf_field();
-                $btn = $btn . ' </form>';
-                return $btn;
+//                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.grns.destroy", $row->id) . '"> ';
+//                $btn = $btn . '<a href=" ' . route("admin.grns.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
+////                $btn = $btn . ' <a href="' . route("admin.grns.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
+//                $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
+//                $btn = $btn . method_field('DELETE') . '' . csrf_field();
+//                $btn = $btn . ' </form>';
+                return '';
             })
             ->rawColumns(['action'])
             ->make(true);

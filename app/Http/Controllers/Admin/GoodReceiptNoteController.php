@@ -18,7 +18,7 @@ class GoodReceiptNoteController extends Controller
 
 
     public function index(){
-        return view('admin.good-recipit.index');
+        return view('admin.good-receipt.index');
 
     }
 
@@ -28,7 +28,7 @@ class GoodReceiptNoteController extends Controller
     public function create()
     {
        $data= $this->GoodReceiptNoteServices->create();
-        return view('admin.good-recipit.create',compact('data'));
+        return view('admin.good-receipt.create',compact('data'));
     }
 
     /**
@@ -36,7 +36,13 @@ class GoodReceiptNoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        try {
+            $this->GoodReceiptNoteServices->store($request);
+            return redirect()->route('admin.grns.index');
+//        } catch (\Exception $e) {
+//
+//            return redirect()->back()->with('error', $e->getMessage());
+//        }
     }
 
     /**
@@ -73,11 +79,11 @@ class GoodReceiptNoteController extends Controller
 
     public function getdata(Request $request)
     {
-
+        return $this->GoodReceiptNoteServices->getdata($request);
     }
-    public function fetch_po_record($id)
+    public function fetch_po_record(Request $request)
     {
-        return $this->GoodReceiptNoteServices->fetch_po_record($id);
+        return $this->GoodReceiptNoteServices->fetch_po_record($request);
 
     }
 }
