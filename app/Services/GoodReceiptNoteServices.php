@@ -55,8 +55,7 @@ class GoodReceiptNoteServices
     public function store($request)
     {
         $data = $request->all();
-
-
+        $data['received_by']=auth()->id();
         $p = GoodReceiptNote::create($data);
         $id = $p->id;
         PurchaseOrder::find($request->purchase_order_id)->update(['status' => 'approved']);
@@ -83,7 +82,7 @@ class GoodReceiptNoteServices
 
     public function edit($id)
     {
-        return PurchaseOrder::with('items')->where('id', $id)->first();
+        return GoodReceiptNote::with('purchaseOrder','items.p_items.RawMaterial','user')->where('id', $id)->first();
 
     }
 
@@ -91,20 +90,23 @@ class GoodReceiptNoteServices
     {
         $data = $request->all();
         $total = 0;
-        $p = PurchaseOrder::find($id);
+        $p = GoodReceiptNote::find($id);
+        $data['receipt_date'] = now();
+        $data['received_by']=auth()->id();
         $p->update($data);
+        GoodReceiptNoteItem::where('good_receipt_note_id', $id)->delete();
+        foreach ($data['items'] as $key => $item) {
+            $item_p = PurchaseOrderItem::find($key);
 
-        foreach ($request->items['raw_material_id'] as $key => $item) {
             $data1 = [
-                'raw_material_id' => $request->items['raw_material_id'][$key],
-                'quantity' => $request->items['quantity'][$key],
-                'unit_id' => $request->items['unit_id'][$key],
-                'unit_price' => $request->items['unit_price'][$key],
-                'subtotal' => $request->items['subtotal'][$key],
-                'purchase_order_id' => $p->id
+                'product_id' => $key,
+                'quantity_received' => $item_p->quantity,
+                'unit_id' => $item_p->unit_id,
+                'unit_price' => $item_p->unit_price,
+                'subtotal' => $item_p->subtotal,
+                'good_receipt_note_id' => $id
             ];
-            $total = $total + $request->items['subtotal'][$key];
-            PurchaseOrderItem::create($data1);
+            GoodReceiptNoteItem::create($data1);
         }
         $p->total_amount = $total;
         $p->save();
@@ -134,7 +136,11 @@ class GoodReceiptNoteServices
 //                $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
 //                $btn = $btn . method_field('DELETE') . '' . csrf_field();
 //                $btn = $btn . ' </form>';
-                return '';
+
+
+              $btn = '<a href=" ' . route("admin.grn.pdf", $row->id) . '"  class="ml-2"><i class="fas fa-print"></i></a>';
+
+                return $btn;
             })
             ->rawColumns(['action'])
             ->make(true);

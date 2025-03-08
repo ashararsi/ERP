@@ -25,7 +25,7 @@
                                 <th>Grn Number</th>
                                 <th>Receipt date</th>
                                 <th>Status</th>
-                                <th>Total Amount</th>
+
                                 <th width="200px">Action</th>
                             </tr>
                             </thead>
@@ -61,7 +61,7 @@
                     {data: 'grn_number', name: 'po_number'},
                     {data: 'receipt_date', name: 'receipt_date'},
                     {data: 'status', name: 'status'},
-                    {data: 'total_amount', name: 'total_amount'},
+
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
                 dom: 'Bfrtip', // Enable buttons at the top

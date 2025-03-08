@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('receipt_date')->nullable();
             $table->float('total_amount')->nullable();
             $table->text('notes')->nullable();
+            $table->integer('received_by')->nullable();
             $table->enum('status', ['pending', 'verified', 'rejected'])->default('pending');
             $table->timestamps();
         });

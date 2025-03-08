@@ -23,4 +23,26 @@ class GoodReceiptNote extends Model
             $order->grn_number = 'GRN-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
         });
     }
+
+
+    /**
+     * Relationship: GRN belongs to a Purchase Order
+     */
+    public function purchaseOrder()
+    {
+        return $this->belongsTo(PurchaseOrder::class,'purchase_order_id');
+    }
+
+    /**
+     * Relationship: GRN has many Items (GRN Items)
+     */
+    public function items()
+    {
+        return $this->hasMany(GoodReceiptNoteItem::class);
+    }
+ public function user()
+    {
+        return $this->belongsTo(User::class,'received_by');
+    }
+
 }

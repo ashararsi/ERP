@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use PDF;
 use App\Http\Controllers\Controller;
 use App\Services\GoodReceiptNoteServices;
 use Illuminate\Http\Request;
@@ -86,4 +86,14 @@ class GoodReceiptNoteController extends Controller
         return $this->GoodReceiptNoteServices->fetch_po_record($request);
 
     }
+
+
+    public function generatePDF($id)
+    {
+        $grn = $this->GoodReceiptNoteServices->edit($id);
+
+        $pdf = Pdf::loadView('admin.good-receipt.report_pdf', compact('grn'));
+        return $pdf->download('GRN_Report_'.$id.'.pdf');
+    }
+
 }

@@ -11,4 +11,11 @@ class GoodReceiptNoteItem extends Model
     protected $table = 'good_receipt_note_items';
     protected $fillable=['good_receipt_note_id','product_id','quantity_received','status'];
 
+
+
+    public function p_items()
+    {
+        return $this->belongsTo(PurchaseOrderItem::class,'product_id');
+    }
+
 }

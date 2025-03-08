@@ -107,7 +107,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::resource('grns', GoodReceiptNoteController::class);
     Route::post('/grns/getdata', [GoodReceiptNoteController::class, 'getdata'])->name('grns.getdata');
     Route::post('/grns/fetch/records', [GoodReceiptNoteController::class, 'fetch_po_record'])->name('grns.fetch_po_record');
-
+    Route::get('/grns/grn-report/{id}', [GoodReceiptNoteController::class, 'generatePDF'])->name('grn.pdf');
     Route::get('/logs-view', [ActionLogController::class, 'showLogs'])->name('logs.view');
 
 
