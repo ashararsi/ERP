@@ -60,6 +60,7 @@
     <p><strong>GRN No:</strong> {{ $grn->grn_number }}</p>
     <p><strong>Date:</strong> {{ $grn->receipt_date }}</p>
     <p><strong>Received By:</strong> {{ $grn->user->name }}</p>
+    <p><strong>Status :</strong> {{ $grn->status }}</p>
     <div style="width: 90%;padding: 5px ">
         <table style="width: 100%">
             <thead>
