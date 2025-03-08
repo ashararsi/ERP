@@ -329,7 +329,7 @@
                     <ul class="slide-menu child1">
 
                         <li class="slide has-sub   ">
-                            <a href="javascript:void(0);" class="side-menu__item">account_groups
+                            <a href="javascript:void(0);" class="side-menu__item"> Groups
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
                                 <li class="slide active">
@@ -337,6 +337,20 @@
                                 </li>
                                 <li class="slide active">
                                     <a href="{!! route('admin.account_groups.create') !!}" class="side-menu__item">
+                                        create</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="slide has-sub   ">
+                            <a href="javascript:void(0);" class="side-menu__item">Ledgers
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide active">
+                                    <a href="{!! route('admin.ledger.index') !!}" class="side-menu__item"> List</a>
+                                </li>
+                                <li class="slide active">
+                                    <a href="{!! route('admin.ledger.create') !!}" class="side-menu__item">
                                         create</a>
                                 </li>
 

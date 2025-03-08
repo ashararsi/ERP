@@ -613,9 +613,7 @@ class CoreAccounts
             $data['group_number'] = $Group->number;
             $data['account_type_id'] = $Group->account_type_id;
             $data['balance_type'] = $balance_type;
-
             $Ledger = Ledger::create($data);
-
             $Ledger->update(['number' => CoreAccounts::generateLedgerNumber($Ledger->company_id, $Group->id, $Group->number)]);
 
             return array(

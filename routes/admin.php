@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\PurchaseOrderController;
 use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\AccountGroupController;
 use App\Http\Controllers\Admin\BranchesController;
+use App\Http\Controllers\Admin\LedgerController;
 use App\Http\Controllers\Admin\GoodReceiptNoteController;
 use App\Models\Formulations;
 use App\Models\Transaction;
@@ -97,6 +98,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     //purchase orders curd
     Route::resource('purchaseorders', PurchaseOrderController::class);
     Route::post('/purchaseorders/getdata', [PurchaseOrderController::class, 'getdata'])->name('purchaseorders.getdata');
+  Route::resource('ledger', LedgerController::class);
+    Route::post('/ledger/getdata', [LedgerController::class, 'getdata'])->name('ledger.getdata');
+    Route::post('/ledger/already_created', [LedgerController::class, 'already_created'])->name('ledger.already_created');
+      Route::post('load-ledger', [LedgerController::class, 'load_ledgers'])->name('load-ledger');
 
     // GRN curd
     Route::resource('grns', GoodReceiptNoteController::class);

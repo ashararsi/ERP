@@ -3,6 +3,7 @@
       data-menu-styles="light" data-toggled="close">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Meta Data -->
     <meta charset="UTF-8">
@@ -15,6 +16,18 @@
         .fas.fa-edit {
             margin-left: 10px;
             margin-right: 10px;
+        }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
         }
     </style>
     @yield('css')
@@ -1532,6 +1545,28 @@
 
 @include('admin.layout.js')
 @yield('js')
+
+
+<script>
+    // Show Loader
+    function showLoader() {
+        const loaderOverlay = document.createElement('div');
+        loaderOverlay.className = 'loading-overlay';
+        const loader = document.createElement('div');
+        loader.className = 'loader';
+        loaderOverlay.appendChild(loader);
+        document.body.appendChild(loaderOverlay);
+    }
+
+    // Hide Loader
+    function hideLoader() {
+        const loaderOverlay = document.querySelector('.loading-overlay');
+        if (loaderOverlay) {
+            document.body.removeChild(loaderOverlay);
+        }
+    }
+
+</script>
 </body>
 
 </html>
