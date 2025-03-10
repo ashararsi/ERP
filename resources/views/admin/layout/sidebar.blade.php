@@ -238,6 +238,21 @@
                             </ul>
                         </li>
                         <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">Products
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide">
+                                    <a href="{!! route('admin.products.index') !!}"
+                                       class="side-menu__item">List</a>
+                                </li>
+                                <li class="slide">
+                                    <a href="{!! route('admin.products.create') !!}"
+                                       class="side-menu__item">Create</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="slide has-sub">
                             <a href="javascript:void(0);" class="side-menu__item">Suppliers
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
