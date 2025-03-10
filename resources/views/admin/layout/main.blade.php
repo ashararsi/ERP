@@ -17,6 +17,7 @@
             margin-left: 10px;
             margin-right: 10px;
         }
+
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -537,10 +538,14 @@
                 <div class="header-element">
                     <div class="horizontal-logo">
                         <a href="{!! route('dashboard')  !!}" class="header-logo">
-                            <img src="{!! asset('admin/assets/images/brand-logos/desktop-logo.png') !!}" alt="logo" class="desktop-logo">
-                            <img src="{!! asset('admin/assets/images/brand-logos/toggle-logo.png') !!}" alt="logo" class="toggle-logo">
-                            <img src="{!! asset('admin/assets/images/brand-logos/desktop-white.png') !!}" alt="logo" class="desktop-white">
-                            <img src="{!! asset('admin/assets/images/brand-logos/toggle-white.png') !!}" alt="logo" class="toggle-white">
+                            <img src="{!! asset('admin/assets/images/brand-logos/desktop-logo.png') !!}" alt="logo"
+                                 class="desktop-logo">
+                            <img src="{!! asset('admin/assets/images/brand-logos/toggle-logo.png') !!}" alt="logo"
+                                 class="toggle-logo">
+                            <img src="{!! asset('admin/assets/images/brand-logos/desktop-white.png') !!}" alt="logo"
+                                 class="desktop-white">
+                            <img src="{!! asset('admin/assets/images/brand-logos/toggle-white.png') !!}" alt="logo"
+                                 class="toggle-white">
                         </a>
                     </div>
                 </div>
@@ -1020,8 +1025,6 @@
     <!-- /app-header -->
 
 
-
-
     <!--End modal -->
     <!-- Start::app-sidebar -->
     @include('admin.layout.sidebar')
@@ -1034,12 +1037,12 @@
         </div>
     </div>
     <!-- End::app-content -->
-{{--@include('admin.layout.notification')--}}
+    {{--@include('admin.layout.notification')--}}
 
     <!-- Footer Start -->
     <footer class="footer mt-auto py-3 bg-white text-center">
         <div class="container">
-                <span class="text-muted"> Copyright © <span id="year"></span>  Copyright Lasani Pharma, Design and Developed by BoostByte Technologies Pvt, Ltd.
+                <span class="text-muted"> Copyright © <span id="year"></span>    Lasani Pharma, Design and Developed by BoostByte Technologies Pvt, Ltd.
                 </span>
         </div>
     </footer>

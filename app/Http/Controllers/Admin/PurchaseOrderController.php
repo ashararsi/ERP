@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Services\PurchaseOrderServices;
 use Illuminate\Http\Request;
-
+use PDF;
 class PurchaseOrderController extends Controller
 {
     /**
@@ -102,5 +102,13 @@ class PurchaseOrderController extends Controller
     {
         return $this->PurchaseOrderServices->getdata($request);
 
+    }
+
+
+    public function generatePDF($id)
+    {
+        $p = $this->PurchaseOrderServices->edit($id);
+        $pdf = Pdf::loadView('admin.purchase-order.report_pdf', compact('p'));
+        return $pdf->download('po_Report_'.$id.'.pdf');
     }
 }

@@ -8,7 +8,7 @@ use App\Models\Unit;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderItem;
 use DataTables;
-
+use PDF;
 use Config;
 
 class PurchaseOrderServices
@@ -69,7 +69,7 @@ class PurchaseOrderServices
 
     public function edit($id)
     {
-        return PurchaseOrder::with('items')->where('id', $id)->first();
+        return PurchaseOrder::with('items.RawMaterial','supplier')->where('id', $id)->first();
 
     }
 
@@ -120,6 +120,8 @@ class PurchaseOrderServices
                 $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';
+                $btn = $btn .'<a href=" ' . route("admin.po.pdf", $row->id) . '"  class="ml-2"><i class="fas fa-print"></i></a>';
+
                 return $btn;
             })
             ->rawColumns(['action'])

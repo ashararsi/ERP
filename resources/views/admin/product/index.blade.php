@@ -1,17 +1,17 @@
 @extends('admin.layout.main')
 
 @section('title')
-   Processes
+    Products
 @stop
 
 @section('content')
     <div class="container-fluid">
         <div class="row w-100  mt-4 ">
-            <h3 class="text-22 text-center text-bold w-100 mb-4">Processes</h3>
+            <h3 class="text-22 text-center text-bold w-100 mb-4">Products</h3>
         </div>
         <div class="row    mt-4 mb-4 ">
             <div class="col-12 " style="text-align: right">
-                <a href="{!! route('admin.processes.create') !!}" class="btn btn-primary btn-sm ">Create Processes</a>
+                <a href="{!! route('admin.products.create') !!}" class="btn btn-primary btn-sm ">Create product</a>
             </div>
         </div>
         <div class="card">
@@ -43,14 +43,14 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 @endsection
 @section('js')
-@include('admin.layout.datatable')
+    @include('admin.layout.datatable')
     <script type="text/javascript">
         $(document).ready(function () {
             $('#data-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.processes.getdata') }}",
+                    url: "{{ route('admin.products.getdata') }}",
                     type: "POST",
                     data: {_token: "{{ csrf_token() }}"}
                 },
@@ -58,7 +58,6 @@
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
                     {data: 'image', name: 'image'},
-
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
                 dom: 'Bfrtip', // Enable buttons at the top

@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\AccountGroupController;
 use App\Http\Controllers\Admin\BranchesController;
 use App\Http\Controllers\Admin\LedgerController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\GoodReceiptNoteController;
 use App\Models\Formulations;
 use App\Models\Transaction;
@@ -98,7 +99,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     //purchase orders curd
     Route::resource('purchaseorders', PurchaseOrderController::class);
     Route::post('/purchaseorders/getdata', [PurchaseOrderController::class, 'getdata'])->name('purchaseorders.getdata');
-  Route::resource('ledger', LedgerController::class);
+    Route::get('/purchaseorders/po-report/{id}', [PurchaseOrderController::class, 'generatePDF'])->name('po.pdf');
+
+    Route::resource('ledger', LedgerController::class);
     Route::post('/ledger/getdata', [LedgerController::class, 'getdata'])->name('ledger.getdata');
     Route::post('/ledger/already_created', [LedgerController::class, 'already_created'])->name('ledger.already_created');
       Route::post('load-ledger', [LedgerController::class, 'load_ledgers'])->name('load-ledger');
@@ -110,5 +113,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::get('/grns/grn-report/{id}', [GoodReceiptNoteController::class, 'generatePDF'])->name('grn.pdf');
     Route::get('/logs-view', [ActionLogController::class, 'showLogs'])->name('logs.view');
 
+
+
+    Route::resource('products', ProductController::class);
+    Route::post('/products/getdata', [ProductController::class, 'getdata'])->name('products.getdata');
 
 });
