@@ -36,13 +36,13 @@ class GoodReceiptNoteController extends Controller
      */
     public function store(Request $request)
     {
-//        try {
+        try {
             $this->GoodReceiptNoteServices->store($request);
             return redirect()->route('admin.grns.index');
-//        } catch (\Exception $e) {
-//
-//            return redirect()->back()->with('error', $e->getMessage());
-//        }
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -86,8 +86,6 @@ class GoodReceiptNoteController extends Controller
         return $this->GoodReceiptNoteServices->fetch_po_record($request);
 
     }
-
-
     public function generatePDF($id)
     {
         $grn = $this->GoodReceiptNoteServices->edit($id);

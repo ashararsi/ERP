@@ -8,12 +8,10 @@
         body {
             font-family: Arial, sans-serif;
         }
-
         .container {
             width: 100%;
             padding: 10px;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -21,7 +19,6 @@
             margin-right: 5px;
             margin-left: 5px;
         }
-
         th, td {
             border: 1px solid black;
             padding: 2px;

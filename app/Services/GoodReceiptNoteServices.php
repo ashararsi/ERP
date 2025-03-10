@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\GoodReceiptNote;
 use App\Models\GoodReceiptNoteItem;
+use App\Models\InventoryRawMaterial;
 use App\Models\RawMaterials;
 use App\Models\Supplier;
 use App\Models\Unit;
@@ -65,7 +66,7 @@ class GoodReceiptNoteServices
             $item_p = PurchaseOrderItem::find($key);
 
             $data1 = [
-                'product_id' => $key,
+                'product_id' => $item_p->raw_material_id,
                 'quantity_received' => $item_p->quantity,
                 'unit_id' => $item_p->unit_id,
                 'unit_price' => $item_p->unit_price,
@@ -73,6 +74,27 @@ class GoodReceiptNoteServices
                 'good_receipt_note_id' => $id
             ];
             GoodReceiptNoteItem::create($data1);
+
+         $old=   InventoryRawMaterial::where('product_id',$item_p->raw_material_id)->first();
+            if($old){
+                $to_update= InventoryRawMaterial::where('product_id',$item_p->raw_material_id)->first();
+                $to_update->quantity = $old->quantity + $item_p->quantity;
+                $to_update->unit_price = $old->unit_price + $item_p->unit_price;
+                $to_update->save();
+            }else{
+                $data_inv=[
+                    'product_id'=>$item_p->raw_material_id,
+                    'quantity_available'=>$item_p->quantity,
+                    'unit_price'=>$item_p->unit_price,
+                    'unit_of_measurement'=>$item_p->unit_id,
+                ];
+                InventoryRawMaterial::create($data_inv);
+            }
+
+
+
+
+
         }
 
         return $p;
