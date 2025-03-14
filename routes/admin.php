@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\AccountGroupController;
 use App\Http\Controllers\Admin\BranchesController;
 use App\Http\Controllers\Admin\LedgerController;
+use App\Http\Controllers\Admin\EntriesController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\GoodReceiptNoteController;
 use App\Models\Formulations;
@@ -102,7 +103,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::get('/purchaseorders/po-report/{id}', [PurchaseOrderController::class, 'generatePDF'])->name('po.pdf');
 
     Route::resource('ledger', LedgerController::class);
+
     Route::post('/ledger/getdata', [LedgerController::class, 'getdata'])->name('ledger.getdata');
+
+
+
+
+    Route::resource('entries', EntriesController::class);
+    Route::post('/entries/getdata', [EntriesController::class, 'getdata'])->name('entries.getdata');
+
     Route::post('/ledger/already_created', [LedgerController::class, 'already_created'])->name('ledger.already_created');
       Route::post('load-ledger', [LedgerController::class, 'load_ledgers'])->name('load-ledger');
 
@@ -118,4 +127,29 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::resource('products', ProductController::class);
     Route::post('/products/getdata', [ProductController::class, 'getdata'])->name('products.getdata');
 
+
+
+
+
+
+
+    Route::get('bpv-create', [EntriesController::class, 'bpvCreate'])->name('bpv-create');
+    Route::get('cpv-create', [EntriesController::class, 'cpvCreate'])->name('cpv-create');
+    Route::get('brv-create', [EntriesController::class, 'brvCreate'])->name('brv-create');
+    Route::get('crv-create', [EntriesController::class, 'crvCreate'])->name('crv-create');
+    Route::get('gjv-create', [EntriesController::class, 'gjvCreate'])->name('gjv-create');
+//    Route::get('gjv-edit/{id}', [EntriesController::class, 'gjvedit'])->name('gjv-edit');
+    Route::get('show/{id}', [EntriesController::class, 'entry'])->name('show');
+    Route::post('bpv-store', [EntriesController::class, 'bpvStore'])->name('bpv-store');
+    Route::post('cpv-store', [EntriesController::class, 'bpvStore'])->name('cpv-store');
+    Route::post('brv-store', [EntriesController::class, 'bpvStore'])->name('brv-store');
+    Route::post('crv-store', [EntriesController::class, 'bpvStore'])->name('crv-store');
+    Route::post('gjv-store', [EntriesController::class, 'bpvStore'])->name('gjv-store');
+    Route::get('bpv-edit/{id}', [EntriesController::class, 'edit'])->name('bpv-edit');
+    Route::get('cpv-edit/{id}', [EntriesController::class, 'edit'])->name('cpv-edit');
+    Route::get('brv-edit/{id}', [EntriesController::class, 'edit'])->name('brv-edit');
+    Route::get('crv-edit/{id}', [EntriesController::class, 'edit'])->name('crv-edit');
+    Route::get('gjv-edit/{id}', [EntriesController::class, 'edit'])->name('gjv-edit');
+    Route::get('download/{id}', [EntriesController::class, 'download'])->name('download');
+    Route::get('gjv_search', [EntriesController::class, 'gjv_search'])->name('gjv_search');
 });
