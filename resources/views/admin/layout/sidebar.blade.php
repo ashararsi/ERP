@@ -389,8 +389,11 @@
                                 <li class="slide active">
                                     <a href="{!! route('admin.cpv-create') !!}" class="side-menu__item"> CPV Create</a>
                                 </li>
-   <li class="slide active">
+                                <li class="slide active">
                                     <a href="{!! route('admin.bpv-create') !!}" class="side-menu__item"> BPV Create</a>
+                                </li>
+                                <li class="slide active">
+                                    <a href="{!! route('admin.entries.index') !!}" class="side-menu__item"> All Entries</a>
                                 </li>
 
                             </ul>

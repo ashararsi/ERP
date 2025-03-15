@@ -67,6 +67,7 @@
                     {
                         extend: 'excelHtml5',
                         title: 'Roles Data',
+                        className: 'btn btn-primary',
                         exportOptions: {
                             columns: [0, 1] // Export only ID and Name
                         }
@@ -74,13 +75,16 @@
                     {
                         extend: 'pdfHtml5',
                         title: 'Roles Data',
+                        className: 'btn btn-primary',
+
                         exportOptions: {
                             columns: [0, 1]
                         }
                     },
                     {
                         extend: 'print',
-                        title: 'Roles Data',
+                        title: 'Company Data',
+                        className: 'btn btn-primary',
                         exportOptions: {
                             columns: [0, 1]
                         }

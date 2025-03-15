@@ -68,6 +68,7 @@
                     {
                         extend: 'excelHtml5',
                         title: 'Permissions Data',
+                        className: 'btn btn-primary',
                         exportOptions: {
                             columns: [0, 1, 2] // Export only ID, Name, and Main columns
                         }
@@ -75,6 +76,7 @@
                     {
                         extend: 'pdfHtml5',
                         title: 'Permissions Data',
+                        className: 'btn btn-primary',
                         exportOptions: {
                             columns: [0, 1, 2]
                         }
@@ -82,6 +84,7 @@
                     {
                         extend: 'print',
                         title: 'Permissions Data',
+                        className: 'btn btn-primary',
                         exportOptions: {
                             columns: [0, 1, 2]
                         }

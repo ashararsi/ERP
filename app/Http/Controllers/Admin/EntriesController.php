@@ -34,7 +34,10 @@ class EntriesController extends Controller
      */
     public function index()
     {
-        return view('admin.entries.index');
+
+        $entries = Entries::with('entry_type')->get();
+        $company=Company::get();
+        return view('accounts.entries.index',compact('entries','company'));
     }
 
     /**

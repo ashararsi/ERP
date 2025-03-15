@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layout.main')
 @section('stylesheet')
     <link rel="stylesheet"
           href="{{ url('public/adminlte') }}/bower_components/bootstrap-daterangepicker/daterangepicker.css">
@@ -19,262 +19,297 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title mb-0 flex-grow-1" style="float:left;">Voucher</h4>
-                    @if(Auth::user()->isAbleTo('create-voucher'))
-                        <div class="btn-group pull-right" role="group" style="float:right;"
-                             aria-label="Button group with nested dropdown">
-                            <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                    Add New Voucher
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
-                                    @if(Auth::user()->isAbleTo('create-journal-voucher'))
-                                        <li><a class="dropdown-item" href="{{ route('admin.gjv-create') }}">GJV -
-                                                Journal Voucher</a></li>
-                                    @endif
-                                    @if(Auth::user()->isAbleTo('create-cash-receipt-voucher'))
-                                        <li><a class="dropdown-item" href="{{ route('admin.crv-create') }}">CRV - Cash
-                                                Receipt Voucher</a></li>
-                                    @endif
-                                    @if(Auth::user()->isAbleTo('create-cash-payment-voucher'))
-                                        <li><a class="dropdown-item" href="{{ route('admin.cpv-create') }}">CPV - Cash
-                                                Payment Voucher</a></li>
-                                    @endif
-                                    @if(Auth::user()->isAbleTo('create-bank-receipt-voucher'))
-                                        <li><a class="dropdown-item" href="{{ route('admin.brv-create') }}">BRV - Bank
-                                                Receipt Voucher</a></li>
-                                    @endif
-                                    @if(Auth::user()->isAbleTo('create-bank-payment-voucher'))
-                                        <li><a class="dropdown-item" href="{{ route('admin.bpv-create') }}">BPV - Bank
-                                                Payment Voucher</a></li>
-                                    @endif
-                                </ul>
-                            </div>
-                        </div>
-                    @endif
+
+{{--                        <div class="btn-group pull-right" role="group" style="float:right;"--}}
+{{--                             aria-label="Button group with nested dropdown">--}}
+{{--                            <div class="btn-group" role="group">--}}
+{{--                                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"--}}
+{{--                                        data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                    Add New Voucher--}}
+{{--                                </button>--}}
+{{--                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">--}}
+
+{{--                                        <li><a class="dropdown-item" href="{{ route('admin.gjv-create') }}">GJV ---}}
+{{--                                                Journal Voucher</a></li>--}}
+
+
+{{--                                        <li><a class="dropdown-item" href="{{ route('admin.crv-create') }}">CRV - Cash--}}
+{{--                                                Receipt Voucher</a></li>--}}
+
+
+{{--                                        <li><a class="dropdown-item" href="{{ route('admin.cpv-create') }}">CPV - Cash--}}
+{{--                                                Payment Voucher</a></li>--}}
+
+
+{{--                                        <li><a class="dropdown-item" href="{{ route('admin.brv-create') }}">BRV - Bank--}}
+{{--                                                Receipt Voucher</a></li>--}}
+
+{{--                                        <li><a class="dropdown-item" href="{{ route('admin.bpv-create') }}">BPV - Bank--}}
+{{--                                                Payment Voucher</a></li>--}}
+
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
                 </div><!-- end card header -->
                 <div class="card-body">
-                    <form id="ledger-form">
-                        {{ csrf_field()}}
-                        <div class="row">
-                            @if(isset(auth()->user()->roles[0]))
-                                @php
-                                    $company_session=  Session::get('company_session');
-                                    if(!$company_session) {
-                                        $company_session=0;
-                                    }
+{{--                    <form id="ledger-form">--}}
+{{--                        {{ csrf_field()}}--}}
+{{--                        <div class="row">--}}
 
-                                $branch_session=  Session::get('branch_session');
-                                    if(!$branch_session){
-                                         $branch_session=0;
-                                    }
-                                @endphp
-                                @if(auth()->user()->roles[0]->name=="administrator")
-                                    <select style="display: none;" name='company_id'
-                                            class="form-control input-sm select2"
-                                            id="company_id"
-                                            onchange="myFunction()">
-                                        <option value="">---Select Company---</option>
-                                        @foreach($company as $singleCompany)
-                                            @if($company_session==$singleCompany->id)
-                                                <option selected
-                                                        value="{{$singleCompany->id}}">{{$singleCompany->name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <select style="display: none;" name='branch_id'
-                                            class="form-control input-sm select2"
-                                            id="branch_id">
-                                        @php
-                                            $html='';
-                                                if( $branch_session!=0){
-                                               $branch= \App\Models\Branches::find($branch_session);
-                                                 $html='<option selected value="'.$branch->id.'"> '.$branch->name.'</option>';
-                                                }
-                                        @endphp
-                                        {!! $html !!}
-                                    </select>
-                                @else
-                                    @php
-                                        $companies=\App\Models\Company::all();
-                                        $branchs=\App\Models\Branches::where('company_id',$company_session)->get();
-                                    @endphp
-                                    <select style="display: none;" name='company_id'
-                                            class="form-control input-sm select2"
-                                            id="company_id"
-                                            onchange="myFunction()">
-                                        <option value="">Select Company</option>
-                                        @foreach($companies as $company)
-                                            @if(Auth::user()->isAbleTo('Company_'.$company->id))
-                                                <option @if($company_session==$company->id) selected
-                                                        @endif value="{{$company->id}}">{{$company->name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <select style="display: none;" name='branch_id'
-                                            class="form-control input-sm select2"
-                                            id="branch_id">
-                                        <option value="">Select Branch</option>
-                                        @foreach($branchs as $item)
-                                            @if(Auth::user()->isAbleTo('Branch_'.$item->id))
-                                                <option @if($branch_session==$item->id) selected
-                                                        @endif  value="{!! $item->id !!}">{!! $item->name !!}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                @endif
-                            @endif
-                            <div class="col-md-6" style="padding:5px;">
-                                <div class="form-group">
-                                    <label>Select Date</label>
-                                    <input type="text" id="date_range" name="date_range" class="form-control"
-                                           autocomplete="off">
-                                </div>
-                            </div>
+{{--                                @php--}}
+{{--                                    $company_session=  Session::get('company_session');--}}
+{{--                                    if(!$company_session) {--}}
+{{--                                        $company_session=0;--}}
+{{--                                    }--}}
 
-                            <div class="col-md-6" style="padding:5px;">
-                                <div class="form-group">
-                                    <label>Select Voucher Type</label>
-                                    <select name='voucher_type' class="form-control input-sm select2">
-                                        <option value="">---Select Voucher Type---</option>
-                                        @if(Auth::user()->isAbleTo('create-journal-voucher'))
-                                            <option value="1">General Voucher</option>
-                                        @endif
-                                        @if(Auth::user()->isAbleTo('create-cash-receipt-voucher'))
-                                            <option value="2">Cash Receipt Voucher</option>
-                                        @endif
-                                        @if(Auth::user()->isAbleTo('create-cash-payment-voucher'))
-                                            <option value="3">Cash Payment Voucher</option>
-                                        @endif
-                                        @if(Auth::user()->isAbleTo('create-bank-receipt-voucher'))
-                                            <option value="4">Bank Receipt Voucher</option>
-                                        @endif
-                                        @if(Auth::user()->isAbleTo('create-bank-payment-voucher'))
-                                            <option value="5">Bank Payment Voucher</option>
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
+{{--                                $branch_session=  Session::get('branch_session');--}}
+{{--                                    if(!$branch_session){--}}
+{{--                                         $branch_session=0;--}}
+{{--                                    }--}}
+{{--                                @endphp--}}
 
-                            <div class="col-md-6" style="padding:5px;">
-                                <div class="form-group">
-                                    <label>Search By Narration</label>
-                                    <input type="text" name="narration" placeholder="Search By Narration"
-                                           class="form-control"/>
-                                </div>
-                            </div>
+{{--                                    <select style="display: none;" name='company_id'--}}
+{{--                                            class="form-control input-sm select2"--}}
+{{--                                            id="company_id"--}}
+{{--                                            onchange="myFunction()">--}}
+{{--                                        <option value="">---Select Company---</option>--}}
+{{--                                        @foreach($company as $singleCompany)--}}
+{{--                                            @if($company_session==$singleCompany->id)--}}
+{{--                                                <option selected--}}
+{{--                                                        value="{{$singleCompany->id}}">{{$singleCompany->name}}</option>--}}
+{{--                                            @endif--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                                    <select style="display: none;" name='branch_id'--}}
+{{--                                            class="form-control input-sm select2"--}}
+{{--                                            id="branch_id">--}}
+{{--                                        @php--}}
+{{--                                            $html='';--}}
+{{--                                                if( $branch_session!=0){--}}
+{{--                                               $branch= \App\Models\Branch::find($branch_session);--}}
+{{--                                                 $html='<option selected value="'.$branch->id.'"> '.$branch->name.'</option>';--}}
+{{--                                                }--}}
+{{--                                        @endphp--}}
+{{--                                        {!! $html !!}--}}
+{{--                                    </select>--}}
 
-                            <div class="col-md-3" style="padding:5px;">
-                                <div class="form-group">
-                                    <label>Search By Instrument Number</label>
-                                    <input type="text" name="instrument_no"
-                                           placeholder="Search By Instrument Number"
-                                           class="form-control">
-                                </div>
-                            </div>
+{{--                                    @php--}}
+{{--                                        $companies=\App\Models\Company::all();--}}
+{{--                                        $branchs=\App\Models\Branch::where('company_id',$company_session)->get();--}}
+{{--                                    @endphp--}}
+{{--                                    <select style="display: none;" name='company_id'--}}
+{{--                                            class="form-control input-sm select2"--}}
+{{--                                            id="company_id"--}}
+{{--                                            onchange="myFunction()">--}}
+{{--                                        <option value="">Select Company</option>--}}
+{{--                                        @foreach($companies as $company)--}}
+{{--                                            @if(Auth::user()->isAbleTo('Company_'.$company->id))--}}
+{{--                                                <option @if($company_session==$company->id) selected--}}
+{{--                                                        @endif value="{{$company->id}}">{{$company->name}}</option>--}}
+{{--                                            @endif--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                                    <select style="display: none;" name='branch_id'--}}
+{{--                                            class="form-control input-sm select2"--}}
+{{--                                            id="branch_id">--}}
+{{--                                        <option value="">Select Branch</option>--}}
+{{--                                        @foreach($branchs as $item)--}}
+{{--                                            @if(Auth::user()->isAbleTo('Branch_'.$item->id))--}}
+{{--                                                <option @if($branch_session==$item->id) selected--}}
+{{--                                                        @endif  value="{!! $item->id !!}">{!! $item->name !!}</option>--}}
+{{--                                            @endif--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
 
-                            <div class="col-md-3" style="padding:5px;">
-                                <div class="form-group">
-                                    <label>Search By Voucher Number</label>
-                                    <input type="number" name="voucher_no"
-                                           placeholder="Search By Voucher Number"
-                                           class="form-control"/>
-                                </div>
-                            </div>
 
-                            <div class="col-md-4" style="padding:5px;">
-                                <div class="form-group">
-                                    <label>More Filters</label>
-                                    <select name='filters' class="form-control filters"
-                                            id="filters">
-                                        <option value="">---Select Filter---</option>
-                                        <option value="single_amount">Single Amount</option>
-                                        <option value="range_amount">Range Amount</option>
-                                    </select>
-                                </div>
-                            </div>
+{{--                            <div class="col-md-6" style="padding:5px;">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>Select Date</label>--}}
+{{--                                    <input type="text" id="date_range" name="date_range" class="form-control"--}}
+{{--                                           autocomplete="off">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
-                            <div class="col-md-4 amount_field" style="padding:5px;">
-                                <div class="form-group">
-                                    <label>Amount</label>
-                                    <input value="0" type="number" name="amount"
-                                           class="form-control"/>
-                                </div>
-                            </div>
+{{--                            <div class="col-md-6" style="padding:5px;">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>Select Voucher Type</label>--}}
+{{--                                    <select name='voucher_type' class="form-control input-sm select2">--}}
+{{--                                        <option value="">---Select Voucher Type---</option>--}}
 
-                            <div class="col-md-4 amount_range_fields" style="padding:5px;">
-                                <div class="form-group">
-                                    <label>Min Amount</label>
-                                    <input value="0" type="number" name="min_amount"
-                                           class="form-control"/>
-                                </div>
-                            </div>
+{{--                                            <option value="1">General Voucher</option>--}}
+{{--                                              <option value="2">Cash Receipt Voucher</option>--}}
+{{--                                              <option value="3">Cash Payment Voucher</option>--}}
+{{--                                              <option value="4">Bank Receipt Voucher</option>--}}
+{{--                                             <option value="5">Bank Payment Voucher</option>--}}
 
-                            <div class="col-md-4 amount_range_fields" style="padding:5px;">
-                                <div class="form-group">
-                                    <label>Max Amount</label>
-                                    <input value="0" type="number" name="max_amount"
-                                           class="form-control"/>
-                                </div>
-                            </div>
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
-                            <div class="col-md-12" style="">
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-sm btn-primary"
-                                            style="width: 100%;margin-top: 25px;font-size: 13px;margin-bottom: 25px;height: 40px;"
-                                            onclick="fetch_ledger()">Search
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+{{--                            <div class="col-md-6" style="padding:5px;">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>Search By Narration</label>--}}
+{{--                                    <input type="text" name="narration" placeholder="Search By Narration"--}}
+{{--                                           class="form-control"/>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="col-md-3" style="padding:5px;">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>Search By Instrument Number</label>--}}
+{{--                                    <input type="text" name="instrument_no"--}}
+{{--                                           placeholder="Search By Instrument Number"--}}
+{{--                                           class="form-control">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="col-md-3" style="padding:5px;">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>Search By Voucher Number</label>--}}
+{{--                                    <input type="number" name="voucher_no"--}}
+{{--                                           placeholder="Search By Voucher Number"--}}
+{{--                                           class="form-control"/>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="col-md-4" style="padding:5px;">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>More Filters</label>--}}
+{{--                                    <select name='filters' class="form-control filters"--}}
+{{--                                            id="filters">--}}
+{{--                                        <option value="">---Select Filter---</option>--}}
+{{--                                        <option value="single_amount">Single Amount</option>--}}
+{{--                                        <option value="range_amount">Range Amount</option>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="col-md-4 amount_field" style="padding:5px;">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>Amount</label>--}}
+{{--                                    <input value="0" type="number" name="amount"--}}
+{{--                                           class="form-control"/>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="col-md-4 amount_range_fields" style="padding:5px;">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>Min Amount</label>--}}
+{{--                                    <input value="0" type="number" name="min_amount"--}}
+{{--                                           class="form-control"/>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="col-md-4 amount_range_fields" style="padding:5px;">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>Max Amount</label>--}}
+{{--                                    <input value="0" type="number" name="max_amount"--}}
+{{--                                           class="form-control"/>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="col-md-12" style="">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <button type="button" class="btn btn-sm btn-primary"--}}
+{{--                                            style="width: 100%;margin-top: 25px;font-size: 13px;margin-bottom: 25px;height: 40px;"--}}
+{{--                                            onclick="fetch_ledger()">Search--}}
+{{--                                    </button>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </form>--}}
                     <div class="clearfix"></div>
                     <!-- /.box-header -->
                     <div class="panel-body pad table-responsive">
-                        <table class="table table-bordered datatable" style="text-transform:none;">
-                            <thead>
-                            <tr style="text-align:center;">
-                                <th style="text-align:center;">Sr.No</th>
-                                <th style="text-align:center;">Entry Type</th>
-                                <th style="text-align:center;">Voucher Date</th>
-                                <th style="text-align:center;">Number</th>
-                                <th style="text-align:center;">Narration</th>
-                                <th style="text-align:center;">Dr.Amount</th>
-                                <th style="text-align:center;">Cr.Amount</th>
-                                <th style="text-align:center;">Entry Items Dr.Amount</th>
-                                <th style="text-align:center;">Entry Items Cr.Amount</th>
-                                {{--                                @if(Auth::user()->isAbleTo('view-voucher'))--}}
-                                {{--                                    <th style="text-align:center;">View</th>--}}
-                                {{--                                @endif--}}
-                                {{--                                @if(Auth::user()->isAbleTo('print-voucher'))--}}
-                                {{--                                    <th style="text-align:center;">Print Voucher</th>--}}
-                                {{--                                @endif--}}
-                                <th style="text-align:center;">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody id="getData"></tbody>
-                        </table>
-                    </div>
+                        <div class="clearfix mt-5">
+                            <div class="panel-body pad table-responsive">
+                                <table class="table table-bordered datatable" style="text-transform:none;">
+                                    <thead>
+                                    <tr style="text-align:center;">
+                                        <th style="text-align:center;">Sr.No</th>
+                                        <th style="text-align:center;">Entry Type</th>
+                                        <th style="text-align:center;">Voucher Date</th>
+                                        <th style="text-align:center;">Number</th>
+                                        <th style="text-align:center;">Narration</th>
+                                        <th style="text-align:center;">Dr.Amount</th>
+                                        <th style="text-align:center;">Cr.Amount</th>
+                                        <th style="text-align:center;">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($entries as $item)
+                                        <tr>
+                                            <td>{{ $loop->index + 1 }}</td>
+                                            <td>{{ $item->entry_type->code }}</td>
+                                            <td>{{ $item->voucher_date }}</td>
+                                            <td>{{ $item->number }}</td>
+                                            <td>{{ $item->narration }}</td>
+                                            <td>{{ number_format($item->dr_total) }}</td>
+                                            <td>{{ number_format($item->cr_total) }}</td>
+                                            <td>
+
+                                                <a class="btn btn-warning" href="download/{{ $item->id }}">PDF</a>
+                                                <a class="btn btn-primary" href="show/{{ $item->id }}">View</a>
+                                                <a class="btn btn-success"
+                                                   href="{!! url('admin/brv-edit/'.$item->id) !!}"
+                                                   style="margin-right: 10px;">Edit</a>
+
+                                            </td>
+                                            {{--                                            <td>--}}
+                                            {{--                                                <button id="btnGroupDrop{{ $loop->index }}" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">--}}
+                                            {{--                                                    Action--}}
+                                            {{--                                                </button>--}}
+                                            {{--                                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop{{ $loop->index }}">--}}
+                                            {{--                                                    <li><a class="dropdown-item" href="{{ route('admin.bpv-edit') }}">View</a></li>--}}
+                                            {{--                                                    <li><a class="dropdown-item" href="{{ route('admin.bpv-edit') }}">Edit</a></li>--}}
+                                            {{--                                                    <li><a class="dropdown-item" href="{{ route('admin.bpv-edit') }}">Get Pdf</a></li>--}}
+                                            {{--                                                    <li><a class="dropdown-item" href="{{ route('admin.bpv-edit') }}">Print</a></li>--}}
+                                            {{--                                                    <li><a class="dropdown-item" href="{{ route('admin.bpv-edit') }}">Status</a></li>--}}
+                                            {{--                                                </ul>--}}
+                                            {{--                                            </td>--}}
+
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
-@section('javascript')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <script type="text/javascript"
-            src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript"
-            src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
-
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+@section('js')
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script
+        src="https://ivyacademic.org/public/theme/assets/plugins/select2/js/select2.min.js"></script>
+    <script src="{{ url('js/voucher/journal_voucher/create_modify.js') }}"
+            type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+          rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    @include('admin.layout.datatable')
 
 
     <script>
         $(document).ready(function () {
-
+            $('.datatable').DataTable({
+                dom: 'Bfrtip', // Include buttons in the DataTable
+                buttons: [
+                    {
+                        extend: 'print',
+                        text: 'Print',
+                        className: 'btn btn-primary'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'Download PDF',
+                        className: 'btn btn-danger'
+                    }
+                ]
+            });
             $('.amount_field').hide();
             $('.amount_range_fields').hide();
 
@@ -319,7 +354,7 @@
                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
             });
 
-            fetch_ledger();
+            // fetch_ledger();
 
         });
 
@@ -343,106 +378,106 @@
 
     <script>
 
-        function fetch_ledger() {
+        {{--function fetch_ledger() {--}}
 
-            $.ajax({
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: "{{ route('admin.load-voucher') }}",
-                data: $("#ledger-form").serialize(),
-                beforeSend: function () {
-                    showLoader();
-                },
-                success: function (data) {
-                    var action_edit = "";
-                    var action_view = "";
-                    var action_pdf = "";
-                    var action_delete = "";
-                    var action_all = "";
-                    var htmlData = "";
-                    var k = 1;
-                    for (i in data.data) {
-                        var id = data.data[i].id;
+        {{--    $.ajax({--}}
+        {{--        type: "POST",--}}
+        {{--        headers: {--}}
+        {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+        {{--        },--}}
+        {{--        url: "{{ route('admin.load-voucher') }}",--}}
+        {{--        data: $("#ledger-form").serialize(),--}}
+        {{--        beforeSend: function () {--}}
+        {{--            showLoader();--}}
+        {{--        },--}}
+        {{--        success: function (data) {--}}
+        {{--            var action_edit = "";--}}
+        {{--            var action_view = "";--}}
+        {{--            var action_pdf = "";--}}
+        {{--            var action_delete = "";--}}
+        {{--            var action_all = "";--}}
+        {{--            var htmlData = "";--}}
+        {{--            var k = 1;--}}
+        {{--            for (i in data.data) {--}}
+        {{--                var id = data.data[i].id;--}}
 
-                        htmlData += '<tr>';
-                        htmlData += '<td>' + k + '</td>';
-                        htmlData += '<td>' + data.data[i].code + '</td>';
-                        htmlData += '<td>' + data.data[i].voucher_date + '</td>';
-                        htmlData += '<td>' + data.data[i].number + '</td>';
-                        htmlData += '<td>' + data.data[i].narration + '</td>';
-                        htmlData += '<td>' + numberWithCommas(data.data[i].dr_total) + '</td>';
-                        htmlData += '<td>' + numberWithCommas(data.data[i].cr_total) + '</td>';
+        {{--                htmlData += '<tr>';--}}
+        {{--                htmlData += '<td>' + k + '</td>';--}}
+        {{--                htmlData += '<td>' + data.data[i].code + '</td>';--}}
+        {{--                htmlData += '<td>' + data.data[i].voucher_date + '</td>';--}}
+        {{--                htmlData += '<td>' + data.data[i].number + '</td>';--}}
+        {{--                htmlData += '<td>' + data.data[i].narration + '</td>';--}}
+        {{--                htmlData += '<td>' + numberWithCommas(data.data[i].dr_total) + '</td>';--}}
+        {{--                htmlData += '<td>' + numberWithCommas(data.data[i].cr_total) + '</td>';--}}
 
-                        htmlData += '<td>';
-                        for (j in data.data[i].entry_items) {
-                            let entry_items = data.data[i].entry_items[j];
-                            if (entry_items.dc == 'd') {
-                                htmlData += numberWithCommas(entry_items.amount) + '<br>';
-                            } else {
-                                htmlData += '';
-                            }
-                        }
-                        htmlData += '</td>';
+        {{--                htmlData += '<td>';--}}
+        {{--                for (j in data.data[i].entry_items) {--}}
+        {{--                    let entry_items = data.data[i].entry_items[j];--}}
+        {{--                    if (entry_items.dc == 'd') {--}}
+        {{--                        htmlData += numberWithCommas(entry_items.amount) + '<br>';--}}
+        {{--                    } else {--}}
+        {{--                        htmlData += '';--}}
+        {{--                    }--}}
+        {{--                }--}}
+        {{--                htmlData += '</td>';--}}
 
-                        htmlData += '<td>';
-                        for (j in data.data[i].entry_items) {
-                            let entry_items = data.data[i].entry_items[j];
-                            if (entry_items.dc == 'c') {
-                                htmlData += numberWithCommas(entry_items.amount) + '<br>';
-                            } else {
-                                htmlData += '';
-                            }
-                        }
-                        htmlData += '</td>';
+        {{--                htmlData += '<td>';--}}
+        {{--                for (j in data.data[i].entry_items) {--}}
+        {{--                    let entry_items = data.data[i].entry_items[j];--}}
+        {{--                    if (entry_items.dc == 'c') {--}}
+        {{--                        htmlData += numberWithCommas(entry_items.amount) + '<br>';--}}
+        {{--                    } else {--}}
+        {{--                        htmlData += '';--}}
+        {{--                    }--}}
+        {{--                }--}}
+        {{--                htmlData += '</td>';--}}
 
-                        htmlData += '<td>';
+        {{--                htmlData += '<td>';--}}
 
-                        <?php
-                        if (Auth::user()->isAbleTo('print-voucher'))
-                        {
-                            ?>
-                            htmlData += '<a class="btn btn-warning" href="download/' + id + '">PDF</a><br>';
-                            <?php
-                        }
-                        ?>
+        {{--                <?php--}}
+        {{--                if (Auth::user()->isAbleTo('print-voucher'))--}}
+        {{--                {--}}
+        {{--                    ?>--}}
+        {{--                    htmlData += '<a class="btn btn-warning" href="download/' + id + '">PDF</a><br>';--}}
+        {{--                    <?php--}}
+        {{--                }--}}
+        {{--                ?>--}}
 
-                        <?php
-                        if (Auth::user()->isAbleTo('show-voucher'))
-                        {
-                            ?>
-                            htmlData += '<a class="btn btn-primary" href="show/' + id + '">View</a><br>';
-                            <?php
-                        }
-                        ?>
+        {{--                <?php--}}
+        {{--                if (Auth::user()->isAbleTo('show-voucher'))--}}
+        {{--                {--}}
+        {{--                    ?>--}}
+        {{--                    htmlData += '<a class="btn btn-primary" href="show/' + id + '">View</a><br>';--}}
+        {{--                    <?php--}}
+        {{--                }--}}
+        {{--                ?>--}}
 
-                        <?php
-                        if (Auth::user()->isAbleTo('accounts-edit-voucher'))
-                        {
-                            ?>
-                            htmlData += '<a class="btn btn-success" href="bpv-edit/' + id + '">Edit</a>';
-                            <?php
-                        }
-                        ?>
+        {{--                <?php--}}
+        {{--                if (Auth::user()->isAbleTo('accounts-edit-voucher'))--}}
+        {{--                {--}}
+        {{--                    ?>--}}
+        {{--                    htmlData += '<a class="btn btn-success" href="bpv-edit/' + id + '">Edit</a>';--}}
+        {{--                    <?php--}}
+        {{--                }--}}
+        {{--                ?>--}}
 
-                            htmlData += '</td></tr>';
+        {{--                    htmlData += '</td></tr>';--}}
 
-                        k++;
+        {{--                k++;--}}
 
-                    }
-                    $("#getData").html(htmlData);
+        {{--            }--}}
+        {{--            $("#getData").html(htmlData);--}}
 
-                    setTimeout(function () {
-                        $('.datatable').DataTable();
-                    }, 1000);
-                }
-                , complete: function () { // Set our complete callback, adding the .hidden class and hiding the spinner.
-                    // $('#loader').addClass('hidden')
-                    hideLoader();
-                }
-            });
-        }
+        {{--            setTimeout(function () {--}}
+        {{--                $('.datatable').DataTable();--}}
+        {{--            }, 1000);--}}
+        {{--        }--}}
+        {{--        , complete: function () { // Set our complete callback, adding the .hidden class and hiding the spinner.--}}
+        {{--            // $('#loader').addClass('hidden')--}}
+        {{--            hideLoader();--}}
+        {{--        }--}}
+        {{--    });--}}
+        {{--}--}}
 
         function numberWithCommas(x) {
             return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");

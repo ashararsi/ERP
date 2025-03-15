@@ -70,6 +70,7 @@
                 {
                     extend: 'excelHtml5',
                     title: 'User Data',
+                    className: 'btn btn-primary',
                     exportOptions: {
                         columns: [0, 1, 2, 3] // Exclude action column
                     }
@@ -77,6 +78,7 @@
                 {
                     extend: 'pdfHtml5',
                     title: 'User Data',
+                    className: 'btn btn-primary',
                     exportOptions: {
                         columns: [0, 1, 2, 3]
                     }
@@ -84,6 +86,8 @@
                 {
                     extend: 'print',
                     title: 'User Data',
+                    className: 'btn btn-primary',
+
                     exportOptions: {
                         columns: [0, 1, 2, 3]
                     }
