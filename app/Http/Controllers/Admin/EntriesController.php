@@ -18,6 +18,11 @@ use App\Models\Vendor;
 use App\Services\EntriesServices;
 use Illuminate\Http\Request;
 
+use PDF;
+use Session;
+use Config;
+use Auth;
+
 class EntriesController extends Controller
 {
     public function __construct(EntriesServices $EntriesServices)
@@ -127,10 +132,10 @@ return view('admin.entries.create');
 
         $entries = [];
 
-        $entries_session = Session::get('entries');
-        if ($entries_session) {
-            $entries = Entries::with('entry_type')->whereIn('id', $entries_session)->get();
-        }
+
+
+            $entries = Entries::with('entry_type')->where('id', 4)->get();
+
 
         $companyId = Session::get('company_session') ?? Branch::where('id', Auth::user()->branch_id)->value('company_id');
         $branchId = Session::get('branch_session') ?? 0;
@@ -139,7 +144,7 @@ return view('admin.entries.create');
         $vendor = Vendor::get();
         $vendorDropdown = 1;
 
-        if (Auth::user()->isAbleTo('create-bank-payment-voucher')) {
+//        if (Auth::user()->isAbleTo('create-bank-payment-voucher')) {
             $VoucherData = Session::get('_old_input');
             if (is_array($VoucherData) && !empty($VoucherData)) {
                 // Fetch Ledger IDs to create Ledger Objects
@@ -168,7 +173,8 @@ return view('admin.entries.create');
                     $VoucherData['voucher_date'] = $sessionVoucherDate;
                 }
 
-            } else {
+            }
+            else {
                 $VoucherData = array(
                     'number' => str_pad(CoreAccounts::getVouchertMaxId(5, $companyId), 6, '0', STR_PAD_LEFT),
                     'cheque_no' => '',
@@ -202,15 +208,16 @@ return view('admin.entries.create');
 
             // Get All Branch
             // Get All Branch
-            $Branch = Branch::get();
+            $branches  = Branch::get();
             $companies = Company::get();
 
             $financial_year = GernalHelper::get_financial_year();
 
-            return view('accounts.entries.voucher.bank_voucher.bank_payment.create', compact('vendor', 'vendorDropdown', 'financial_year', 'Employees', 'entries', 'Branch', 'VoucherData', 'companies', 'companyId', 'branchId'));
-        } else {
-            return abort(401);
-        }
+            return view('accounts.entries.voucher.bank_voucher.bank_payment.create', compact('vendor', 'vendorDropdown', 'financial_year', 'Employees', 'entries', 'branches', 'VoucherData', 'companies', 'companyId', 'branchId'));
+//        }
+//        else {
+//            return abort(401);
+//        }
     }
 
     public function cpvCreate()
