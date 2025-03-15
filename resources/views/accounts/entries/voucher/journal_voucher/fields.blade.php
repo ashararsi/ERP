@@ -74,7 +74,7 @@
 
     <div class="form-group col-md-6  @if($errors->has('company_id')) has-error @endif">
         {!! Form::label('company_id', 'Companies*', ['class' => 'control-label']) !!}
-        <select class="form-control" name="company_id" id="company_id" required>
+        <select class="form-control" name="company_id" id="company_id"  >
             @foreach($companies as $item)
                 @if($item->id == $companyId)
                     <option
@@ -91,7 +91,7 @@
 
     <div class="form-group col-md-6  @if($errors->has('branch_id')) has-error @endif">
         {!! Form::label('branch_id', 'Branches*', ['class' => 'control-label']) !!}
-        <select class="form-control" name="branch_id" id="branch_id" required>
+        <select class="form-control" name="branch_id" id="branch_id"  >
             @foreach($branches as $item)
                 @if($item->id == $branchId)
                     <option

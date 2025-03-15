@@ -54,7 +54,8 @@
         <div class="header">
             <h6 style="border-bottom: 1px solid black; font-size: 30px; padding-bottom: 7px; margin-bottom: 20px !important; text-align:center">
                 {{-- $BranchTitle->lagder_data->lagder_branch->name --}}
-                {{$company->name}}
+              @if($company)  {{$company->name}}
+                @endif
                 <Span style="margin-left: 100px;"></Span>
             </h6>
 

@@ -883,7 +883,6 @@ class CoreAccounts
             'financial_year' => 'required',
             'voucher_date' => 'required',
             'entry_type_id' => 'required|numeric',
-            'company_id' => 'required|numeric',
             'narration' => 'required',
             'dr_total' => 'required|numeric|min:1|same:cr_total',
             'cr_total' => 'required|numeric|min:1|same:dr_total',
@@ -917,7 +916,7 @@ class CoreAccounts
         $data['employee_id'] = Auth::user()->id;
 
         $data['branch_id'] = (Session::get('branch_session') ? Session::get('branch_session') : Auth::user()->branch_id);
-        $v_number_series = CoreAccounts::getVouchertMaxId($data['entry_type_id'], $data['company_id'], $data['financial_year']);
+        $v_number_series = CoreAccounts::getVouchertMaxId($data['entry_type_id'], $data['company_id']??0, $data['financial_year']);
         $data['company_id'] = (isset($data['company_id'])) ? $data['company_id'] : NULL;
         $data['number'] = str_pad($v_number_series, 6, '0', STR_PAD_LEFT);
 

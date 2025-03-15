@@ -27,4 +27,24 @@ class EntryItems extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    protected $casts = [
+        'amount' => 'decimal:2'
+    ];
+
+    public function lagder_data()
+    {
+        //return $this->hasMany(Ledgers::class, 'ledger_id', 'id');
+        return $this->belongsTo('App\Models\Admin\Ledgers', 'ledger_id', 'id');
+    }
+
+    public function entry()
+    {
+        return $this->hasOne(Entries::class, 'id', 'entry_id');
+    }
+
+    public function vendor_data()
+    {
+        return $this->belongsTo(Vendor::class, 'vendor_id', 'vendor_id');
+    }
 }

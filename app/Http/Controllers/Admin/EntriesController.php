@@ -17,7 +17,7 @@ use App\Models\Staff;
 use App\Models\Vendor;
 use App\Services\EntriesServices;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 use PDF;
 use Session;
 use Config;
@@ -505,7 +505,7 @@ return view('admin.entries.create');
         $vendor = Vendor::get();
         $vendorDropdown = 1;
 
-        if (Auth::user()->isAbleTo('create-journal-voucher')) {
+
             $VoucherData = Session::get('_old_input');
 
             if (is_array($VoucherData) && !empty($VoucherData)) {
@@ -567,20 +567,18 @@ return view('admin.entries.create');
             $Employees->prepend('Select an Employee', '');
 
             // Get All Branch
-            $Branch = Branch::get();
+        $branches = Branch::get();
             $companies = Company::get();
 
             $financial_year = GernalHelper::get_financial_year();
 
-            return view('accounts.entries.voucher.journal_voucher.create', compact('vendor', 'vendorDropdown', 'financial_year', 'Employees', 'entries', 'Branch', 'VoucherData', 'companies', 'companyId', 'branchId', 'sessionVoucherDate'));
-        } else {
-            return abort(401);
-        }
+            return view('accounts.entries.voucher.journal_voucher.create', compact('vendor', 'vendorDropdown', 'financial_year', 'Employees', 'entries', 'branches', 'VoucherData', 'companies', 'companyId', 'branchId', 'sessionVoucherDate'));
+
     }
 
     public function download($id)
     {
-        if (Auth::user()->isAbleTo('print-voucher')) {
+
             $Entrie = Entries::findOrFail($id);
 
             $EntryType = EntryTypes::findOrFail($Entrie->entry_type_id);
@@ -600,9 +598,6 @@ return view('admin.entries.create');
             )->get()->getDictionary();
             $pdf = PDF::loadView('accounts.entries.print', compact('company', 'Entrie', 'id', 'EntryType', 'EntryTypes', 'Branch', 'Employee', 'Entry_items', 'Ledgers'))->setPaper('a4', 'landscape');
             return $pdf->stream('invoice.pdf');
-        } else {
-            return abort(401);
-        }
 
     }
 
@@ -874,37 +869,34 @@ return view('admin.entries.create');
                 ->where('name', 'LIKE', "%{$request['item']}%")
                 ->orwhere('number', 'LIKE', "%{$request['item']}%")->get();
 
-            if (isset($request['company_id']) && $request['company_id'] > 0) {
-                $ledgers = $ledgers->where('company_id', $request['company_id']);
-            }
+//            if (isset($request['company_id']) && $request['company_id'] > 0) {
+//                $ledgers = $ledgers->where('company_id', $request['company_id']);
+//            }
 
-            if ($loggedIn == 4 || $loggedIn == 17 || $loggedIn == 19) {
-                $result['status'] = 1;
-            } else {
-                if (isset($request['branch_id']) && $request['branch_id'] > 0 && $request['branch_id'] != 'null') {
-                    $ledgers = $ledgers->where('branch_id', $request['branch_id']);
+
+//                    $ledgers = $ledgers->where('branch_id', $request['branch_id']);
                     $result['status'] = 1;
-                }
-            }
 
-            if (isset($request['company_id']) && $request['company_id'] > 0) {
+
+
+
 
                 $IncludeLedgers = Ledger::where('name', 'LIKE', "%{$request['item']}%")
                     ->orwhere('number', 'LIKE', "%{$request['item']}%")->get();
 
                 $bankAccountLedgers = $IncludeLedgers->where('group_id', $bankAccountGroupId)
-                    ->whereNotIn('id', $ledgers->pluck('id'))->where('company_id', $request['company_id'])->where('status', 1);
+                    ->whereNotIn('id', $ledgers->pluck('id'))->where('status', 1);
                 $ledgers = $ledgers->concat($bankAccountLedgers);
 
                 $childDepreciationGroups = Groups::where('parent_id', $AccumulatedDepreciationGroupId)->pluck('id');
                 foreach ($childDepreciationGroups as $childDepreciationGroup) {
 
                     $accumulatedDepreciationLedgers = $IncludeLedgers->where('group_id', $childDepreciationGroup)
-                        ->whereNotIn('id', $ledgers->pluck('id'))->where('company_id', $request['company_id'])->where('status', 1);
+                        ->whereNotIn('id', $ledgers->pluck('id'))->where('status', 1);
                     $ledgers = $ledgers->concat($accumulatedDepreciationLedgers);
 
                 }
-            }
+
 
             $result['data'][] = array(
                 'text' => '',
@@ -1645,7 +1637,7 @@ return view('admin.entries.create');
      */
     public function bpvStore(Request $request)
     {
-        if (Auth::user()->isAbleTo('store-voucher')) {
+//        if (Auth::user()->isAbleTo('store-voucher')) {
 
             $entries_session_data = Session::get('entries', []);
 
@@ -1667,9 +1659,9 @@ return view('admin.entries.create');
                     ->withErrors($response['error'])
                     ->withInput();
             }
-        } else {
-            return abort(401);
-        }
+//        } else {
+//            return abort(401);
+//        }
     }
 
 

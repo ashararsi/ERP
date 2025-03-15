@@ -117,6 +117,8 @@ var FormControls = function () {
                 },
                 processResults: function (data) {
                     console.log(data);
+
+                    results: data.data
                     if (data.status == 1) {
                         return {
                             results: data.data

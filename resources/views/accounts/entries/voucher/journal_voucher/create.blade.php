@@ -1,5 +1,5 @@
-@extends('layouts.app')
-@section('stylesheet')
+@extends('admin.layout.main')
+@section('css')
     <link rel="stylesheet"
           href="{{ url('public/adminlte') }}/bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <link rel="stylesheet"
@@ -55,18 +55,15 @@
                                         <td>{{ number_format($item->dr_total) }}</td>
                                         <td>{{ number_format($item->cr_total) }}</td>
                                         <td>
-                                            @if(Auth::user()->isAbleTo('print-voucher'))
-                                                <a class="btn btn-warning" href="download/{{ $item->id }}">PDF</a>
-                                            @endif
 
-                                            @if(Auth::user()->isAbleTo('show-voucher'))
+                                                <a class="btn btn-warning" href="download/{{ $item->id }}">PDF</a>
+
                                                 <a class="btn btn-primary" href="show/{{ $item->id }}">View</a>
-                                            @endif
-                                            @if(Auth::user()->isAbleTo('accounts-edit-voucher'))
+
                                                 <a class="btn btn-success"
                                                    href="{!! url('admin/gjv-edit/'.$item->id) !!}"
                                                    style="margin-right: 10px;">Edit</a>
-                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -79,14 +76,19 @@
         </div>
     </div>
 @stop
-@section('javascript')
+@section('js')
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
             type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <script
         src="https://ivyacademic.org/public/theme/assets/plugins/select2/js/select2.min.js"></script>
     <script src="{{ url('js/voucher/journal_voucher/create_modify.js') }}"
             type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    @include('admin.layout.datatable')
 
     <script>
         function dr_validation(id) {
@@ -110,7 +112,5 @@
             // alert(value);
         }
     </script>
-    <script>
-        $('.datatable').DataTable();
-    </script>
+
 @endsection
