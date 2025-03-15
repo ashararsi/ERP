@@ -348,7 +348,8 @@
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
                                 <li class="slide active">
-                                    <a href="{!! route('admin.account_groups.index') !!}" class="side-menu__item"> List</a>
+                                    <a href="{!! route('admin.account_groups.index') !!}" class="side-menu__item">
+                                        List</a>
                                 </li>
                                 <li class="slide active">
                                     <a href="{!! route('admin.account_groups.create') !!}" class="side-menu__item">
@@ -367,6 +368,29 @@
                                 <li class="slide active">
                                     <a href="{!! route('admin.ledger.create') !!}" class="side-menu__item">
                                         create</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="slide has-sub   ">
+                            <a href="javascript:void(0);" class="side-menu__item">Voucher
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide active">
+                                    <a href="{!! route('admin.gjv-create') !!}" class="side-menu__item"> GJV Create</a>
+                                </li>
+                                <li class="slide active">
+                                    <a href="{!! route('admin.crv-create') !!}" class="side-menu__item">
+                                        CJV Create</a>
+                                </li>
+                                <li class="slide active">
+                                    <a href="{!! route('admin.brv-create') !!}" class="side-menu__item"> BRV Create</a>
+                                </li>
+                                <li class="slide active">
+                                    <a href="{!! route('admin.cpv-create') !!}" class="side-menu__item"> CPV Create</a>
+                                </li>
+   <li class="slide active">
+                                    <a href="{!! route('admin.bpv-create') !!}" class="side-menu__item"> BPV Create</a>
                                 </li>
 
                             </ul>

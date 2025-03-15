@@ -236,7 +236,6 @@ return view('admin.entries.create');
         $vendor = Vendor::get();
         $vendorDropdown = 1;
 
-        if (Auth::user()->isAbleTo('create-cash-payment-voucher')) {
 
             $VoucherData = Session::get('_old_input');
             if (is_array($VoucherData) && !empty($VoucherData)) {
@@ -301,15 +300,13 @@ return view('admin.entries.create');
 
             // Get All Branch
             // Get All Branch
-            $Branch = Branch::get();
+            $branches= Branch::get();
             $companies = Company::get();
 
             $financial_year = GernalHelper::get_financial_year();
 
-            return view('accounts.entries.voucher.cash_voucher.cash_payment.create', compact('vendor', 'vendorDropdown', 'financial_year', 'Employees', 'entries', 'Branch', 'VoucherData', 'companies', 'companyId', 'branchId'));
-        } else {
-            return abort(401);
-        }
+            return view('accounts.entries.voucher.cash_voucher.cash_payment.create', compact('vendor', 'vendorDropdown', 'financial_year', 'Employees', 'entries', 'branches', 'VoucherData', 'companies', 'companyId', 'branchId'));
+
     }
 
     public function brvCreate()
@@ -326,7 +323,7 @@ return view('admin.entries.create');
         $sessionFinancialYear = Session::get('financial_year_session') ?? '';
         $sessionVoucherDate = Session::get('voucher_date_session') ?? '';
 
-        if (Auth::user()->isAbleTo('create-bank-receipt-voucher')) {
+
             $VoucherData = Session::get('_old_input');
             if (is_array($VoucherData) && !empty($VoucherData)) {
                 $ledger_ids = array();
@@ -384,15 +381,14 @@ return view('admin.entries.create');
             $Employees = Staff::get()->pluck('user_id', 'middle_name');
             $Employees->prepend('Select an Employee', '');
             // Get All Branch
-            $Branch = Branch::get();
+
+        $branches = Branch::get();
             $companies = Company::get();
 
             $financial_year = GernalHelper::get_financial_year();
 
-            return view('accounts.entries.voucher.bank_voucher.bank_receipt.create', compact('financial_year', 'Employees', 'entries', 'Branch', 'VoucherData', 'companies', 'companyId', 'branchId'));
-        } else {
-            return abort(401);
-        }
+            return view('accounts.entries.voucher.bank_voucher.bank_receipt.create', compact('financial_year', 'Employees', 'entries', 'branches', 'VoucherData', 'companies', 'companyId', 'branchId'));
+
     }
 
     public function crvCreate()
@@ -409,7 +405,7 @@ return view('admin.entries.create');
         $sessionFinancialYear = Session::get('financial_year_session') ?? '';
         $sessionVoucherDate = Session::get('voucher_date_session') ?? '';
 
-        if (Auth::user()->isAbleTo('create-cash-receipt-voucher')) {
+
             $VoucherData = Session::get('_old_input');
             if (is_array($VoucherData) && !empty($VoucherData)) {
                 // Fetch Ledger IDs to create Ledger Objects
@@ -472,15 +468,13 @@ return view('admin.entries.create');
 
             // Get All Branch
             // Get All Branch
-            $Branch = Branch::get();
+        $branches = Branch::get();
             $companies = Company::get();
 
             $financial_year = GernalHelper::get_financial_year();
 
-            return view('accounts.entries.voucher.cash_voucher.cash_receipt.create', compact('financial_year', 'Employees', 'entries', 'Branch', 'VoucherData', 'companies', 'companyId', 'branchId'));
-        } else {
-            return abort(401);
-        }
+            return view('accounts.entries.voucher.cash_voucher.cash_receipt.create', compact('financial_year', 'Employees', 'entries', 'branches', 'VoucherData', 'companies', 'companyId', 'branchId'));
+
     }
 
 //   public function gjvedit($id)

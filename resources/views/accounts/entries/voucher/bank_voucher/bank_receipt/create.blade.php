@@ -1,9 +1,6 @@
-@extends('layouts.app')
-@section('stylesheet')
-    <link rel="stylesheet"
-          href="{{ url('public/adminlte') }}/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-    <link rel="stylesheet"
-          href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"/>
+@extends('admin.layout.main')
+@section('css')
+
 @stop
 @section('content')
     <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
@@ -11,26 +8,29 @@
         <div class="card">
             <div class="card-body">
                 <div class="main-content-label mg-b-5">
-                    <h3 style="float:left;">Create Bank Receipt Voucher</h3>
-                    <a href="{{ route('admin.entries.index') }}" style="float:right;"
-                       class="btn btn-success pull-right">Back</a>
+                    <div class="row mb-4 mt-2">
+                        <div class="col-md-10">
+                            <h3 style="float:left;">Create Bank Receipt Voucher</h3>
+                        </div>
+                        <div class="col-md-2">
 
-
-                </div>
-                <!-- /.box-header -->
-                <!-- form start -->
-
-                <div class="box-body" style="margin-top:40px;">
-                    {!! Form::open(['method' => 'POST', 'route' => ['admin.brv-store'], 'id' => 'validation-form']) !!}
-                    {!! Form::hidden('entry_type_id', old('entry_type_id', '4'),['id'=>'entry_type_id']) !!}
-                    @include('accounts.entries.voucher.bank_voucher.bank_receipt.fields',['companyId' => $companyId,'branchId' => $branchId])
-                    <div class="row">
-                        <div class="col-md-12 mt-3">
-                            {!! Form::submit(trans('Save'), ['class' => 'btn btn-success globalSaveBtn float-end ']) !!}
+                            <a href="{{ route('admin.entries.index') }}" style="float:right;"
+                               class="btn btn-success pull-right">Back</a>
                         </div>
                     </div>
-                    {!! Form::close() !!}
+                    <div class="row">
 
+
+                        {!! Form::open(['method' => 'POST', 'route' => ['admin.brv-store'], 'id' => 'validation-form']) !!}
+                        {!! Form::hidden('entry_type_id', old('entry_type_id', '4'),['id'=>'entry_type_id']) !!}
+                        @include('accounts.entries.voucher.bank_voucher.bank_receipt.fields',['companyId' => $companyId,'branchId' => $branchId])
+                        <div class="row">
+                            <div class="col-md-12 mt-3">
+                                {!! Form::submit(trans('Save'), ['class' => 'btn btn-success globalSaveBtn float-end ']) !!}
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
                     @include('accounts.entries.voucher.bank_voucher.bank_receipt.intrument_entries_template')
 
                     <div class="clearfix mt-5">
@@ -59,17 +59,13 @@
                                         <td>{{ number_format($item->dr_total) }}</td>
                                         <td>{{ number_format($item->cr_total) }}</td>
                                         <td>
-                                            @if(Auth::user()->isAbleTo('print-voucher'))
+
                                                 <a class="btn btn-warning" href="download/{{ $item->id }}">PDF</a>
-                                            @endif
-                                            @if(Auth::user()->isAbleTo('show-voucher'))
-                                                <a class="btn btn-primary" href="show/{{ $item->id }}">View</a>
-                                            @endif
-                                            @if(Auth::user()->isAbleTo('accounts-edit-voucher'))
-                                                <a class="btn btn-success"
+                                                 <a class="btn btn-primary" href="show/{{ $item->id }}">View</a>
+                                                 <a class="btn btn-success"
                                                    href="{!! url('admin/brv-edit/'.$item->id) !!}"
                                                    style="margin-right: 10px;">Edit</a>
-                                            @endif
+
                                         </td>
                                         {{--                                            <td>--}}
                                         {{--                                                <button id="btnGroupDrop{{ $loop->index }}" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">--}}
@@ -91,40 +87,47 @@
                         </div>
                     </div>
                 </div>
-                @stop
-                @section('javascript')
+            </div>
+        </div>
+    </div>
 
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
-                            type="text/javascript"></script>
-                    <script
-                        src="https://ivyacademic.org/public/theme/assets/plugins/select2/js/select2.min.js"></script>
-                    <script src="{{ url('js/voucher/journal_voucher/create_modify.js') }}"
-                            type="text/javascript"></script>
-                    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+@stop
+@section('js')
 
-                    <script>
-                        function dr_validation(id) {
-                            var id = '#entry_item-dr_amount-' + id;
-                            //console.log(id);
-                            //var value = $(id).val();
-                            $(id).keyup(function (event) {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script
+        src="https://ivyacademic.org/public/theme/assets/plugins/select2/js/select2.min.js"></script>
+    <script src="{{ url('js/voucher/journal_voucher/create_modify.js') }}"
+            type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+          rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    @include('admin.layout.datatable')
 
-                                // skip for arrow keys
-                                if (event.which >= 37 && event.which <= 40) return;
+    <script>
+        function dr_validation(id) {
+            var id = '#entry_item-dr_amount-' + id;
+            //console.log(id);
+            //var value = $(id).val();
+            $(id).keyup(function (event) {
+
+                // skip for arrow keys
+                if (event.which >= 37 && event.which <= 40) return;
 
 
-                            });
-                            //alert(value);
-                        }
+            });
+            //alert(value);
+        }
 
-                        function cr_validation(id) {
-                            var id = '#entry_item-cr_amount-' + id;
-                            console.log(id);
-                            var value = $(id).val();
-                            // alert(value);
-                        }
-                    </script>
-                    <script>
-                        $('.datatable').DataTable();
-                    </script>
+        function cr_validation(id) {
+            var id = '#entry_item-cr_amount-' + id;
+            console.log(id);
+            var value = $(id).val();
+            // alert(value);
+        }
+    </script>
+    <script>
+        $('.datatable').DataTable();
+    </script>
 @endsection
