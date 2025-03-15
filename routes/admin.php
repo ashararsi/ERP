@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\LedgerController;
 use App\Http\Controllers\Admin\EntriesController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\GoodReceiptNoteController;
+use App\Http\Controllers\Admin\FinancialYearController;
+use App\Http\Controllers\Admin\VendorController;
 use App\Models\Formulations;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
@@ -126,7 +128,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('products', ProductController::class);
     Route::post('/products/getdata', [ProductController::class, 'getdata'])->name('products.getdata');
-
+    Route::resource('financial-year', FinancialYearController::class);
+    Route::post('/financial-year/getdata', [FinancialYearController::class, 'getdata'])->name('financial-year.getdata');
+    Route::resource('vendor', VendorController::class);
+    Route::post('/vendor/getdata', [VendorController::class, 'getdata'])->name('vendor.getdata');
 
 
 
