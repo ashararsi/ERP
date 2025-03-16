@@ -50,50 +50,55 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-        $('#data-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('admin.users.getdata') }}",
-                type: "POST",
-                data: { _token: "{{ csrf_token() }}" }
-            },
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                { data: 'email_verified_at', name: 'verified' },
-                { data: 'action', name: 'action', orderable: false, searchable: false }
-            ],
-            dom: 'Bfrtip', // Add this to enable buttons
-            buttons: [
-                {
-                    extend: 'excelHtml5',
-                    title: 'User Data',
-                    className: 'btn btn-primary',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3] // Exclude action column
+            $('#data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin.users.getdata') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        @if(request()->query('role'))
+                        'role': "{{ request()->query('role') }}",
+                        @endif
                     }
                 },
-                {
-                    extend: 'pdfHtml5',
-                    title: 'User Data',
-                    className: 'btn btn-primary',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3]
-                    }
-                },
-                {
-                    extend: 'print',
-                    title: 'User Data',
-                    className: 'btn btn-primary',
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'email', name: 'email'},
+                    {data: 'email_verified_at', name: 'verified'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false}
+                ],
+                dom: 'Bfrtip', // Add this to enable buttons
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'User Data',
+                        className: 'btn btn-primary',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3] // Exclude action column
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'User Data',
+                        className: 'btn btn-primary',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        title: 'User Data',
+                        className: 'btn btn-primary',
 
-                    exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        exportOptions: {
+                            columns: [0, 1, 2, 3]
+                        }
                     }
-                }
-            ]
-        });
+                ]
+            });
         });
     </script>
 @endsection

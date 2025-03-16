@@ -33,9 +33,9 @@ class UserController extends Controller
         return view('admin.Users.index');
     }
 
-    public function getdata()
+    public function getdata(Request $request)
     {
-        return $this->UserServise->getdata();
+        return $this->UserServise->getdata($request);
 
     }
 

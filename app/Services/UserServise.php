@@ -55,13 +55,13 @@ class UserServise
 
         $roles = $request->role ? $request->role : [];
 
-        $roles_arrayy=   Role::whereIn('id', $roles)->pluck('name');
+        $roles_arrayy = Role::whereIn('id', $roles)->pluck('name');
 
         $data = $request->all();
         $data['image'] = "dist/Profile/defualt.png";
         $fileNameToStore = null;
         $data['password'] = Hash::make($request->password);
-            unset($data['role']);
+        unset($data['role']);
         $user = User::create($data);
 
         $user->assignRole($roles_arrayy);
@@ -95,9 +95,17 @@ class UserServise
     }
 
 
-    public function getdata()
+    public function getdata($request)
     {
+
         $data = User::select('id', 'email', 'name', 'email_verified_at')->orderBy('id', 'desc');
+
+        if ($request->role) {
+            $data->whereHas('roles', function ($query) use ($request) { // Pass $request to closure
+                $query->where('name', $request->role);
+            });
+        }
+
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('status', function ($row) {
                 return ($row->active == 1) ? 'Active' : 'Deactive';
@@ -120,7 +128,7 @@ class UserServise
 
     public function edit($id)
     {
-        return User::with('campaigns','members','coach')->where('id',$id)->first();
+        return User::with('campaigns', 'members', 'coach')->where('id', $id)->first();
 
 
     }

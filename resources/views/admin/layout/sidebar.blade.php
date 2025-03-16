@@ -104,20 +104,7 @@
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child1">
-                        <li class="slide has-sub">
-                            <a href="javascript:void(0);" class="side-menu__item">Users
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide">
-                                    <a href="{!! route('admin.users.index') !!}" class="side-menu__item">List</a>
-                                </li>
-                                <li class="slide has-sub">
-                                    <a href="{!! route('admin.users.create') !!}" class="side-menu__item"> Create New
-                                        <i class="fe fe-chevron-right side-menu__angle"></i></a>
 
-                                </li>
-                            </ul>
-                        </li>
                         <li class="slide has-sub">
                             <a href="javascript:void(0);" class="side-menu__item">Roles
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -142,6 +129,76 @@
                                 <li class="slide has-sub">
                                     <a href="{!! route('admin.permissions.create') !!}" class="side-menu__item"> Create
                                         New
+                                        <i class="fe fe-chevron-right side-menu__angle"></i></a>
+
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">Users
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide">
+                                    <a href="{!! route('admin.users.index') !!}" class="side-menu__item">List</a>
+                                </li>
+                                <li class="slide has-sub">
+                                    <a href="{!! route('admin.users.create') !!}" class="side-menu__item"> Create New
+                                        <i class="fe fe-chevron-right side-menu__angle"></i></a>
+
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">QA Users
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide">
+                                    <a href="{!! route('admin.users.index',['role'=>'QA']) !!}" class="side-menu__item">List</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">Operator Users
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide">
+                                    <a href="{!! route('admin.users.index',['role'=>'Operator']) !!}"
+                                       class="side-menu__item">List</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">Suppliers
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide">
+                                    <a href="{!! route('admin.suppliers.index') !!}" class="side-menu__item">List</a>
+                                </li>
+                                <li class="slide has-sub">
+                                    <a href="{!! route('admin.suppliers.create') !!}" class="side-menu__item"> Create New
+                                        <i class="fe fe-chevron-right side-menu__angle"></i></a>
+
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">Vendor
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide">
+                                    <a href="{!! route('admin.vendor.index') !!}" class="side-menu__item">List</a>
+                                </li>
+                                <li class="slide has-sub">
+                                    <a href="{!! route('admin.vendor.create') !!}" class="side-menu__item"> Create New
                                         <i class="fe fe-chevron-right side-menu__angle"></i></a>
 
                                 </li>
@@ -393,7 +450,8 @@
                                     <a href="{!! route('admin.bpv-create') !!}" class="side-menu__item"> BPV Create</a>
                                 </li>
                                 <li class="slide active">
-                                    <a href="{!! route('admin.entries.index') !!}" class="side-menu__item"> All Entries</a>
+                                    <a href="{!! route('admin.entries.index') !!}" class="side-menu__item"> All
+                                        Entries</a>
                                 </li>
 
                             </ul>
