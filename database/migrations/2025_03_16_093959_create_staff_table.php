@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('branch_id')->index();
-            $table->integer('program_id')->nullable();
+
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedInteger('working_hours')->nullable();
             $table->string('reg_no')->nullable();
@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('pemail', 1000)->nullable();
             $table->enum('marital_status', ['married', 'unmarried'])->nullable();
             $table->date('expiry_date')->nullable();
-            $table->string('class_level', 1000)->nullable();
             $table->integer('training')->nullable();
             $table->string('staff_type');
             $table->date('join_date')->nullable();
@@ -50,7 +49,7 @@ return new class extends Migration
             $table->string('home_phone')->nullable();
             $table->string('mobile_1')->nullable();
             $table->string('mobile_2')->nullable();
-            $table->string('email')->index();
+            $table->string('email')->nullable();
             $table->string('qualification')->nullable();
             $table->string('experience')->nullable();
             $table->string('other_info')->nullable();

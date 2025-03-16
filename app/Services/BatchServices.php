@@ -21,15 +21,14 @@ class BatchServices
     public function getusers()
     {
         $suppliers = User::whereHas('roles', function ($query) {
-            $query->where('name', 'supplier');
+            $query->where('name', 'Supplier');
         })->get();
-
 
         $qaUsers = User::whereHas('roles', function ($query) {
             $query->where('name', 'QA');
         })->get();
         $operator_initials = User::whereHas('roles', function ($query) {
-            $query->where('name', 'operator');
+            $query->where('name', 'Operator');
         })->get();
         return ['suppliers' => $suppliers, 'qaUsers' => $qaUsers, 'operator_initials' => $operator_initials];
     }
@@ -52,6 +51,7 @@ class BatchServices
     public function store($request)
     {
         $data = $request->all();
+        dd($data);
 //        $data['parent_id'] = ($request->parent_id == 0) ? null : $request->parent_id;
         return Batche::create($data);
 

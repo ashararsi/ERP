@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('erp_financial_years', function (Blueprint $table) {
+        Schema::create('erp_financial_years', function (Blueprint $table) {
+
             $table->id();
             $table->string('name', 255)->collation('utf8mb4_unicode_ci');
             $table->date('start_date');

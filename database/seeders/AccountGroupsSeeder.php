@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use App\Models\AccountGroup;
 
 class AccountGroupsSeeder extends Seeder
 {
@@ -21,6 +22,6 @@ class AccountGroupsSeeder extends Seeder
 //
 
         // Insert all account groups at once
-        DB::table('account_groups')->insert($accountGroups);
+        AccountGroup::insert($accountGroups);
     }
 }

@@ -10,8 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('vendors', function (Blueprint $table) {
-            $table->id();
+
+            Schema::create('vendors', function (Blueprint $table) {
+
+                $table->id();
             $table->string('vendor_name', 191)->nullable()->collation('latin1_swedish_ci'); // Vendor Name
             $table->string('cnic', 191)->nullable()->collation('latin1_swedish_ci'); // CNIC
             $table->string('ntn', 191)->nullable()->collation('latin1_swedish_ci'); // NTN

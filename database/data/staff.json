@@ -1,7 +1,6 @@
 [
     {
         "branch_id": 1,
-        "program_id": 2,
         "user_id": 1,
         "working_hours": 40,
         "reg_no": "REG-001",
@@ -9,7 +8,6 @@
         "pemail": "john.doe@gmail.com",
         "marital_status": "married",
         "expiry_date": "2026-03-16",
-        "class_level": "A",
         "training": 5,
         "staff_type": "Permanent",
         "join_date": "2023-01-15",
@@ -29,7 +27,6 @@
     },
     {
         "branch_id": 2,
-        "program_id": 3,
         "user_id": 2,
         "working_hours": 35,
         "reg_no": "REG-002",
@@ -37,7 +34,7 @@
         "pemail": "jane.smith@gmail.com",
         "marital_status": "unmarried",
         "expiry_date": "2025-12-31",
-        "class_level": "B",
+
         "training": 4,
         "staff_type": "Contract",
         "join_date": "2022-08-10",
@@ -57,7 +54,7 @@
     },
     {
         "branch_id": 1,
-        "program_id": 4,
+
         "user_id": 3,
         "working_hours": 30,
         "reg_no": "REG-003",
@@ -65,7 +62,7 @@
         "pemail": "mark.brown@gmail.com",
         "marital_status": "married",
         "expiry_date": "2026-05-20",
-        "class_level": "C",
+
         "training": 3,
         "staff_type": "Permanent",
         "join_date": "2023-03-10",

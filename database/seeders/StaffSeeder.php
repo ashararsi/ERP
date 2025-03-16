@@ -6,36 +6,18 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
+use App\Models\Staff;
 
-class SupplierSeeder extends Seeder
+class StaffSeeder extends Seeder
 {
     public function run()
     {
-        $jsonPath = database_path('seeders/data/suppliers.json');
+        $json = File::get(database_path('data/staff.json'));
 
-        if (!File::exists($jsonPath)) {
-            $this->command->error("The file suppliers.json does not exist at: {$jsonPath}");
-            return;
-        }
+        // Decode JSON data into an array
+        $staff = json_decode($json, true);
 
-        $suppliers = json_decode(File::get($jsonPath), true);
-
-        if ($suppliers === null) {
-            $this->command->error("Invalid JSON format in suppliers.json");
-            return;
-        }
-
-        // Add timestamps to each supplier
-        $currentTimestamp = Carbon::now();
-        $suppliers = array_map(function ($supplier) use ($currentTimestamp) {
-            $supplier['created_at'] = $currentTimestamp;
-            $supplier['updated_at'] = $currentTimestamp;
-            return $supplier;
-        }, $suppliers);
-
-        // Insert all records at once
-        DB::table('suppliers')->insert($suppliers);
-
-        $this->command->info('Suppliers table seeded successfully!');
+        // Insert all ledger entries at once
+        Staff::insert($staff);
     }
 }

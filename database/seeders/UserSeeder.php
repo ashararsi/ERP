@@ -24,11 +24,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'role' => 'admin',
         ]);
-
-
-        $user=User::find(1);
-
-        $roles =  ['admin'];
+        $user = User::find(1);
+        $roles = ['Admin'];
         $user->assignRole($roles);
 
     }
