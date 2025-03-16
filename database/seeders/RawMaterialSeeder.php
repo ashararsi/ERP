@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use App\Models\RawMaterials;
 
 class RawMaterialSeeder extends Seeder
 {
@@ -20,6 +21,6 @@ class RawMaterialSeeder extends Seeder
         $rawMaterials = json_decode($json, true);
 
         // Insert all raw materials at once
-        DB::table('raw_materials')->insert($rawMaterials);
+        RawMaterials::insert($rawMaterials);
     }
 }

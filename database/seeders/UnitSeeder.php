@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use App\Models\Unit;
 
 class UnitSeeder extends Seeder
 {
@@ -20,6 +21,6 @@ class UnitSeeder extends Seeder
         $units = json_decode($json, true);
 
         // Insert all unit records at once
-        DB::table('units')->insert($units);
+        Unit::insert($units);
     }
 }

@@ -53,7 +53,7 @@ class RoleSeeder extends Seeder
         $roles = json_decode($json, true);
 
         // Insert all roles at once
-        DB::table('roles')->insert($roles);
+        Role::insert($roles);
     }
 
 }
