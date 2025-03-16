@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             StaffSeeder::class,
             UnitSeeder::class,
             UserSeeder::class,
+            SupplierSeeder::class,
 
 
         ]);

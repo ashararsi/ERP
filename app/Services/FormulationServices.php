@@ -18,7 +18,7 @@ class FormulationServices
 {
     public function create()
     {
-        return RawMaterials::all();
+        return Formulations::all();
 
     }
 
