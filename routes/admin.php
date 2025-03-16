@@ -104,15 +104,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::post('/purchaseorders/getdata', [PurchaseOrderController::class, 'getdata'])->name('purchaseorders.getdata');
     Route::get('/purchaseorders/po-report/{id}', [PurchaseOrderController::class, 'generatePDF'])->name('po.pdf');
 
-    Route::resource('ledger', LedgerController::class);
-
-    Route::post('/ledger/getdata', [LedgerController::class, 'getdata'])->name('ledger.getdata');
-
 
 
 
     Route::resource('entries', EntriesController::class);
     Route::post('/entries/getdata', [EntriesController::class, 'getdata'])->name('entries.getdata');
+    Route::resource('ledger', LedgerController::class);
+    Route::post('/ledger/getdata', [LedgerController::class, 'getdata'])->name('ledger.getdata');
+
 
     Route::post('/ledger/already_created', [LedgerController::class, 'already_created'])->name('ledger.already_created');
       Route::post('load-ledger', [LedgerController::class, 'load_ledgers'])->name('load-ledger');
@@ -128,6 +127,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('products', ProductController::class);
     Route::post('/products/getdata', [ProductController::class, 'getdata'])->name('products.getdata');
+
+
+
     Route::resource('financial-year', FinancialYearController::class);
     Route::post('/financial-year/getdata', [FinancialYearController::class, 'getdata'])->name('financial-year.getdata');
     Route::resource('vendor', VendorController::class);
