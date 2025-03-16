@@ -94,19 +94,19 @@ class LedgersTree
         $where = ['group_id' => $this->id];
 
         if ($this->filter['company_id'] > 0 && $this->filter['branch_id'] > 0) {
-            if (!$child_ledger_q = Ledger::join('erp_branches', 'erp_branches.id', '=', 'erp_ledgers.branch_id')
+            if (!$child_ledger_q = Ledger::join('erp_branches', 'erp_branches.id', '=', 'ledgers.branch_id')
                 ->where('erp_branches.company_id', $this->filter['company_id'])->where('erp_branches.id', $this->filter['branch_id'])
-                ->select('erp_ledgers.*')->where($where)->OrderBy('number', 'asc')->get()) {
+                ->select('ledgers.*')->where($where)->OrderBy('number', 'asc')->get()) {
                 return;
             }
         } elseif ($this->filter['company_id'] > 0) {
-            if (!$child_ledger_q = Ledger::join('erp_branches', 'erp_branches.id', '=', 'erp_ledgers.branch_id')
+            if (!$child_ledger_q = Ledger::join('erp_branches', 'erp_branches.id', '=', 'ledgers.branch_id')
                 ->where('erp_branches.company_id', $this->filter['company_id'])
-                ->select('erp_ledgers.*')->where($where)->OrderBy('number', 'asc')->get()) {
+                ->select('ledgers.*')->where($where)->OrderBy('number', 'asc')->get()) {
                 return;
             }
         } else {
-            $child_ledger_q = Ledger::select('erp_ledgers.*')->where($where)->OrderBy('number', 'asc')->get();
+            $child_ledger_q = Ledger::select('ledgers.*')->where($where)->OrderBy('number', 'asc')->get();
         }
 
         $counter = 0;

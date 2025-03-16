@@ -139,6 +139,35 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
 
 
+    Route::get('chart-of-accounts', [EntriesController::class, 'chart_of_account'])->name('chart-of-accounts.index');
+    Route::post('chart-of-accounts/store', [EntriesController::class, 'chart_of_account_store'])->name('chart-of-accounts.store');
+    Route::post('chart-of-accounts/pdf', [EntriesController::class, 'chart_of_account_pdf'])->name('chart-of-accounts.pdf');
+
+
+//    Route::post('chart-of-accounts/pdf', [ChartOfAccountController::class, 'pdf'])->name('chart-of-accounts.pdf');
+//    Route::get('bank-loan-details/{id}', [BankLoanController::class, 'show'])->name('bank-loan-details');
+//    Route::get('ledger-report', [ReportsController::class, 'ledger_report'])->name('ledger-report');
+//    Route::get('ledger-report-print/{id}/{start_date}/{end_date}', [ReportsController::class, 'ledger_report'])->name('ledger_report_print_from_trial_balance');
+//    Route::post('ledger-report-print', [ReportsController::class, 'ledger_print'])->name('ledger_report_print');
+//    Route::get('vendor-wise-ledger-report', [ReportsController::class, 'vendor_wise_ledger_report'])->name('vendor-wise-ledger-report');
+//    Route::post('vendor-wise-ledger-report-print', [ReportsController::class, 'vendor_wise_ledger_print'])->name('vendor-wise-ledger_report_print');
+//    Route::get('profit-loss-report', [ReportsController::class, 'profit_loss'])->name('profit-loss-report');
+//    Route::post('profit-loss-report-prints', [ReportsController::class, 'profit_loss_print'])->name('profit-loss-report-prints');
+//    Route::get('cmp-profit-loss-report', [ReportsController::class, 'cmp_profit_loss'])->name('cmp-profit-loss-report');
+//    Route::post('cmp-profit-loss-report-prints', [ReportsController::class, 'cmp_profit_loss_print'])->name('cmp-profit-loss-report-prints');
+//    Route::get('trial-balance-report', [ReportsController::class, 'trial_balance'])->name('trial-balance-report');
+//    Route::post('trial-balance-report-print', [ReportsController::class, 'trial_balance_report'])->name('trial-balance-report-print');
+//    Route::get('trial-balance-group/{group_id}/{start_date}/{end_date}/{company_id}/{branch_id}', [ReportsController::class, 'trial_balance_group'])->name('trial-balance-group');
+//
+//    Route::get('balance-sheet-report', [ReportsController::class, 'balance_sheet'])->name('balance-sheet-report');
+//    Route::get('notes-to-the-accounts/{start_date}/{end_date}/{group_id}/{company_id}', [ReportsController::class, 'notes_to_the_accounts'])->name('notes-to-the-accounts');
+//    Route::post('balance-sheet-report-print', [ReportsController::class, 'balance_sheet_report'])->name('balance-sheet-report-print');
+//    Route::get('balance-sheet-test/{g_id}', [ReportsController::class, 'test'])->name('test');
+//    Route::get('testBalance', [ReportsController::class, 'testBalance'])->name('testBalance');
+
+
+
+
 
     Route::get('bpv-create', [EntriesController::class, 'bpvCreate'])->name('bpv-create');
     Route::get('cpv-create', [EntriesController::class, 'cpvCreate'])->name('cpv-create');

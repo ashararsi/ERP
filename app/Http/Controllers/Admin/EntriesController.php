@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\CoreAccounts;
 use App\Helpers\GernalHelper;
+use App\Helpers\LedgersTree;
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
 
+use App\Models\Branches;
 use App\Models\Company;
 use App\Models\Entries;
 use App\Models\EntryItems;
@@ -18,6 +20,8 @@ use App\Models\Vendor;
 use App\Services\EntriesServices;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\View;
+use Mpdf\Mpdf;
 use PDF;
 use Session;
 use Config;
@@ -1853,4 +1857,58 @@ return view('admin.entries.create');
 
         return str_pad($number, 6, '0', STR_PAD_LEFT);
     }
+
+
+
+
+    public function chart_of_account()
+    {
+        $companies = Company::get();
+
+        return view('accounts.reports.accounts.chart_of_accounts.index', compact('companies'));
+    }
+    public function chart_of_account_pdf(Request $request)
+    {
+dd(2);
+    } public function chart_of_account_store(Request $request)
+    {
+        $type = $request->type ?? 0;
+
+        $parentGroups = new LedgersTree();
+        $parentGroups->current_id = -1;
+        $parentGroups->filter = $request->all();
+        $parentGroups->build(0);
+        $parentGroups->toList($parentGroups, -1);
+        $Ledgers = $parentGroups->ledgerList;
+
+        $company = Company::where('id', $request->company_id)->value('name');
+        if ($request->branch_id) {
+            $branch = Branches::where('id', $request->branch_id)->value('name');
+        } else {
+            $branch = null;
+        }
+
+        if ($type == 'excel') {
+            return self::excel_report($Ledgers, $company, $branch);
+        } elseif ($type == 'print') {
+            $content = View::make('accounts.reports.accounts.chart_of_accounts.pdf', compact('Ledgers', 'company', 'branch', 'type'))->render();
+            // Create an instance of the class:
+            $mpdf = new Mpdf([
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'margin_left' => 1, // Set left margin to 0
+                'margin_right' => 1, // Set right margin to 0
+                'margin_top' => 1, // Set top margin to 0
+                'margin_bottom' => 1, // Set bottom margin to 0
+            ]);
+            // Write some HTML code:
+            $mpdf->WriteHTML($content);
+            // Output a PDF file directly to the browser
+            $mpdf->Output('ChartOfAccounts.pdf', 'D');
+        } elseif ($type == 'web') {
+            return view('accounts.reports.accounts.chart_of_accounts.pdf', compact('Ledgers', 'company', 'branch', 'type'));
+        }
+        return 0;
+    }
+
 }

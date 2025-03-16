@@ -456,7 +456,21 @@
 
                             </ul>
                         </li>
+                        <li class="slide has-sub   ">
+                            <a href="javascript:void(0);" class="side-menu__item"> Reports
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide active">
+                                    <a href="{!! route('admin.chart-of-accounts.index') !!}" class="side-menu__item">
+                                        chart Of account </a>
+                                </li>
+                                <li class="slide active">
+                                    <a href="{!! route('admin.account_groups.create') !!}" class="side-menu__item">
+                                        create</a>
+                                </li>
 
+                            </ul>
+                        </li>
 
                     </ul>
                 </li>
