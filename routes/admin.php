@@ -84,6 +84,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     //formulations curd
     Route::resource('formulations', FormulationController::class);
     Route::post('/formulations/getdata', [FormulationController::class, 'getdata'])->name('formulations.getdata');
+    Route::post('/formulations/fetch/records', [FormulationController::class, 'fetch_po_record'])->name('FormulationController.fetch_po_record');
 
     //companies curd
     Route::resource('companies', CompaniesController::class);

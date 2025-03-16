@@ -26,7 +26,8 @@
                             <div class="row">
                                 <div class="col-md-12 mb-3">
                                     <label for="formula_name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="formula_name" name="formula_name" required>
+                                    <input type="text" class="form-control" id="formula_name" name="formula_name"
+                                           required>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="description" class="form-label">Description</label>
@@ -148,7 +149,7 @@
                                             <select class="form-control" name="raw_material_id[]" required>
                                                 <option value="">Select Raw Material</option>
                                                 @foreach($raw as $rawMaterial)
-                                                <option value="{{$rawMaterial->id}}">{{$rawMaterial->name}}</option>
+                <option value="{{$rawMaterial->id}}">{{$rawMaterial->name}}</option>
                                                 @endforeach
                 </select>
             </div>

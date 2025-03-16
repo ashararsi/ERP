@@ -6,6 +6,8 @@ use App\Models\Formulations;
 use App\Models\FormulationDetail;
 use App\Models\Batche;
 use App\Models\Processe;
+use App\Models\PurchaseOrder;
+use App\Models\Supplier;
 use App\Models\Unit;
 use App\Models\User;
 
@@ -20,7 +22,9 @@ class FormulationServices
     {
         return Formulations::all();
 
-    }  public function Raw()
+    }
+
+    public function Raw()
     {
         return RawMaterials::all();
 
@@ -133,4 +137,25 @@ class FormulationServices
             ->make(true);
 
     }
+
+    public function fetch_po_record($request)
+    {
+        $data = $this->data_pdf();
+        $f = Formulations::with('formulationDetail')->where('id', $request->id)->first();
+
+        return view('admin.formulation.data', compact('f', 'data'));
+
+
+    }
+
+    public function data_pdf()
+    {
+        $data['units'] = Unit::all();
+        $data['Supplier'] = Supplier::all();
+        $data['RawMaterials'] = RawMaterials::all();
+        $data['po'] = PurchaseOrder::all();
+        return $data;
+    }
+
+
 }

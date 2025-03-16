@@ -86,5 +86,8 @@ class FormulationController extends Controller
     public function getdata(Request $request)
     {
       return $this->FormulationServices->getdata($request);
+    }public function fetch_po_record(Request $request)
+    {
+      return $this->FormulationServices->fetch_po_record($request);
     }
 }

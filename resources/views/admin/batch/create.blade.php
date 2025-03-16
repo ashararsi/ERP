@@ -26,10 +26,9 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="batchName" class="form-label">Formulation</label>
-                                    <select class="form-control">
+                                    <select class="form-control" id="formulation_id" name="formulation_id" required>
                                         <option value="">Select Formulation</option>
                                         @foreach($formulation as $formulations)
-
                                             <option value="{{$formulations->id}}">{{$formulations->formula_name}}</option>
                                         @endforeach
                                     </select>
@@ -48,45 +47,11 @@
 
                             <div id="batchDetailsContainer">
                                 <div class="batch-detail row g-3">
-                                    <div class="col-md-3">
-                                        <select class="form-control" name="raw_material[]" required>
-                                            <option value="">Select Raw Material</option>
-                                            @foreach($raw as $rawMaterial)
-                                                <option value="{{$rawMaterial->id}}">{{$rawMaterial->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input type="number" step="0.01" name="actual_quantity[]" class="form-control"
-                                               placeholder="Quantity" required>
-                                    </div>
 
-
-                                    <div class="col-md-2">
-
-                                        <select name="operator_initials[]" class="form-control">
-                                            <option value="">Select operator initials</option>
-                                            @foreach($users['operator_initials'] as $item)
-                                                <option value="{{$item->id}}">{{$item->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-
-                                        <select name="qa_initials[]" class="form-control">
-                                            <option value="">Select QA Initials</option>
-                                            @foreach($users['qaUsers'] as $item)
-                                                <option value="{{$item->id}}">{{$item->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3 d-flex align-items-center">
-                                        <button type="button" class="btn btn-danger removeRow">X</button>
-                                    </div>
                                 </div>
                             </div>
 
-                            <button type="button" class="btn btn-primary mt-3" id="addRow">Add More</button>
+
                             <div class="row mt-4">
 
                                 <div class="col-md-3 ">
@@ -106,55 +71,30 @@
 @stop
 @section('js')
     <script>
+
         $(document).ready(function () {
-            // Add new row
-            $("#addRow").click(function () {
-                var newRow = `<div class="batch-detail row g-3 mt-2">
-                         <div class="col-md-3">
-                        <select class="form-control" name="raw_material[]" required>
-                                                    <option value="">Select Raw Material</option>
-                                                    @foreach($raw as $rawMaterial)
-                        <option value="{{$rawMaterial->id}}">{{$rawMaterial->name}}</option>
-                                                    @endforeach
-                        </select>
-                        </div>
-                        <div class="col-md-2">
-                        <input type="number" step="0.01" name="actual_quantity[]" class="form-control" placeholder="Quantity" required>
-                        </div>
-                        <div class="col-md-2">
-                        <select name="operator_initials[]" class="form-control">
-                                            <option value="">Selectoperator initials </option>
-                        @foreach($users['operator_initials'] as $item)
-                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                                                    @endforeach
-                                        </select>
-                        </div>
-                        <div class="col-md-2">
-                         <select name="qa_initials[]" class="form-control">
-                                                                    <option value="">Select QA Initials</option>
-                                                                    @foreach($users['qaUsers'] as $item)
-                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                                                    @endforeach
-                                        </select>
-                        </div>
-                        <div class="col-md-3 d-flex align-items-center">
-                        <button type="button" class="btn btn-danger removeRow">X</button>
-                        </div>
-                        </div>`;
+            $('#formulation_id').change(function () {
+                $('#batchDetailsContainer').html('');
+                var formulation_id = $(this).val();
 
-                $("#batchDetailsContainer").append(newRow);
-            });
-
-
-            $(document).on("click", ".removeRow", function () {
-                $(this).closest(".batch-detail").remove();
-            });
-
-            // Submit form
-            $("#batchForm").submit(function (e) {
-                e.preventDefault();
-                alert("Form submitted successfully!");
+                if (formulation_id) {
+                    $.ajax({
+                        url: '{!! route('admin.FormulationController.fetch_po_record') !!}',
+                        type: 'post',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            id: formulation_id
+                        },
+                        success: function (response) {
+                            $('#batchDetailsContainer').html(response);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching data:", error);
+                        }
+                    });
+                }
             });
         });
+
     </script>
 @endsection
