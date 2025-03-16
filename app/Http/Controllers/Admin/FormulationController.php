@@ -28,7 +28,7 @@ class FormulationController extends Controller
      */
     public function create()
     {
-        $raw = $this->FormulationServices->create();
+        $raw = $this->FormulationServices->Raw();
         $users = $this->FormulationServices->getusers();
         $process = $this->FormulationServices->getprocess();
         $units = $this->FormulationServices->getprocess();

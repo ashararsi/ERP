@@ -30,7 +30,7 @@
                                         <option value="">Select Formulation</option>
                                         @foreach($formulation as $formulations)
 
-                                            <option value="{{$formulations->id}}">{{$formulations->name}}</option>
+                                            <option value="{{$formulations->id}}">{{$formulations->formula_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -60,6 +60,8 @@
                                         <input type="number" step="0.01" name="actual_quantity[]" class="form-control"
                                                placeholder="Quantity" required>
                                     </div>
+
+
                                     <div class="col-md-2">
 
                                         <select name="operator_initials[]" class="form-control">

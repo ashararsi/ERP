@@ -20,6 +20,10 @@ class FormulationServices
     {
         return Formulations::all();
 
+    }  public function Raw()
+    {
+        return RawMaterials::all();
+
     }
 
     public function getusers()
