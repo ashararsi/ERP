@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Alpha Supplies",
+        "contact_person": "John Doe",
+        "email": "alpha@example.com",
+        "phone": "123-456-7890",
+        "address": "123 Alpha Street, Cityville",
+        "country": "Countryland",
+        "city": "Cityville",
+        "postal_code": "12345",
+        "tax_id": "TAX-001",
+        "conversion_factor": 1.00
+    },
+    {
+        "name": "Beta Traders",
+        "contact_person": "Jane Smith",
+        "email": "beta@example.com",
+        "phone": "234-567-8901",
+        "address": "456 Beta Road, Townsville",
+        "country": "Countryland",
+        "city": "Townsville",
+        "postal_code": "23456",
+        "tax_id": "TAX-002",
+        "conversion_factor": 1.00
+    },
+    {
+        "name": "Gamma Distributors",
+        "contact_person": "Alice Johnson",
+        "email": "gamma@example.com",
+        "phone": "345-678-9012",
+        "address": "789 Gamma Blvd, Villagetown",
+        "country": "Countryland",
+        "city": "Villagetown",
+        "postal_code": "34567",
+        "tax_id": "TAX-003",
+        "conversion_factor": 1.00
+    },
+    {
+        "name": "Delta Supply Co",
+        "contact_person": "Bob Brown",
+        "email": "delta@example.com",
+        "phone": "456-789-0123",
+        "address": "101 Delta Ave, Metropolis",
+        "country": "Countryland",
+        "city": "Metropolis",
+        "postal_code": "45678",
+        "tax_id": "TAX-004",
+        "conversion_factor": 1.00
+    },
+    {
+        "name": "Epsilon Wholesale",
+        "contact_person": "Charlie Green",
+        "email": "epsilon@example.com",
+        "phone": "567-890-1234",
+        "address": "202 Epsilon Lane, Urbanville",
+        "country": "Countryland",
+        "city": "Urbanville",
+        "postal_code": "56789",
+        "tax_id": "TAX-005",
+        "conversion_factor": 1.00
+    }
+]

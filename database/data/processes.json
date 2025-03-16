@@ -1,0 +1,47 @@
+[
+    {
+        "name": "Mixing",
+        "description": "Combining all raw materials to prepare the base product.",
+        "sequence_order": 1,
+        "image": "mixing.jpg",
+        "duration_minutes": 30,
+        "remarks": "Ensure even mixing for best results.",
+        "requires_quality_check": 1
+    },
+    {
+        "name": "Heating",
+        "description": "Heating the mixture to desired temperature for processing.",
+        "sequence_order": 2,
+        "image": "heating.jpg",
+        "duration_minutes": 45,
+        "remarks": "Monitor temperature regularly.",
+        "requires_quality_check": 1
+    },
+    {
+        "name": "Cooling",
+        "description": "Cooling down the heated mixture to room temperature.",
+        "sequence_order": 3,
+        "image": "cooling.jpg",
+        "duration_minutes": 60,
+        "remarks": "Slow cooling prevents product deformation.",
+        "requires_quality_check": 0
+    },
+    {
+        "name": "Packaging",
+        "description": "Packing the finished product into appropriate containers.",
+        "sequence_order": 4,
+        "image": "packaging.jpg",
+        "duration_minutes": 20,
+        "remarks": "Ensure proper sealing and labeling.",
+        "requires_quality_check": 1
+    },
+    {
+        "name": "Storage",
+        "description": "Storing the packed products in designated areas.",
+        "sequence_order": 5,
+        "image": "storage.jpg",
+        "duration_minutes": 15,
+        "remarks": "Maintain appropriate storage conditions.",
+        "requires_quality_check": 0
+    }
+]

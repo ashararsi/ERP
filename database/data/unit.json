@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Kilogram",
+        "conversion_factor": 1.0000,
+        "parent_id": null
+    },
+    {
+        "name": "Gram",
+        "conversion_factor": 0.0010,
+        "parent_id": 1
+    },
+    {
+        "name": "Liter",
+        "conversion_factor": 1.0000,
+        "parent_id": null
+    },
+    {
+        "name": "Milliliter",
+        "conversion_factor": 0.0010,
+        "parent_id": 3
+    },
+    {
+        "name": "Ton",
+        "conversion_factor": 1000.0000,
+        "parent_id": 1
+    }
+]

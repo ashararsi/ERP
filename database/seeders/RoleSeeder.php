@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+
+use Illuminate\Support\Facades\File;
+
 use Spatie\Permission\Models\Permission;
 
 class RoleSeeder extends Seeder
@@ -15,28 +18,42 @@ class RoleSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+//    public function run()
+//    {
+//
+//                $role = Role::create(['name' =>'admin', 'guard_name' => 'web']);
+//                            $permissions=Permission::pluck("id");
+//                        $role->givePermissionTo($permissions);
+//
+//
+//
+//
+////        DB::table('roles')->insert(
+////        [
+////            'name' => "user",
+////            'guard_name' => 'web'
+////
+////        ]
+////        ); DB::table('roles')->insert(
+////        [
+////            'name' => "Hr",
+////            'guard_name' => 'web'
+////
+////        ]
+////        );
+//    }
+
+
+    public function run(): void
     {
+        // Load the JSON file
+        $json = File::get(database_path('data/roles.json'));
 
-                $role = Role::create(['name' =>'admin', 'guard_name' => 'web']);
-                            $permissions=Permission::pluck("id");
-                        $role->givePermissionTo($permissions);
+        // Decode JSON data into an array
+        $roles = json_decode($json, true);
 
-
-
-
-//        DB::table('roles')->insert(
-//        [
-//            'name' => "user",
-//            'guard_name' => 'web'
-//
-//        ]
-//        ); DB::table('roles')->insert(
-//        [
-//            'name' => "Hr",
-//            'guard_name' => 'web'
-//
-//        ]
-//        );
+        // Insert all roles at once
+        DB::table('roles')->insert($roles);
     }
+
 }

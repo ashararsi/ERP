@@ -1,0 +1,47 @@
+[
+    {
+        "name": "Wheat Flour",
+        "unit": 1,
+        "quantity": 500.00,
+        "supplier": 1,
+        "cost": 2500.00,
+        "expiry_date": "2025-12-31",
+        "stock_status": "in_stock"
+    },
+    {
+        "name": "Olive Oil",
+        "unit": 2,
+        "quantity": 300.00,
+        "supplier": 2,
+        "cost": 4500.00,
+        "expiry_date": "2026-05-15",
+        "stock_status": "in_stock"
+    },
+    {
+        "name": "Sugar",
+        "unit": 1,
+        "quantity": 100.00,
+        "supplier": 3,
+        "cost": 800.00,
+        "expiry_date": "2026-02-28",
+        "stock_status": "low_stock"
+    },
+    {
+        "name": "Salt",
+        "unit": 1,
+        "quantity": 50.00,
+        "supplier": 4,
+        "cost": 200.00,
+        "expiry_date": "2025-08-20",
+        "stock_status": "out_of_stock"
+    },
+    {
+        "name": "Milk Powder",
+        "unit": 3,
+        "quantity": 10000.00,
+        "supplier": 5,
+        "cost": 1200.00,
+        "expiry_date": "2026-01-10",
+        "stock_status": "in_stock"
+    }
+]
