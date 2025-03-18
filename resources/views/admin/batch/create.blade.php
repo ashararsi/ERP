@@ -33,6 +33,7 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                </div>  <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="batchName" class="form-label">Batch Name</label>
                                     <input type="text" class="form-control" id="batchName" name="batch_name" required>
@@ -42,18 +43,33 @@
                                     <input type="date" class="form-control" id="batchDate" name="batch_date" required>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="batchName" class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" id="batchName" name="product_name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="batchName" class="form-label">Batch NO</label>
+                                    <input type="text" class="form-control" id="batchName" name="batch_no" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="mfg_date" class="form-label">Mfg Date</label>
+                                    <input type="date" class="form-control" id="mfg_date" name="mfg_date" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="exp_date" class="form-label">Exp Date</label>
+                                    <input type="date" class="form-control" id="exp_date" name="exp_date" required>
+                                </div>
+                            </div>
                             <h4 class="mt-4">Batch Details</h4>
-
                             <div id="batchDetailsContainer">
                                 <div class="batch-detail row g-3">
 
                                 </div>
                             </div>
-
-
                             <div class="row mt-4">
-
                                 <div class="col-md-3 ">
                                     <div class="text-right">
                                         <button type="submit" class="btn btn-sm btn-primary">Save</button>

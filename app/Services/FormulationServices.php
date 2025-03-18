@@ -40,7 +40,14 @@ class FormulationServices
         $qaUsers = User::whereHas('roles', function ($query) {
             $query->where('name', 'QA');
         })->get();
-        return ['suppliers' => $suppliers, 'qaUsers' => $qaUsers];
+        $OperatorUser = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Operator');
+        })->get();
+        return [
+            'suppliers' => $suppliers,
+            'qaUsers' => $qaUsers,
+            'OperatorUser'=>$OperatorUser
+        ];
     }
 
     public function getprocess()
@@ -143,7 +150,8 @@ class FormulationServices
         $data = $this->data_pdf();
         $f = Formulations::with('formulationDetail')->where('id', $request->id)->first();
 
-        return view('admin.formulation.data', compact('f', 'data'));
+        $users=$this->getusers();
+        return view('admin.formulation.data', compact('users','f', 'data'));
 
 
     }

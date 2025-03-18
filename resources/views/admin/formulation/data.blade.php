@@ -1,4 +1,5 @@
 <div id="formula_items">
+
     @foreach($f->formulationDetail as $item)
         <div class="row item-row">
             <div class="col-md-2">
@@ -13,7 +14,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <div class="form-group">
                     <label>Unit </label>
 
@@ -26,7 +27,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <div class="form-group">
                     <label>Standard Quantity</label>
                     <input disabled type="number" class="form-control quantity"
@@ -39,9 +40,44 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label>Actual</label>
-                    <input   type="number" class="form-control quantity"
+                    <input type="number" class="form-control quantity"
                            value="" name="items[actual_quantity][]"
                            required>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Operator </label>
+                    <select class="form-control" name="items[operator_ids][]" required>
+                        <option value="">Select Operator</option>
+                        @foreach($users['OperatorUser'] as $u_item)
+                            <option value="{{ $u_item->id }}">{{ $u_item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Operator </label>
+                    <select   class="form-control" name="items[qa_ids][]" required>
+                        <option value="">Select Qa</option>
+                        @foreach($users['qaUsers'] as $u_item)
+                            <option value="{{ $u_item->id }}">{{ $u_item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Prod In-Charge </label>
+                    <select   class="form-control" name="items[in_charge][]" required>
+                        <option value="">Select Qa</option>
+                        @foreach($users['qaUsers'] as $u_item)
+                            <option value="{{ $u_item->id }}">{{ $u_item->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
