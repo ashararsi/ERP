@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\QualityCheck;
 
 class QualityCheckObserver
@@ -11,7 +12,7 @@ class QualityCheckObserver
      */
     public function created(QualityCheck $qualityCheck): void
     {
-        //
+        ActivityLogger::log('QualityCheck  created', ' QualityCheck created.', ['QualityCheck' => $qualityCheck]);
     }
 
     /**
@@ -19,7 +20,7 @@ class QualityCheckObserver
      */
     public function updated(QualityCheck $qualityCheck): void
     {
-        //
+        ActivityLogger::log('QualityCheck  updated', ' QualityCheck updated.', ['QualityCheck' => $qualityCheck]);
     }
 
     /**
@@ -27,7 +28,7 @@ class QualityCheckObserver
      */
     public function deleted(QualityCheck $qualityCheck): void
     {
-        //
+        ActivityLogger::log('QualityCheck  deleted', ' QualityCheck deleted.', ['QualityCheck' => $qualityCheck]);
     }
 
     /**
@@ -35,7 +36,7 @@ class QualityCheckObserver
      */
     public function restored(QualityCheck $qualityCheck): void
     {
-        //
+        ActivityLogger::log('QualityCheck  restored', ' QualityCheck restored.', ['QualityCheck' => $qualityCheck]);
     }
 
     /**
@@ -43,6 +44,6 @@ class QualityCheckObserver
      */
     public function forceDeleted(QualityCheck $qualityCheck): void
     {
-        //
+        ActivityLogger::log('QualityCheck  forceDeleted', ' QualityCheck forceDeleteds.', ['QualityCheck' => $qualityCheck]);
     }
 }

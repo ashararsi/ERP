@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\RawMaterialInventory;
 
 class RawMaterialInventoryObserver
@@ -11,7 +12,7 @@ class RawMaterialInventoryObserver
      */
     public function created(RawMaterialInventory $rawMaterialInventory): void
     {
-        //
+        ActivityLogger::log('RawMaterialInventory  created', ' RawMaterialInventory created.', ['RawMaterialInventory' => $rawMaterialInventory]);
     }
 
     /**
@@ -19,7 +20,7 @@ class RawMaterialInventoryObserver
      */
     public function updated(RawMaterialInventory $rawMaterialInventory): void
     {
-        //
+        ActivityLogger::log('RawMaterialInventory  updated', ' RawMaterialInventory updated.', ['RawMaterialInventory' => $rawMaterialInventory]);
     }
 
     /**
@@ -27,7 +28,7 @@ class RawMaterialInventoryObserver
      */
     public function deleted(RawMaterialInventory $rawMaterialInventory): void
     {
-        //
+        ActivityLogger::log('RawMaterialInventory  deleted', ' RawMaterialInventory deleted.', ['RawMaterialInventory' => $rawMaterialInventory]);
     }
 
     /**
@@ -35,7 +36,7 @@ class RawMaterialInventoryObserver
      */
     public function restored(RawMaterialInventory $rawMaterialInventory): void
     {
-        //
+        ActivityLogger::log('RawMaterialInventory  restored', ' RawMaterialInventory restored.', ['RawMaterialInventory' => $rawMaterialInventory]);
     }
 
     /**
@@ -43,6 +44,6 @@ class RawMaterialInventoryObserver
      */
     public function forceDeleted(RawMaterialInventory $rawMaterialInventory): void
     {
-        //
+        ActivityLogger::log('RawMaterialInventory  forceDeleted', ' RawMaterialInventory forceDeleteds.', ['RawMaterialInventory' => $rawMaterialInventory]);
     }
 }

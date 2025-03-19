@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use App\Models\Ledger;
 
 class LedgerSeeder extends Seeder
 {
@@ -21,6 +22,6 @@ class LedgerSeeder extends Seeder
         $ledgers = json_decode($json, true);
 
         // Insert all ledger entries at once
-        DB::table('ledgers')->insert($ledgers);
+        Ledger::insert($ledgers);
     }
 }

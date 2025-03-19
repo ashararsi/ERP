@@ -111,4 +111,5 @@ class PurchaseOrderController extends Controller
         $pdf = Pdf::loadView('admin.purchase-order.report_pdf', compact('p'));
         return $pdf->download('po_Report_'.$id.'.pdf');
     }
+
 }

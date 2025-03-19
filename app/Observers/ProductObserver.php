@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Product;
 
 class ProductObserver
@@ -11,7 +12,7 @@ class ProductObserver
      */
     public function created(Product $product): void
     {
-        //
+        ActivityLogger::log('Product  created', ' Product created.', ['Product' => $product]);
     }
 
     /**
@@ -19,7 +20,7 @@ class ProductObserver
      */
     public function updated(Product $product): void
     {
-        //
+        ActivityLogger::log('Product  updated', ' Product updated.', ['Product' => $product]);
     }
 
     /**
@@ -27,7 +28,7 @@ class ProductObserver
      */
     public function deleted(Product $product): void
     {
-        //
+        ActivityLogger::log('Product  deleted', ' Product deleted.', ['Product' => $product]);
     }
 
     /**
@@ -35,7 +36,7 @@ class ProductObserver
      */
     public function restored(Product $product): void
     {
-        //
+        ActivityLogger::log('Product  restored', ' Product restored.', ['Product' => $product]);
     }
 
     /**
@@ -43,6 +44,6 @@ class ProductObserver
      */
     public function forceDeleted(Product $product): void
     {
-        //
+        ActivityLogger::log('Product  forceDeleted', ' Product forceDeleted.', ['Product' => $product]);
     }
 }

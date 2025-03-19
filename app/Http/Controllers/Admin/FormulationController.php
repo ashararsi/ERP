@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Services\FormulationServices;
 use Illuminate\Http\Request;
+use PDF;
 
 class FormulationController extends Controller
 {
@@ -89,5 +90,11 @@ class FormulationController extends Controller
     }public function fetch_po_record(Request $request)
     {
       return $this->FormulationServices->fetch_po_record($request);
+    }
+    public function generateformulationPDF($id)
+    {
+        $f = $this->FormulationServices->edit($id);
+        $pdf = Pdf::loadView('admin.formulation.report_pdf', compact('f'));
+        return $pdf->download('formulation_Report_'.$id.'.pdf');
     }
 }

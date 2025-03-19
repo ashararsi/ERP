@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\PurchaseOrder;
 
 class PurchaseOrderObserver
@@ -11,7 +12,7 @@ class PurchaseOrderObserver
      */
     public function created(PurchaseOrder $purchaseOrder): void
     {
-        //
+        ActivityLogger::log('PurchaseOrder  created', ' PurchaseOrder created.', ['PurchaseOrder' => $purchaseOrder]);
     }
 
     /**
@@ -19,7 +20,7 @@ class PurchaseOrderObserver
      */
     public function updated(PurchaseOrder $purchaseOrder): void
     {
-        //
+        ActivityLogger::log('PurchaseOrder  updated', ' PurchaseOrder updated.', ['PurchaseOrder' => $purchaseOrder]);
     }
 
     /**
@@ -27,7 +28,7 @@ class PurchaseOrderObserver
      */
     public function deleted(PurchaseOrder $purchaseOrder): void
     {
-        //
+        ActivityLogger::log('PurchaseOrder  deleted', ' PurchaseOrder deleted.', ['PurchaseOrder' => $purchaseOrder]);
     }
 
     /**
@@ -35,7 +36,7 @@ class PurchaseOrderObserver
      */
     public function restored(PurchaseOrder $purchaseOrder): void
     {
-        //
+        ActivityLogger::log('PurchaseOrder  restored', ' PurchaseOrder restored.', ['PurchaseOrder' => $purchaseOrder]);
     }
 
     /**
@@ -43,6 +44,7 @@ class PurchaseOrderObserver
      */
     public function forceDeleted(PurchaseOrder $purchaseOrder): void
     {
-        //
+        ActivityLogger::log('PurchaseOrder  forceDeleted', ' PurchaseOrder forceDeleted.', ['PurchaseOrder' => $purchaseOrder]);
     }
+
 }

@@ -131,6 +131,7 @@ class FormulationServices
                 $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';
+                $btn = $btn .'<a href=" ' . route("admin.formulation.pdf", $row->id) . '"  class="ml-2"><i class="fas fa-print"></i></a>';
                 return $btn;
             })
             ->rawColumns(['action'])

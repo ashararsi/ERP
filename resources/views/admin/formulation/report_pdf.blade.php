@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase Order Report</title>
+    <title>Formula Report</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,16 +21,13 @@
         }
         th, td {
             border: 1px solid black;
-            padding: 2px;
+            padding: 5px;
             text-align: left;
         }
-
         th {
             background-color: #f2f2f2;
         }
-
         .header {
-            /*text-align: center;*/
             font-size: 25px;
             font-weight: bold;
         }
@@ -48,48 +45,38 @@
             </td>
             <td style="border: none;text-align: left">
                 <div style="width: 100%;">
-                    <div class="header">Purchase Order (PO)</div>
+                    <div class="header">Formula Report</div>
                 </div>
-
             </td>
         </tr>
     </table>
-    <p><strong>GRN No:</strong> {{  $p->po_number}}</p>
-    <p><strong>Date:</strong> {{ $p->receipt_date }}</p>
-    <p><strong>Supplier By:</strong> {{ $p->supplier->name }}</p>
-    <p><strong>Status :</strong> {{ $p->status }}</p>
-    <div style="width: 90%;padding: 5px ">
+
+    <h3>Formula Name: {{ $f->formula_name }}</h3>
+    <p><strong>Description:</strong> {{ $f->description }}</p>
+
+    <div style="width: 90%; padding: 5px;">
         <table style="width: 100%">
             <thead>
             <tr>
                 <th>#</th>
-                <th>Item Name</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Total</th>
+                <th>Raw Material</th>
+                <th>Unit</th>
+                <th>Standard Quantity</th>
+                <th>Actual Quantity</th>
             </tr>
             </thead>
             <tbody>
-            @php $total=0;
-            @endphp
-            @foreach($p->items as $index => $item)
+            @foreach($f->formulationDetail as $index => $item)
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $item->RawMaterial->name }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>{{ number_format($item->unit_price, 2) }}</td>
-                    <td>{{ number_format($item->quantity * $item->unit_price, 2) }}</td>
-                    @php
-                        $total=$total+  ($item->quantity * $item->unit_price ) ;
-                    @endphp
-
+                    <td>@if($item->unit)   {{ $item->unit->name }} @endif</td>
+                    <td>{{ number_format($item->standard_quantity, 2) }}</td>
+                    <td>{{ number_format($item->actual_quantity ?? 0, 2) }}</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-        <p style="text-align: right"><strong>Total
-                Amount:</strong> {{ $total }}
-        </p>
     </div>
 </div>
 </body>

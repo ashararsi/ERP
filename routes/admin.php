@@ -22,7 +22,10 @@ use App\Http\Controllers\Admin\EntriesController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\GoodReceiptNoteController;
 use App\Http\Controllers\Admin\FinancialYearController;
+use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\VendorController;
+use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\CountryController;
 use App\Models\Formulations;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
@@ -72,7 +75,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     // suppliers curd
     Route::resource('suppliers', SupplierController::class);
     Route::post('/suppliers/getdata', [SupplierController::class, 'getdata'])->name('suppliers.getdata');
-
+    Route::resource('staff', StaffController::class);
+    Route::post('/staff/getdata', [StaffController::class, 'getdata'])->name('staff.getdata');
+    Route::resource('city', CityController::class);
+    Route::post('/city/getdata', [CityController::class, 'getdata'])->name('city.getdata');
+    Route::resource('country', CountryController::class);
+    Route::post('/country/getdata', [CountryController::class, 'getdata'])->name('country.getdata');
     //batches curd
     Route::resource('batches', BatchController::class);
     Route::post('/batches/getdata', [BatchController::class, 'getdata'])->name('batches.getdata');
@@ -104,6 +112,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::resource('purchaseorders', PurchaseOrderController::class);
     Route::post('/purchaseorders/getdata', [PurchaseOrderController::class, 'getdata'])->name('purchaseorders.getdata');
     Route::get('/purchaseorders/po-report/{id}', [PurchaseOrderController::class, 'generatePDF'])->name('po.pdf');
+    Route::get('/formulation/po-report/{id}', [FormulationController::class, 'generateformulationPDF'])->name('formulation.pdf');
 
 
 
