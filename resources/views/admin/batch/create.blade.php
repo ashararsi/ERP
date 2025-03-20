@@ -104,6 +104,28 @@
     <script>
 
         $(document).ready(function () {
+            $('#total_qty').change(function () {
+                $('#batchDetailsContainer').html('');
+                var formulation_id = $('#formulation_id').val();
+                var total_qty = $('#total_qty').val();
+                if (formulation_id) {
+                    $.ajax({
+                        url: '{!! route('admin.FormulationController.fetch_po_record') !!}',
+                        type: 'post',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            id: formulation_id,
+                            total_qty: total_qty
+                        },
+                        success: function (response) {
+                            $('#batchDetailsContainer').html(response);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching data:", error);
+                        }
+                    });
+                }
+            });
             $('#formulation_id').change(function () {
                 $('#batchDetailsContainer').html('');
                 var formulation_id = $(this).val();
