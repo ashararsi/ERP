@@ -382,6 +382,34 @@
 
                             </ul>
                         </li>
+                        <li class="slide has-sub   ">
+                            <a href="javascript:void(0);" class="side-menu__item">Country
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide active">
+                                    <a href="{!! route('admin.country.index') !!}" class="side-menu__item"> List</a>
+                                </li>
+                                <li class="slide active">
+                                    <a href="{!! route('admin.country.create') !!}" class="side-menu__item">
+                                        create</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="slide has-sub   ">
+                            <a href="javascript:void(0);" class="side-menu__item">City
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide active">
+                                    <a href="{!! route('admin.city.index') !!}" class="side-menu__item"> List</a>
+                                </li>
+                                <li class="slide active">
+                                    <a href="{!! route('admin.city.create') !!}" class="side-menu__item">
+                                        create</a>
+                                </li>
+
+                            </ul>
+                        </li>
 
                     </ul>
                 </li>
