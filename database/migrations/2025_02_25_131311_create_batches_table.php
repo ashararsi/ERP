@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('batch_code');
             $table->date('production_date');
             $table->date('expiry_date');
-            $table->enum('status', ['in_progress', 'completed', 'failed']);
+            $table->enum('status', ['in_process', 'packaging', 'completed', 'dispatched_for_warehouse'])->default('in_process');
+
             $table->timestamps();
             $table->SoftDeletes();
         });

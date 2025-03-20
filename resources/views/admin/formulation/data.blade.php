@@ -52,26 +52,27 @@
                     <label>Operator </label>
                     <select class="form-control" name="items[operator_ids][]" required>
                         <option value="">Select Operator</option>
-                        @foreach($users['OperatorUser'] as $u_item)
+                        @foreach($users['operator_initials'] as $u_item)
                             <option value="{{ $u_item->id }}">{{ $u_item->name }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Operator </label>
-                    <select   class="form-control" name="items[qa_ids][]" required>
-                        <option value="">Select Qa</option>
-                        @foreach($users['qaUsers'] as $u_item)
-                            <option value="{{ $u_item->id }}">{{ $u_item->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+
             <div class="col-md-2">
                 <div class="form-group">
                     <label>Prod In-Charge </label>
+                    <select   class="form-control" name="items[in_charge][]" required>
+                        <option value="">Select Qa</option>
+                        @foreach($users['Prod'] as $u_item)
+                            <option value="{{ $u_item->id }}">{{ $u_item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>QA </label>
                     <select   class="form-control" name="items[in_charge][]" required>
                         <option value="">Select Qa</option>
                         @foreach($users['qaUsers'] as $u_item)
