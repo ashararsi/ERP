@@ -2,7 +2,7 @@
 
     @foreach($f->formulationDetail as $item)
         <hr/>
-        <div class="row item-row">
+        <div class="row item-row card card-body" data-id="{{ $item->id }}">
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Raw Material</label>
