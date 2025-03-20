@@ -65,7 +65,7 @@ class CityServices
 
     public function getdata($request)
     {
-        $data = City::select('*')->orderBy('id', 'desc');
+        $data = City::with('country')->select('*')->orderBy('id', 'desc');
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function ($row) {
                 $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.city.destroy", $row->id) . '"> ';
@@ -75,8 +75,18 @@ class CityServices
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';
                 return $btn;
+            })->addColumn('country', function ($row) {
+                if ($row->country)
+                    return $row->country->name;
+                else
+                    return 'N/A';
+            })->addColumn('status', function ($row) {
+                if ($row->status == 'active')
+                    return "Active";
+                else
+                    return 'Deactive';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'country', 'status'])
             ->make(true);
 
     }
