@@ -1,6 +1,7 @@
 <div id="formula_items">
-<hr/>
+
     @foreach($f->formulationDetail as $item)
+        <hr/>
         <div class="row item-row">
             <div class="col-md-4">
                 <div class="form-group">
