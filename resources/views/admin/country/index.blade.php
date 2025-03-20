@@ -21,7 +21,7 @@
                         @endif
 
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="data-table">
                                 <thead class="table-light">
                                 <tr>
                                     <th>ID</th>
@@ -31,29 +31,7 @@
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                @foreach($countries as $country)
-                                    <tr>
-                                        <td>{{ $country->id }}</td>
-                                        <td>{{ $country->name }}</td>
-                                        <td>
-                                                <span class="badge {{ $country->status ? 'bg-success' : 'bg-danger' }}">
-                                                    {{ $country->status ? 'Active' : 'Inactive' }}
-                                                </span>
-                                        </td>
-                                        <td>{{ $country->created_at->format('d M, Y') }}</td>
-                                        <td>
-                                            <a href="{{ route('admin.country.edit', $country->id) }}" class="btn btn-sm btn-warning">Edit</a>
 
-                                            <form action="{{ route('admin.country.destroy', $country->id) }}" method="POST" class="d-inline delete-form">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger delete-btn">Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
                             </table>
                         </div>
 
@@ -68,15 +46,60 @@
     </div>
 @stop
 
+@section('css')
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+@endsection
 @section('js')
-    <script>
+    @include('admin.layout.datatable')
+    <script type="text/javascript">
         $(document).ready(function () {
-            $(".delete-btn").click(function (e) {
-                e.preventDefault();
-                if (confirm("Are you sure you want to delete this country?")) {
-                    $(this).closest("form").submit();
-                }
+            $('#data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin.city.getdata') }}",
+                    type: "POST",
+                    data: {_token: "{{ csrf_token() }}"}
+                },
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'status', name: 'status'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false}
+                ],
+                dom: 'Bfrtip', // Enable buttons at the top
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Roles Data',
+                        className: 'btn btn-primary',
+                        exportOptions: {
+                            columns: [0, 1] // Export only ID and Name
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Roles Data',
+                        className: 'btn btn-primary',
+                        exportOptions: {
+                            columns: [0, 1]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Roles Data',
+                        className: 'btn btn-primary',
+                        exportOptions: {
+                            columns: [0, 1]
+                        }
+                    }
+                ]
             });
         });
+
     </script>
 @endsection
+
+
