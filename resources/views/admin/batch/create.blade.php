@@ -24,7 +24,11 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-3 mb-3">
+                                    <label for="total_qty" class="form-label">Quantity</label>
+                                    <input type="text" class="form-control" value="1" id="total_qty" name="total_qty" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
                                     <label for="batchName" class="form-label">Formulation</label>
                                     <select class="form-control" id="formulation_id" name="formulation_id" required>
                                         <option value="">Select Formulation</option>
@@ -33,7 +37,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class=" col-md-6 mb-3">
+                                <div class=" col-md-4 mb-3">
                                     <label for="status" class="form-label">Batch Status</label>
                                     <select class="form-control" id="status" name="status" required>
                                         <option selected value="in_process">In Process</option>
@@ -42,7 +46,8 @@
                                         <option value="dispatched_for_warehouse">Dispatched for Warehouse</option>
                                     </select>
                                 </div>
-                                </div>  <div class="row">
+                                </div>
+                            <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="batchName" class="form-label">Batch Name</label>
                                     <input type="text" class="form-control" id="batchName" name="batch_name" required>
@@ -63,14 +68,15 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-4 mb-3">
                                     <label for="mfg_date" class="form-label">Mfg Date</label>
                                     <input type="date" class="form-control" id="mfg_date" name="mfg_date" required>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="exp_date" class="form-label">Exp Date</label>
                                     <input type="date" class="form-control" id="exp_date" name="exp_date" required>
                                 </div>
+
                             </div>
                             <h4 class="mt-4">Batch Details</h4>
                             <div id="batchDetailsContainer">
@@ -101,6 +107,7 @@
             $('#formulation_id').change(function () {
                 $('#batchDetailsContainer').html('');
                 var formulation_id = $(this).val();
+                var total_qty = $('#total_qty').val();
 
                 if (formulation_id) {
                     $.ajax({
@@ -108,7 +115,8 @@
                         type: 'post',
                         data: {
                             _token: '{{ csrf_token() }}',
-                            id: formulation_id
+                            id: formulation_id,
+                            total_qty: total_qty
                         },
                         success: function (response) {
                             $('#batchDetailsContainer').html(response);

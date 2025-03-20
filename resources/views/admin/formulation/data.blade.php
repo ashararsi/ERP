@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label>Standard Quantity</label>
                     <input disabled type="number" class="form-control quantity"
-                           value="{!! $item->standard_quantity !!}" name="items[quantity][]"
+                           value="{!!( $item->standard_quantity * $qty) !!}" name="items[quantity][]"
                            required>
                 </div>
             </div>

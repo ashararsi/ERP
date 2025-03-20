@@ -154,9 +154,9 @@ class FormulationServices
     {
         $data = $this->data_pdf();
         $f = Formulations::with('formulationDetail')->where('id', $request->id)->first();
-
+        $qty=$request->total_qty;
         $users = $this->getusers();
-        return view('admin.formulation.data', compact('users', 'f', 'data'));
+        return view('admin.formulation.data', compact('users', 'f', 'data','qty'));
 
 
     }
