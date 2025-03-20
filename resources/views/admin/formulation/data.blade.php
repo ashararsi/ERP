@@ -2,7 +2,7 @@
 
     @foreach($f->formulationDetail as $item)
         <div class="row item-row">
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>Raw Material</label>
                     <select disabled class="form-control" name="items[raw_material_id][]" required>
@@ -14,7 +14,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>Unit </label>
 
@@ -27,7 +27,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>Standard Quantity</label>
                     <input disabled type="number" class="form-control quantity"
@@ -37,7 +37,7 @@
             </div>
 
 
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>Actual</label>
                     <input type="number" class="form-control quantity"
@@ -47,7 +47,7 @@
             </div>
 
 
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>Operator </label>
                     <select class="form-control" name="items[operator_ids][]" required>
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>Prod In-Charge </label>
                     <select   class="form-control" name="items[in_charge][]" required>
@@ -70,7 +70,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>QA </label>
                     <select   class="form-control" name="items[in_charge][]" required>
