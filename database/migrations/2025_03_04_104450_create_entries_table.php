@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('number');
             $table->date('voucher_date');
             $table->string('cheque_no', 191)->nullable();
+            $table->string('financial_year', 191)->nullable();
             $table->date('cheque_date')->nullable();
             $table->string('invoice_no', 191)->nullable();
             $table->date('invoice_date')->nullable();

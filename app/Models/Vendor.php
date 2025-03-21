@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vendor extends Model
 {
     use HasFactory;
-    protected $table="erp_vendor";
+    protected $table="vendors";
     protected $fillable = [
         'vendor_name',
         'cnic',

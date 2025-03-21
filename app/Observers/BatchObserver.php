@@ -12,7 +12,7 @@ class BatchObserver
      */
     public function created(Batch $batch): void
     {
-        ActivityLogger::log('Batch created', 'A Batch created.', ['Batch' => $Batch]);
+        ActivityLogger::log('Batch created', 'A Batch created.', ['Batch' => $batch]);
 
     }
 
@@ -21,7 +21,7 @@ class BatchObserver
      */
     public function updated(Batch $batch): void
     {
-        ActivityLogger::log('Batch updated', 'A Batch updated.', ['Batch' => $Batch]);
+        ActivityLogger::log('Batch updated', 'A Batch updated.', ['Batch' => $batch]);
 
     }
 
@@ -30,7 +30,7 @@ class BatchObserver
      */
     public function deleted(Batch $batch): void
     {
-        ActivityLogger::log('Batch deleted', 'A Batch deleted.', ['Batch' => $Batch]);
+        ActivityLogger::log('Batch deleted', 'A Batch deleted.', ['Batch' => $batch]);
 
     }
 
@@ -39,7 +39,7 @@ class BatchObserver
      */
     public function restored(Batch $batch): void
     {
-        ActivityLogger::log('Batch restored', 'A Batch restored.', ['Batch' => $Batch]);
+        ActivityLogger::log('Batch restored', 'A Batch restored.', ['Batch' => $batch]);
 
     }
 
@@ -48,7 +48,7 @@ class BatchObserver
      */
     public function forceDeleted(Batch $batch): void
     {
-        ActivityLogger::log('Batch deleted', 'A Batch deleted.', ['Batch' => $Batch]);
+        ActivityLogger::log('Batch deleted', 'A Batch deleted.', ['Batch' => $batch]);
 
     }
 }
