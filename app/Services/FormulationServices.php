@@ -33,22 +33,26 @@ class FormulationServices
     public function getusers()
     {
         $suppliers = User::whereHas('roles', function ($query) {
-            $query->where('name', 'supplier');
+            $query->where('name', 'Supplier');
         })->get();
-
 
         $qaUsers = User::whereHas('roles', function ($query) {
             $query->where('name', 'QA');
         })->get();
-        $OperatorUser = User::whereHas('roles', function ($query) {
+        $operator_initials = User::whereHas('roles', function ($query) {
             $query->where('name', 'Operator');
+        })->get();
+        $Prod = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Prod In-Charge');
         })->get();
         return [
             'suppliers' => $suppliers,
             'qaUsers' => $qaUsers,
-            'OperatorUser'=>$OperatorUser
+            'operator_initials' => $operator_initials,
+            'Prod' => $Prod
         ];
     }
+
 
     public function getprocess()
     {
@@ -138,7 +142,7 @@ class FormulationServices
                 $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';
-                $btn = $btn .'<a href=" ' . route("admin.formulation.pdf", $row->id) . '"  class="ml-2"><i class="fas fa-print"></i></a>';
+                $btn = $btn . '<a href=" ' . route("admin.formulation.pdf", $row->id) . '"  class="ml-2"><i class="fas fa-print"></i></a>';
                 return $btn;
             })
             ->rawColumns(['action'])
@@ -150,9 +154,9 @@ class FormulationServices
     {
         $data = $this->data_pdf();
         $f = Formulations::with('formulationDetail')->where('id', $request->id)->first();
-
-        $users=$this->getusers();
-        return view('admin.formulation.data', compact('users','f', 'data'));
+        $qty=$request->total_qty;
+        $users = $this->getusers();
+        return view('admin.formulation.data', compact('users', 'f', 'data','qty'));
 
 
     }

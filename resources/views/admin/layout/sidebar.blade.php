@@ -43,348 +43,291 @@
 
                     </a>
                 </li>
-                <!-- End::slide -->
-                <!-- Start::slide -->
-                {{--                <li class="slide has-sub">--}}
-                {{--                    <a href="javascript:void(0);" class="side-menu__item">--}}
-                {{--                        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">--}}
-                {{--                            <path d="M0 0h24v24H0V0z" fill="none"/>--}}
-                {{--                            <path--}}
-                {{--                                d="M5 9h14V5H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5S7.83 8.5 7 8.5 5.5 7.83 5.5 7 6.17 5.5 7 5.5zM5 19h14v-4H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z"--}}
-                {{--                                opacity=".3"/>--}}
-                {{--                            <path--}}
-                {{--                                d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-1 6H5v-4h14v4zm-12-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zm-1 6H5V5h14v4zM7 8.5c.83 0 1.5-.67 1.5-1.5S7.83 5.5 7 5.5 5.5 6.17 5.5 7 6.17 8.5 7 8.5z"/>--}}
-                {{--                        </svg>--}}
-                {{--                        <span class="side-menu__label">Menu Levels</span>--}}
-                {{--                        <i class="fe fe-chevron-right side-menu__angle"></i>--}}
-                {{--                    </a>--}}
-                {{--                    <ul class="slide-menu child1">--}}
-                {{--                        <li class="slide side-menu__label1">--}}
-                {{--                            <a href="javascript:void(0);">Menu Levels</a>--}}
-                {{--                        </li>--}}
-                {{--                        <li class="slide">--}}
-                {{--                            <a href="javascript:void(0);" class="side-menu__item">Level-1</a>--}}
-                {{--                        </li>--}}
-                {{--                        <li class="slide has-sub">--}}
-                {{--                            <a href="javascript:void(0);" class="side-menu__item">Level-2--}}
-                {{--                                <i class="fe fe-chevron-right side-menu__angle"></i></a>--}}
-                {{--                            <ul class="slide-menu child2">--}}
-                {{--                                <li class="slide">--}}
-                {{--                                    <a href="javascript:void(0);" class="side-menu__item">Level-2-1</a>--}}
-                {{--                                </li>--}}
-                {{--                                <li class="slide has-sub">--}}
-                {{--                                    <a href="javascript:void(0);" class="side-menu__item">Level-2-2--}}
-                {{--                                        <i class="fe fe-chevron-right side-menu__angle"></i></a>--}}
-                {{--                                    <ul class="slide-menu child3">--}}
-                {{--                                        <li class="slide">--}}
-                {{--                                            <a href="javascript:void(0);" class="side-menu__item">Level-2-2-1</a>--}}
-                {{--                                        </li>--}}
-                {{--                                        <li class="slide">--}}
-                {{--                                            <a href="javascript:void(0);" class="side-menu__item">Level-2-2-2</a>--}}
-                {{--                                        </li>--}}
-                {{--                                    </ul>--}}
-                {{--                                </li>--}}
-                {{--                            </ul>--}}
-                {{--                        </li>--}}
-                {{--                    </ul>--}}
-                {{--                </li>--}}
-
-
-                <li class="slide has-sub">
+                <li class="slide has-sub {{ request()->is('admin/roles*') || request()->is('admin/permissions*') || request()->is('admin/users*') || request()->is('admin/suppliers*') || request()->is('admin/vendor*') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="side-menu__item">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                            <path d="M0 0h24v24H0V0z" fill="none"/>
-                            <path
-                                d="M5 9h14V5H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5S7.83 8.5 7 8.5 5.5 7.83 5.5 7 6.17 5.5 7 5.5zM5 19h14v-4H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z"
-                                opacity=".3"/>
-                            <path
-                                d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-1 6H5v-4h14v4zm-12-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zm-1 6H5V5h14v4zM7 8.5c.83 0 1.5-.67 1.5-1.5S7.83 5.5 7 5.5 5.5 6.17 5.5 7 6.17 8.5 7 8.5z"/>
-                        </svg>
-                        <span class="side-menu__label">User Mangement</span>
+                        <span class="side-menu__label">User Management</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child1">
 
-                        <li class="slide has-sub">
+                        {{-- Roles --}}
+                        <li class="slide has-sub {{ request()->is('admin/roles*') ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Roles
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
                                 <li class="slide">
-                                    <a href="{!! route('admin.roles.index') !!}" class="side-menu__item">List</a>
+                                    <a href="{!! route('admin.roles.index') !!}" class="side-menu__item {{ request()->routeIs('admin.roles.index') ? 'active' : '' }}">List</a>
                                 </li>
-                                <li class="slide has-sub">
-                                    <a href="{!! route('admin.roles.create') !!}" class="side-menu__item"> Create New
-                                        <i class="fe fe-chevron-right side-menu__angle"></i></a>
-
+                                <li class="slide">
+                                    <a href="{!! route('admin.roles.create') !!}" class="side-menu__item {{ request()->routeIs('admin.roles.create') ? 'active' : '' }}">Create New</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="slide has-sub">
+
+                        {{-- Permissions --}}
+                        <li class="slide has-sub {{ request()->is('admin/permissions*') ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Permissions
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
                                 <li class="slide">
-                                    <a href="{!! route('admin.permissions.index') !!}" class="side-menu__item">List</a>
+                                    <a href="{!! route('admin.permissions.index') !!}" class="side-menu__item {{ request()->routeIs('admin.permissions.index') ? 'active' : '' }}">List</a>
                                 </li>
-                                <li class="slide has-sub">
-                                    <a href="{!! route('admin.permissions.create') !!}" class="side-menu__item"> Create
-                                        New
-                                        <i class="fe fe-chevron-right side-menu__angle"></i></a>
-
+                                <li class="slide">
+                                    <a href="{!! route('admin.permissions.create') !!}" class="side-menu__item {{ request()->routeIs('admin.permissions.create') ? 'active' : '' }}">Create New</a>
                                 </li>
                             </ul>
                         </li>
 
-
-                        <li class="slide has-sub">
+                        {{-- Users --}}
+                        <li class="slide has-sub {{ request()->routeIs('admin.users.index') && !request()->has('role') ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Users
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
                             <ul class="slide-menu child2">
                                 <li class="slide">
-                                    <a href="{!! route('admin.users.index') !!}" class="side-menu__item">List</a>
+                                    <a href="{!! route('admin.users.index') !!}"
+                                       class="side-menu__item {{ request()->routeIs('admin.users.index') && !request()->has('role') ? 'active' : '' }}">
+                                        List
+                                    </a>
                                 </li>
-                                <li class="slide has-sub">
-                                    <a href="{!! route('admin.users.create') !!}" class="side-menu__item"> Create New
-                                        <i class="fe fe-chevron-right side-menu__angle"></i></a>
-
+                                <li class="slide">
+                                    <a href="{!! route('admin.users.create') !!}"
+                                       class="side-menu__item {{ request()->routeIs('admin.users.create') ? 'active' : '' }}">
+                                        Create New
+                                    </a>
                                 </li>
                             </ul>
                         </li>
 
-
-                        <li class="slide has-sub">
+                        {{-- QA Users --}}
+                        <li class="slide has-sub {{ request()->routeIs('admin.users.index') && request()->input('role') === 'QA' ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">QA Users
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
                             <ul class="slide-menu child2">
                                 <li class="slide">
-                                    <a href="{!! route('admin.users.index',['role'=>'QA']) !!}" class="side-menu__item">List</a>
+                                    <a href="{!! route('admin.users.index', ['role' => 'QA']) !!}"
+                                       class="side-menu__item {{ request()->routeIs('admin.users.index') && request()->input('role') === 'QA' ? 'active' : '' }}">
+                                        List
+                                    </a>
                                 </li>
-
                             </ul>
                         </li>
-                        <li class="slide has-sub">
+
+                        {{-- Operator Users --}}
+                        <li class="slide has-sub {{ request()->routeIs('admin.users.index') && request()->input('role') === 'Operator' ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Operator Users
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
                             <ul class="slide-menu child2">
                                 <li class="slide">
-                                    <a href="{!! route('admin.users.index',['role'=>'Operator']) !!}"
-                                       class="side-menu__item">List</a>
+                                    <a href="{!! route('admin.users.index', ['role' => 'Operator']) !!}"
+                                       class="side-menu__item {{ request()->routeIs('admin.users.index') && request()->input('role') === 'Operator' ? 'active' : '' }}">
+                                        List
+                                    </a>
                                 </li>
                             </ul>
                         </li>
 
-
-
-
-                        <li class="slide has-sub">
+                        {{-- Suppliers --}}
+                        <li class="slide has-sub {{ request()->is('admin/suppliers*') ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Suppliers
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
                                 <li class="slide">
-                                    <a href="{!! route('admin.suppliers.index') !!}" class="side-menu__item">List</a>
+                                    <a href="{!! route('admin.suppliers.index') !!}" class="side-menu__item {{ request()->routeIs('admin.suppliers.index') ? 'active' : '' }}">List</a>
                                 </li>
-                                <li class="slide has-sub">
-                                    <a href="{!! route('admin.suppliers.create') !!}" class="side-menu__item"> Create New
-                                        <i class="fe fe-chevron-right side-menu__angle"></i></a>
-
+                                <li class="slide">
+                                    <a href="{!! route('admin.suppliers.create') !!}" class="side-menu__item {{ request()->routeIs('admin.suppliers.create') ? 'active' : '' }}">Create New</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="slide has-sub">
+
+                        {{-- Vendor --}}
+                        <li class="slide has-sub {{ request()->is('admin/vendor*') ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Vendor
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
                                 <li class="slide">
-                                    <a href="{!! route('admin.vendor.index') !!}" class="side-menu__item">List</a>
+                                    <a href="{!! route('admin.vendor.index') !!}" class="side-menu__item {{ request()->routeIs('admin.vendor.index') ? 'active' : '' }}">List</a>
                                 </li>
-                                <li class="slide has-sub">
-                                    <a href="{!! route('admin.vendor.create') !!}" class="side-menu__item"> Create New
-                                        <i class="fe fe-chevron-right side-menu__angle"></i></a>
-
+                                <li class="slide">
+                                    <a href="{!! route('admin.vendor.create') !!}" class="side-menu__item {{ request()->routeIs('admin.vendor.create') ? 'active' : '' }}">Create New</a>
                                 </li>
                             </ul>
                         </li>
+
                     </ul>
                 </li>
 
 
-                <li class="slide has-sub  ">
-                    <a href="javascript:void(0);" class="side-menu__item">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                            <path d="M0 0h24v24H0V0z" fill="none"/>
-                            <path
-                                d="M5 9h14V5H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5S7.83 8.5 7 8.5 5.5 7.83 5.5 7 6.17 5.5 7 5.5zM5 19h14v-4H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z"
-                                opacity=".3"/>
-                            <path
-                                d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-1 6H5v-4h14v4zm-12-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zm-1 6H5V5h14v4zM7 8.5c.83 0 1.5-.67 1.5-1.5S7.83 5.5 7 5.5 5.5 6.17 5.5 7 6.17 8.5 7 8.5z"/>
-                        </svg>
-                        <span class="side-menu__label">Supply chain</span>
+
+                <li class="slide has-sub {{ request()->is('admin/purchaseorders*') ? 'open' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">Purchase Orders
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
-                    <ul class="slide-menu child1">
-
-                        <li class="slide has-sub   ">
-                            <a href="javascript:void(0);" class="side-menu__item">Purchase Orders
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide  ">
-                                    <a href="{!! route('admin.purchaseorders.index') !!}" class="side-menu__item">
-                                        List</a>
-                                </li>
-                                <li class="slide    ">
-                                    <a href="{!! route('admin.purchaseorders.create') !!}" class="side-menu__item">
-                                        create</a>
-                                </li>
-
-                            </ul>
+                    <ul class="slide-menu child2">
+                        <li class="slide {{ request()->routeIs('admin.purchaseorders.index') ? 'active' : '' }}">
+                            <a href="{!! route('admin.purchaseorders.index') !!}" class="side-menu__item">List</a>
                         </li>
-                        <li class="slide has-sub   ">
-                            <a href="javascript:void(0);" class="side-menu__item">GRN
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide  ">
-                                    <a href="{!! route('admin.grns.index') !!}" class="side-menu__item">
-                                        List</a>
-                                </li>
-                                <li class="slide    ">
-                                    <a href="{!! route('admin.grns.create') !!}" class="side-menu__item">
-                                        create</a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li class="slide has-sub open ">
-                            <a href="javascript:void(0);" class="side-menu__item">Units
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide active">
-                                    <a href="{!! route('admin.units.index') !!}" class="side-menu__item">List</a>
-                                    <a href="{!! route('admin.units.create') !!}" class="side-menu__item">Create</a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li class="slide has-sub open ">
-                            <a href="javascript:void(0);" class="side-menu__item">Processes
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide active">
-                                    <a href="{!! route('admin.processes.index') !!}"
-                                       class="side-menu__item">list</a>
-                                </li>
-                                <li class="slide active">
-                                    <a href="{!! route('admin.processes.create') !!}"
-                                       class="side-menu__item">create</a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li class="slide has-sub">
-                            <a href="javascript:void(0);" class="side-menu__item">Raw
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide">
-                                    <a href="{!! route('admin.raw-material.index') !!}"
-                                       class="side-menu__item">List</a>
-                                </li>
-                                <li class="slide">
-                                    <a href="{!! route('admin.raw-material.create') !!}"
-                                       class="side-menu__item">Create</a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li class="slide has-sub">
-                            <a href="javascript:void(0);" class="side-menu__item">Products
-                                <i class="fe fe-chevro  n-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide">
-                                    <a href="{!! route('admin.products.index') !!}"
-                                       class="side-menu__item">List</a>
-                                </li>
-                                <li class="slide">
-                                    <a href="{!! route('admin.products.create') !!}"
-                                       class="side-menu__item">Create</a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li class="slide has-sub">
-                            <a href="javascript:void(0);" class="side-menu__item">Suppliers
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide">
-                                    <a href="{!! route('admin.suppliers.index') !!}"
-                                       class="side-menu__item">List</a>
-                                </li>
-                                <li class="slide">
-                                    <a href="{!! route('admin.suppliers.create') !!}"
-                                       class="side-menu__item">Create</a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li class="slide has-sub">
-                            <a href="javascript:void(0);" class="side-menu__item">Formulation
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide">
-                                    <a href="{!! route('admin.formulations.index') !!}" class="side-menu__item">List</a>
-                                </li>
-                                <li class="slide">
-                                    <a href="{!! route('admin.formulations.create') !!}"
-                                       class="side-menu__item">Create</a>
-                                </li>
-                            </ul>
+                        <li class="slide {{ request()->routeIs('admin.purchaseorders.create') ? 'active' : '' }}">
+                            <a href="{!! route('admin.purchaseorders.create') !!}" class="side-menu__item">Create</a>
                         </li>
                     </ul>
                 </li>
-                <li class="slide has-sub  ">
+
+                <li class="slide has-sub {{ request()->is('admin/grns*') ? 'open' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">GRN
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child2">
+                        <li class="slide {{ request()->routeIs('admin.grns.index') ? 'active' : '' }}">
+                            <a href="{!! route('admin.grns.index') !!}" class="side-menu__item">List</a>
+                        </li>
+                        <li class="slide {{ request()->routeIs('admin.grns.create') ? 'active' : '' }}">
+                            <a href="{!! route('admin.grns.create') !!}" class="side-menu__item">Create</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="slide has-sub {{ request()->is('admin/units*') ? 'open' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">Units
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child2">
+                        <li class="slide {{ request()->routeIs('admin.units.index') ? 'active' : '' }}">
+                            <a href="{!! route('admin.units.index') !!}" class="side-menu__item">List</a>
+                        </li>
+                        <li class="slide {{ request()->routeIs('admin.units.create') ? 'active' : '' }}">
+                            <a href="{!! route('admin.units.create') !!}" class="side-menu__item">Create</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="slide has-sub {{ request()->is('admin/processes*') ? 'open' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">Processes
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child2">
+                        <li class="slide {{ request()->routeIs('admin.processes.index') ? 'active' : '' }}">
+                            <a href="{!! route('admin.processes.index') !!}" class="side-menu__item">List</a>
+                        </li>
+                        <li class="slide {{ request()->routeIs('admin.processes.create') ? 'active' : '' }}">
+                            <a href="{!! route('admin.processes.create') !!}" class="side-menu__item">Create</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="slide has-sub {{ request()->is('admin/raw-material*') ? 'open' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">Raw
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child2">
+                        <li class="slide {{ request()->routeIs('admin.raw-material.index') ? 'active' : '' }}">
+                            <a href="{!! route('admin.raw-material.index') !!}" class="side-menu__item">List</a>
+                        </li>
+                        <li class="slide {{ request()->routeIs('admin.raw-material.create') ? 'active' : '' }}">
+                            <a href="{!! route('admin.raw-material.create') !!}" class="side-menu__item">Create</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="slide has-sub {{ request()->is('admin/products*') ? 'open' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">Products
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child2">
+                        <li class="slide {{ request()->routeIs('admin.products.index') ? 'active' : '' }}">
+                            <a href="{!! route('admin.products.index') !!}" class="side-menu__item">List</a>
+                        </li>
+                        <li class="slide {{ request()->routeIs('admin.products.create') ? 'active' : '' }}">
+                            <a href="{!! route('admin.products.create') !!}" class="side-menu__item">Create</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="slide has-sub {{ request()->is('admin/formulations*') ? 'open' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">Formulation
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child2">
+                        <li class="slide {{ request()->routeIs('admin.formulations.index') ? 'active' : '' }}">
+                            <a href="{!! route('admin.formulations.index') !!}" class="side-menu__item">List</a>
+                        </li>
+                        <li class="slide {{ request()->routeIs('admin.formulations.create') ? 'active' : '' }}">
+                            <a href="{!! route('admin.formulations.create') !!}" class="side-menu__item">Create</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="slide has-sub {{ request()->is('admin/companies*') || request()->is('admin/branches*') || request()->is('admin/country*') || request()->is('admin/city*') ? 'open' : '' }}">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0V0z" fill="none"/>
-                            <path
-                                d="M5 9h14V5H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5S7.83 8.5 7 8.5 5.5 7.83 5.5 7 6.17 5.5 7 5.5zM5 19h14v-4H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z"
-                                opacity=".3"/>
-                            <path
-                                d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-1 6H5v-4h14v4zm-12-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zm-1 6H5V5h14v4zM7 8.5c.83 0 1.5-.67 1.5-1.5S7.83 5.5 7 5.5 5.5 6.17 5.5 7 6.17 8.5 7 8.5z"/>
+                            <path d="M5 9h14V5H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5S7.83 8.5 7 8.5 5.5 7.83 5.5 7 6.17 5.5 7 5.5zM5 19h14v-4H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5z" opacity=".3"/>
+                            <path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-1 6H5v-4h14v4zm-12-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zm-1 6H5V5h14v4zM7 8.5c.83 0 1.5-.67 1.5-1.5S7.83 5.5 7 5.5 5.5 6.17 5.5 7 6.17 8.5 7 8.5z"/>
                         </svg>
                         <span class="side-menu__label">Basic Settings</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child1">
 
-                        <li class="slide has-sub   ">
-                            <a href="javascript:void(0);" class="side-menu__item">companies
+                        <li class="slide has-sub {{ request()->is('admin/companies*') ? 'open' : '' }}">
+                            <a href="javascript:void(0);" class="side-menu__item">Companies
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
-                                <li class="slide active">
-                                    <a href="{!! route('admin.companies.index') !!}" class="side-menu__item"> List</a>
+                                <li class="slide {{ request()->routeIs('admin.companies.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.companies.index') }}" class="side-menu__item"> List</a>
                                 </li>
-                                <li class="slide active">
-                                    <a href="{!! route('admin.companies.create') !!}" class="side-menu__item">
-                                        create</a>
+                                <li class="slide {{ request()->routeIs('admin.companies.create') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.companies.create') }}" class="side-menu__item">Create</a>
                                 </li>
-
                             </ul>
                         </li>
-                        <li class="slide has-sub   ">
+
+                        <li class="slide has-sub {{ request()->is('admin/branches*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Branches
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
                             <ul class="slide-menu child2">
-                                <li class="slide active">
-                                    <a href="{!! route('admin.branches.index') !!}" class="side-menu__item"> List</a>
+                                <li class="slide {{ request()->routeIs('admin.branches.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.branches.index') }}" class="side-menu__item"> List</a>
                                 </li>
-                                <li class="slide active">
-                                    <a href="{!! route('admin.branches.create') !!}" class="side-menu__item">
-                                        create</a>
+                                <li class="slide {{ request()->routeIs('admin.branches.create') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.branches.create') }}" class="side-menu__item">Create</a>
                                 </li>
+                            </ul>
+                        </li>
 
+                        <li class="slide has-sub {{ request()->is('admin/country*') ? 'open' : '' }}">
+                            <a href="javascript:void(0);" class="side-menu__item">Country
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide {{ request()->routeIs('admin.country.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.country.index') }}" class="side-menu__item"> List</a>
+                                </li>
+                                <li class="slide {{ request()->routeIs('admin.country.create') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.country.create') }}" class="side-menu__item">Create</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="slide has-sub {{ request()->is('admin/city*') ? 'open' : '' }}">
+                            <a href="javascript:void(0);" class="side-menu__item">City
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+                                <li class="slide {{ request()->routeIs('admin.city.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.city.index') }}" class="side-menu__item"> List</a>
+                                </li>
+                                <li class="slide {{ request()->routeIs('admin.city.create') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.city.create') }}" class="side-menu__item">Create</a>
+                                </li>
                             </ul>
                         </li>
 
                     </ul>
                 </li>
+
                 <li class="slide has-sub  ">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">

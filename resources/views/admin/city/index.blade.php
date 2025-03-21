@@ -1,7 +1,4 @@
 @extends('admin.layout.main')
-@section('css')
-    <link rel="stylesheet" href="{{ url('public/adminlte') }}/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-@stop
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -14,7 +11,7 @@
                     @if (session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
-                    <table class="table table-bordered" id="cities-table">
+                    <table class="table table-bordered" id="data-table">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -24,37 +21,66 @@
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        @foreach($cities as $city)
-                            <tr>
-                                <td>{{ $city->id }}</td>
-                                <td>{{ $city->name }}</td>
-                                <td>{{ $city->country ? $city->country->name : 'N/A' }}</td>
-
-                                <td>{{ $city->status }}</td>
-                                <td>
-                                    <a href="{{ route('admin.city.edit', $city->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                    <form action="{{ route('admin.city.destroy', $city->id) }}" method="POST" class="d-inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 @stop
+
+@section('css')
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+@endsection
 @section('js')
-    <script src="{{ url('public/adminlte') }}/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="{{ url('public/adminlte') }}/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#cities-table').DataTable();
+    @include('admin.layout.datatable')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin.city.getdata') }}",
+                    type: "POST",
+                    data: {_token: "{{ csrf_token() }}"}
+                },
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'country', name: 'country'},
+                    {data: 'status', name: 'status'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false}
+                ],
+                dom: 'Bfrtip', // Enable buttons at the top
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Roles Data',
+                        className: 'btn btn-primary',
+                        exportOptions: {
+                            columns: [0, 1] // Export only ID and Name
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Roles Data',
+                        className: 'btn btn-primary',
+                        exportOptions: {
+                            columns: [0, 1]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Roles Data',
+                        className: 'btn btn-primary',
+                        exportOptions: {
+                            columns: [0, 1]
+                        }
+                    }
+                ]
+            });
         });
+
     </script>
-@stop
+@endsection

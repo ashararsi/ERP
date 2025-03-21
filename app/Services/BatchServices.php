@@ -30,7 +30,10 @@ class BatchServices
         $operator_initials = User::whereHas('roles', function ($query) {
             $query->where('name', 'Operator');
         })->get();
-        return ['suppliers' => $suppliers, 'qaUsers' => $qaUsers, 'operator_initials' => $operator_initials];
+        $Prod = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Prod In-Charge');
+        })->get();
+        return ['suppliers' => $suppliers, 'qaUsers' => $qaUsers, 'operator_initials' => $operator_initials, 'Prod' => $Prod];
     }
 
     public function index($request)

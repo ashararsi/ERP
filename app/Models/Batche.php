@@ -11,4 +11,26 @@ class Batche extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'batches';
+    protected $fillable = [
+        'formulation_id',
+        'batch_code',
+        'production_date',
+        'expiry_date',
+        'status'
+    ];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($batch) {
+            if (empty($batch->batch_code)) {
+                // Get the last batch code and increment
+                $lastBatch = static::withTrashed()->latest('id')->first();
+                $lastNumber = $lastBatch ? intval(substr($lastBatch->batch_code, -4)) : 0;
+                $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
+
+                $batch->batch_code = 'BATCH-' . $newNumber;
+            }
+        });
+    }
 }
