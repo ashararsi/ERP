@@ -154,11 +154,11 @@
                 </select>
             </div>
             <div class="col-md-2">
-                <select class="form-control" name="raw_material_id[]" required>
+                <select class="form-control" name="unit[]" required>
                     <option value="">Unit</option>
-@foreach($units as $unit)
+                 @foreach($units as $unit)
                 <option value="{{$unit->id}}">{{$unit->name}}</option>
-                                                @endforeach
+                  @endforeach
                 </select>
             </div>
             <div class="col-md-2">

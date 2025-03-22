@@ -122,7 +122,7 @@ class RolesController extends Controller
             Session::flash('flash_message_sucess', 'Role  create Successfully!!!.');
             return redirect()->route('admin.roles.index');
         } catch (\Exception $e) {
-dd($e->getMessage());
+            dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
