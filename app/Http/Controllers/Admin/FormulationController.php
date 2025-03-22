@@ -32,7 +32,7 @@ class FormulationController extends Controller
         $raw = $this->FormulationServices->Raw();
         $users = $this->FormulationServices->getusers();
         $process = $this->FormulationServices->getprocess();
-        $units = $this->FormulationServices->getprocess();
+        $units = $this->FormulationServices->units();
 
 
         return view('admin.formulation.create', compact('raw', 'users','process','units'));
