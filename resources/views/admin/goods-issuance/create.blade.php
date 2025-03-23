@@ -1,6 +1,6 @@
 @extends('admin.layout.main')
 @section('title')
-    Batch create
+    Goods Issuance create
 @stop
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card ">
                     <div class="card-header bg-light">
-                        <h3 class="text-22 text-midnight text-bold mb-4">Create Batch </h3>
+                        <h3 class="text-22 text-midnight text-bold mb-4">Create Goods Issuance </h3>
                     </div>
                     <div class="card-body">
                         @if ($errors->any())
@@ -20,36 +20,48 @@
                                 </ul>
                             </div>
                         @endif
-                            <form action="{{ route('admin.goods-issuance.store') }}" method="POST">
-                                @csrf
-
-                                <div class="mb-3">
-                                    <label for="batch_id" class="form-label">Batch</label>
-                                    <select name="batch_id" class="form-control" required>
-                                        <option value="">Select Batch</option>
-                                        @foreach($batches as $batch)
-                                            <option value="{{ $batch->id }}">{{ $batch->batch_name }}</option>
-                                        @endforeach
-                                    </select>
+                        <form action="{{ route('admin.goods-issuance.store') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="batch_id" class="form-label">Batch</label>
+                                        <select name="batch_id" class="form-control" required>
+                                            <option value="">Select Batch</option>
+                                            @foreach($batches as $batch)
+                                                <option value="{{ $batch->id }}">{{ $batch->batch_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-
-                                <div class="mb-3">
-                                    <label for="raw_material_id" class="form-label">Raw Material</label>
-                                    <input type="text" name="raw_material_id" class="form-control" required>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="batch_id" class="form-label">Process</label>
+                                        <select name="process_id" class="form-control" required>
+                                            <option value="">Select Process</option>
+                                            @foreach($processes as $p)
+                                                <option value="{{ $p->id }}">{{ $p->name     }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-
-                                <div class="mb-3">
-                                    <label for="issued_quantity" class="form-label">Quantity</label>
-                                    <input type="number" name="issued_quantity" class="form-control" required min="1">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="raw_material_id" class="form-label">Raw Material</label>
+                                        <input type="text" name="raw_material_id" class="form-control" required>
+                                    </div>
                                 </div>
-
-                                <div class="mb-3">
-                                    <label for="issued_by" class="form-label">Issued By</label>
-                                    <input type="text" name="issued_by" class="form-control" required>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="issued_quantity" class="form-label">Quantity</label>
+                                        <input type="number" name="issued_quantity" class="form-control" required
+                                               min="1">
+                                    </div>
                                 </div>
+                            </div>
 
-                                <button type="submit" class="btn btn-success">Issue Goods</button>
-                            </form>
+                            <button type="submit" class="btn btn-success">Issue Goods</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Processe;
 use Illuminate\Http\Request;
 use App\Models\Batch;
+use App\Models\GoodsIssuance;
+use Illuminate\Support\Facades\Auth;
+
 
 class GoodsIssuanceController extends Controller
 {
@@ -21,8 +25,9 @@ class GoodsIssuanceController extends Controller
      */
     public function create()
     {
-        $batches = Batch::all(); // Fetch all available batches
-        return view('admin.goods-issuance.create', compact('batches'));
+        $batches = Batch::all();
+        $processes = Processe::all();
+        return view('admin.goods-issuance.create', compact('batches', 'processes'));
     }
 
     /**
@@ -30,7 +35,11 @@ class GoodsIssuanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $data = $request->all();
+        $data['issued_date'] = date('Y-m-d');
+        $data['issued_by'] = Auth::user()->id;
+        GoodsIssuance::create($data);
     }
 
     /**

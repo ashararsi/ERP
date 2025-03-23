@@ -15,12 +15,11 @@ class GoodsIssuance extends Model
         'wastage_quantity',
         'issued_by',
         'issued_date',
-        'Qa_status',
+        'qa_status',
         'remarks',
     ];
+
     protected $table='goods_issuance';
-
-
     public function batch()
     {
         return $this->belongsTo(Batch::class);
