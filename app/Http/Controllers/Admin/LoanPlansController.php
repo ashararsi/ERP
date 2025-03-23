@@ -42,7 +42,7 @@ class LoanPlansController extends Controller
     {
         try {
             $this->LoanPlansServices->store($request);
-            return redirect()->route('admin.loan_plans.index')->with('success', 'Loan plan added successfully.');
+            return redirect()->route('admin.loan-plans.index')->with('success', 'Loan plan added successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -73,7 +73,7 @@ class LoanPlansController extends Controller
     {
         try {
             $this->LoanPlansServices->update($request, $id);
-            return redirect()->route('admin.loan_plans.index')->with('success', 'Loan plan updated successfully.');
+            return redirect()->route('admin.loan-plans.index')->with('success', 'Loan plan updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -86,7 +86,7 @@ class LoanPlansController extends Controller
     {
         try {
             $this->LoanPlansServices->destroy($id);
-            return redirect()->route('admin.loan_plans.index')->with('success', 'Loan plan deleted successfully.');
+            return redirect()->route('admin.loan-plans.index')->with('success', 'Loan plan deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

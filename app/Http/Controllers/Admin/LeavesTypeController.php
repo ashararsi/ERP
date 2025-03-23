@@ -41,7 +41,7 @@ class LeavesTypeController extends Controller
     {
         try {
             $this->LeaveTypeServices->store($request);
-            return redirect()->route('admin.leaves_types.index')->with('success', 'Leave type added successfully.');
+            return redirect()->route('admin.hrm-leave-types.index')->with('success', 'Leave type added successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -70,7 +70,7 @@ class LeavesTypeController extends Controller
     {
         try {
             $this->LeaveTypeServices->update($request, $id);
-            return redirect()->route('admin.leaves_types.index')->with('success', 'Leave type updated successfully.');
+            return redirect()->route('admin.hrm-leave-types.index')->with('success', 'Leave type updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -83,7 +83,7 @@ class LeavesTypeController extends Controller
     {
         try {
             $this->LeaveTypeServices->destroy($id);
-            return redirect()->route('admin.leaves_types.index')->with('success', 'Leave type deleted successfully.');
+            return redirect()->route('admin.hrm-leave-types.index')->with('success', 'Leave type deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
