@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\BatchDetail;
 use App\Models\Batch as Batche;
+use App\Models\GoodsIssuance;
 use App\Models\User;
 
 use App\Models\RawMaterials;
@@ -104,6 +105,34 @@ class BatchServices
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';
                 return $btn;
+            }) ->addColumn('status', function ($row) {
+                $badgeClass = match ($row->status) {
+                    'in_process' => 'bg-warning',
+                    'packaging' => 'bg-primary',
+                    'completed' => 'bg-success',
+                    'dispatched_for_warehouse' => 'bg-info',
+                    default => 'bg-secondary',
+                };
+                return '<span class="badge ' . $badgeClass . '">' . ucfirst(str_replace('_', ' ', $row->status)) . '</span>';
+
+            })
+            ->rawColumns(['action','status'])
+            ->make(true);
+
+    }
+    public function getdata_good_issuance($request)
+    {
+        $data = GoodsIssuance::select('*')->orderBy('id', 'desc');
+        return Datatables::of($data)->addIndexColumn()
+            ->addColumn('action', function ($row) {
+//                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.batches.destroy", $row->id) . '"> ';
+////                $btn = $btn . '<a href=" ' . route("admin.batches.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
+////                $btn = $btn . ' <a href="' . route("admin.batches.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
+//                $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
+//                $btn = $btn . method_field('DELETE') . '' . csrf_field();
+//                $btn = $btn . ' </form>';
+//                return $btn;
+                    return "coming soon";
             }) ->addColumn('status', function ($row) {
                 $badgeClass = match ($row->status) {
                     'in_process' => 'bg-warning',

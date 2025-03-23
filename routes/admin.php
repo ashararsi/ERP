@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\CountryController;
 
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\GoodsIssuanceController;
+use App\Http\Controllers\Admin\GoodsReceiptController;
 
 use App\Http\Controllers\Admin\HolydaysController;
 use App\Http\Controllers\Admin\LeaveEntitlementsController;
@@ -152,8 +153,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::get('/formulation/po-report/{id}', [FormulationController::class, 'generateformulationPDF'])->name('formulation.pdf');
 
 
-
-
     Route::resource('entries', EntriesController::class);
     Route::post('/entries/getdata', [EntriesController::class, 'getdata'])->name('entries.getdata');
     Route::resource('ledger', LedgerController::class);
@@ -161,7 +160,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
 
     Route::post('/ledger/already_created', [LedgerController::class, 'already_created'])->name('ledger.already_created');
-      Route::post('load-ledger', [LedgerController::class, 'load_ledgers'])->name('load-ledger');
+    Route::post('load-ledger', [LedgerController::class, 'load_ledgers'])->name('load-ledger');
 
     // GRN curd
     Route::resource('grns', GoodReceiptNoteController::class);
@@ -169,7 +168,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::post('/grns/fetch/records', [GoodReceiptNoteController::class, 'fetch_po_record'])->name('grns.fetch_po_record');
     Route::get('/grns/grn-report/{id}', [GoodReceiptNoteController::class, 'generatePDF'])->name('grn.pdf');
     Route::get('/logs-view', [ActionLogController::class, 'showLogs'])->name('logs.view');
-
 
 
     Route::resource('products', ProductController::class);
@@ -181,6 +179,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::resource('goods-issuance', GoodsIssuanceController::class);
     Route::post('/goods-issuance/getdata', [GoodsIssuanceController::class, 'getdata'])->name('goods-issuance.getdata');
 
+    Route::resource('goods-receipt', GoodsReceiptController::class);
+    Route::post('/goods-receipt/getdata', [GoodsReceiptController::class, 'getdata'])->name('goods-receipt.getdata');
 
 
     Route::resource('financial-year', FinancialYearController::class);
@@ -213,9 +213,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 //    Route::post('balance-sheet-report-print', [ReportsController::class, 'balance_sheet_report'])->name('balance-sheet-report-print');
 //    Route::get('balance-sheet-test/{g_id}', [ReportsController::class, 'test'])->name('test');
 //    Route::get('testBalance', [ReportsController::class, 'testBalance'])->name('testBalance');
-
-
-
 
 
     Route::get('bpv-create', [EntriesController::class, 'bpvCreate'])->name('bpv-create');
