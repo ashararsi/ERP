@@ -10,7 +10,7 @@ class GoodsIssuance extends Model
     use HasFactory;
     protected $fillable = [
         'batch_id',
-        'raw_material_id',
+//        'raw_material_id',
         'issued_quantity',
         'wastage_quantity',
         'issued_by',

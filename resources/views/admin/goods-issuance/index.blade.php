@@ -1,13 +1,13 @@
 @extends('admin.layout.main')
 @section('title')
-    Inventory
+    Goods Issuance
 @endsection
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-light">
-                    <h3 class="text-22 text-midnight text-bold mb-4">Inventory List</h3>
+                    <h3 class="text-22 text-midnight text-bold mb-4">Goods Issuance List</h3>
                     {{--                    <a href="{{ route('admin.city.create') }}" class="btn btn-primary btn-sm">Add New City</a>--}}
                 </div>
                 <div class="card-body">
@@ -21,9 +21,6 @@
                             <th> Name</th>
                             <th>Batch Number</th>
                             <th>Quantity</th>
-                            <th>Cost Price</th>
-                            <th>Selling Price</th>
-                            <th>Expiry Date</th>
                             <th>Actions</th>
                         </tr>
                         </thead>

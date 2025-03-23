@@ -8,16 +8,27 @@ use Illuminate\Http\Request;
 use App\Models\Batch;
 use App\Models\GoodsIssuance;
 use Illuminate\Support\Facades\Auth;
+use App\Services\BatchServices;
+use App\Services\FormulationServices;
 
 
 class GoodsIssuanceController extends Controller
 {
+
+
+    public function __construct(BatchServices $BatchServices, FormulationServices $FormulationServices)
+    {
+        $this->BatchServices = $BatchServices;
+        $this->FormulationServices = $FormulationServices; // Assign the service
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('admin.goods-issuance.index');
+
     }
 
     /**
@@ -27,7 +38,8 @@ class GoodsIssuanceController extends Controller
     {
         $batches = Batch::all();
         $processes = Processe::all();
-        return view('admin.goods-issuance.create', compact('batches', 'processes'));
+       $users= $this->BatchServices->getusers();
+        return view('admin.goods-issuance.create', compact('batches', 'processes','users'));
     }
 
     /**
@@ -40,6 +52,7 @@ class GoodsIssuanceController extends Controller
         $data['issued_date'] = date('Y-m-d');
         $data['issued_by'] = Auth::user()->id;
         GoodsIssuance::create($data);
+        return redirect()->route('admin.goods-issuance.index');
     }
 
     /**

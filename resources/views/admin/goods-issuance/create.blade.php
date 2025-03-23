@@ -45,12 +45,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="raw_material_id" class="form-label">Raw Material</label>
-                                        <input type="text" name="raw_material_id" class="form-control" required>
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label for="raw_material_id" class="form-label">Raw Material</label>--}}
+{{--                                        <input type="text" name="raw_material_id" class="form-control" required>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="issued_quantity" class="form-label">Quantity</label>
@@ -58,7 +58,31 @@
                                                min="1">
                                     </div>
                                 </div>
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label for="issued_quantity" class="form-label">Allow Wastage (percentage)</label>--}}
+{{--                                        <input type="text" name="wastage_quantity_allow" class="form-control" required--}}
+{{--                                               min="1">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="batch_id" class="form-label">Operator</label>
+                                        <select name="operator_id" class="form-control" required>
+                                            <option value="">Select Operator</option>
+                                            @foreach($users['operator_initials'] as $p)
+                                                <option value="{{ $p->id }}">{{ $p->name     }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                             </div>
+
+
+
+
 
                             <button type="submit" class="btn btn-success">Issue Goods</button>
                         </form>
