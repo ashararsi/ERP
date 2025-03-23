@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('hrm_leaves', function (Blueprint $table) {
+        Schema::create('hrm_leaves', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('leave_request_id');
             $table->unsignedInteger('employee_id');

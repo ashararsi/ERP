@@ -26,6 +26,8 @@ use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\InventoryController;
+use App\Http\Controllers\Admin\GoodsIssuanceController;
 use App\Models\Formulations;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
@@ -137,6 +139,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('products', ProductController::class);
     Route::post('/products/getdata', [ProductController::class, 'getdata'])->name('products.getdata');
+
+    Route::resource('inventory', InventoryController::class);
+    Route::post('/inventory/getdata', [InventoryController::class, 'getdata'])->name('inventory.getdata');
+
+    Route::resource('goods-issuance', GoodsIssuanceController::class);
+    Route::post('/goods-issuance/getdata', [GoodsIssuanceController::class, 'getdata'])->name('goods-issuance.getdata');
 
 
 

@@ -26,14 +26,16 @@
                             <div class="row">
                                 <div class="col-md-3 mb-3">
                                     <label for="total_qty" class="form-label">Quantity</label>
-                                    <input type="text" class="form-control" value="1" id="total_qty" name="total_qty" required>
+                                    <input type="text" class="form-control" value="1" id="total_qty" name="total_qty"
+                                           required>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="batchName" class="form-label">Formulation</label>
                                     <select class="form-control" id="formulation_id" name="formulation_id" required>
                                         <option value="">Select Formulation</option>
                                         @foreach($formulation as $formulations)
-                                            <option value="{{$formulations->id}}">{{$formulations->formula_name}}</option>
+                                            <option
+                                                value="{{$formulations->id}}">{{$formulations->formula_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -46,7 +48,7 @@
                                         <option value="dispatched_for_warehouse">Dispatched for Warehouse</option>
                                     </select>
                                 </div>
-                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="batchName" class="form-label">Batch Name</label>
@@ -64,7 +66,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="batchName" class="form-label">Batch NO (auto)</label>
-                                    <input readonly type="text" class="form-control" id="batchName" name="batch_no" required>
+                                    <input readonly type="text" class="form-control" id="batchName" name="batch_no">
                                 </div>
                             </div>
                             <div class="row">
@@ -73,8 +75,8 @@
                                     <input type="date" class="form-control" id="mfg_date" name="mfg_date" required>
                                 </div>
                                 <div class="col-md-3 mb-3">
-                                    <label for="exp_date" class="form-label">Exp Date</label>
-                                    <input type="date" class="form-control" id="exp_date" name="exp_date" required>
+                                    <label for="expiry_date" class="form-label">Exp Date</label>
+                                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" required>
                                 </div>
 
                             </div>
@@ -152,7 +154,7 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             let today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
             let batchDateInput = document.getElementById("batchDate");
 
@@ -161,11 +163,11 @@
         });
 
 
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             let today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
 
             let mfgDateInput = document.getElementById("mfg_date");
-            let expDateInput = document.getElementById("exp_date");
+            let expDateInput = document.getElementById("expiry_date");
 
             // Set Mfg Date default to today and restrict past selection
             mfgDateInput.value = today;
@@ -180,14 +182,13 @@
             expDateInput.setAttribute("min", today); // Exp Date cannot be before today
 
             // Update Exp Date when Mfg Date changes
-            mfgDateInput.addEventListener("change", function() {
+            mfgDateInput.addEventListener("change", function () {
                 let selectedMfgDate = new Date(mfgDateInput.value);
                 let minExpDate = new Date(selectedMfgDate);
                 minExpDate.setFullYear(minExpDate.getFullYear() + 2); // Exp Date should be at least Mfg Date + 2 years
 
                 let minExpFormatted = minExpDate.toISOString().split('T')[0];
                 expDateInput.setAttribute("min", minExpFormatted);
-
                 // Auto-update Exp Date if it's before the new min
                 if (expDateInput.value < minExpFormatted) {
                     expDateInput.value = minExpFormatted;

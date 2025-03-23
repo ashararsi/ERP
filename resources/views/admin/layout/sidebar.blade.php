@@ -186,7 +186,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="slide has-sub {{ request()->is('admin/grns*') ? 'open' : '' }}">
                     <a href="javascript:void(0);" class="side-menu__item">GRN
                         <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -256,7 +255,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="slide has-sub {{ request()->is('admin/formulations*') ? 'open' : '' }}">
                     <a href="javascript:void(0);" class="side-menu__item">Formulation
                         <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -268,6 +266,30 @@
                         <li class="slide {{ request()->routeIs('admin.formulations.create') ? 'active' : '' }}">
                             <a href="{!! route('admin.formulations.create') !!}" class="side-menu__item">Create</a>
                         </li>
+                    </ul>
+                </li>
+                <li class="slide has-sub {{ request()->is('admin/batches*') ? 'open' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">Batches
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child2">
+                        <li class="slide {{ request()->routeIs('admin.batches.index') ? 'active' : '' }}">
+                            <a href="{!! route('admin.formulations.index') !!}" class="side-menu__item">List</a>
+                        </li>
+                        <li class="slide {{ request()->routeIs('admin.batches.create') ? 'active' : '' }}">
+                            <a href="{!! route('admin.formulations.create') !!}" class="side-menu__item">Create</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="slide has-sub {{ request()->is('admin/inventory*') ? 'open' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">Inventory
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child2">
+                        <li class="slide {{ request()->routeIs('admin.inventory.index') ? 'active' : '' }}">
+                            <a href="{!! route('admin.inventory.index') !!}" class="side-menu__item">List</a>
+                        </li>
+
                     </ul>
                 </li>
 

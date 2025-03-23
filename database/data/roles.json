@@ -26,11 +26,12 @@
     {
         "name": "Supplier",
         "guard_name": "web"
-    } ,
+    },
     {
         "name": "Operator",
         "guard_name": "web"
-    } {
+    },
+    {
         "name": "Prod In-Charge",
         "guard_name": "web"
     }

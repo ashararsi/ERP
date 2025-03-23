@@ -24,6 +24,20 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="formula_name" class="form-label">Unit</label>
+                                    <select class="form-control" name="formula_unit_id">
+                                        <option>Select Unit</option>
+                                        @foreach($units as $unit)
+                                            <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="formula_name" class="form-label">For Value</label>
+                                    <input type="text" readonly name="for_value" class="form-control" value="1">
+                                </div>
+
                                 <div class="col-md-12 mb-3">
                                     <label for="formula_name" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="formula_name" name="formula_name"

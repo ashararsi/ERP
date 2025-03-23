@@ -35,7 +35,7 @@ class FormulationController extends Controller
         $units = $this->FormulationServices->units();
 
 
-        return view('admin.formulation.create', compact('raw', 'users','process','units'));
+        return view('admin.formulation.create', compact('raw', 'users', 'process', 'units'));
     }
 
     /**
@@ -65,7 +65,18 @@ class FormulationController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            $f = $this->FormulationServices->edit($id);
+            $raw = $this->FormulationServices->Raw();
+            $users = $this->FormulationServices->getusers();
+            $process = $this->FormulationServices->getprocess();
+            $units = $this->FormulationServices->units();
+            return view('admin.formulation.edit', compact('raw', 'users', 'process', 'units', 'f'));
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -73,7 +84,13 @@ class FormulationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $this->FormulationServices->store($request);
+            return redirect()->route('admin.formulations.index');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -86,15 +103,18 @@ class FormulationController extends Controller
 
     public function getdata(Request $request)
     {
-      return $this->FormulationServices->getdata($request);
-    }public function fetch_po_record(Request $request)
-    {
-      return $this->FormulationServices->fetch_po_record($request);
+        return $this->FormulationServices->getdata($request);
     }
+
+    public function fetch_po_record(Request $request)
+    {
+        return $this->FormulationServices->fetch_po_record($request);
+    }
+
     public function generateformulationPDF($id)
     {
         $f = $this->FormulationServices->edit($id);
         $pdf = Pdf::loadView('admin.formulation.report_pdf', compact('f'));
-        return $pdf->download('formulation_Report_'.$id.'.pdf');
+        return $pdf->download('formulation_Report_' . $id . '.pdf');
     }
 }

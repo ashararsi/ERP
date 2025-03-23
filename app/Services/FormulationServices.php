@@ -82,10 +82,6 @@ class FormulationServices
     public function store($request)
     {
         $data = $request->all();
-
-//        $data['parent_id'] = ($request->parent_id == 0) ? null : $request->parent_id;
-
-
         $f = Formulations::create($data);
 
         foreach ($request->raw_material_id as $key => $value) {

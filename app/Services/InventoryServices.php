@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Models\BatchDetail;
-use App\Models\Batch as Batche;
+use App\Models\Batche;
+use App\Models\Inventory;
+use App\Models\Product;
 use App\Models\User;
 
 use App\Models\RawMaterials;
@@ -11,7 +13,7 @@ use DataTables;
 
 use Config;
 
-class BatchServices
+class InventoryServices
 {
     public function create()
     {
@@ -39,7 +41,7 @@ class BatchServices
     public function index($request)
     {
         $perPage = $request->get('per_page', 20);
-        $posts = Batche::orderBy('created_at', 'desc')->paginate($perPage);
+        $posts = Inventory::orderBy('created_at', 'desc')->paginate($perPage);
         return response()->json([
             'data' => $posts->items(),
             'current_page' => $posts->currentPage(),
@@ -54,27 +56,19 @@ class BatchServices
     public function store($request)
     {
         $data = $request->all();
-        $b = Batche::create($data);
-        foreach ($data['items']['item_id'] as $key => $item) {
-            $item_data = [
-                'batch_id' => $b->id,
-                'raw_material_id' => $data['items']['item_id'][$key],
-                'operator_initials' => $data['items']['operator_ids'][$key],
-                'actual_quantity' => $data['items']['actual_quantity'][$key],
-            ];
-            BatchDetail::create($item_data);
-        }
+        $b = Inventory::create($data);
+
     }
 
     public function edit($id)
     {
-        return Batche::findOrFail($id);
+        return Inventory::findOrFail($id);
     }
 
     public function update($request, $id)
     {
         $validated = $request->all();
-        $transaction = Batche::find($id);
+        $transaction = Inventory::find($id);
         if ($transaction) {
             $transaction->update($validated);
         }
@@ -83,10 +77,9 @@ class BatchServices
 
     public function destroy($id)
     {
-        $Transaction = Batche::findOrFail($id);
+        $Transaction = Inventory::findOrFail($id);
         if ($Transaction) {
             $Transaction->delete();
-            BatchDetail::where('batch_id',$id)->delete();
 
         }
     }
@@ -94,28 +87,18 @@ class BatchServices
 
     public function getdata($request)
     {
-        $data = Batche::select('*')->orderBy('id', 'desc');
+        $data = Inventory::select('*')->orderBy('id', 'desc');
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function ($row) {
-                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.batches.destroy", $row->id) . '"> ';
+//                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.inventory.destroy", $row->id) . '"> ';
 //                $btn = $btn . '<a href=" ' . route("admin.batches.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
 //                $btn = $btn . ' <a href="' . route("admin.batches.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
-                $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
-                $btn = $btn . method_field('DELETE') . '' . csrf_field();
-                $btn = $btn . ' </form>';
-                return $btn;
-            }) ->addColumn('status', function ($row) {
-                $badgeClass = match ($row->status) {
-                    'in_process' => 'bg-warning',
-                    'packaging' => 'bg-primary',
-                    'completed' => 'bg-success',
-                    'dispatched_for_warehouse' => 'bg-info',
-                    default => 'bg-secondary',
-                };
-                return '<span class="badge ' . $badgeClass . '">' . ucfirst(str_replace('_', ' ', $row->status)) . '</span>';
-
+//                $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
+//                $btn = $btn . method_field('DELETE') . '' . csrf_field();
+//                $btn = $btn . ' </form>';
+                return 'Coming Soon';
             })
-            ->rawColumns(['action','status'])
+            ->rawColumns(['action'])
             ->make(true);
 
     }

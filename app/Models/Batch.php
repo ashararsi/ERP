@@ -6,18 +6,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Batche extends Model
+class Batch extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
     protected $table = 'batches';
     protected $fillable = [
         'formulation_id',
         'batch_code',
+        'batch_name',
+        'batch_date',
+        'product_name',
+        'mfg_date',
+        'total_qty',
         'production_date',
         'expiry_date',
-        'status'
+        'status',
     ];
+
     protected static function boot()
     {
         parent::boot();

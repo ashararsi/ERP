@@ -51,7 +51,7 @@ class RoleSeeder extends Seeder
 
         // Decode JSON data into an array
         $roles = json_decode($json, true);
-
+dump($roles);
         // Insert all roles at once
         Role::insert($roles);
     }

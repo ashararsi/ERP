@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('product_id')->nullable();
             $table->string('batch_number')->nullable();
+            $table->string('sku')->nullable();
             $table->integer('quantity')->nullable();
             $table->decimal('cost_price', 10, 2)->nullable();
             $table->decimal('selling_price', 10, 2)->nullable();

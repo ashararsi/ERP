@@ -4,6 +4,7 @@
         <hr/>
         <div class=" item-row card card-body" data-id="{{ $item->id }}">
           <div class="row">
+              <input type="hidden" name="items[item_id][]" value="{!! $item->id !!}">
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Raw Material</label>

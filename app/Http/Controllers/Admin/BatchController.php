@@ -91,7 +91,13 @@ class BatchController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $this->BatchServices->destroy($id);
+            return redirect()->route('admin.batches.index');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function getdata(Request $request)

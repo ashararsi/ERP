@@ -12,7 +12,13 @@ class Formulations extends Model
     use SoftDeletes;
 
     protected $table = "formulations";
-    protected $fillable = ['formula_name', 'description'];
+    protected $fillable = [
+        'formula_name',
+        'description',
+        'for_value',
+        'formula_unit_id'
+
+    ];
 
 
     public function formulationDetail()
