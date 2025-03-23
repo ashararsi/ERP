@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('wastage_quantity', 10, 2)->default(0);
             $table->string('issued_by')->nullable();
             $table->date('issued_date')->nullable();
-            $table->enum('Qa_status',['pending', 'rejected', 'pass'])->default('in_process');
+            $table->enum('Qa_status',['pending', 'rejected', 'pass'])->default('pending');
             $table->text('remarks')->nullable();
 //            $table->foreign('batch_id')->references('id')->on('batches')->onDelete('cascade');
 //            $table->foreign('raw_material_id')->references('id')->on('raw_materials')->onDelete('cascade');
