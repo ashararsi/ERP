@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\BatchDetail;
 use App\Models\Batch as Batche;
 use App\Models\GoodsIssuance;
+use App\Models\Processe;
+use App\Models\Unit;
 use App\Models\User;
 
 use App\Models\RawMaterials;
@@ -36,6 +38,27 @@ class BatchServices
         })->get();
         return ['suppliers' => $suppliers, 'qaUsers' => $qaUsers, 'operator_initials' => $operator_initials, 'Prod' => $Prod];
     }
+
+
+
+    public function Raw()
+    {
+        return RawMaterials::all();
+
+    }
+
+
+    public function getprocess()
+    {
+        return $suppliers = Processe::get();
+    }
+
+    public function units()
+    {
+        return Unit::get();
+    }
+
+
 
     public function index($request)
     {
@@ -87,7 +110,7 @@ class BatchServices
         $Transaction = Batche::findOrFail($id);
         if ($Transaction) {
             $Transaction->delete();
-            BatchDetail::where('batch_id',$id)->delete();
+            BatchDetail::where('batch_id', $id)->delete();
 
         }
     }
@@ -105,7 +128,7 @@ class BatchServices
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';
                 return $btn;
-            }) ->addColumn('status', function ($row) {
+            })->addColumn('status', function ($row) {
                 $badgeClass = match ($row->status) {
                     'in_process' => 'bg-warning',
                     'packaging' => 'bg-primary',
@@ -116,10 +139,11 @@ class BatchServices
                 return '<span class="badge ' . $badgeClass . '">' . ucfirst(str_replace('_', ' ', $row->status)) . '</span>';
 
             })
-            ->rawColumns(['action','status'])
+            ->rawColumns(['action', 'status'])
             ->make(true);
 
     }
+
     public function getdata_good_issuance($request)
     {
         $data = GoodsIssuance::select('*')->orderBy('id', 'desc');
@@ -132,8 +156,8 @@ class BatchServices
 //                $btn = $btn . method_field('DELETE') . '' . csrf_field();
 //                $btn = $btn . ' </form>';
 //                return $btn;
-                    return "coming soon";
-            }) ->addColumn('status', function ($row) {
+                return "coming soon";
+            })->addColumn('status', function ($row) {
                 $badgeClass = match ($row->status) {
                     'in_process' => 'bg-warning',
                     'packaging' => 'bg-primary',
@@ -144,8 +168,27 @@ class BatchServices
                 return '<span class="badge ' . $badgeClass . '">' . ucfirst(str_replace('_', ' ', $row->status)) . '</span>';
 
             })
-            ->rawColumns(['action','status'])
+            ->rawColumns(['action', 'status'])
             ->make(true);
+
+    }
+
+
+    public function generatePDF($id)
+    {
+
+
+    }
+
+    public function getdata_issuance($request)
+    {
+        $batch = Batche::where('id', $request->id)->with('batchDetails','Formulation.formulationDetail')->first();
+        $raw = $this->Raw();
+        $users = $this->getusers();
+        $process = $this->getprocess();
+        $units = $this->units();
+
+        return view('admin.goods-issuance.data', compact('batch','units','raw','users','process'));
 
     }
 }

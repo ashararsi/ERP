@@ -26,7 +26,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="batch_id" class="form-label">Batch</label>
-                                        <select name="batch_id" class="form-control" required>
+                                        <select name="batch_id" id="batch_id" class="form-control" required>
                                             <option value="">Select Batch</option>
                                             @foreach($batches as $batch)
                                                 <option value="{{ $batch->id }}">{{ $batch->batch_name }}</option>
@@ -80,6 +80,12 @@
 
                             </div>
 
+                            <div class="row">
+                                <div id="batchDetailsContainer" class="col-md-12">
+
+                                </div>
+                            </div>
+
 
 
 
@@ -96,41 +102,20 @@
     <script>
 
         $(document).ready(function () {
-            $('#total_qty').change(function () {
-                $('#batchDetailsContainer').html('');
-                var formulation_id = $('#formulation_id').val();
-                var total_qty = $('#total_qty').val();
-                if (formulation_id) {
-                    $.ajax({
-                        url: '{!! route('admin.FormulationController.fetch_po_record') !!}',
-                        type: 'post',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            id: formulation_id,
-                            total_qty: total_qty
-                        },
-                        success: function (response) {
-                            $('#batchDetailsContainer').html(response);
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("Error fetching data:", error);
-                        }
-                    });
-                }
-            });
-            $('#formulation_id').change(function () {
-                $('#batchDetailsContainer').html('');
-                var formulation_id = $(this).val();
-                var total_qty = $('#total_qty').val();
 
-                if (formulation_id) {
+            $('#batch_id').change(function () {
+                $('#batchDetailsContainer').html('');
+                var batch_id = $(this).val();
+
+
+                if (batch_id) {
                     $.ajax({
-                        url: '{!! route('admin.FormulationController.fetch_po_record') !!}',
+                        url: '{!! route('admin.good-issuance.get.data') !!}',
                         type: 'post',
                         data: {
                             _token: '{{ csrf_token() }}',
-                            id: formulation_id,
-                            total_qty: total_qty
+                            id: batch_id,
+
                         },
                         success: function (response) {
                             $('#batchDetailsContainer').html(response);

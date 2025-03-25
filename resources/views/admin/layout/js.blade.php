@@ -22,8 +22,8 @@
 <!-- Color Picker JS -->
 <script src="{!! asset('admin/assets/libs/@simonwep/pickr/pickr.es5.min.js') !!}"></script>
 
-<!-- Apex Charts JS -->
-<script src="{!! asset('admin/assets/libs/apexcharts/apexcharts.min.js') !!}"></script>
+{{--<!-- Apex Charts JS -->--}}
+{{--<script src="{!! asset('admin/assets/libs/apexcharts/apexcharts.min.js') !!}"></script>--}}
 
 <!-- JSVector Maps JS -->
 <script src="{!! asset('admin/assets/libs/jsvectormap/js/jsvectormap.min.js') !!}"></script>

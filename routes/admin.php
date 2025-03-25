@@ -178,6 +178,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('goods-issuance', GoodsIssuanceController::class);
     Route::post('/goods-issuance/getdata', [GoodsIssuanceController::class, 'getdata'])->name('goods-issuance.getdata');
+    Route::get('/goods-issuance/report/{id}', [GoodsIssuanceController::class, 'generatePDF'])->name('po.pdf');
+    Route::post('/goods-issuance/data', [GoodsIssuanceController::class, 'get_data'])->name('good-issuance.get.data');
 
     Route::resource('goods-receipt', GoodsReceiptController::class);
     Route::post('/goods-receipt/getdata', [GoodsReceiptController::class, 'getdata'])->name('goods-receipt.getdata');
@@ -234,4 +236,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::get('gjv-edit/{id}', [EntriesController::class, 'edit'])->name('gjv-edit');
     Route::get('download/{id}', [EntriesController::class, 'download'])->name('download');
     Route::get('gjv_search', [EntriesController::class, 'gjv_search'])->name('gjv_search');
+
+
+
+
+
+
+    Route::get('/pos', function () {
+        return view('sale.pos');
+    });
+    Route::get('/invoice', function () {
+        return view('invoice.po_invoice');
+    });
 });

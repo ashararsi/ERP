@@ -40,4 +40,16 @@ class Batch extends Model
             }
         });
     }
+
+    public function batchDetails()
+    {
+        return $this->hasMany(BatchDetail::class,'batch_id');
+
+    } public function Formulation()
+    {
+        return $this->belongsTo(Formulations::class,'formulation_id');
+
+    }
+
+
 }

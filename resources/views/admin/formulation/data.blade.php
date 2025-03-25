@@ -76,7 +76,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>QA </label>
-                    <select   class="form-control" name="items[in_charge][]" required>
+                    <select   class="form-control" name="items[qa_initials][]" required>
                         <option value="">Select Qa</option>
                         @foreach($users['qaUsers'] as $u_item)
                             <option value="{{ $u_item->id }}">{{ $u_item->name }}</option>

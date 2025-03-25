@@ -14,7 +14,7 @@
         </a>
     </div>
     <!-- End::main-sidebar-header -->
-
+<div class="d-none" id="Sales-bar"></div>
     <!-- Start::main-sidebar -->
     <div class="main-sidebar" id="sidebar-scroll">
 
