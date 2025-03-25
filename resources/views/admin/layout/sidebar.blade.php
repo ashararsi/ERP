@@ -297,7 +297,7 @@
                     </ul>
                 </li>
                 <li class="slide has-sub {{ request()->is('admin/goods-receipt*') ? 'open' : '' }}">
-                    <a href="javascript:void(0);" class="side-menu__item">Goods-Issuance
+                    <a href="javascript:void(0);" class="side-menu__item">Goods-Receipt
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child2">
