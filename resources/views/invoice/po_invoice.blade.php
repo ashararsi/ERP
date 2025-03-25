@@ -261,7 +261,9 @@
         <p>For any queries, please contact accounts@lasanipharma.com or call 047-37188887</p>
 
         <div class="pharma-stamp">
-            [Company Stamp Area]<br>
+              __________________________
+            <br>
+            <br>
             Authorized Signature
         </div>
         <div style="clear: both;"></div>
