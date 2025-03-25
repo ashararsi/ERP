@@ -14,7 +14,7 @@
         </a>
     </div>
     <!-- End::main-sidebar-header -->
-<div class="d-none" id="Sales-bar"></div>
+    <div class="d-none" id="Sales-bar"></div>
     <!-- Start::main-sidebar -->
     <div class="main-sidebar" id="sidebar-scroll">
 
@@ -278,6 +278,34 @@
                         </li>
                         <li class="slide {{ request()->routeIs('admin.batches.create') ? 'active' : '' }}">
                             <a href="{!! route('admin.batches.create') !!}" class="side-menu__item">Create</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="slide has-sub {{ request()->is('admin/goods-issuance*') ? 'open' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">Goods-Issuance
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child2">
+                        <li class="slide {{ request()->routeIs('admin.goods-issuance.index') ? 'active' : '' }}">
+                            <a href="{!! route('admin.goods-issuance.index') !!}" class="side-menu__item">List</a>
+                        </li>
+                        <li class="slide {{ request()->routeIs('admin.goods-issuance.create') ? 'active' : '' }}">
+                            <a href="{!! route('admin.goods-issuance.create') !!}" class="side-menu__item">Create</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="slide has-sub {{ request()->is('admin/goods-receipt*') ? 'open' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">Goods-Issuance
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child2">
+                        <li class="slide {{ request()->routeIs('admin.goods-receipt.index') ? 'active' : '' }}">
+                            <a href="{!! route('admin.goods-receipt.index') !!}" class="side-menu__item">List</a>
+                        </li>
+                        <li class="slide {{ request()->routeIs('admin.goods-receipt.create') ? 'active' : '' }}">
+                            <a href="{!! route('admin.goods-receipt.create') !!}" class="side-menu__item">Create</a>
                         </li>
                     </ul>
                 </li>
