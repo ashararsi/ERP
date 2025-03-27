@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class GoodsIssuance extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'batch_id',
 //        'raw_material_id',
         'issued_quantity',
+        'process_id',
         'wastage_quantity',
         'issued_by',
         'issued_date',
@@ -19,7 +21,8 @@ class GoodsIssuance extends Model
         'remarks',
     ];
 
-    protected $table='goods_issuance';
+    protected $table = 'goods_issuance';
+
     public function batch()
     {
         return $this->belongsTo(Batch::class);

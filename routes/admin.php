@@ -178,7 +178,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('goods-issuance', GoodsIssuanceController::class);
     Route::post('/goods-issuance/getdata', [GoodsIssuanceController::class, 'getdata'])->name('goods-issuance.getdata');
-    Route::get('/goods-issuance/report/{id}', [GoodsIssuanceController::class, 'generatePDF'])->name('po.pdf');
+    Route::get('/goods-issuance/report/{id}', [GoodsIssuanceController::class, 'generatePDF'])->name('goods-issuance.pdf');
     Route::post('/goods-issuance/data', [GoodsIssuanceController::class, 'get_data'])->name('good-issuance.get.data');
 
     Route::resource('goods-receipt', GoodsReceiptController::class);

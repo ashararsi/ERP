@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Batch;
 use App\Models\BatchDetail;
 use App\Models\Batch as Batche;
 use App\Models\GoodsIssuance;
@@ -40,7 +41,6 @@ class BatchServices
     }
 
 
-
     public function Raw()
     {
         return RawMaterials::all();
@@ -57,7 +57,6 @@ class BatchServices
     {
         return Unit::get();
     }
-
 
 
     public function index($request)
@@ -149,6 +148,7 @@ class BatchServices
         $data = GoodsIssuance::select('*')->orderBy('id', 'desc');
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function ($row) {
+                $btn = '';
 //                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.batches.destroy", $row->id) . '"> ';
 ////                $btn = $btn . '<a href=" ' . route("admin.batches.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
 ////                $btn = $btn . ' <a href="' . route("admin.batches.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
@@ -156,7 +156,9 @@ class BatchServices
 //                $btn = $btn . method_field('DELETE') . '' . csrf_field();
 //                $btn = $btn . ' </form>';
 //                return $btn;
-                return "coming soon";
+                $btn = $btn . '<a href=" ' . route("admin.goods-issuance.pdf", $row->id) . '"  class="ml-2"><i class="fas fa-file-pdf"></i></a>';
+
+                return $btn;
             })->addColumn('status', function ($row) {
                 $badgeClass = match ($row->status) {
                     'in_process' => 'bg-warning',
@@ -176,19 +178,40 @@ class BatchServices
 
     public function generatePDF($id)
     {
+        $g = GoodsIssuance::with('batch.batchDetails', 'batch.Formulation')->find($id);
 
+        if (!$g) {
+            abort(404, 'Goods Issuance not found');
+        }
 
+        $process = Processe::find($g->process_id);
+
+        $processViews = [
+            1 => 'Mixing',
+            2 => 'Heating',
+            3 => 'Cooling',
+            4 => 'Packaging',
+            5 => 'Storage',
+        ];
+
+        if (!isset($processViews[$g->process_id])) {
+            abort(404, 'Invalid process ID');
+        }
+        return view("admin.goods-issuance.Pdf.test");
+        return view("admin.goods-issuance.Pdf.test");
+//        return view("admin.goods-issuance.Pdf.{$processViews[$g->process_id]}", compact('id', 'g', 'process'));
     }
+
 
     public function getdata_issuance($request)
     {
-        $batch = Batche::where('id', $request->id)->with('batchDetails','Formulation.formulationDetail')->first();
+        $batch = Batche::where('id', $request->id)->with('batchDetails', 'Formulation.formulationDetail')->first();
         $raw = $this->Raw();
         $users = $this->getusers();
         $process = $this->getprocess();
         $units = $this->units();
 
-        return view('admin.goods-issuance.data', compact('batch','units','raw','users','process'));
+        return view('admin.goods-issuance.data', compact('batch', 'units', 'raw', 'users', 'process'));
 
     }
 }

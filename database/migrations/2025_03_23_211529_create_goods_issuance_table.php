@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->decimal('issued_quantity', 10, 2);
             $table->decimal('wastage_quantity_allow', 10, 2)->default(0);
             $table->string('issued_by')->nullable();
+            $table->integer('process_id')->nullable();
             $table->string('operator_id')->nullable();
             $table->date('issued_date')->nullable();
 

@@ -78,7 +78,7 @@ class GoodReceiptNoteServices
          $old=   InventoryRawMaterial::where('product_id',$item_p->raw_material_id)->first();
             if($old){
                 $to_update= InventoryRawMaterial::where('product_id',$item_p->raw_material_id)->first();
-                $to_update->quantity = $old->quantity + $item_p->quantity;
+                $to_update->quantity_available = $old->quantity + $item_p->quantity;
                 $to_update->unit_price = $old->unit_price + $item_p->unit_price;
                 $to_update->save();
             }else{

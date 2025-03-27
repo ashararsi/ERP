@@ -23,6 +23,7 @@
                         </select>
                     </div>
                 </div>
+
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Unit </label>
@@ -30,8 +31,12 @@
                         <select disabled class="form-control" name="items[unit_id][]" required>
                             <option value="">Select Units</option>
                             @foreach($units as $u_item)
-                                <option @if($f_item->unit_id == $u_item->id) selected
-                                        @endif  value="{{ $u_item->id }}">{{ $u_item->name }}</option>
+                                <option
+                                    @if(isset($f_item->unit_id))
+                                        @if($f_item->unit_id == $u_item->id) selected
+                                    @endif
+                                    @endif
+                                    value="{{ $u_item->id }}">{{ $u_item->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -42,7 +47,7 @@
 
 
                         <input disabled type="number" class="form-control quantity"
-                               value="{!!( $f_item->standard_quantity ) !!}" name="items[quantity][]"
+                               value="{!!( $f_item->standard_quantity ?? 0 ) !!}" name="items[quantity][]"
                                required>
                     </div>
                 </div>
@@ -51,7 +56,7 @@
                     <div class="form-group">
                         <label>Actual</label>
                         <input type="number" class="form-control quantity"
-                               value="{!! $item->actual_quantity !!}" name="items[actual_quantity][]"
+                               value="{!! $item->actual_quantity ?? 0 !!}" name="items[actual_quantity][]"
                                required>
                     </div>
                 </div>
@@ -63,8 +68,12 @@
                         <select disabled class="form-control" name="items[operator_ids][]" required>
                             <option value="">Select Operator</option>
                             @foreach($users['operator_initials'] as $u_item)
-                                <option @if($item->operator_initials==$u_item->id) selected
-                                        @endif value="{{ $u_item->id }}">{{ $u_item->name }}</option>
+                                <option
+                                    @if(isset($item->operator_initials))
+                                        @if($item->operator_initials==$u_item->id) selected
+                                    @endif
+                                    @endif
+                                    value="{{ $u_item->id }}">{{ $u_item->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -76,8 +85,12 @@
                         <select disabled class="form-control" name="items[in_charge][]" required>
                             <option value="">Select Qa</option>
                             @foreach($users['Prod'] as $u_item)
-                                <option @if($item->in_charge==$u_item->id) selected
-                                        @endif value="{{ $u_item->id }}">{{ $u_item->name }}</option>
+                                <option
+                                    @if(isset($item->in_charge))
+                                        @if($item->in_charge==$u_item->id) selected
+                                    @endif
+                                    @endif
+                                    value="{{ $u_item->id }}">{{ $u_item->name }}</option>
                             @endforeach
                         </select>
                     </div>

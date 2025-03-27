@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRN Report</title>
+    <title>Purchase Order Report</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,17 +48,16 @@
             </td>
             <td style="border: none;text-align: left">
                 <div style="width: 100%;">
-                    <div class="header">Goods Received Note (GRN)</div>
+                    <div class="header">Purchase Order (PO)</div>
                 </div>
 
             </td>
         </tr>
     </table>
-
-    <p><strong>GRN No:</strong> {{ $grn->grn_number }}</p>
-    <p><strong>Date:</strong> {{ $grn->receipt_date }}</p>
-    <p><strong>Received By:</strong> @if($grn->user) {{ $grn->user->name }} @else N/A  @endif</p>
-    <p><strong>Status :</strong> {{ $grn->status }}</p>
+    <p><strong>GRN No:</strong>  </p>
+    <p><strong>Date:</strong> </p>
+    <p><strong>Supplier By:</strong> </p>
+    <p><strong>Status :</strong>  </p>
     <div style="width: 90%;padding: 5px ">
         <table style="width: 100%">
             <thead>
@@ -73,23 +72,11 @@
             <tbody>
             @php $total=0;
             @endphp
-            @foreach($grn->items as $index => $item)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $item->p_items->RawMaterial->name }}</td>
-                    <td>{{ $item->p_items->quantity }}</td>
-                    <td>{{ number_format($item->p_items->unit_price, 2) }}</td>
-                    <td>{{ number_format($item->p_items->quantity * $item->p_items->unit_price, 2) }}</td>
-                    @php
-                        $total=$total+  ($item->p_items->quantity * $item->p_items->unit_price ) ;
-                    @endphp
 
-                </tr>
-            @endforeach
             </tbody>
         </table>
         <p style="text-align: right"><strong>Total
-                Amount:</strong> {{ $total }}
+                Amount:</strong>
         </p>
     </div>
 </div>

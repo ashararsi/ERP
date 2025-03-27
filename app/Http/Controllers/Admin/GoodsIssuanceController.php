@@ -94,7 +94,7 @@ class GoodsIssuanceController extends Controller
 
     public function generatePDF($id)
     {
-        return $this->BatchServices->generatePDF($request);
+        return $this->BatchServices->generatePDF($id);
     }
 
     public function get_data(Request $request)

@@ -36,13 +36,13 @@ class GoodReceiptNoteController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+//        try {
             $this->GoodReceiptNoteServices->store($request);
             return redirect()->route('admin.grns.index');
-        } catch (\Exception $e) {
-
-            return redirect()->back()->with('error', $e->getMessage());
-        }
+//        } catch (\Exception $e) {
+//
+//            return redirect()->back()->with('error', $e->getMessage());
+//        }
     }
 
     /**

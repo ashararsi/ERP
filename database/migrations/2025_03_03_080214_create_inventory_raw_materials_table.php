@@ -15,6 +15,7 @@ return new class extends Migration
 
             $table->id();
             $table->integer('product_id');
+            $table->integer('quantity');
             $table->integer('quantity_available')->default(0);
             $table->decimal('unit_price', 10, 2); // Price per unit
             $table->string('unit_of_measurement')->nullable(); // e.g., kg, liter, meter
