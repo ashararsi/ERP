@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('batch_processes', function (Blueprint $table) {
             $table->id();
-//            $table->string('document_no')->unique();
-            $table->integer('process_id');
-            $table->integer('batch_id');
-            $table->text('description');
-            $table->string('mixing_time_min'); // Store in minutes
-            $table->json('check_points'); // Store multiple check points as JSON
-            $table->string('status')->default('pending');
+            $table->foreignId('batch_id')->constrained()->onDelete('cascade');
+            $table->foreignId('process_id')->constrained('processes');
+            $table->integer('order')->default(0);
+            $table->string('remarks')->nullable();
+            $table->integer('duration_minutes'); // Planned duration
+            $table->integer('actual_duration_minutes')->nullable(); // Actual duration
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
+            $table->string('status')->default('pending'); // pending, in_progress, completed, skipped
             $table->timestamps();
         });
     }

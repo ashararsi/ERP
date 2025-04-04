@@ -13,6 +13,7 @@ class FormulationDetail extends Model
     use SoftDeletes;
     protected $fillable = [
         'formulation_id',
+        'process_id',
         'raw_material_id',
         'remarks',
         'unit_id',

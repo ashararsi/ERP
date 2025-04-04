@@ -238,14 +238,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::get('gjv_search', [EntriesController::class, 'gjv_search'])->name('gjv_search');
 
 
-
-
-
-
     Route::get('/pos', function () {
         return view('sale.pos');
     });
     Route::get('/invoice', function () {
         return view('invoice.po_invoice');
+    });
+    Route::get('/delivery', function () {
+        return view('invoice.delivery');
+    });  Route::get('/invoice_1', function () {
+        return view('invoice.invoice');
     });
 });

@@ -84,17 +84,41 @@ class FormulationServices
         $data = $request->all();
         $f = Formulations::create($data);
 
-        foreach ($request->raw_material_id as $key => $value) {
+        $materials = $data['materials'];
+
+        foreach ($materials as $key => $value) {
 
             $data1 = [
                 'formulation_id' => $f->id,
-                'raw_material_id' => $request->raw_material_id[$key] ?? null,
-                'unit_id' => $request->unit[$key] ?? null,
-                'standard_quantity' => $request->standard_quantity[$key] ?? 1,
-                'remarks' => $request->remarks[$key] ?? '',
+                'raw_material_id' => $value['raw_material_id'] ?? null,
+                'unit_id' => $value['unit'] ?? null,
+                'standard_quantity' => $value['standard_quantity'] ?? 1,
+                'process_id' => $value['process'] ?? 1,
+                'remarks' => $value['remarks'] ?? '',
             ];
 
             FormulationDetail::create($data1);
+        }
+
+
+        foreach ($data['processes'] as $processData) {
+            $batchProcess = $batch->processes()->create([
+                'process_id' => $processData['process_id'],
+                'duration_minutes' => $processData['duration_minutes'],
+                'order' => $processData['order'] ?? 0,
+                'remarks' => $processData['remarks'] ?? null,
+                'status' => 'pending',
+            ]);
+
+            // Add checkpoints
+            foreach ($processData['checkpoints'] as $checkpointData) {
+                $batchProcess->checkpoints()->create([
+                    'name' => $checkpointData['name'],
+                    'unit_id' => $checkpointData['unit_id'],
+                    'standard_value' => $checkpointData['standard_value'],
+                    'actual_value' => null, // Will be filled during execution
+                ]);
+            }
         }
 
 
@@ -150,9 +174,9 @@ class FormulationServices
     {
         $data = $this->data_pdf();
         $f = Formulations::with('formulationDetail')->where('id', $request->id)->first();
-        $qty=$request->total_qty;
+        $qty = $request->total_qty;
         $users = $this->getusers();
-        return view('admin.formulation.data', compact('users', 'f', 'data','qty'));
+        return view('admin.formulation.data', compact('users', 'f', 'data', 'qty'));
 
 
     }
