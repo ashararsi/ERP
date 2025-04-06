@@ -101,25 +101,25 @@ class FormulationServices
         }
 
 
-        foreach ($data['processes'] as $processData) {
-            $batchProcess = $batch->processes()->create([
-                'process_id' => $processData['process_id'],
-                'duration_minutes' => $processData['duration_minutes'],
-                'order' => $processData['order'] ?? 0,
-                'remarks' => $processData['remarks'] ?? null,
-                'status' => 'pending',
-            ]);
-
-            // Add checkpoints
-            foreach ($processData['checkpoints'] as $checkpointData) {
-                $batchProcess->checkpoints()->create([
-                    'name' => $checkpointData['name'],
-                    'unit_id' => $checkpointData['unit_id'],
-                    'standard_value' => $checkpointData['standard_value'],
-                    'actual_value' => null, // Will be filled during execution
-                ]);
-            }
-        }
+//        foreach ($data['processes'] as $processData) {
+//            $batchProcess = $batch->processes()->create([
+//                'process_id' => $processData['process_id'],
+//                'duration_minutes' => $processData['duration_minutes'],
+//                'order' => $processData['order'] ?? 0,
+//                'remarks' => $processData['remarks'] ?? null,
+//                'status' => 'pending',
+//            ]);
+//
+//            // Add checkpoints
+//            foreach ($processData['checkpoints'] as $checkpointData) {
+//                $batchProcess->checkpoints()->create([
+//                    'name' => $checkpointData['name'],
+//                    'unit_id' => $checkpointData['unit_id'],
+//                    'standard_value' => $checkpointData['standard_value'],
+//                    'actual_value' => null, // Will be filled during execution
+//                ]);
+//            }
+//        }
 
 
     }
