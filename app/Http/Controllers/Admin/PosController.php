@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\ProductServices;
+use App\Services\PosServices;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class PosController extends Controller
 {
 
-
-    public function __construct(ProductServices $ProductServices)
+    public function __construct(PosServices $PosServices)
     {
-        $this->ProductServices = $ProductServices;
+        $this->PosServices = $PosServices;
     }
 
     /**
@@ -20,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.product.index');
+        return view('admin.pos.index');
     }
 
     /**
@@ -28,8 +27,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $units = $this->ProductServices->create();
-        return view('admin.product.create', compact('units'));
+        $data = $this->PosServices->create();
+        $users = $this->PosServices->getusers();
+        $products = $this->PosServices->products();
+        $Batches = $this->PosServices->Batches();
+        return view('admin.pos.create', compact('data', 'users', 'products','Batches'));
+
     }
 
     /**
@@ -38,8 +41,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->ProductServices->store($request);
-            return redirect()->route('admin.products.index');
+            $this->PosServices->store($request);
+            return redirect()->route('admin.pos.index');
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
@@ -80,6 +83,9 @@ class ProductController extends Controller
 
     public function getdata(Request $request)
     {
-        return $this->ProductServices->getdata($request);
+
+        return $this->PosServices->getdata($request);
     }
+
 }
+

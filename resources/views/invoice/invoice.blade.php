@@ -10,12 +10,14 @@
             margin: 0;
             padding: 20px;
         }
+
         .invoice-container {
             width: 800px;
             margin: auto;
             border: 1px solid #000;
             padding: 20px;
         }
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -24,27 +26,33 @@
             padding-bottom: 20px;
             margin-bottom: 20px;
         }
+
         .header img {
             height: 5rem;
         }
+
         .invoice-title {
             text-align: center;
             font-size: 24px;
             font-weight: bold;
         }
+
         .invoice-details, .invoice-items {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
+
         .invoice-details td, .invoice-items th, .invoice-items td {
             border: 1px solid #000;
             padding: 8px;
             text-align: left;
         }
+
         .invoice-items th {
             background-color: #f2f2f2;
         }
+
         .total-section {
             text-align: right;
             font-weight: bold;

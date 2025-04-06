@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
+use \App\Http\Controllers\Admin\CustomerController;
 
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\GoodsIssuanceController;
@@ -41,6 +42,7 @@ use App\Http\Controllers\Admin\LoanPlansController;
 use App\Http\Controllers\Admin\LoansController;
 use App\Http\Controllers\Admin\WorkShiftsController;
 use App\Http\Controllers\Admin\WorkWeeksController;
+use App\Http\Controllers\Admin\PosController;
 
 use App\Models\Formulations;
 use App\Models\Transaction;
@@ -190,6 +192,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::resource('vendor', VendorController::class);
     Route::post('/vendor/getdata', [VendorController::class, 'getdata'])->name('vendor.getdata');
 
+
+
+
+    Route::resource('pos', PosController::class);
+    Route::post('/pos/getdata', [PosController::class, 'getdata'])->name('pos.getdata');
+
+
+    Route::resource('customers', CustomerController::class);
+    Route::post('/customers/getdata', [CustomerController::class, 'getdata'])->name('customers.getdata');
+
+
+
+
+
     Route::get('chart-of-accounts', [EntriesController::class, 'chart_of_account'])->name('chart-of-accounts.index');
     Route::post('chart-of-accounts/store', [EntriesController::class, 'chart_of_account_store'])->name('chart-of-accounts.store');
     Route::post('chart-of-accounts/pdf', [EntriesController::class, 'chart_of_account_pdf'])->name('chart-of-accounts.pdf');
@@ -238,9 +254,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::get('gjv_search', [EntriesController::class, 'gjv_search'])->name('gjv_search');
 
 
-    Route::get('/pos', function () {
-        return view('sale.pos');
-    });
+
     Route::get('/invoice', function () {
         return view('invoice.po_invoice');
     });
