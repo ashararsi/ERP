@@ -197,6 +197,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('pos', PosController::class);
     Route::post('/pos/getdata', [PosController::class, 'getdata'])->name('pos.getdata');
+    Route::get('/pos/pdf/{id}', [PosController::class, 'pdf'])->name('pos.pdf');
 
 
     Route::resource('customers', CustomerController::class);
@@ -255,12 +256,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
 
 
-    Route::get('/invoice', function () {
-        return view('invoice.po_invoice');
-    });
-    Route::get('/delivery', function () {
-        return view('invoice.delivery');
-    });  Route::get('/invoice_1', function () {
-        return view('invoice.invoice');
-    });
+//    Route::get('/invoice', function () {
+//        return view('invoice.invoice');
+//    });
+//    Route::get('/delivery', function () {
+//        return view('invoice.delivery');
+//    });  Route::get('/invoice_1', function () {
+//        return view('invoice.invoice');
+//    });
 });

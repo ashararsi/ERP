@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-
+use PDF;
 use App\Models\Batch;
 use App\Models\BatchDetail;
 use App\Models\Batch as Batche;
@@ -140,7 +140,7 @@ class PosServices
 
             DB::commit();
 
-          return "done";
+            return "done";
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -174,8 +174,17 @@ class PosServices
         }
     }
 
+    public function pdf($request, $id)
+    {
+        $sale = SalesOrder::with(['customer', 'items.product','items.batch','salesRep'])->where('id', $id)->first();
+        $pdf = Pdf::loadView('admin.pos.invoice', compact('sale'));
+//        return view('admin.pos.invoice', compact('sale'));
+        return $pdf->download('pos_Report_'.$id.'.pdf');
+//        return view('admin.pos.invoice', compact('sale'));
 
-    public function getdata( $request)
+    }
+
+    public function getdata($request)
     {
         $orders = SalesOrder::with(['customer'])
             ->select([
@@ -186,45 +195,63 @@ class PosServices
 
         return Datatables::of($orders)
             ->addIndexColumn()
-            ->addColumn('order_number', function($row) {
-                return '<a href="'.route('admin.pos.show', $row->id).'">'.$row->order_number.'</a>';
+            ->addColumn('order_number', function ($row) {
+                return '<a href="' . route('admin.pos.show', $row->id) . '">' . $row->order_number . '</a>';
             })
-            ->addColumn('order_date', function($row) {
+            ->addColumn('order_date', function ($row) {
                 return \Carbon\Carbon::parse($row->order_date)->format('d M Y');
             })
-            ->addColumn('customer', function($row) {
+            ->addColumn('customer', function ($row) {
                 return $row->customer ? $row->customer->name : 'N/A';
             })
-            ->addColumn('items_count', function($row) {
+            ->addColumn('items_count', function ($row) {
                 return $row->items_count;
             })
-            ->addColumn('net_total', function($row) {
-                return '₹'.number_format($row->net_total, 2);
+            ->addColumn('net_total', function ($row) {
+                return '₹' . number_format($row->net_total, 2);
             })
-            ->addColumn('status', function($row) {
+            ->addColumn('status', function ($row) {
                 $statusClass = '';
-                switch($row->status) {
-                    case 'completed': $statusClass = 'status-completed'; break;
-                    case 'cancelled': $statusClass = 'status-cancelled'; break;
-                    default: $statusClass = 'status-pending';
+                switch ($row->status) {
+                    case 'completed':
+                        $statusClass = 'status-completed';
+                        break;
+                    case 'cancelled':
+                        $statusClass = 'status-cancelled';
+                        break;
+                    default:
+                        $statusClass = 'status-pending';
                 }
-                return '<span class="'.$statusClass.'">'.ucfirst($row->status).'</span>';
+                return '<span class="' . $statusClass . '">' . ucfirst($row->status) . '</span>';
             })
-            ->addColumn('action', function($row) {
-                $btn = '<div class="btn-group">';
-                $btn .= '<a href="'.route('admin.pos.show', $row->id).'" class="btn btn-sm btn-info" title="View"><i class="fas fa-eye"></i></a>';
-                $btn .= '<a href="'.route('admin.pos.edit', $row->id).'" class="btn btn-sm btn-primary" title="Edit"><i class="fas fa-edit"></i></a>';
-                $btn .= '<form method="POST" action="'.route('admin.pos.destroy', $row->id).'" style="display:inline">';
-                $btn .= csrf_field();
-                $btn .= method_field('DELETE');
-                $btn .= '<button type="submit" class="btn btn-sm btn-danger" title="Delete" onclick="return confirm(\'Are you sure you want to delete this order?\')"><i class="fas fa-trash"></i></button>';
-                $btn .= '</form>';
-                $btn .= '</div>';
+            ->addColumn('action', function ($row) {
+//                $btn = '<div class="">';
+//                $btn .= '<form method="POST" action="' . route('admin.pos.destroy', $row->id) . '">';
+//                $btn .= '<a href="' . route('admin.pos.show', $row->id) . '" class="btn     " title="View"><i class="fas fa-eye"></i></a>';
+//                $btn .= '<a href="' . route('admin.pos.edit', $row->id) . '" class="btn   " title="Edit"><i class="fas fa-edit"></i></a>';
+//                $btn .= '<a href="' . route('admin.pos.pdf', $row->id) . '" class="btn    " title="pdf"><i class="fas fa-print"></i></a>';
+//                $btn .= csrf_field();
+//                $btn .= method_field('DELETE');
+//                $btn .= '<button type="submit" class="" title="Delete" onclick="return confirm(\'Are you sure you want to delete this order?\')"><i class="fas fa-trash"></i></button>';
+//                $btn .= '</form>';
+//                $btn .= '</div>';
+//                return $btn;
+
+
+                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.pos.destroy", $row->id) . '"> ';
+                $btn = $btn . '<a href=" ' . route("admin.pos.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
+                $btn = $btn . ' <a href="' . route("admin.pos.edit", $row->id) . '" class="ml-2 mr-2">  <i class="fas fa-edit"></i></a>';
+                $btn = $btn . ' <a href="' . route("admin.pos.pdf", $row->id) . '" class="ml-2 mr-2">  <i class="fas fa-print"></i></a>';
+//                $btn = $btn . '<button  type="submit" class="ml-2 mr-2" ><i class="fas fa-trash"></i></button>';
+                $btn = $btn . method_field('DELETE') . '' . csrf_field();
+                $btn = $btn . ' </form>';
                 return $btn;
+
             })
             ->rawColumns(['order_number', 'status', 'action'])
             ->make(true);
     }
+
     public function getdata_good_issuance($request)
     {
         $data = GoodsIssuance::select('*')->orderBy('id', 'desc');

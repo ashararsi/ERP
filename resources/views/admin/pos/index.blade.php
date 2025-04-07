@@ -78,23 +78,7 @@
                             return '<span class="' + statusClass + '">' + data.charAt(0).toUpperCase() + data.slice(1) + '</span>';
                         }
                     },
-                    {data: 'action', name: 'action', orderable: false, searchable: false,
-                        render: function(data, type, row) {
-                            return `
-                                <div class="btn-group">
-                                    <a href="/admin/pos/${row.id}" class="btn btn-sm btn-info" title="View">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="/admin/pos/${row.id}/edit" class="btn btn-sm btn-primary" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button class="btn btn-sm btn-danger delete-btn" data-id="${row.id}" title="Delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            `;
-                        }
-                    }
+                    {data: 'action', name: 'action', orderable: false, searchable: false }
                 ],
                 dom: 'Bfrtip',
                 buttons: [

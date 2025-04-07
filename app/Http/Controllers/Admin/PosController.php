@@ -86,6 +86,11 @@ class PosController extends Controller
 
         return $this->PosServices->getdata($request);
     }
+   public function pdf(Request $request,$id)
+    {
+
+        return $this->PosServices->pdf($request,$id);
+    }
 
 }
 

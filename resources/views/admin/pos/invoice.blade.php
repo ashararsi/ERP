@@ -108,6 +108,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <meta charset="UTF-8">
     <title>Invoice</title>
     <style>
         body {
@@ -204,21 +206,27 @@
 <body>
 
 <div class="header">
-    <h2>Lasani Pharma Private Limited</h2>
+    <div style="position: relative; text-align: center;">
+        <h2 style="margin: 0;">Lasani Pharma Private Limited</h2>
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('logo.png'))) }}"
+             alt="logo" width="100px"
+             style="position: absolute; top: 0; right: 0;">
+    </div>
+
     <div>Manawan Post Office Batapur, Lahore-Pakistan | Phone: 042-37188887, 37188888, Mobile: 0300-0724101</div>
     <div>NTN: 1129483-3 | STRN: DRAP E No. 00873</div>
 </div>
 
 <div class="invoice-info">
     <div>
-        <p><strong>Customer Code:</strong> 103850</p>
-        <p><strong>Customer Name:</strong> AHSAAN MEDICAL STORE</p>
-        <p><strong>Address:</strong> Mitha Tawana</p>
+        <p><strong>Customer Code:</strong> </p>
+        <p><strong>Customer Name:</strong> @if($sale->customer) {!! $sale->customer->name !!} @endif</p>
+        <p><strong>Address:</strong>@if($sale->customer) {!! $sale->customer->address !!} @endif</p>
     </div>
     <div>
-        <p><strong>Order #:</strong> 24-10486</p>
-        <p><strong>Date:</strong> 11/03/2025</p>
-        <p><strong>Invoice #:</strong> 250300242</p>
+        <p><strong>Order #:</strong> {!! $sale->order_number !!}</p>
+        <p><strong>Date:</strong> {!! $sale->order_date !!}</p>
+        <p><strong>Invoice #:</strong> {!! $sale->order_date !!}</p>
     </div>
 </div>
 
@@ -233,31 +241,33 @@
         <th>Retail Price</th>
         <th>Gross Retail Price</th>
         <th>T.Disc</th>
-        <th>S.Disc</th>
-        <th>S.S.D.</th>
-        <th>T.P</th>
-        <th>Excl. S.Tax</th>
+{{--        <th>S.Disc</th>--}}
+{{--        <th>S.S.D.</th>--}}
+{{--        <th>T.P</th>--}}
+{{--        <th>Excl. S.Tax</th>--}}
         <th>GST 18%</th>
         <th>Incl. S.Tax</th>
     </tr>
     </thead>
     <tbody>
+  @foreach($sale->items as $key=>$item)
     <tr>
-        <td>1</td>
-        <td>029</td>
-        <td>LASANI JOSHANDA + MULATHI 150gm</td>
-        <td>029.016</td>
-        <td>2</td>
-        <td>750</td>
-        <td>1,500</td>
-        <td>225</td>
-        <td>59</td>
-        <td>135</td>
-        <td>508.47</td>
-        <td>1,017</td>
-        <td>183</td>
-        <td>1,200</td>
+        <td>{!! $key !!}</td>
+        <td>@if($item->product) {!! $item->product->name !!} @endif</td>
+        <td>@if($item->product) {!! $item->product->description !!} @endif</td>
+        <td>@if($item->batch) {!! $item->batch->batch_code !!} @endif</td>
+        <td>{!! $item->quantity !!}</td>
+        <td>{!! $item->rate !!}</td>
+        <td>{!! $item->amount !!}</td>
+        <td>{!! $item->discount_amount !!}</td>
+        <td>{!! $item->discount_amount !!}</td>
+        <td>{!! $item->tax_amount !!}</td>
+{{--        <td>508.47</td>--}}
+{{--        <td>1,017</td>--}}
+{{--        <td>183</td>--}}
+{{--        <td>1,200</td>--}}
     </tr>
+  @endforeach
     </tbody>
 </table>
 
@@ -266,31 +276,38 @@
 <table class="totals">
     <tr>
         <td style="text-align: right;" colspan="13"><strong>Total:</strong></td>
-        <td>1,200</td>
+        <td>{!! $sale->net_total-$sale->total_tax !!}</td>
     </tr>
     <tr>
         <td style="text-align: right;" colspan="13">Further Sales Tax @ 4.00 % Amount:</td>
-        <td>48</td>
+        <td>{!! $sale->total_tax !!}</td>
     </tr>
     <tr>
         <td style="text-align: right;" colspan="13"><strong>Total Incl. Tax:</strong></td>
-        <td>1,248</td>
+        <td>{!! $sale->net_total !!}</td>
     </tr>
     <tr>
         <td style="text-align: right;" colspan="13">Advance Tax @ 2.50 %:</td>
-        <td>31</td>
+        <td>{{ number_format($sale->sub_total * 0.025, 2) }}</td>
     </tr>
     <tr>
         <td style="text-align: right;" colspan="13"><strong>Net Total:</strong></td>
-        <td><strong>1,279</strong></td>
+        <td><strong>{!! $sale->net_total !!}</strong></td>
     </tr>
 </table>
 
 <br>
 
-<div><strong>Rep Person:</strong> Muhammad Imran (0346-5503099)</div>
+<div><strong>Rep Person:</strong> {!! $sale->salesRep->name !!}
+{{--    ({!!  $sale->salesRep->name !!})--}}
+</div>
 
-<div class="footer-note">نوٹ:- تبدیلی کے ادائیگی کرنے پر کمپنی ذمہ دار نہ ہو گی۔</div>
+<div class="footer-note">
+{{--    <div style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl; text-align: right;">--}}
+{{--        نوٹ:- تبدیلی کے ادائیگی کرنے پر کمپنی ذمہ دار نہ ہو گی۔--}}
+{{--    </div>--}}
+
+</div>
 
 <br>
 
@@ -321,11 +338,11 @@
     <div><strong>Checked By:</strong> It is system generated document. It does not require signatures</div>
 </div>
 
-<div class="stamp-icons">
-    <img src="https://i.imgur.com/qMEIEsV.png" alt="ISO Mark">
-    <img src="https://i.imgur.com/yQ6YtOp.png" alt="GMP Certified">
-    <img src="https://i.imgur.com/SY0GqBa.png" alt="HALAL">
-</div>
+{{--<div class="stamp-icons">--}}
+{{--    <img src="https://i.imgur.com/qMEIEsV.png" alt="ISO Mark">--}}
+{{--    <img src="https://i.imgur.com/yQ6YtOp.png" alt="GMP Certified">--}}
+{{--    <img src="https://i.imgur.com/SY0GqBa.png" alt="HALAL">--}}
+{{--</div>--}}
 
 </body>
 </html>

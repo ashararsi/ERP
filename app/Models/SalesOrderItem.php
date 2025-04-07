@@ -16,17 +16,17 @@ class SalesOrderItem extends Model
         'tax_percent', 'tax_amount', 'net_amount'
     ];
 
-    public function salesOrder(): BelongsTo
+    public function salesOrder()
     {
         return $this->belongsTo(SalesOrder::class);
     }
 
-    public function product(): BelongsTo
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function batch(): BelongsTo
+    public function batch()
     {
         return $this->belongsTo(Batch::class);
     }
