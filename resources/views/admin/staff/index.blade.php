@@ -1,17 +1,17 @@
 @extends('admin.layout.main')
 
 @section('title')
-    Suppliers
+    Staff
 @stop
 
 @section('content')
     <div class="container-fluid">
         <div class="row w-100  mt-4 ">
-            <h3 class="text-22 text-center text-bold w-100 mb-4">Suppliers</h3>
+            <h3 class="text-22 text-center text-bold w-100 mb-4">Staff</h3>
         </div>
         <div class="row    mt-4 mb-4 ">
             <div class="col-12 " style="text-align: right">
-                <a href="{!! route('admin.suppliers.create') !!}" class="btn btn-primary btn-sm ">Create Supplier</a>
+                <a href="{!! route('admin.staff.create') !!}" class="btn btn-primary btn-sm ">Create Staff</a>
             </div>
         </div>
         <div class="card">
@@ -23,15 +23,12 @@
                             <tr>
                                 <th>No</th>
                                 <th>Name</th>
-                                <th>Contact Person</th>
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
                                 <th>Country</th>
                                 <th>City</th>
-                                <th>Postal Code</th>
-                                <th>Tax ID</th>
-                                <th>Conversion Factor</th>
+
                                 <th width="200px">Action</th>
                             </tr>
                             </thead>
@@ -58,22 +55,20 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.suppliers.getdata') }}",
+                    url: "{{ route('admin.staff.getdata') }}",
                     type: "POST",
                     data: {_token: "{{ csrf_token() }}"}
                 },
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'contact_person', name: 'contact_person'},
+                    {data: 'first_name', name: 'first_name'},
+
                     {data: 'email', name: 'email'},
-                    {data: 'phone', name: 'phone'},
+                    {data: 'home_phone', name: 'home_phone'},
                     {data: 'address', name: 'address'},
                     {data: 'country', name: 'country'},
                     {data: 'city', name: 'city'},
-                    {data: 'postal_code', name: 'postal_code'},
-                    {data: 'tax_id', name: 'tax_id'},
-                    {data: 'conversion_factor', name: 'conversion_factor'},
+
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
                 dom: 'Bfrtip', // Enable buttons at the top

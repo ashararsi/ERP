@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Services\WorkWeekServices;
 
@@ -23,8 +24,8 @@ class WorkWeeksController extends Controller
      */
     public function index()
     {
-        $workWeeks = $this->WorkWeekServices->getAll();
-        return view('admin.work_weeks.index', compact('workWeeks'));
+//        $workWeeks = $this->WorkWeekServices->getAll();
+        return view('admin.work_weeks.index');
     }
 
     /**
@@ -37,7 +38,8 @@ class WorkWeeksController extends Controller
      */
     public function create()
     {
-        return view('admin.work_weeks.create');
+        $countries =Country::all();
+        return view('admin.work_weeks.create',compact('countries'));
     }
 
     /**
@@ -47,7 +49,7 @@ class WorkWeeksController extends Controller
     {
         try {
             $this->WorkWeekServices->store($request);
-            return redirect()->route('admin.work_weeks.index')->with('success', 'Work week added successfully.');
+            return redirect()->route('admin.work-weeks.index')->with('success', 'Work week added successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -78,7 +80,7 @@ class WorkWeeksController extends Controller
     {
         try {
             $this->WorkWeekServices->update($request, $id);
-            return redirect()->route('admin.work_weeks.index')->with('success', 'Work week updated successfully.');
+            return redirect()->route('admin.work-weeks.index')->with('success', 'Work week updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -91,7 +93,7 @@ class WorkWeeksController extends Controller
     {
         try {
             $this->WorkWeekServices->destroy($id);
-            return redirect()->route('admin.work_weeks.index')->with('success', 'Work week deleted successfully.');
+            return redirect()->route('admin.work-weeks.index')->with('success', 'Work week deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
