@@ -71,60 +71,80 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="post" action="{!! route('admin.city.store') !!}"
-                          enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <!-- Name Field -->
+                        <form method="post" action="{{ route('admin.work-weeks.store') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
 
-
-                            <!-- City Fields -->
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>City Name</label>
-                                    </div>
-                                    <input type="text" required class="form-control" name="name" value="">
+                                {{-- City Name --}}
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">City Name</label>
+                                    <input type="text" name="name" class="form-control" id="name" required>
                                 </div>
-                            </div>
 
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>Country</label>
-                                    </div>
-                                    <select name="country_id" class="form-control" required>
+                                {{-- Country --}}
+                                <div class="col-md-6 mb-3">
+                                    <label for="country_id" class="form-label">Country</label>
+                                    <select name="country_id" class="form-control select2" id="country_id" >
                                         <option value="" disabled selected>Select Country</option>
                                         @foreach($countries as $country)
                                             <option value="{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
 
+                                {{-- Days of the week --}}
+                                @php
+                                    $days = ['mon' => 'Monday', 'tue' => 'Tuesday', 'wed' => 'Wednesday', 'thu' => 'Thursday', 'fri' => 'Friday', 'sat' => 'Saturday', 'sun' => 'Sunday'];
+                                @endphp
 
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>Status</label>
+                                @foreach($days as $key => $day)
+                                    <div class="col-md-3 mb-3">
+                                        <label for="{{ $key }}" class="form-label">{{ $day }}</label>
+                                        <select name="{{ $key }}" class="form-control" id="{{ $key }}" required>
+                                            <option value="1">Working</option>
+                                            <option value="0">Off</option>
+                                        </select>
                                     </div>
-                                    <select name="status" class="form-control" required>
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
+                                @endforeach
+
+                                {{-- Total Working Days --}}
+                                <div class="col-md-3 mb-3">
+                                    <label for="working_days" class="form-label">Total Working Days</label>
+                                    <input type="number" name="working_days" id="working_days" class="form-control" required min="0" max="7">
+                                </div>
+
+                                {{-- Status --}}
+                                <div class="col-md-3 mb-3">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select name="status" class="form-control" id="status" required>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
                                     </select>
                                 </div>
+
+                                {{-- Metadata Fields --}}
+                                <div class="col-md-3 mb-3">
+                                    <label for="created_by" class="form-label">Created By</label>
+                                    <input type="number" name="created_by" class="form-control" id="created_by">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="updated_by" class="form-label">Updated By</label>
+                                    <input type="number" name="updated_by" class="form-control" id="updated_by">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="deleted_by" class="form-label">Deleted By</label>
+                                    <input type="number" name="deleted_by" class="form-control" id="deleted_by">
+                                </div>
+
+                                {{-- Submit Buttons --}}
+                                <div class="col-12 text-end mt-4">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <a href="{{ route('admin.work-weeks.index') }}" class="btn btn-danger">Cancel</a>
+                                </div>
                             </div>
-                        </div>
+                        </form>
 
 
-
-
-
-                        <div class="form-group text-right mt-4">
-                            <button type="submit" class="btn btn-sm btn-primary">Save</button>
-                            <a href="{!! route('admin.city.index') !!}" class="btn btn-sm btn-danger">Cancel</a>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

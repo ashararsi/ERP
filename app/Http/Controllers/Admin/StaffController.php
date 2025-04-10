@@ -41,6 +41,7 @@ class StaffController extends Controller
             $staff = $this->StaffServices->store($request);
             return redirect()->route('admin.staff.index');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
     }

@@ -71,7 +71,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="post" action="{!! route('admin.city.store') !!}"
+                    <form method="post" action="{!! route('admin.hrm-leave-types.store') !!}"
                           enctype="multipart/form-data">
                         @csrf
                         <div class="row">
@@ -79,41 +79,67 @@
 
 
                             <!-- City Fields -->
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>City Name</label>
-                                    </div>
-                                    <input type="text" required class="form-control" name="name" value="">
-                                </div>
+                            <!-- Name -->
+                            <div class="col-md-4">
+                                <label for="name">Leave Type Name</label>
+                                <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
                             </div>
 
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>Country</label>
-                                    </div>
-                                    <select name="country_id" class="form-control" required>
-                                        <option value="" disabled selected>Select Country</option>
-                                        @foreach($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            <!-- Permitted Days -->
+                            <div class="col-md-4">
+                                <label for="permitted_days">Permitted Days</label>
+                                <input type="number" name="permitted_days" class="form-control" value="{{ old('permitted_days', 0) }}" min="0" required>
                             </div>
 
-
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>Status</label>
-                                    </div>
-                                    <select name="status" class="form-control" required>
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
-                                    </select>
-                                </div>
+                            <!-- Condition -->
+                            <div class="col-md-4">
+                                <label for="condition">Condition</label>
+                                <input type="number" name="condition" class="form-control" value="{{ old('condition', 0) }}" min="0" required>
                             </div>
+
+                            <!-- Allowed Number -->
+                            <div class="col-md-4">
+                                <label for="allowed_number">Allowed Number</label>
+                                <input type="number" name="allowed_number" class="form-control" value="{{ old('allowed_number') }}" min="0">
+                            </div>
+
+                            <!-- Allowed Type -->
+                            <div class="col-md-4">
+                                <label for="allowed_type">Allowed Type</label>
+                                <select name="allowed_type" class="form-control" required>
+                                    <option value="0" {{ old('allowed_type') == 0 ? 'selected' : '' }}>Type 0</option>
+                                    <option value="1" {{ old('allowed_type') == 1 ? 'selected' : '' }}>Type 1</option>
+                                    <option value="2" {{ old('allowed_type') == 2 ? 'selected' : '' }}>Type 2</option>
+                                </select>
+                            </div>
+
+                            <!-- Leave Type Status -->
+                            <div class="col-md-4">
+                                <label for="status">Leave Type Status</label>
+                                <select name="status" class="form-control" required>
+                                    <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Inactive</option>
+                                </select>
+                            </div>
+
+                            <!-- Leave Type Created By -->
+                            <div class="col-md-4">
+                                <label for="created_by">Leave Type Created By</label>
+                                <input type="number" name="created_by" class="form-control" value="{{ old('created_by') }}">
+                            </div>
+
+                            <!-- Leave Type Updated By -->
+                            <div class="col-md-4">
+                                <label for="updated_by">Leave Type Updated By</label>
+                                <input type="number" name="updated_by" class="form-control" value="{{ old('updated_by') }}">
+                            </div>
+
+                            <!-- Leave Type Deleted By -->
+                            <div class="col-md-4">
+                                <label for="deleted_by">Leave Type Deleted By</label>
+                                <input type="number" name="deleted_by" class="form-control" value="{{ old('deleted_by') }}">
+                            </div>
+
                         </div>
 
 
@@ -122,7 +148,7 @@
 
                         <div class="form-group text-right mt-4">
                             <button type="submit" class="btn btn-sm btn-primary">Save</button>
-                            <a href="{!! route('admin.city.index') !!}" class="btn btn-sm btn-danger">Cancel</a>
+                            <a href="{!! route('admin.hrm-leave-types.index') !!}" class="btn btn-sm btn-danger">Cancel</a>
                         </div>
                     </form>
                 </div>

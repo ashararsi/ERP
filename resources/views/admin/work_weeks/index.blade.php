@@ -1,11 +1,12 @@
 @extends('admin.layout.main')
+
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header bg-light">
-                    <h3 class="text-22 text-midnight text-bold mb-4">Cities List</h3>
-                    <a href="{{ route('admin.city.create') }}" class="btn btn-primary btn-sm">Add New City</a>
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <h3 class="text-22 text-midnight text-bold mb-0">Cities List</h3>
+                    <a href="{{ route('admin.work-weeks.create') }}" class="btn btn-primary btn-sm">Add New Weeks</a>
                 </div>
                 <div class="card-body">
                     @if (session('success'))
@@ -15,8 +16,14 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>City Name</th>
-                            <th>Country</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                            <th>Sun</th>
+                            <th>Working Days</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -33,6 +40,7 @@
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 @endsection
+
 @section('js')
     @include('admin.layout.datatable')
     <script type="text/javascript">
@@ -41,46 +49,51 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.city.getdata') }}",
+                    url: "{{ route('admin.work-weeks.getdata') }}",
                     type: "POST",
                     data: {_token: "{{ csrf_token() }}"}
                 },
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'country', name: 'country'},
+                    {data: 'mon', name: 'mon'},
+                    {data: 'tue', name: 'tue'},
+                    {data: 'wed', name: 'wed'},
+                    {data: 'thu', name: 'thu'},
+                    {data: 'fri', name: 'fri'},
+                    {data: 'sat', name: 'sat'},
+                    {data: 'sun', name: 'sun'},
+                    {data: 'working_days', name: 'working_days'},
                     {data: 'status', name: 'status'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
-                dom: 'Bfrtip', // Enable buttons at the top
+                dom: 'Bfrtip',
                 buttons: [
                     {
                         extend: 'excelHtml5',
-                        title: 'Roles Data',
+                        title: 'City Work Week',
                         className: 'btn btn-primary',
                         exportOptions: {
-                            columns: [0, 1] // Export only ID and Name
+                            columns: [0,1,2,3,4,5,6,7,8,9,10,11]
                         }
                     },
                     {
                         extend: 'pdfHtml5',
-                        title: 'Roles Data',
+                        title: 'City Work Week',
                         className: 'btn btn-primary',
                         exportOptions: {
-                            columns: [0, 1]
+                            columns: [0,1,2,3,4,5,6,7,8,9,10,11]
                         }
                     },
                     {
                         extend: 'print',
-                        title: 'Roles Data',
+                        title: 'City Work Week',
                         className: 'btn btn-primary',
                         exportOptions: {
-                            columns: [0, 1]
+                            columns: [0,1,2,3,4,5,6,7,8,9,10,11]
                         }
                     }
                 ]
             });
         });
-
     </script>
 @endsection

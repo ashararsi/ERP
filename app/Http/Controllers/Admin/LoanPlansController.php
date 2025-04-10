@@ -23,8 +23,8 @@ class LoanPlansController extends Controller
      */
     public function index()
     {
-        $loanPlans = $this->LoanPlansServices->getAll();
-        return view('admin.loan_plans.index', compact('loanPlans'));
+//        $loanPlans = $this->LoanPlansServices->getAll();
+        return view('admin.loan_plans.index');
     }
 
     /**

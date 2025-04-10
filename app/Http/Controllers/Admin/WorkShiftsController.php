@@ -23,8 +23,8 @@ class WorkShiftsController extends Controller
      */
     public function index()
     {
-        $workShifts = $this->WorkShiftServices->getAll();
-        return view('admin.work_shifts.index', compact('workShifts'));
+//        $workShifts = $this->WorkShiftServices->getAll();
+        return view('admin.work_shifts.index');
     }
 
     /**
@@ -47,7 +47,7 @@ class WorkShiftsController extends Controller
     {
         try {
             $this->WorkShiftServices->store($request);
-            return redirect()->route('admin.work_shifts.index')->with('success', 'Work shift added successfully.');
+            return redirect()->route('admin.work-shifts.index')->with('success', 'Work shift added successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -78,7 +78,7 @@ class WorkShiftsController extends Controller
     {
         try {
             $this->WorkShiftServices->update($request, $id);
-            return redirect()->route('admin.work_shifts.index')->with('success', 'Work shift updated successfully.');
+            return redirect()->route('admin.work-shifts.index')->with('success', 'Work shift updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -91,7 +91,7 @@ class WorkShiftsController extends Controller
     {
         try {
             $this->WorkShiftServices->destroy($id);
-            return redirect()->route('admin.work_shifts.index')->with('success', 'Work shift deleted successfully.');
+            return redirect()->route('admin.work-shifts.index')->with('success', 'Work shift deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

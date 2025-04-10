@@ -33,8 +33,13 @@ class StaffServices
     public function store($request)
     {
         $data = $request->all();
+        $data['user_id']=auth()->id();
+        $data['job_status']="Full Time";
+        $data['bank_id']=1;
+        $data['is_iban']=1;
 //        $data['parent_id'] = ($request->parent_id == 0) ? null : $request->parent_id;
-        return Staff::create($data);
+     return Staff::create($data);
+
 
     }
 
