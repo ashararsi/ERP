@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use \App\Http\Controllers\Admin\CustomerController;
+use \App\Http\Controllers\Admin\PackingController;
 
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\GoodsIssuanceController;
@@ -192,7 +193,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::resource('vendor', VendorController::class);
     Route::post('/vendor/getdata', [VendorController::class, 'getdata'])->name('vendor.getdata');
 
-
+    Route::resource('packing', PackingController::class);
+    Route::post('/packing/getdata', [PackingController::class, 'getdata'])->name('packing.getdata');
 
 
     Route::resource('pos', PosController::class);
@@ -202,9 +204,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('customers', CustomerController::class);
     Route::post('/customers/getdata', [CustomerController::class, 'getdata'])->name('customers.getdata');
-
-
-
 
 
     Route::get('chart-of-accounts', [EntriesController::class, 'chart_of_account'])->name('chart-of-accounts.index');
@@ -253,7 +252,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::get('gjv-edit/{id}', [EntriesController::class, 'edit'])->name('gjv-edit');
     Route::get('download/{id}', [EntriesController::class, 'download'])->name('download');
     Route::get('gjv_search', [EntriesController::class, 'gjv_search'])->name('gjv_search');
-
 
 
 //    Route::get('/invoice', function () {

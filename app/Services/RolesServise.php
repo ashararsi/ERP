@@ -7,7 +7,7 @@ use Config;
 //use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 //use Spatie\Permission\Models\Permission;
-use App\Models\permission;
+use App\Models\Permission;
 use DataTables;
 
 class RolesServise
