@@ -31,7 +31,8 @@ class LeaveEntitlementsController extends Controller
      */
     public function create()
     {
-        return view('admin.leave_entitlements.create');
+        $data_create=   $this->HrmLeaveEntitlementServices->create( );
+        return view('admin.leave_entitlements.create',compact('data_create'));
     }
 
     /**
@@ -39,6 +40,7 @@ class LeaveEntitlementsController extends Controller
      */
     public function store(Request $request)
     {
+
         try {
             $this->HrmLeaveEntitlementServices->store($request);
             return redirect()->route('admin.leave-entitlement.index')->with('success', 'Leave entitlement added successfully.');

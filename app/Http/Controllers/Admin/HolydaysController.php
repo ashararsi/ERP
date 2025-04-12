@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Services\HolydaysServices;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,7 @@ class HolydaysController extends Controller
     {
         $this->HolydaysServices = $HolydaysServices;
     }
+
     public function index()
     {
         return view('admin.holyday.index');
@@ -25,6 +27,7 @@ class HolydaysController extends Controller
      */
     public function create()
     {
+
         return view('admin.holyday.create');
     }
 
@@ -47,15 +50,22 @@ class HolydaysController extends Controller
      */
     public function show(string $id)
     {
-   return view('admin.holyday.view');
+        return view('admin.holyday.view');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        return view('admin.holyday.edit');
+
+        try {
+            $holyday = $this->HolydaysServices->edit($id);
+            return view('admin.holyday.edit', compact('holyday'));
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**

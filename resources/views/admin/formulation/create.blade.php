@@ -274,7 +274,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-sm btn-success addCheckpoint" data-process-id="${processCounter}">+ Add Checkpoint</button>
+                        <button type="button" class="btn btn-sm mt-3 btn-success addCheckpoint" data-process-id="${processCounter}">+ Add Checkpoint</button>
                     </div>
                 </div>`;
                 $("#process_detail").append(newRow);

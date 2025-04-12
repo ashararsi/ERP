@@ -1,65 +1,16 @@
 @extends('admin.layout.main')
+@section('title')
+    Leaves Entitlement
+@stop
 @section('css')
-    <link rel="stylesheet"
-          href="{{ url('public/adminlte') }}/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-    <style>
-        #example_wrapper {
-            margin-top: 70px !important;
-        }
 
-        .col-md-3 {
-            padding: 10px;
-        }
-
-        .col-md-6 {
-            padding: 10px;
-        }
-
-        .col-md-4 {
-            padding: 10px;
-        }
-
-        .col-md-12 {
-            padding: 10px;
-        }
-
-        .accordion {
-            background-color: #0ab39c;
-            color: white;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-            transition: 0.4s;
-        }
-
-        .active, .accordion:hover {
-        }
-
-
-        .panel {
-            padding: 0 18px;
-            display: block;
-            background-color: white;
-            overflow: hidden;
-
-
-        }
-
-        .form-group {
-            float: left !important;
-        }
-    </style>
 @stop
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card ">
                 <div class="card-header bg-light">
-                    <h3 class="text-22 text-midnight text-bold mb-4">Create City</h3>
+                    <h3 class="text-22 text-midnight text-bold mb-4">Create Leave Entitlement</h3>
                 </div>
                 <div class="card-body">
                     @if ($errors->any())
@@ -71,58 +22,90 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="post" action="{!! route('admin.city.store') !!}"
+                    <form method="post" action="{!! route('admin.leave-entitlement.store') !!}"
                           enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <!-- Name Field -->
-
-
-                            <!-- City Fields -->
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>City Name</label>
+                                {{-- Employee --}}
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <div class="input-label">
+                                            <label>Employee</label>
+                                        </div>
+                                        <select name="employee_id" class="form-control" >
+                                            <option value="" disabled selected>Select Employee</option>
+                                            @foreach($data_create['Staff'] as $employee)
+                                                <option value="{{ $employee->id }}">{{ $employee->first_name }} {{ $employee->last_name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                    <input type="text" required class="form-control" name="name" value="">
+                                </div>
+                                {{-- Leave Type --}}
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <div class="input-label">
+                                            <label>Leave Type</label>
+                                        </div>
+                                        <select name="leave_type_id" class="form-control" >
+                                            <option value="" disabled selected>Select Leave Type</option>
+                                            @foreach($data_create['HrmLeaveTypes'] as $type)
+                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                {{-- No of Days --}}
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <div class="input-label">
+                                            <label>No of Days</label>
+                                        </div>
+                                        <input type="number" step="0.01" name="no_of_days" class="form-control" required value="0.00">
+                                    </div>
+                                </div>
+                                {{-- Days Used --}}
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <div class="input-label">
+                                            <label>Days Used</label>
+                                        </div>
+                                        <input type="number" step="0.01" name="days_used" class="form-control" required value="0.00">
+                                    </div>
+                                </div>
+                                {{-- Start Date --}}
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <div class="input-label">
+                                            <label>Start Date</label>
+                                        </div>
+                                        <input type="date" name="start_date" class="form-control">
+                                    </div>
+                                </div>
+                                {{-- End Date --}}
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <div class="input-label">
+                                            <label>End Date</label>
+                                        </div>
+                                        <input type="date" name="end_date" class="form-control">
+                                    </div>
+                                </div>
+                                {{-- Status --}}
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <div class="input-label">
+                                            <label>Status</label>
+                                        </div>
+                                        <select name="status" class="form-control" required>
+                                            <option value="1" selected>Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>Country</label>
-                                    </div>
-                                    <select name="country_id" class="form-control" required>
-                                        <option value="" disabled selected>Select Country</option>
-                                        @foreach($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>Status</label>
-                                    </div>
-                                    <select name="status" class="form-control" required>
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
                         <div class="form-group text-right mt-4">
                             <button type="submit" class="btn btn-sm btn-primary">Save</button>
-                            <a href="{!! route('admin.city.index') !!}" class="btn btn-sm btn-danger">Cancel</a>
+                            <a href="{!! route('admin.leave-entitlement.index') !!}" class="btn btn-sm btn-danger">Cancel</a>
                         </div>
                     </form>
                 </div>

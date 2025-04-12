@@ -23,4 +23,16 @@ class HrmLeaveEntitlement extends Model
         'updated_by',
         'deleted_by',
     ];
+
+    public function employee()
+    {
+        return $this->belongsTo(Staff::class,'employee_id');
+    } public function LeaveType()
+    {
+        return $this->belongsTo(HrmLeaveTypes::class,'leave_type_id');
+    }
+
+
+
+
 }

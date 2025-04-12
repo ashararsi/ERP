@@ -1,8 +1,7 @@
 @extends('admin.layout.main')
 @section('title')
-    View   Book
+    Leaves Entitlement
 @stop
-h1
 @section('content')
     <div class="container">
         <div class="row">

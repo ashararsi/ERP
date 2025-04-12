@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Formulations;
 use App\Models\HrmLeaveEntitlement;
+use App\Models\HrmLeaveTypes;
+use App\Models\Staff;
 use App\Models\Batche;
 use App\Models\Processe;
 use App\Models\Unit;
@@ -19,7 +21,9 @@ class HrmLeaveEntitlementServices
 {
     public function create()
     {
-        return HrmLeaveEntitlement::all();
+        $data['HrmLeaveTypes'] = HrmLeaveTypes::all();
+        $data['Staff'] = Staff::all();
+        return $data;
 
     }
 
@@ -31,9 +35,7 @@ class HrmLeaveEntitlementServices
         $data['updated_by'] = \auth()->id();
 
 
-
         $f = HrmLeaveEntitlement::create($data);
-
 
 
     }
@@ -66,9 +68,15 @@ class HrmLeaveEntitlementServices
 
     public function getdata($request)
     {
-        $data = HrmLeaveEntitlement::select('*')->orderBy('id', 'desc');
+        $data = HrmLeaveEntitlement::with('employee', 'LeaveType')->select('*')->orderBy('id', 'desc');
         return Datatables::of($data)->addIndexColumn()
-            ->addColumn('action', function ($row) {
+            ->addColumn('employee', function ($row) {
+                if( $row->employee)
+                return $row->employee->first_name." ".$row->employee->last_name;
+            }) ->addColumn('leave_type', function ($row) {
+                if( $row->LeaveType)
+                return $row->LeaveType->name;
+            })->addColumn('action', function ($row) {
                 $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.leave-entitlement.destroy", $row->id) . '"> ';
                 $btn = $btn . '<a href=" ' . route("admin.leave-entitlement.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
                 $btn = $btn . ' <a href="' . route("admin.leave-entitlement.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';

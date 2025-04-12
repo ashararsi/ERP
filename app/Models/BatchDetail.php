@@ -17,5 +17,6 @@ class BatchDetail extends Model
         'actual_quantity',
         'operator_initials',
         'qa_initials',
+        'in_charge',
     ];
 }

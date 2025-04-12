@@ -1,7 +1,9 @@
 @extends('admin.layout.main')
+@section('title')
+    Leaves Status
+@stop
 @section('css')
-    <link rel="stylesheet"
-          href="{{ url('public/adminlte') }}/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+
 @stop
 @section('content')
     <div class="row">

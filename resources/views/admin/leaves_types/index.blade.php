@@ -1,11 +1,13 @@
 @extends('admin.layout.main')
-
+@section('title')
+    Leave Types
+@stop
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                    <h3 class="text-22 text-midnight text-bold mb-0">Leave Types List</h3>
+                    <h3 class="text-22 text-midnight text-bold mb-0">Leave Types  </h3>
                     <a href="{{ route('admin.hrm-leave-types.create') }}" class="btn btn-primary btn-sm">Add New</a>
                 </div>
                 <div class="card-body">

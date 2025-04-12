@@ -1,11 +1,14 @@
 @extends('admin.layout.main')
+@section('title')
+    Leaves Entitlement
+@stop
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-light">
-                    <h3 class="text-22 text-midnight text-bold mb-4">Cities List</h3>
-                    <a href="{{ route('admin.city.create') }}" class="btn btn-primary btn-sm">Add New City</a>
+                    <h3 class="text-22 text-midnight text-bold mb-4">Leave Entitlement List</h3>
+                    <a href="{{ route('admin.leave-entitlement.create') }}" class="btn btn-primary btn-sm">Add New Leave Entitlement</a>
                 </div>
                 <div class="card-body">
                     @if (session('success'))
@@ -15,8 +18,12 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>City Name</th>
-                            <th>Country</th>
+                            <th>Employee</th>
+                            <th>Leave Type</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>No of Days</th>
+                            <th>Credited Date</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -41,14 +48,19 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.city.getdata') }}",
+                    url: "{{ route('admin.leave-entitlement.getdata') }}",
                     type: "POST",
                     data: {_token: "{{ csrf_token() }}"}
                 },
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'country', name: 'country'},
+
+                    {data: 'employee', name: 'employee'},
+                    {data: 'leave_type', name: 'leave_type'},
+                    {data: 'start_date', name: 'start_date'},
+                    {data: 'end_date', name: 'end_date'},
+                    {data: 'no_of_days', name: 'no_of_days'},
+                    {data: 'credited_date', name: 'credited_date'},
                     {data: 'status', name: 'status'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],

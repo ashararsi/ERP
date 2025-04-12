@@ -33,16 +33,7 @@ use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\GoodsIssuanceController;
 use App\Http\Controllers\Admin\GoodsReceiptController;
 
-use App\Http\Controllers\Admin\HolydaysController;
-use App\Http\Controllers\Admin\LeaveEntitlementsController;
-use App\Http\Controllers\Admin\LeaveRequestsController;
-use App\Http\Controllers\Admin\LeavesController;
-use App\Http\Controllers\Admin\LeavesStatusesController;
-use App\Http\Controllers\Admin\LeavesTypeController;
-use App\Http\Controllers\Admin\LoanPlansController;
-use App\Http\Controllers\Admin\LoansController;
-use App\Http\Controllers\Admin\WorkShiftsController;
-use App\Http\Controllers\Admin\WorkWeeksController;
+
 use App\Http\Controllers\Admin\PosController;
 
 use App\Models\Formulations;
@@ -56,32 +47,52 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
+    //  User Management Start
     Route::resource('/permissions', permissionController::class);
     Route::post('/permissions/getdata', [permissionController::class, 'getdata'])->name('permissions.getdata');
-
     Route::resource('/users', UserController::class);
     Route::post('/users/getdata', [UserController::class, 'getdata'])->name('users.getdata');
-
-
-    Route::get('/posts/status/active/{id}', [\App\Http\Controllers\Admin\PostController::class, 'active'])->name('posts.publish');
-    Route::get('/posts/status/deactive/{id}', [\App\Http\Controllers\Admin\PostController::class, 'deactive'])->name('posts.unpublish');
-
     Route::resource('/roles', RolesController::class);
     Route::post('/roles/getdata', [RolesController::class, 'getdata'])->name('roles.getdata');
 
-    Route::resource('posts', \App\Http\Controllers\Admin\PostController::class);
-    Route::post('posts/get_data', [\App\Http\Controllers\Admin\PostController::class, 'getData'])->name('posts.getdata');
+    //  User Management End
 
-    Route::resource('post_category', \App\Http\Controllers\Admin\PostCategoryController::class);
-    Route::post('post_category/get_data', [\App\Http\Controllers\Admin\PostCategoryController::class, 'getData'])->name('post_cat.getdata');
+    // Basic setting  Start
+//    Route::resource('posts', \App\Http\Controllers\Admin\PostController::class);
+//    Route::post('posts/get_data', [\App\Http\Controllers\Admin\PostController::class, 'getData'])->name('posts.getdata');
+
+//    Route::resource('post_category', \App\Http\Controllers\Admin\PostCategoryController::class);
+//    Route::post('post_category/get_data', [\App\Http\Controllers\Admin\PostCategoryController::class, 'getData'])->name('post_cat.getdata');
+//
+//    Route::get('/posts/status/active/{id}', [\App\Http\Controllers\Admin\PostController::class, 'active'])->name('posts.publish');
+//    Route::get('/posts/status/deactive/{id}', [\App\Http\Controllers\Admin\PostController::class, 'deactive'])->name('posts.unpublish');
 
 
     // setting curd
     Route::resource('/settings', SettingsController::class);
     Route::post('/settings/getdata', [SettingsController::class, 'getdata'])->name('settings.getdata');
+
     // pages curd
     Route::resource('/pages', PageController::class);
     Route::post('/pages/getdata', [PageController::class, 'getdata'])->name('pages.getdata');
+
+    //companies curd
+    Route::resource('companies', CompaniesController::class);
+    Route::post('/companies/getdata', [CompaniesController::class, 'getdata'])->name('companies.getdata');
+
+
+    //branches curd
+    Route::resource('branches', BranchesController::class);
+    Route::post('/branches/getdata', [BranchesController::class, 'getdata'])->name('branches.getdata');
+    Route::get('/get-branches/{company_id}', [BranchesController::class, 'getBranches']);
+
+
+    Route::resource('city', CityController::class);
+    Route::post('/city/getdata', [CityController::class, 'getdata'])->name('city.getdata');
+    Route::resource('country', CountryController::class);
+    Route::post('/country/getdata', [CountryController::class, 'getdata'])->name('country.getdata');
+
+    //  Basic setting End
 
     // raw-material curd
     Route::resource('/raw-material', RawMaterialController::class);
@@ -96,35 +107,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::post('/suppliers/getdata', [SupplierController::class, 'getdata'])->name('suppliers.getdata');
     Route::resource('staff', StaffController::class);
     Route::post('/staff/getdata', [StaffController::class, 'getdata'])->name('staff.getdata');
-    Route::resource('city', CityController::class);
-    Route::post('/city/getdata', [CityController::class, 'getdata'])->name('city.getdata');
-    Route::resource('country', CountryController::class);
-    Route::post('/country/getdata', [CountryController::class, 'getdata'])->name('country.getdata');
+
     //batches curd
     Route::resource('batches', BatchController::class);
     Route::post('/batches/getdata', [BatchController::class, 'getdata'])->name('batches.getdata');
-//Holydays
-    Route::resource('holydays', HolydaysController::class);
-    Route::post('/holydays/getdata', [HolydaysController::class, 'getdata'])->name('holydays.getdata');
-
-    Route::resource('leave-entitlement', LeaveEntitlementsController::class);
-    Route::post('/leave-entitlement/getdata', [LeaveEntitlementsController::class, 'getdata'])->name('leave-entitlement.getdata');
-    Route::resource('hrm-leave-requests', LeaveRequestsController::class);
-    Route::post('/hrm-leave-requests/getdata', [LeaveRequestsController::class, 'getdata'])->name('hrm-leave-requests.getdata');
-    Route::resource('hrm-leaves', LeavesController::class);
-    Route::post('/hrm-leaves/getdata', [LeavesController::class, 'getdata'])->name('hrm-leaves.getdata');
-    Route::resource('hrm-leave-statuses', LeavesStatusesController::class);
-    Route::post('/hrm-leave-statuses/getdata', [LeavesStatusesController::class, 'getdata'])->name('hrm-leave-statuses.getdata');
-    Route::resource('hrm-leave-types', LeavesTypeController::class);
-    Route::post('/hrm-leave-types/getdata', [LeavesTypeController::class, 'getdata'])->name('hrm-leave-types.getdata');
-    Route::resource('loan-plans', LoanPlansController::class);
-    Route::post('/loan-plans/getdata', [LoanPlansController::class, 'getdata'])->name('loan-plans.getdata');
-    Route::resource('loans', LoansController::class);
-    Route::post('/loans/getdata', [LoansController::class, 'getdata'])->name('loans.getdata');
-    Route::resource('work-shifts', WorkShiftsController::class);
-    Route::post('/work-shifts/getdata', [WorkShiftsController::class, 'getdata'])->name('work-shifts.getdata');
-    Route::resource('work-weeks', WorkWeeksController::class);
-    Route::post('/work-weeks/getdata', [WorkWeeksController::class, 'getdata'])->name('work-weeks.getdata');
 
     //processes curd
     Route::resource('processes', ProcessController::class);
@@ -135,15 +121,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::post('/formulations/getdata', [FormulationController::class, 'getdata'])->name('formulations.getdata');
     Route::post('/formulations/fetch/records', [FormulationController::class, 'fetch_po_record'])->name('FormulationController.fetch_po_record');
 
-    //companies curd
-    Route::resource('companies', CompaniesController::class);
-    Route::post('/companies/getdata', [CompaniesController::class, 'getdata'])->name('companies.getdata');
-
-
-    //branches curd
-    Route::resource('branches', BranchesController::class);
-    Route::post('/branches/getdata', [BranchesController::class, 'getdata'])->name('branches.getdata');
-    Route::get('/get-branches/{company_id}', [BranchesController::class, 'getBranches']);
 
     //account_groups curd
     Route::resource('account_groups', AccountGroupController::class);

@@ -1,65 +1,16 @@
 @extends('admin.layout.main')
+@section('title')
+    Leave Types
+@stop
 @section('css')
-    <link rel="stylesheet"
-          href="{{ url('public/adminlte') }}/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-    <style>
-        #example_wrapper {
-            margin-top: 70px !important;
-        }
 
-        .col-md-3 {
-            padding: 10px;
-        }
-
-        .col-md-6 {
-            padding: 10px;
-        }
-
-        .col-md-4 {
-            padding: 10px;
-        }
-
-        .col-md-12 {
-            padding: 10px;
-        }
-
-        .accordion {
-            background-color: #0ab39c;
-            color: white;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-            transition: 0.4s;
-        }
-
-        .active, .accordion:hover {
-        }
-
-
-        .panel {
-            padding: 0 18px;
-            display: block;
-            background-color: white;
-            overflow: hidden;
-
-
-        }
-
-        .form-group {
-            float: left !important;
-        }
-    </style>
 @stop
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card ">
                 <div class="card-header bg-light">
-                    <h3 class="text-22 text-midnight text-bold mb-4">Create City</h3>
+                    <h3 class="text-22 text-midnight text-bold mb-4">Create  Leave Types</h3>
                 </div>
                 <div class="card-body">
                     @if ($errors->any())

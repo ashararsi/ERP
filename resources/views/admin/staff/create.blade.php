@@ -12,7 +12,7 @@
                     <label>Branch</label>
                     <input type="number" name="branch_id" class="form-control">
                 </div>
-                 
+
                 <div class="col-md-4 mb-3">
                     <label>Staff Type</label>
                     <input type="text" name="staff_type" class="form-control" required>
@@ -129,7 +129,7 @@
                 ] as $field)
                     <div class="col-md-4 mb-3">
                         <label>{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
-                        <input type="text" name="{{ $field }}" class="form-control">
+                        <input type="number" name="{{ $field }}" class="form-control">
                     </div>
                 @endforeach
             </div>

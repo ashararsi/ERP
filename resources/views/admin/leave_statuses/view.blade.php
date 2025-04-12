@@ -1,8 +1,8 @@
 @extends('admin.layout.main')
 @section('title')
-    View   Book
+    Leaves Status
 @stop
-h1
+
 @section('content')
     <div class="container">
         <div class="row">

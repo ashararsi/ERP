@@ -29,11 +29,11 @@ class HolydaysServices
         $data = $request->all();
 
         $data['updated_by'] = \auth()->id();
-
+        $data['created_by'] = \auth()->id();
 
 
         $f = Holiday::create($data);
-
+        return $f;
 
 
     }

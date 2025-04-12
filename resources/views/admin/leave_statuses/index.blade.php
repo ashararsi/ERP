@@ -1,4 +1,7 @@
 @extends('admin.layout.main')
+@section('title')
+    Leaves Status
+@stop
 @section('content')
     <div class="row">
         <div class="col-12">

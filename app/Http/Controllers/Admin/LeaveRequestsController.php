@@ -31,7 +31,9 @@ class LeaveRequestsController extends Controller
      */
     public function create()
     {
-        return view('admin.leave_requests.create');
+        $data_create=$this->HrmLeaveRequestsServices->create();
+
+        return view('admin.leave_requests.create',compact('data_create'));
     }
 
     /**
@@ -39,9 +41,9 @@ class LeaveRequestsController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+      try {
             $this->HrmLeaveRequestsServices->store($request);
-            return redirect()->route('admin.leave-requests.index')->with('success', 'Leave request submitted successfully.');
+            return redirect()->route('admin.hrm-leave-requests.index')->with('success', 'Leave request submitted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -60,7 +62,9 @@ class LeaveRequestsController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.leave_requests.edit');
+        $data_create=$this->HrmLeaveRequestsServices->create();
+        $leave_request=$this->HrmLeaveRequestsServices->edit($id);
+        return view('admin.leave_requests.edit',compact('data_create','leave_request'));
     }
 
     /**

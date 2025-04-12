@@ -1,11 +1,15 @@
 @extends('admin.layout.main')
+
+@section('title')
+    Holidays
+@endsection
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-light">
-                    <h3 class="text-22 text-midnight text-bold mb-4">Cities List</h3>
-                    <a href="{{ route('admin.city.create') }}" class="btn btn-primary btn-sm">Add New City</a>
+                    <h3 class="text-22 text-midnight text-bold mb-4">Holydays List</h3>
+                    <a href="{{ route('admin.holidays.create') }}" class="btn btn-primary btn-sm">Add New Holidays</a>
                 </div>
                 <div class="card-body">
                     @if (session('success'))
@@ -15,9 +19,8 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>City Name</th>
-                            <th>Country</th>
-                            <th>Status</th>
+                            <th> Name</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -41,15 +44,15 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.city.getdata') }}",
+                    url: "{{ route('admin.holydays.getdata') }}",
                     type: "POST",
                     data: {_token: "{{ csrf_token() }}"}
                 },
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'country', name: 'country'},
-                    {data: 'status', name: 'status'},
+                    {data: 'holiday_name', name: 'holiday_name'},
+                    {data: 'holiday_date', name: 'holiday_date'},
+
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
                 dom: 'Bfrtip', // Enable buttons at the top

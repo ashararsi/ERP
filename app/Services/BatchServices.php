@@ -84,8 +84,10 @@ class BatchServices
                 'raw_material_id' => $data['items']['item_id'][$key],
                 'operator_initials' => $data['items']['operator_ids'][$key],
                 'actual_quantity' => $data['items']['actual_quantity'][$key],
+                'qa_initials' => $data['items']['qa_initials'][$key],
+                'in_charge' => $data['items']['in_charge'][$key],
             ];
-            BatchDetail::create($item_data);
+             BatchDetail::create($item_data);
         }
     }
 

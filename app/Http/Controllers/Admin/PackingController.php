@@ -29,8 +29,8 @@ class PackingController extends Controller
      */
     public function create()
     {
-        $units=$this->PackingServices->units();
-        return view('admin.packing.create',compact('units'));
+        $units = $this->PackingServices->units();
+        return view('admin.packing.create', compact('units'));
     }
 
     /**
@@ -38,13 +38,13 @@ class PackingController extends Controller
      */
     public function store(Request $request)
     {
-//        try {
+        try {
             $this->PackingServices->store($request);
             return redirect()->route('admin.packing.index');
-//        } catch (\Exception $e) {
-//
-//            return redirect()->back()->with('error', $e->getMessage());
-//        }
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -60,7 +60,9 @@ class PackingController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $units = $this->PackingServices->units();
+        $packing = $this->PackingServices->edit($id);
+        return view('admin.packing.edit', compact('units', 'packing'));
     }
 
     /**
@@ -68,7 +70,12 @@ class PackingController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $this->PackingServices->update($request, $id);
+            return redirect()->route('admin.packing.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -76,10 +83,17 @@ class PackingController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $this->PackingServices->destroy($id);
+            return redirect()->route('admin.packing.index');
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
+
     public function getdata(Request $request)
     {
-return $this->PackingServices->getdata($request);
+        return $this->PackingServices->getdata($request);
     }
 }

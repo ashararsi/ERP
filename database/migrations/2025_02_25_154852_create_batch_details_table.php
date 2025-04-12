@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('actual_quantity');
             $table->string('operator_initials')->nullable();
             $table->string('qa_initials')->nullable();
+            $table->string('in_charge')->nullable();
             $table->timestamps();
             $table->softDeletes(); // Correct casing
 
