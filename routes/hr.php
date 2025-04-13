@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\LoanPlansController;
 use App\Http\Controllers\Admin\LoansController;
 use App\Http\Controllers\Admin\WorkShiftsController;
 use App\Http\Controllers\Admin\WorkWeeksController;
+use App\Http\Controllers\Admin\DailyAttendanceController;
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web']], function () {
@@ -19,8 +20,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('leave-entitlement', LeaveEntitlementsController::class);
     Route::post('/leave-entitlement/getdata', [LeaveEntitlementsController::class, 'getdata'])->name('leave-entitlement.getdata');
+
     Route::resource('hrm-leave-requests', LeaveRequestsController::class);
     Route::post('/hrm-leave-requests/getdata', [LeaveRequestsController::class, 'getdata'])->name('hrm-leave-requests.getdata');
+
+   Route::resource('attendance', DailyAttendanceController::class);
+    Route::post('/attendance/getdata', [DailyAttendanceController::class, 'getdata'])->name('attendance.getdata');
+
+
     Route::resource('hrm-leaves', LeavesController::class);
     Route::post('/hrm-leaves/getdata', [LeavesController::class, 'getdata'])->name('hrm-leaves.getdata');
     Route::resource('hrm-leave-statuses', LeavesStatusesController::class);

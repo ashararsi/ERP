@@ -1,0 +1,247 @@
+@extends('admin.layout.main')
+@section('title')
+    Attendance
+@endsection
+@section('css')
+
+@stop
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            <div class="card ">
+                <div class="card-header bg-light">
+                    <h3 class="text-22 text-midnight text-bold mb-4">Create City</h3>
+                </div>
+                <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form method="post" action="{!! route('admin.attendance.store') !!}"
+                          enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <!-- User ID -->
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="input-label">
+                                        <label>User</label>
+                                    </div>
+                                    <select name="user_id" class="form-control" required>
+                                        <option value="" disabled selected>Select User</option>
+                                        @foreach($data_create['Staff'] as $user)
+                                            <option value="{{ $user->id }}">{{ $user->first_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Date -->
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="input-label">
+                                        <label>Date</label>
+                                    </div>
+                                    @php
+                                        $currentDate = \Carbon\Carbon::now()->toDateString(); // e.g., 2025-04-13
+                                    @endphp
+                                    <input type="date" value="{!! $currentDate !!}" name="date" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <!-- Time In -->
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="input-label">
+                                        <label>Time In</label>
+                                    </div>
+                                    @php
+                                        $currentTime = \Carbon\Carbon::now()->format('H:i'); // e.g., 14:35
+                                    @endphp
+
+                                    <input type="time" name="time_in" value="{!! $currentTime !!}" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- Time Out -->
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="input-label">
+                                        <label>Time Out</label>
+                                    </div>
+                                    <input type="time" name="time_out" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- Branch ID -->
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="input-label">
+                                        <label>Branch</label>
+                                    </div>
+                                    <select name="branch_id" class="form-control"  >
+                                        <option value="" disabled selected>Select Branch</option>
+                                        @foreach($data_create['branches']  as $branch)
+                                            <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="input-label">
+                                        <label>Status</label>
+                                    </div>
+                                    <select name="status" class="form-control" required>
+                                        <option value="Present">Present</option>
+                                        <option value="Absent">Absent</option>
+                                        <option value="Leave">Leave</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Remarks -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-label">
+                                        <label>Remarks</label>
+                                    </div>
+                                    <input type="text" name="remarks" class="form-control" placeholder="Optional">
+                                </div>
+                            </div>
+
+                            @php
+                                $currentMonth = \Carbon\Carbon::now()->format('F'); // e.g., April
+                            @endphp
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="input-label">
+                                        <label>Month</label>
+                                    </div>
+                                    <input type="text" name="month" class="form-control" value="{{ $currentMonth }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group text-right mt-4">
+                            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                            <a href="{!! route('admin.city.index') !!}" class="btn btn-sm btn-danger">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+@stop
+@section('js')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{{ url('adminlte') }}/bower_components/moment/min/moment.min.js"></script>
+    <script
+        src="{{ url('adminlte') }}/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script
+        src="{{ url('adminlte') }}/bower_components/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="{{ url('adminlte') }}/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script src="{{ url('js/admin/employees/create_modify.js') }}" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#is_bank_name_required').hide();
+            $('#banknotexist').hide();
+            $('#bankexist').hide();
+            $('#iban_exist').hide();
+
+            $('.phone').mask('0000-0000000');
+            $('.cnics').mask('00000-0000000-0');
+            $('.home_phone').mask('000-00000000');
+            $('.reg_no').mask('00-00000');
+
+            $('.radio').change(function (event) {
+                if (!$('.radio:checked').length) {
+                    $('.radio').prop('required', true);
+                    event.preventDefault();
+                } else {
+                    $('.radio').prop('required', false);
+                }
+            });
+
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2();
+            $('.role').select2();
+
+
+            $('.primary_branch').select2();
+            $('.status').select2();
+
+
+        });
+
+        $(".radio").change(function () {
+
+            if ($(this).val() == "no") {
+                $('#banknotexist').show();
+                $('#bankexist').hide();
+                $('#iban_exist').hide();
+                $('#is_bank_name_required').hide();
+            } else if ($(this).val() == "yes") {
+
+                $('#banknotexist').hide();
+                $('#bankexist').show();
+                $('#iban_exist').show();
+                $('#is_bank_name_required').show();
+            }
+
+        });
+
+        // $(".iban_radio").change(function(){
+        //     if($(this).val()=="no" || $(this).val()=="No"){
+        //         $('#is_bank_name_required').show();
+        //         $('#is_iban_bank').val('No');
+        //     }
+        //     if($(this).val()=="Yes" || $(this).val()=="yes"){
+        //         $('#is_bank_name_required').hide();
+        //         $('#is_iban_bank').val('Yes');
+        //     }
+        // });
+
+    </script>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+
+
+    </script>
+@stop
+
+
+
