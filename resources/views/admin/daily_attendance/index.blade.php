@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header bg-light">
                     <h3 class="text-22 text-midnight text-bold mb-4">Attendance List</h3>
-                    <a href="{{ route('admin.attendance.create') }}" class="btn btn-primary btn-sm">Add New City</a>
+                    <a href="{{ route('admin.attendance.create') }}" class="btn btn-primary btn-sm">Add New Attendance</a>
                 </div>
                 <div class="card-body">
                     @if (session('success'))
