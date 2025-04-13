@@ -12,7 +12,7 @@ pipelines:
         - step:
             name: Test
             script:
-              - composer install
+              - composer install --ignore-platform-reqs
               -  ./vendor/bin/phpunit test
             caches:
               - composer
