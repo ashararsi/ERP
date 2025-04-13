@@ -1,25 +1,25 @@
-# Template PHP Build
-
-# This template allows you to validate your PHP application.
-# The workflow allows running tests and code linting on the default branch.
-
-image: composer:2.0
-
+image: php:8.2
 
 pipelines:
   default:
     - parallel:
         - step:
-            name: Test
-            script:
-              - composer install --ignore-platform-reqs
-              -  ./vendor/bin/phpunit test
+            name: Install & Run Tests
             caches:
               - composer
+            script:
+              - apt-get update && apt-get install -y unzip git zip libzip-dev libpng-dev libonig-dev libxml2-dev libicu-dev libfreetype6-dev libjpeg62-turbo-dev
+              - docker-php-ext-install pdo pdo_mysql zip gd intl
+              - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+              - composer install --ignore-platform-reqs
+              - ./vendor/bin/phpunit test
         - step:
             name: Lint
-            script:
-              - composer install
-              - ./vendor/bin/phplint . --exclude=vendor
             caches:
               - composer
+            script:
+              - apt-get update && apt-get install -y unzip git zip libzip-dev libpng-dev libonig-dev libxml2-dev libicu-dev libfreetype6-dev libjpeg62-turbo-dev
+              - docker-php-ext-install pdo pdo_mysql zip gd intl
+              - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+              - composer install --ignore-platform-reqs
+              - ./vendor/bin/phplint . --exclude=vendor
