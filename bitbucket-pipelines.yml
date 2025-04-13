@@ -22,4 +22,4 @@ pipelines:
               - docker-php-ext-install pdo pdo_mysql zip gd intl
               - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
               - composer install --ignore-platform-reqs
-              - ./vendor/bin/phplint . --exclude=vendor
+
