@@ -44,7 +44,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.holydays.getdata') }}",
+                    url: "{{ route('admin.holidays.getdata') }}",
                     type: "POST",
                     data: {_token: "{{ csrf_token() }}"}
                 },
