@@ -38,7 +38,7 @@ class HolydaysController extends Controller
     {
         try {
             $this->HolydaysServices->store($request);
-            return redirect()->route('admin.holydays.index');
+            return redirect()->route('admin.holidays.index');
         } catch (\Exception $e) {
 
             return redirect()->back()->with('error', $e->getMessage());
@@ -75,7 +75,7 @@ class HolydaysController extends Controller
     {
         try {
             $this->HolydaysServices->update($request, $id);
-            return redirect()->route('admin.holydays.index');
+            return redirect()->route('admin.holidays.index');
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
@@ -89,7 +89,7 @@ class HolydaysController extends Controller
     {
         try {
             $this->HolydaysServices->destroy($id);
-            return redirect()->route('admin.holydays.index');
+            return redirect()->route('admin.holidays.index');
         } catch (\Exception $e) {
 
             return redirect()->back()->with('error', $e->getMessage());
