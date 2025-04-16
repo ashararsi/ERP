@@ -45,9 +45,9 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        if (!Gate::allows('Permission_Create')) {
-            return abort(503);
-        }
+//        if (!Gate::allows('Permission_Create')) {
+//            return abort(503);
+//        }
         $mainpermissions = $this->PermisionServices->create();
         return view('admin.Permision.create', compact('mainpermissions'));
     }
@@ -93,9 +93,9 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        if (!Gate::allows('Permission_Edit')) {
-            return abort(503);
-        }
+//        if (!Gate::allows('Permission_Edit')) {
+//            return abort(503);
+//        }
         $Permision = $this->PermisionServices->edit($id);
 
         return view('admin.Permision.edit', compact('Permision'));
@@ -126,9 +126,9 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        if (!Gate::allows('Permission_Delete')) {
-            return abort(503);
-        }
+//        if (!Gate::allows('Permission_Delete')) {
+//            return abort(503);
+//        }
 
         $this->PermisionServices->destroy($id);
         Session::flash('flash_message_sucess', 'Permission  Delete Successfully!!!.');

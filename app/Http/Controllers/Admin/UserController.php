@@ -62,9 +62,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        if (!Gate::allows('User_create')) {
-            return abort(503);
-        }
+//        if (!Gate::allows('User_create')) {
+//            return abort(503);
+//        }
        $roles= $this->UserServise->create();
         return view('admin.Users.create',compact('roles'));
     }
@@ -113,9 +113,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if (!Gate::allows('User_Edit')) {
-            return abort(503);
-        }
+//        if (!Gate::allows('User_Edit')) {
+//            return abort(503);
+//        }
         $User= User::findOrFail($id);
 
 
@@ -158,9 +158,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if (!Gate::allows('User_Delete')) {
-            return abort(503);
-        }
+//        if (!Gate::allows('User_Delete')) {
+//            return abort(503);
+//        }
         $user = $this->UserServise->destroy($id);
         gernalHelper::logAction('User', 'Delete', 'user Delete successfully');
 

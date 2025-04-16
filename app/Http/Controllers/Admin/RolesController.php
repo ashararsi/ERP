@@ -92,9 +92,9 @@ class RolesController extends Controller
     public function edit($id)
     {
         try {
-            if (!Gate::allows('Role_Edit')) {
-                return abort(503);
-            }
+//            if (!Gate::allows('Role_Edit')) {
+//                return abort(503);
+//            }
             $permissions = $this->RolesServise->create();
             $AllowedPermissions = $this->RolesServise->AllowedPermissions($id);
             $AllowedPermissions = $AllowedPermissions->toArray();
@@ -136,9 +136,9 @@ class RolesController extends Controller
     public function destroy($id)
     {
         try {
-            if (!Gate::allows('Role_Delete')) {
-                return abort(503);
-            }
+//            if (!Gate::allows('Role_Delete')) {
+//                return abort(503);
+//            }
             $this->RolesServise->destroy($id);
             Session::flash('flash_message_sucess', 'Role Delete Successfully!!!.');
             return redirect()->route('admin.roles.index');
