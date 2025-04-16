@@ -9,7 +9,7 @@ use App\Services\UserServise;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-use App\Helpers\gernalHelper;
+use App\Helpers\GernalHelper;
 use Gate;
 class UserController extends Controller
 {
@@ -42,14 +42,14 @@ class UserController extends Controller
     public function user_deactive($id)
     {
            $this->UserServise->user_deactive($id);
-        gernalHelper::logAction('User', 'Deactive', 'user Deactive successfully');
+        GernalHelper::logAction('User', 'Deactive', 'user Deactive successfully');
         Session::flash('flash_message_sucess', 'User    Deactive Successfully  !!!.');
         Session::flash('alert-class', 'alert-success');
         return redirect()->route('admin.users.index');
     } public function user_active($id)
     {
            $this->UserServise->user_active($id);
-        gernalHelper::logAction('User', 'Active', 'user Active successfully');
+        GernalHelper::logAction('User', 'Active', 'user Active successfully');
         Session::flash('flash_message_sucess', 'User    Active Successfully  !!!.');
         Session::flash('alert-class', 'alert-success');
         return redirect()->route('admin.users.index');
@@ -86,7 +86,7 @@ class UserController extends Controller
         ]);
 
         $this->UserServise->store($request);
-        gernalHelper::logAction('User', 'Save', 'user save successfully');
+        GernalHelper::logAction('User', 'Save', 'user save successfully');
 
           Session::flash('flash_message_sucess', 'User Successfully Add!!!.');
         Session::flash('alert-class', 'alert-success');
@@ -142,7 +142,7 @@ class UserController extends Controller
             'profile' => 'mimes:jpeg,jpg,png,gif|max:10000'
         ]);
         $user = $this->UserServise->update($request, $id);
-        gernalHelper::logAction('User', 'Update', 'user Update successfully');
+        GernalHelper::logAction('User', 'Update', 'user Update successfully');
 
         Session::flash('flash_message_sucess', 'User Update Successfully !!!.');
         Session::flash('alert-class', 'alert-success');
@@ -162,7 +162,7 @@ class UserController extends Controller
 //            return abort(503);
 //        }
         $user = $this->UserServise->destroy($id);
-        gernalHelper::logAction('User', 'Delete', 'user Delete successfully');
+        GernalHelper::logAction('User', 'Delete', 'user Delete successfully');
 
         Session::flash('flash_message_sucess', 'User  Delete Successfully!!!.');
         Session::flash('alert-class', 'bg-froly');
