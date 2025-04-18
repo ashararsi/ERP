@@ -158,7 +158,7 @@ class UserServise
         $user->name = $request->name;
         $user->save();
         $roles = $request->input('role') ? $request->input('role') : [];
-        $user->syncRoles($roles);
+//        $user->syncRoles($roles);
         $a = User::with('roles')->get();
 
     }
