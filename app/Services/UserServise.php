@@ -128,7 +128,7 @@ class UserServise
 
     public function edit($id)
     {
-        return User::with('campaigns', 'members', 'coach')->where('id', $id)->first();
+        return User::where('id', $id)->first();
 
 
     }
@@ -154,7 +154,6 @@ class UserServise
         }
         if (isset($request->password) && $request->password != null)
             $user->password = Hash::make($request->password);
-
         $user->email = $request->email;
         $user->name = $request->name;
         $user->save();
@@ -172,98 +171,4 @@ class UserServise
 
     }
 
-    public function campaignsMember($request, $id)
-    {
-
-        $perPage = $request->get('per_page', 20);
-
-        $excludedUserIds = CampaignTeamMember::where('campaigns_id', $id)->pluck('user_id');
-
-        // Query the users who are not in the excluded list, ordered by creation date
-        $users = User::whereIn('id', $excludedUserIds)
-            ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
-
-        return response()->json([
-            'data' => $users->items(), // The current page's items
-            'current_page' => $users->currentPage(),
-            'last_page' => $users->lastPage(),
-            'per_page' => $users->perPage(),
-            'total' => $users->total(),
-            'next_page_url' => $users->nextPageUrl(),
-            'prev_page_url' => $users->previousPageUrl(),
-        ]);
-
-
-    }
-
-    public function listuserToAddmember($request)
-    {
-        $compain_users = Campaign::pluck('user_id');
-
-        $perPage = $request->get('per_page', 20);
-        $excludedUserIds = CampaignTeamMember::pluck('user_id');
-
-        $users = User::whereNotIn('id', $excludedUserIds)
-            ->whereNotIn('id', $compain_users)
-            ->where('role', 'user')
-            ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
-        return response()->json([
-            'data' => $users->items(),
-            'current_page' => $users->currentPage(),
-            'last_page' => $users->lastPage(),
-            'per_page' => $users->perPage(),
-            'total' => $users->total(),
-            'next_page_url' => $users->nextPageUrl(),
-            'prev_page_url' => $users->previousPageUrl(),
-        ]);
-
-
-    }
-
-    public function assignMember(Request $request)
-    {
-        // Validate request
-        $validated = $request->validate([
-            'coach_id' => 'required|exists:users,id',
-            'user_id' => 'required|exists:users,id|unique:coach_members,user_id',
-        ]);
-
-        // Create the association
-        $coachMember = CoachMember::create([
-            'coach_id' => $validated['coach_id'],
-            'user_id' => $validated['user_id'],
-        ]);
-
-        return [
-            'message' => 'Member successfully assigned to the coach.',
-            'data' => $coachMember,
-        ];
-    }
-
-    public function listMembers($request)
-    {
-        $coachId = auth()->id();
-        $perPage = $request->get('per_page', 20);
-        // Validate that the coach exists
-        $coach = User::findOrFail($coachId);
-
-        // Fetch the coach members with pagination and counts
-        $members = CoachMember::with('member')
-            ->where('coach_id', $coachId)
-            ->withCount('member')
-            ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
-
-        return [
-            'data' => $members->items(),
-            'current_page' => $members->currentPage(),
-            'last_page' => $members->lastPage(),
-            'per_page' => $members->perPage(),
-            'total' => $members->total(),
-            'next_page_url' => $members->nextPageUrl(),
-            'prev_page_url' => $members->previousPageUrl(),
-        ];
-    }
 }
