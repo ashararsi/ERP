@@ -979,23 +979,28 @@
                         <li>
                             <div class="main-header-profile bg-primary menu-header-content text-fixed-white">
                                 <div class="my-auto">
-                                    <h6 class="mb-0 lh-1 text-fixed-white">Petey Cruiser</h6><span
+                                    <h6 class="mb-0 lh-1 text-fixed-white">{!! auth()->user()->name !!}</h6><span
                                         class="fs-11 op-7 lh-1">Premium Member</span>
                                 </div>
                             </div>
                         </li>
-                        <li><a class="dropdown-item d-flex" href="profile.html"><i
+                        <li><a class="dropdown-item d-flex" href=""><i
                                     class="bx bx-user-circle fs-18 me-2 op-7"></i>Profile</a></li>
-                        <li><a class="dropdown-item d-flex" href="editprofile.html"><i
+                        <li><a class="dropdown-item d-flex" href=""><i
                                     class="bx bx-cog fs-18 me-2 op-7"></i>Edit Profile </a></li>
                         <li><a class="dropdown-item d-flex border-block-end" href="mail.html"><i
                                     class="bx bxs-inbox fs-18 me-2 op-7"></i>Inbox</a></li>
-                        <li><a class="dropdown-item d-flex" href="chat.html"><i
+                        <li><a class="dropdown-item d-flex" href=""><i
                                     class="bx bx-envelope fs-18 me-2 op-7"></i>Messages</a></li>
-                        <li><a class="dropdown-item d-flex border-block-end" href="editprofile.html"><i
+                        <li><a class="dropdown-item d-flex border-block-end" href=""><i
                                     class="bx bx-slider-alt fs-18 me-2 op-7"></i>Account Settings</a></li>
-                        <li><a class="dropdown-item d-flex" href="signin.html"><i
-                                    class="bx bx-log-out fs-18 me-2 op-7"></i>Sign Out</a></li>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="bx bx-log-out"></i> Sign Out
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </a>
                     </ul>
                 </div>
                 <!-- End::header-element -->
