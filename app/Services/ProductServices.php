@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Packing;
 use App\Models\Product;
 
 use App\Models\Unit;
@@ -17,6 +18,10 @@ class ProductServices
     public function create()
     {
         return Unit::all();
+    }
+    public function packing()
+    {
+        return Packing::all();
     }
 
     public function getusers()

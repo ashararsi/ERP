@@ -23,6 +23,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Name</th>
+                                <th>Product Code</th>
                                 <th>Image</th>
                                 <th width="200px">Action</th>
                             </tr>
@@ -57,6 +58,7 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
+                    {data: 'product_code', name: 'product_code'},
                     {data: 'image', name: 'image'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],

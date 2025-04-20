@@ -70,7 +70,17 @@
                                         <input type="file" class="form-control" name="image">
                                     </div>
                                 </div>
-
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="unit">Packing</label>
+                                        <select required name="packing_id" class="form-control">
+                                            <option value="">Select packing</option>
+                                            @foreach($packing as $unit)
+                                                <option value="{{ $unit->id }}">{{ $unit->display_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <!-- Description -->
                                 <div class="col-12">
                                     <div class="form-group">

@@ -215,7 +215,8 @@
                             <option value="">Select Product</option>
                             @foreach($products as $item)
                 <option data-price="{{ $item->price }}" value="{{ $item->id }}">
-                                    {{ $item->name }}
+                                    {{ $item->product_code }} -        {{ $item->name }} - {{ $item->packing->display_name }}
+                @if($item->packing->units) -( unit   {{ $item->packing->units->name }} ) @endif
                 </option>
 @endforeach
                 </select>
@@ -225,7 +226,7 @@
                             <option value="">Select Batch</option>
                             @foreach($Batches as $item)
                 <option value="{{ $item->id }}" data-expiry="{{ $item->expiry_date }}">
-                                    {{ $item->batch_code }}
+                                     {{ $item->batch_code }}
                 </option>
 @endforeach
                 </select>
@@ -285,22 +286,22 @@
 
                 // Calculate amount
                 const amount = qty * rate;
-                $(`#amount_${rowId}`).val(amount );
+                $(`#amount_${rowId}`).val(amount);
 
                 // Calculate discount amount
                 const discAmt = amount * (discPercent / 100);
-                $(`#discAmt_${rowId}`).val(discAmt );
+                $(`#discAmt_${rowId}`).val(discAmt);
 
                 // Calculate taxable amount (after discount)
                 const taxableAmt = amount - discAmt;
 
                 // Calculate tax amount
                 const taxAmt = taxableAmt * (taxPercent / 100);
-                $(`#taxAmt_${rowId}`).val(taxAmt );
+                $(`#taxAmt_${rowId}`).val(taxAmt);
 
                 // Calculate net amount
                 const netAmt = taxableAmt + taxAmt;
-                $(`#netAmt_${rowId}`).val(netAmt );
+                $(`#netAmt_${rowId}`).val(netAmt);
 
                 // Update totals
                 calculateTotals();
@@ -323,11 +324,11 @@
                 });
 
                 // Update summary fields
-                $('#subTotal').val(subTotal );
-                $('#totalDiscount').val(totalDiscount );
-                $('#totalTax').val(totalTax );
-                $('#salesTax').val(totalTax );
-                $('#netTotal').val(netTotal );
+                $('#subTotal').val(subTotal);
+                $('#totalDiscount').val(totalDiscount);
+                $('#totalTax').val(totalTax);
+                $('#salesTax').val(totalTax);
+                $('#netTotal').val(netTotal);
             }
 
             // Reset form button

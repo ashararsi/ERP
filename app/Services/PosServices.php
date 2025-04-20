@@ -49,7 +49,8 @@ class PosServices
 
     public function products()
     {
-        return Product::all();
+
+        return Product::with('packing.units')->get();
 
 
     }

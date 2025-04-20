@@ -29,7 +29,8 @@ class ProductController extends Controller
     public function create()
     {
         $units = $this->ProductServices->create();
-        return view('admin.product.create', compact('units'));
+        $packing = $this->ProductServices->packing();
+        return view('admin.product.create', compact('units','packing'));
     }
 
     /**

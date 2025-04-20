@@ -67,5 +67,8 @@ class Packing extends Model
             ->pluck('count', 'packing_type');
     }
 
-
+    public function units()
+    {
+        return $this->belongsTo(Unit::class, 'unit');
+    }
 }
