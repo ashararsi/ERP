@@ -46,7 +46,6 @@
 <script src="{!! asset('admin/assets/js/notifications.js') !!}"></script>
 
 
-
 {{--<script src="{!! asset('admin/assets/js/notifications.js') !!}"></script>--}}
 
 
