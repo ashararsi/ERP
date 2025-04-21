@@ -99,7 +99,13 @@ class FormulationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $this->FormulationServices->destroy($id);
+            return redirect()->route('admin.formulations.index');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function getdata(Request $request)
