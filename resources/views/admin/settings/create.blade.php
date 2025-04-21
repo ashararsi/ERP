@@ -75,7 +75,7 @@
                                             <div class="input-label">
                                                 <label> Image </label>
                                             </div>
-                                            <input type="file" required class="form-control" value="" name="image">
+                                            <input type="file"   class="form-control" value="" name="image">
                                         </div>
                                     </div>
                                 </div>
