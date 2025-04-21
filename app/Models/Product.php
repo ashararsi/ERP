@@ -18,14 +18,14 @@ class Product extends Model
 
     }
 
-    protected static function booted()
-    {
-        static::creating(function ($product) {
-            $prefix = 'PRD';
-            $latestId = static::max('id') + 1; // or use UUIDs or any other logic
-            $product->product_code = $prefix . str_pad($latestId, 6, '0', STR_PAD_LEFT);
-        });
-    }
+//    protected static function booted()
+//    {
+//        static::creating(function ($product) {
+//            $prefix = 'PRD';
+//            $latestId = static::max('id') + 1; // or use UUIDs or any other logic
+//            $product->product_code = $prefix . str_pad($latestId, 6, '0', STR_PAD_LEFT);
+//        });
+//    }
 
 
 }

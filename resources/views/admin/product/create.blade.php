@@ -33,6 +33,12 @@
                                         <input type="text" required class="form-control" name="name" value="{{ old('name') }}">
                                     </div>
                                 </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="product_code">Product Code</label>
+                                        <input type="text" id="product_code" required class="form-control" name="product_code" value="{{ old('product_code') }}">
+                                    </div>
+                                </div>
 
                                 <!-- Unit -->
                                 <div class="col-6">
