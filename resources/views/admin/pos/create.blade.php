@@ -217,7 +217,7 @@
                             <option value="">Select Product</option>
                             @foreach($products as $item)
                 <option data-price="{{ $item->price }}" value="{{ $item->id }}">
-                                    {{ $item->product_code }} -        {{ $item->name }} - {{ $item->packing->display_name }}
+                                    {{ $item->product_code }} -        {{ $item->name }} - @if($item->packing) {{ $item->packing->display_name }} @endif
                 @if($item->packing->units) -( unit   {{ $item->packing->units->name }} ) @endif
                 </option>
 @endforeach
