@@ -40,7 +40,8 @@ use App\Models\Formulations;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Admin\BatchController;
-
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PackingMaterialController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web']], function () {
 
@@ -234,6 +235,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::get('download/{id}', [EntriesController::class, 'download'])->name('download');
     Route::get('gjv_search', [EntriesController::class, 'gjv_search'])->name('gjv_search');
 
+
+    //category crud
+
+    Route::resource('categories',CategoryController::class);
+    Route::post('/categories/getdata', [CategoryController::class, 'getdata'])->name('categories.getdata');
+//packing material crud
+    Route::get('/packing-materials/import-data', [PackingMaterialController::class, 'showImport'])->name('packing-materials.import');
+    Route::resource('packing-materials',PackingMaterialController::class);
+    Route::post('/packing-materials/getdata', [PackingMaterialController::class, 'getdata'])->name('packing-materials.getdata');
+    Route::post('/packing-materials/importdata', [PackingMaterialController::class, 'importData'])->name('packing-materials.importdata');
 
 //    Route::get('/invoice', function () {
 //        return view('invoice.invoice');
