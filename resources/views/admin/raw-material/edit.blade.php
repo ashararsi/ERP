@@ -26,17 +26,17 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <div class="input-label">
-                                            <label>unit</label>
+                                            <label>Unit</label>
                                         </div>
                                         <select required name="unit" class="form-control">
-                                            <option value="">Select option</option>
+                                            <option value="">Select Unit</option>
                                             @foreach($units as $unit)
-                                                <option @if($raw->unit==$unit->id) selected @endif value="{!! $unit->id !!}">{!! $unit->name !!}</option>
+                                                <option value="{{ $unit->id }}" {{ $raw->unit == $unit->id ? 'selected' : '' }}>
+                                                    {{ $unit->name }}
+                                                </option>
                                             @endforeach
-
                                         </select>
-
-                                    </div>
+                                    </div>                                    
                                 </div>
 
                                 <div class="col-4">
@@ -56,8 +56,15 @@
                                         <div class="input-label">
                                             <label>Supplier</label>
                                         </div>
-                                        <input type="text" required class="form-control" value="{!! $raw->supplier !!}" name="supplier">
-                                    </div>
+                                        <select name="supplier" class="form-control" required>
+                                            <option value="">Select Supplier</option>
+                                            @foreach ($suppliers as $supplier)
+                                                <option value="{{ $supplier->id }}" {{ $raw->supplier == $supplier->id ? 'selected' : '' }}>
+                                                    {{ $supplier->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>                                    
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
@@ -83,7 +90,7 @@
                             <div class="row">
                                 <div class="form-group text-right">
                                     <button type="submit" class="btn btn-sm btn-primary">Save</button>
-                                    <a href="{!! route('admin.roles.index') !!}"
+                                    <a href="{!! route('admin.raw-material.index') !!}"
                                        class=" btn btn-sm btn-danger">Cancel </a>
                                 </div>
                             </div>

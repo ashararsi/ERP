@@ -24,9 +24,9 @@
                             <tr>
                                 <th>No</th>
                                 <th>Name</th>
-                                <th>Unit</th>
+                                {{-- <th>Unit</th> --}}
                                 <th>Quantity</th>
-                                <th>Supplier</th>
+                                {{-- <th>Supplier</th> --}}
                                 <th>Cost</th>
                                 <th>Expiry Date</th>
                                 <th>Stock Status</th>
@@ -63,9 +63,9 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
-                    {data: 'unit', name: 'unit'},
+                    // {data: 'unit', name: 'unit'},
                     {data: 'quantity', name: 'quantity'},
-                    {data: 'supplier', name: 'supplier'},
+                    // {data: 'supplier', name: 'supplier'},
                     {data: 'cost', name: 'cost'},
                     {data: 'expiry_date', name: 'expiry_date'},
                     {data: 'stock_status', name: 'stock_status'},

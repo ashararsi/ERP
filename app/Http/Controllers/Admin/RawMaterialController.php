@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\RawMaterials;
+use App\Models\Supplier;
+use App\Models\Unit;
 use App\Services\RawMaterialServices;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class RawMaterialController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    protected $RawMaterialServices;
     public function __construct(RawMaterialServices $RawMaterialServices)
     {
         $this->RawMaterialServices = $RawMaterialServices;
@@ -59,9 +64,11 @@ class RawMaterialController extends Controller
     public function edit(string $id)
     {
         try {
-            $units = $this->RawMaterialServices->create();
+            // $units = $this->RawMaterialServices->create();
             $raw = $this->RawMaterialServices->edit($id);
-            return view('admin.raw-material.edit', compact('raw', 'units'));
+            $units = Unit::select("id","name")->get();
+            $suppliers = Supplier::select("id","name")->get();
+            return view('admin.raw-material.edit', compact('raw', 'units','suppliers'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -99,15 +106,18 @@ class RawMaterialController extends Controller
     {
         return $this->RawMaterialServices->getdata($request);
 
-    }    public function importdata(Request $request)
+    } 
+
+     public function importdata(Request $request)
     {
 
 
         return view('admin.raw-material.import');
 
-    } public function importdata_post(Request $request)
+    }
+    public function importdata_post(Request $request)
     {
-        return $this->RawMaterialServices->importdata($request);
-
+         $this->RawMaterialServices->importdata($request);
+         return redirect()->route('admin.raw-material.index')->with('success', 'Data created successfully');
     }
 }

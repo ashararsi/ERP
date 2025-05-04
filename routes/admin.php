@@ -151,8 +151,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::get('/grns/grn-report/{id}', [GoodReceiptNoteController::class, 'generatePDF'])->name('grn.pdf');
     Route::get('/logs-view', [ActionLogController::class, 'showLogs'])->name('logs.view');
 
-
+    Route::get('/products/import-data', [ProductController::class, 'showImport'])->name('products.import');
     Route::resource('products', ProductController::class);
+    Route::post('/products/importdata', [ProductController::class, 'importProductData'])->name('products.import.data');
+
     Route::post('/products/getdata', [ProductController::class, 'getdata'])->name('products.getdata');
 
     Route::resource('inventory', InventoryController::class);

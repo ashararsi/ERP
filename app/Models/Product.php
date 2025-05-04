@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Relation\HasUnits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory,HasUnits;
+    
     protected $table = 'products';
-    protected $fillable = ['name','image','description','price','packing_id','product_code','sku'];
+    protected $fillable = ['name','image','description','price','packing_id','product_code','sku','unit_id','quantity'];
 
 
     public function packing()

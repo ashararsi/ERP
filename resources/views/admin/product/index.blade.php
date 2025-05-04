@@ -12,6 +12,8 @@
         <div class="row    mt-4 mb-4 ">
             <div class="col-12 " style="text-align: right">
                 <a href="{!! route('admin.products.create') !!}" class="btn btn-primary btn-sm ">Create product</a>
+                <a href="{!! route('admin.products.import') !!}" class="btn btn-primary btn-sm ">Import Produt Data</a>
+
             </div>
         </div>
         <div class="card">
