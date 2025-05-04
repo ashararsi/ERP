@@ -99,5 +99,15 @@ class RawMaterialController extends Controller
     {
         return $this->RawMaterialServices->getdata($request);
 
+    }    public function importdata(Request $request)
+    {
+
+
+        return view('admin.raw-material.import');
+
+    } public function importdata_post(Request $request)
+    {
+        return $this->RawMaterialServices->importdata($request);
+
     }
 }

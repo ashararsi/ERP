@@ -8,6 +8,9 @@ use App\Models\Unit;
 use DataTables;
 
 use Config;
+use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 
 class RawMaterialServices
 {
@@ -30,7 +33,8 @@ class RawMaterialServices
     {
         return Unit::all();
     }
-  public function suptlier_get()
+
+    public function suptlier_get()
     {
         return Supplier::all();
     }
@@ -81,6 +85,52 @@ class RawMaterialServices
             })
             ->rawColumns(['action'])
             ->make(true);
+
+    }
+
+
+    public function importdata($request)
+    {
+        $file = $request->file('excel_file');
+        $path = $file->getRealPath();
+
+        // Load the spreadsheet using IOFactory
+        $spreadsheet = IOFactory::load($path);
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $isHeader = true;
+
+        foreach ($worksheet->getRowIterator() as $key=> $row) {
+//            if ($isHeader) {
+//                $isHeader = false;
+//                continue;
+//            }
+
+            $data = [];
+            foreach ($row->getCellIterator() as $cell) {
+                $value = $cell->getValue();
+
+                // Handle RichText objects
+                if ($value instanceof RichText) {
+                    $value = $value->getPlainText();
+                }
+
+                $data[] = $value;
+            }
+
+dd($data);
+            // Now create a Laravel Request from the row data
+            $requestData =   [
+                'name' => $data[0] ?? '',
+                'first_name' => $data[1] ?? '',
+                'last_name' => $data[2] ?? '',
+
+            ];
+//
+//            // Process the user
+//            $this->donor_register_uplaod($requestData);
+        }
+
 
     }
 }

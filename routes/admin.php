@@ -97,6 +97,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     // raw-material curd
     Route::resource('/raw-material', RawMaterialController::class);
     Route::post('/raw-material/getdata', [RawMaterialController::class, 'getdata'])->name('raw-material.getdata');
+    Route::get('/raw-material/importdata/file', [RawMaterialController::class, 'importdata'])->name('raw-material.import');
+    Route::post('/raw-material/importdata', [RawMaterialController::class, 'importdata_post'])->name('raw-material.importdata');
 
     // units curd
     Route::resource('units', UnitController::class);

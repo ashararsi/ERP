@@ -12,6 +12,7 @@
         <div class="row    mt-4 mb-4 ">
             <div class="col-12 " style="text-align: right">
                 <a href="{!! route('admin.raw-material.create') !!}" class="btn btn-primary btn-sm ">Create Raw Material</a>
+                <a href="{!! route('admin.raw-material.import') !!}" class="btn btn-primary btn-sm ">Import Raw Material</a>
             </div>
         </div>
         <div class="card">
