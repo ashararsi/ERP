@@ -272,7 +272,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="slide has-sub {{ request()->is('admin/products*') ? 'open' : '' }}">
+                        <li class="slide has-sub {{ request()->is('admin/categories*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Categories
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>
@@ -285,7 +285,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="slide has-sub {{ request()->is('admin/products*') ? 'open' : '' }}">
+                        <li class="slide has-sub {{ request()->is('admin/packing-materials*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Packing Materials
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>

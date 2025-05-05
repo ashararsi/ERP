@@ -1,10 +1,16 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <div class="card ">
-                <div class="card-header bg-light">
-                    <h3 class="text-22 text-midnight text-bold mb-4">{{ $label }}</h3>
+            <div class="card">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <h3 class="text-22 text-midnight text-bold mb-0">{{ $label }}</h3>
+                    @if (!empty($sampleFile))
+                        <a href="{{ asset($sampleFile) }}" class="btn btn-sm btn-success" download>
+                            <i class="fas fa-download"></i> Sample Excel
+                        </a>
+                    @endif
                 </div>
+
                 <div class="card-body">
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -15,14 +21,13 @@
                             </ul>
                         </div>
                     @endif
+
                     <form method="post" action="{{ route($route) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <div class="input-label">
-                                        <label>File</label>
-                                    </div>
+                                    <label>File</label>
                                     <input type="file" required class="form-control" name="excel_file">
                                 </div>
                             </div>

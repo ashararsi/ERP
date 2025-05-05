@@ -9,9 +9,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="card ">
-                    <div class="card-header bg-light">
-                        <h3 class="text-22 text-midnight text-bold mb-4">upload Raw Material </h3>
-                    </div>
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <h3 class="text-22 text-midnight text-bold mb-0">Upload Product Data</h3>
+                        <a href="{{ asset('sample-files/raw-materials.xlsx') }}" class="btn btn-sm btn-success" download>
+                            <i class="fas fa-download"></i> Sample Excel
+                        </a>
+                    </div>  
                     <div class="card-body">
                         @if ($errors->any())
                             <div class="alert alert-danger">
