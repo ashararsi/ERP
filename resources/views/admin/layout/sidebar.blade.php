@@ -272,6 +272,32 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="slide has-sub {{ request()->is('admin/products*') ? 'open' : '' }}">
+                            <a href="javascript:void(0);" class="side-menu__item">Categories
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child2">
+                                <li class="slide {{ request()->routeIs('admin.categories.index') ? 'active' : '' }}">
+                                    <a href="{!! route('admin.categories.index') !!}" class="side-menu__item">List</a>
+                                </li>
+                                <li class="slide {{ request()->routeIs('admin.categories.create') ? 'active' : '' }}">
+                                    <a href="{!! route('admin.categories.create') !!}" class="side-menu__item">Create</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="slide has-sub {{ request()->is('admin/products*') ? 'open' : '' }}">
+                            <a href="javascript:void(0);" class="side-menu__item">Packing Materials
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child2">
+                                <li class="slide {{ request()->routeIs('admin.packing-materials.index') ? 'active' : '' }}">
+                                    <a href="{!! route('admin.packing-materials.index') !!}" class="side-menu__item">List</a>
+                                </li>
+                                <li class="slide {{ request()->routeIs('admin.packing-materials.create') ? 'active' : '' }}">
+                                    <a href="{!! route('admin.packing-materials.create') !!}" class="side-menu__item">Create</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="slide has-sub {{ request()->is('admin/formulations*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Formulation
                                 <i class="fe fe-chevron-right side-menu__angle"></i>

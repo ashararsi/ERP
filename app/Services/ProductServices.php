@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Imports\ProductImport;
 use App\Models\Packing;
 use App\Models\Product;
 
@@ -12,6 +13,7 @@ use App\Models\RawMaterials;
 use DataTables;
 
 use Config;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductServices
 {
@@ -78,21 +80,37 @@ class ProductServices
 
     }
 
-    public function update($request, $id)
+    public function update($request,$id)
     {
-        $validated = $request->all();
-        $transaction = Product::find($id);
-        if ($transaction) {
-            $transaction->update($validated);
+        $product = Product::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads/products'), $imageName);
+            $product->image = 'uploads/products/' . $imageName;
         }
-        return $transaction;
+
+        $product->update([
+            'name' => $request->name,
+            'product_code' => $request->product_code,
+            'unit_id' => $request->unit_id,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'packing_id' => $request->packing_id,
+            'description' => $request->description,
+        ]);
+
+        return $product;
     }
+
 
     public function destroy($id)
     {
-        $Transaction = Product::findOrFail($id);
-        if ($Transaction) {
-            $Transaction->delete();
+        $product = Product::findOrFail($id);
+        // dd($product);
+        if ($product) {
+            $product->delete();
         }
     }
 
@@ -102,9 +120,9 @@ class ProductServices
         $data = Product::select('*')->orderBy('id', 'desc');
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function ($row) {
-                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.batches.destroy", $row->id) . '"> ';
-                $btn = $btn . '<a href=" ' . route("admin.batches.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
-                $btn = $btn . ' <a href="' . route("admin.batches.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
+                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.products.destroy", $row->id) . '"> ';
+                $btn = $btn . '<a href=" ' . route("admin.products.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
+                $btn = $btn . ' <a href="' . route("admin.products.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
                 $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';
@@ -116,5 +134,10 @@ class ProductServices
             ->rawColumns(['action','image'])
             ->make(true);
 
+    }
+
+    public function importdata($request)
+    {
+        return Excel::import(new ProductImport(), $request->file('excel_file')); 
     }
 }

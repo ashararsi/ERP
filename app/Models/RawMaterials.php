@@ -13,4 +13,15 @@ class RawMaterials extends Model
 
     protected $table = 'raw_materials';
     protected $fillable = ['name', 'unit', 'quantity', 'supplier', 'cost', 'expiry_date'];
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'supplier');
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class, 'unit');
+    }
+
 }

@@ -2,15 +2,14 @@
 
 namespace App\Services;
 
+use App\Imports\RawMaterialImport;
 use App\Models\RawMaterials;
 use App\Models\Supplier;
 use App\Models\Unit;
 use DataTables;
 
-use Config;
-use Illuminate\Http\Request;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class RawMaterialServices
 {
@@ -72,65 +71,32 @@ class RawMaterialServices
 
     public function getdata($request)
     {
-        $data = RawMaterials::select('*')->orderBy('id', 'desc');
-        return Datatables::of($data)->addIndexColumn()
+        $data = RawMaterials::with(['unit', 'supplier'])->orderBy('id', 'desc')->get();
+        return Datatables::of($data)
+            ->addIndexColumn()
+            ->addColumn('unit', function ($row) {
+                return $row->unit->name ?? '-';
+            })
+            ->addColumn('supplier', function ($row) {
+                return $row->supplier->name ?? '-';
+            })
             ->addColumn('action', function ($row) {
-                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.raw-material.destroy", $row->id) . '"> ';
-                $btn = $btn . '<a href=" ' . route("admin.raw-material.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
-                $btn = $btn . ' <a href="' . route("admin.raw-material.edit", $row->id) . '" class="ml-2">  <i class="fas fa-edit"></i></a>';
-                $btn = $btn . '<button  type="submit" class="ml-2" ><i class="fas fa-trash"></i></button>';
-                $btn = $btn . method_field('DELETE') . '' . csrf_field();
-                $btn = $btn . ' </form>';
+                $btn = '<form method="POST" onsubmit="return confirm(\'Are you sure you want to Delete this?\');" action="' . route("admin.raw-material.destroy", $row->id) . '">';
+                // $btn .= '<a href="' . route("admin.raw-material.show", $row->id) . '" class="ml-2"><i class="fas fa-eye"></i></a>';
+                $btn .= '<a href="' . route("admin.raw-material.edit", $row->id) . '" class="ml-2"><i class="fas fa-edit"></i></a>';
+                $btn .= method_field('DELETE') . csrf_field();
+                $btn .= '<button type="submit" class="ml-2"><i class="fas fa-trash"></i></button>';
+                $btn .= '</form>';
                 return $btn;
             })
             ->rawColumns(['action'])
             ->make(true);
-
     }
 
 
     public function importdata($request)
     {
-        $file = $request->file('excel_file');
-        $path = $file->getRealPath();
-
-        // Load the spreadsheet using IOFactory
-        $spreadsheet = IOFactory::load($path);
-        $worksheet = $spreadsheet->getActiveSheet();
-
-        $isHeader = true;
-
-        foreach ($worksheet->getRowIterator() as $key=> $row) {
-//            if ($isHeader) {
-//                $isHeader = false;
-//                continue;
-//            }
-
-            $data = [];
-            foreach ($row->getCellIterator() as $cell) {
-                $value = $cell->getValue();
-
-                // Handle RichText objects
-                if ($value instanceof RichText) {
-                    $value = $value->getPlainText();
-                }
-
-                $data[] = $value;
-            }
-
-dd($data);
-            // Now create a Laravel Request from the row data
-            $requestData =   [
-                'name' => $data[0] ?? '',
-                'first_name' => $data[1] ?? '',
-                'last_name' => $data[2] ?? '',
-
-            ];
-//
-//            // Process the user
-//            $this->donor_register_uplaod($requestData);
-        }
-
-
+        return Excel::import(new RawMaterialImport(), $request->file('excel_file'));
+        
     }
 }
