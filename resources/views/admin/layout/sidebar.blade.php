@@ -43,6 +43,8 @@
 
                     </a>
                 </li>
+                @canany(['View Roles List', 'View Permissions List', 'View Users List', 'View Suppliers List'])
+
                 <li class="slide has-sub {{  request()->is('admin/goods-receipt*')||     request()->is('admin/permissions*') || request()->is('admin/users*') || request()->is('admin/suppliers*') || request()->is('admin/vendor*') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
@@ -57,6 +59,7 @@
                     <ul class="slide-menu child1">
 
                         {{-- Roles --}}
+                        @can('View Roles List')
                         <li class="slide has-sub {{ request()->is('admin/roles*') ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Roles
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -72,8 +75,10 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
 
                         {{-- Permissions --}}
+                        @can('View Permissions List')
                         <li class="slide has-sub {{ request()->is('admin/permissions*') ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Permissions
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -89,8 +94,10 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
 
                         {{-- Users --}}
+                        @can('View Users List')
                         <li class="slide has-sub {{ request()->routeIs('admin.users.index') && !request()->has('role') ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Users
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -110,8 +117,10 @@
                                 </li>
                             </ul>
                         </li>
+                       
 
                         {{-- QA Users --}}
+
                         <li class="slide has-sub {{ request()->routeIs('admin.users.index') && request()->input('role') === 'QA' ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">QA Users
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -140,8 +149,9 @@
                                 </li>
                             </ul>
                         </li>
-
+                        @endcan
                         {{-- Suppliers --}}
+                        @can('View Suppliers List')
                         <li class="slide has-sub {{ request()->is('admin/suppliers*') ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Suppliers
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -157,8 +167,11 @@
                                 </li>
                             </ul>
                         </li>
+                        
+                        @endcan
 
                         {{-- Vendor --}}
+                        @can('View Vendors List')
                         <li class="slide has-sub {{ request()->is('admin/vendor*') ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Vendor
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -174,9 +187,12 @@
                                 </li>
                             </ul>
                         </li>
-
+                        @endcan
                     </ul>
                 </li>
+                @endcanany
+
+
                 <li class="slide has-sub  {{ request()->is('admin/packing*') ||request()->is('admin/inventory*') || request()->is('admin/batches*') || request()->is('admin/purchaseorders*') || request()->is('admin/goods-issuance*') || request()->is('admin/formulations*')  || request()->is('admin/products*') || request()->is('admin/roles*') || request()->is('admin/grns*') || request()->is('admin/units*') || request()->is('admin/processes*') ||request()->is('admin/raw-material*')  ? 'active open' : '' }} ">
 
                     <a href="javascript:void(0);" class="side-menu__item">
@@ -192,6 +208,7 @@
 
 
                     <ul class="slide-menu child1">
+                        @can('View Purchase Order List')                
                         <li class="slide has-sub {{ request()->is('admin/purchaseorders*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Purchase Orders
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -206,6 +223,9 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('View GRN List')
+                            
                         <li class="slide has-sub {{ request()->is('admin/grns*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">GRN
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -219,6 +239,9 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('View Units')
+                            
                         <li class="slide has-sub {{ request()->is('admin/units*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Units
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -232,6 +255,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('View Processes List')
                         <li class="slide has-sub {{ request()->is('admin/processes*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Processes
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -245,6 +270,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('View Raw List')
                         <li class="slide has-sub {{ request()->is('admin/raw-material*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Raw
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -259,6 +286,9 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('View Product List')
+                            
                         <li class="slide has-sub {{ request()->is('admin/products*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Products
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -272,6 +302,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('view Categories')
                         <li class="slide has-sub {{ request()->is('admin/categories*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Categories
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -285,6 +317,9 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        {{-- @can('view packing-material') --}}
+                                                                                
                         <li class="slide has-sub {{ request()->is('admin/packing-materials*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Packing Materials
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -298,6 +333,10 @@
                                 </li>
                             </ul>
                         </li>
+                        {{-- @endcan --}}
+
+                        @can('View Formulation')
+                        
                         <li class="slide has-sub {{ request()->is('admin/formulations*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Formulation
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -312,6 +351,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('View Batches')
                         <li class="slide has-sub {{ request()->is('admin/batches*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Batches
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -325,6 +366,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('View Goods-Issuance List')
                         <li class="slide has-sub {{ request()->is('admin/goods-issuance*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Goods-Issuance
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -339,6 +382,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('View Goods-Reciept')
                         <li class="slide has-sub {{ request()->is('admin/goods-receipt*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Goods-Receipt
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -354,6 +399,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('View Packing')
                         <li class="slide has-sub {{ request()->is('admin/packing*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Packing
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -368,6 +415,8 @@
 
                             </ul>
                         </li>
+                        @endcan
+                        @can('View Inventory')
                         <li class="slide has-sub {{ request()->is('admin/inventory*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Inventory
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -379,8 +428,11 @@
 
                             </ul>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+
+                @canany(['View Customers List', 'View POS Orders List'])
                 <li class="slide has-sub  {{ request()->is('admin/inventory*') || request()->is('admin/goods-issuance*') || request()->is('admin/formulations*')  || request()->is('admin/products*') || request()->is('admin/roles*') || request()->is('admin/grns*') || request()->is('admin/units*') || request()->is('admin/processes*') ||request()->is('admin/raw-material*')  ? 'active open' : '' }} ">
 
                     <a href="javascript:void(0);" class="side-menu__item">
@@ -396,6 +448,7 @@
 
 
                     <ul class="slide-menu child1">
+                         @can('View POS Orders List')
                         <li class="slide has-sub {{ request()->is('admin/pos*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">POS
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -411,6 +464,8 @@
 
                             </ul>
                         </li>
+                        @endcan
+                        @can('View Customers List')
                         <li class="slide has-sub {{ request()->is('admin/customers*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Customers
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -426,9 +481,11 @@
 
                             </ul>
                         </li>
+                        @endcan
 
                     </ul>
                 </li>
+                @endcanany
 
                 <li class="slide has-sub {{ request()->is('admin/companies*') || request()->is('admin/branches*') || request()->is('admin/country*') || request()->is('admin/city*') ? 'open' : '' }}">
                     <a href="javascript:void(0);" class="side-menu__item">
