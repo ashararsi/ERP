@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +30,25 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/deploy-hook', function () {
+    // Optional: Add a secret token check
+    if (Request::get('token') !== env('DEPLOY_SECRET')) {
+        abort(403, 'Unauthorized');
+    }
 
+    putenv('COMPOSER_HOME=' . base_path() . '/vendor/bin/composer');
+
+    // Run composer install
+    shell_exec('cd ' . base_path() . ' && composer install --no-interaction --prefer-dist');
+
+    // Run Laravel migrations
+    Artisan::call('migrate', ['--force' => true]);
+
+    // Optional: Clear & cache config
+    Artisan::call('config:cache');
+
+    return response()->json(['status' => 'Deployed successfully']);
+});
 
 
 
