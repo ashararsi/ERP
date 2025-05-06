@@ -1,4 +1,4 @@
-name: 🚀 Deploy website on push
+name: 🚀 FTP Deploy with Laravel Hook
 
 on:
   push:
@@ -7,32 +7,20 @@ on:
 
 jobs:
   web-deploy:
-    name: 🎉 Deploy
+    name: 🎉 Deploy to Server
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the latest code from the 'main' branch
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
-      # Sync files with the remote server using FTP
-      - name: 📂 Sync files
+      - name: 📂 Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.lasanicloud.com
           username: gituser@uat.lasanicloud.com
           password: ${{ secrets.ftp_password }}
 
-      # Install dependencies with Composer (Run Composer Update on the runner)
-      - name: 🚀 Install Composer and Update Dependencies
+      - name: 🚀 Trigger Laravel Deploy Hook
         run: |
-          sudo apt-get update
-          sudo apt-get install php-cli php-mbstring php-xml php-curl unzip
-          curl -sS https://getcomposer.org/installer | php
-          php composer.phar install --no-interaction --prefer-dist
-
-      # Run database migrations (Run php artisan migrate on the runner)
-      - name: 🛠️ Run migrations
-        run: |
-          curl -sS https://getcomposer.org/installer | php
-          php artisan migrate --force
+          curl "https://uat.lasanicloud.com/deploy-hook?token=${{ secrets.DEPLOY_SECRET }}"
