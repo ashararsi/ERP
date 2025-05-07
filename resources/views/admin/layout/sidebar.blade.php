@@ -41,7 +41,7 @@
 
                     </a>
                 </li>
-                @canany(config('sideBarPermission.user_management'))
+                {{-- @canany(config('sideBarPermission.user_management')) --}}
 
                     <li
                         class="slide has-sub {{ request()->is('admin/goods-receipt*') || request()->is('admin/permissions*') || request()->is('admin/users*') || request()->is('admin/suppliers*') || request()->is('admin/vendor*') ? 'active open' : '' }}">
@@ -59,7 +59,7 @@
                         <ul class="slide-menu child1">
 
                             {{-- Roles --}}
-                            @can('View Roles List')
+                            {{-- @can('View Roles List') --}}
                                 <li class="slide has-sub {{ request()->is('admin/roles*') ? 'active open' : '' }}">
                                     <a href="javascript:void(0);" class="side-menu__item">Roles
                                         <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -75,7 +75,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                            @endcan
+                            {{-- @endcan --}}
 
                             {{-- Permissions --}}
                             @can('View Permissions List')
@@ -150,7 +150,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                            @endcan
+                            {{-- @endcan --}}
 
                             {{-- Suppliers --}}
                             @can('View Suppliers List')
