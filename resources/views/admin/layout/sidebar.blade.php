@@ -75,7 +75,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                            {{-- @endcan --}}
+                            @endcan
 
                             {{-- Permissions --}}
                             @can('View Permissions List')
@@ -150,7 +150,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                            {{-- @endcan --}}
+                            @endcan
 
                             {{-- Suppliers --}}
                             @can('View Suppliers List')
@@ -192,7 +192,7 @@
                         </ul>
                     </li>
 
-                @endcanany
+                {{-- @endcanany --}}
 
                 {{-- @canany(config('sideBarPermission.inventory')) --}}
 
@@ -593,7 +593,7 @@
                         <ul class="slide-menu child1">
 
                             {{-- Account Groups --}}
-                            @canany(['View Groups', 'Create Groups'])
+                            @can('View Groups', 'Create Groups')
                                 <li class="slide has-sub">
                                     <a href="javascript:void(0);" class="side-menu__item"> Groups
                                         <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -611,10 +611,10 @@
                                         @endcan
                                     </ul>
                                 </li>
-                            @endcanany
+                            @endcan
 
                             {{-- Ledgers --}}
-                            @canany(['View Ledgers', 'Create Ledgers'])
+                            @can('View Ledgers')
                                 <li class="slide has-sub">
                                     <a href="javascript:void(0);" class="side-menu__item">Ledgers
                                         <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -632,10 +632,10 @@
                                         @endcan
                                     </ul>
                                 </li>
-                            @endcanany
+                            @endcan
 
                             {{-- Voucher Entries --}}
-                            @canany(['Create Vouchers'])
+                            @can('Create Vouchers')
                                 <li class="slide has-sub">
                                     <a href="javascript:void(0);" class="side-menu__item">Voucher
                                         <i class="fe fe-chevron-right side-menu__angle"></i>
@@ -659,7 +659,7 @@
                                         @endcan
                                     </ul>
                                 </li>
-                            @endcanany
+                            @endcan
 
                             {{-- Reports --}}
                             @can('View Reports')
@@ -682,7 +682,7 @@
 
                 {{-- @endcanany --}}
 
-                {{-- @canany(config('sideBarPermission.hr')) --}}
+                @canany(config('sideBarPermission.hr'))
                     <li
                         class="slide has-sub {{ request()->is('admin/holidays*') || request()->is('admin/hrm-leave-types*') || request()->is('admin/staff*') || request()->is('admin/leave-entitlement*') || request()->is('admin/hrm-leave-requests*') || request()->is('admin/hrm-leaves*') || request()->is('admin/loan-plans*') || request()->is('admin/loans*') || request()->is('admin/work-shifts*') || request()->is('admin/work-weeks*') ? 'open' : '' }}">
                         <a href="javascript:void(0);" class="side-menu__item">
@@ -888,7 +888,8 @@
 
                         </ul>
                     </li>
-                {{-- @endcanany --}}
+                @endcanany
+            </ul>
             </ul>
             <div class="slide-right" id="slide-right">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24"

@@ -110,7 +110,7 @@ class PosServices
                 'customer_po_date' => $request->customerPODate,
                 'city' => $request->city,
                 'payment_terms' => $request->paymentTerms,
-                'sales_rep_id' => $request->salesRep,
+                'sales_rep_id' => $request->salesRep ?? 3,
                 'delivery_date' => $request->deliveryDate,
                 'sub_total' => $request->subTotal,
                 'total_discount' => $request->totalDiscount,
@@ -120,6 +120,8 @@ class PosServices
                 'notes' => $request->notes,
                 'status' => 'pending'
             ]);
+
+                     
 
             // Add order items
             foreach ($request->product as $index => $productId) {
