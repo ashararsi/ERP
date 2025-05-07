@@ -192,6 +192,9 @@
                 </li>
                 @endcanany
 
+                @canany(['View Customers List', 'View POS Orders List', 'View Purchase Order List', 'View GRN List', 
+'View Units', 'View Processes List', 'View Raw List', 'View Product List', 'view Categories', 
+'View Formulation', 'View Batches', 'View Goods-Issuance List', 'View Goods-Reciept', 'View Packing', 'View Inventory'])
 
                 <li class="slide has-sub  {{ request()->is('admin/packing*') ||request()->is('admin/inventory*') || request()->is('admin/batches*') || request()->is('admin/purchaseorders*') || request()->is('admin/goods-issuance*') || request()->is('admin/formulations*')  || request()->is('admin/products*') || request()->is('admin/roles*') || request()->is('admin/grns*') || request()->is('admin/units*') || request()->is('admin/processes*') ||request()->is('admin/raw-material*')  ? 'active open' : '' }} ">
 
@@ -431,6 +434,7 @@
                         @endcan
                     </ul>
                 </li>
+                @endcanany
 
                 @canany(['View Customers List', 'View POS Orders List'])
                 <li class="slide has-sub  {{ request()->is('admin/inventory*') || request()->is('admin/goods-issuance*') || request()->is('admin/formulations*')  || request()->is('admin/products*') || request()->is('admin/roles*') || request()->is('admin/grns*') || request()->is('admin/units*') || request()->is('admin/processes*') ||request()->is('admin/raw-material*')  ? 'active open' : '' }} ">
@@ -487,76 +491,87 @@
                 </li>
                 @endcanany
 
-                <li class="slide has-sub {{ request()->is('admin/companies*') || request()->is('admin/branches*') || request()->is('admin/country*') || request()->is('admin/city*') ? 'open' : '' }}">
-                    <a href="javascript:void(0);" class="side-menu__item">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                            <path d="M0 0h24v24H0V0z" fill="none"/>
-                            <path
-                                d="M5 9h14V5H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5S7.83 8.5 7 8.5 5.5 7.83 5.5 7 6.17 5.5 7 5.5zM5 19h14v-4H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"
-                                opacity=".3"/>
-                            <path
-                                d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-1 6H5v-4h14v4zm-12-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zm-1 6H5V5h14v4zM7 8.5c.83 0 1.5-.67 1.5-1.5S7.83 5.5 7 5.5 5.5 6.17 5.5 7 6.17 8.5 7 8.5z"/>
-                        </svg>
-                        <span class="side-menu__label">Basic Settings</span>
-                        <i class="fe fe-chevron-right side-menu__angle"></i>
-                    </a>
-                    <ul class="slide-menu child1">
+                @canany(['view companies', 'view branches', 'view country', 'view city'])
+<li class="slide has-sub {{ request()->is('admin/companies*') || request()->is('admin/branches*') || request()->is('admin/country*') || request()->is('admin/city*') ? 'open' : '' }}">
+    <a href="javascript:void(0);" class="side-menu__item">
+        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path
+                d="M5 9h14V5H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5S7.83 8.5 7 8.5 5.5 7.83 5.5 7 6.17 5.5 7 5.5zM5 19h14v-4H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"
+                opacity=".3"/>
+            <path
+                d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-1 6H5v-4h14v4zm-12-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zm-1 6H5V5h14v4zM7 8.5c.83 0 1.5-.67 1.5-1.5S7.83 5.5 7 5.5 5.5 6.17 5.5 7 6.17 8.5 7 8.5z"/>
+        </svg>
+        <span class="side-menu__label">Basic Settings</span>
+        <i class="fe fe-chevron-right side-menu__angle"></i>
+    </a>
+    <ul class="slide-menu child1">
 
-                        <li class="slide has-sub {{ request()->is('admin/companies*') ? 'open' : '' }}">
-                            <a href="javascript:void(0);" class="side-menu__item">Companies
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide {{ request()->routeIs('admin.companies.index') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.companies.index') }}" class="side-menu__item"> List</a>
-                                </li>
-                                <li class="slide {{ request()->routeIs('admin.companies.create') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.companies.create') }}" class="side-menu__item">Create</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="slide has-sub {{ request()->is('admin/branches*') ? 'open' : '' }}">
-                            <a href="javascript:void(0);" class="side-menu__item">Branches
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide {{ request()->routeIs('admin.branches.index') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.branches.index') }}" class="side-menu__item"> List</a>
-                                </li>
-                                <li class="slide {{ request()->routeIs('admin.branches.create') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.branches.create') }}" class="side-menu__item">Create</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="slide has-sub {{ request()->is('admin/country*') ? 'open' : '' }}">
-                            <a href="javascript:void(0);" class="side-menu__item">Country
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide {{ request()->routeIs('admin.country.index') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.country.index') }}" class="side-menu__item"> List</a>
-                                </li>
-                                <li class="slide {{ request()->routeIs('admin.country.create') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.country.create') }}" class="side-menu__item">Create</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="slide has-sub {{ request()->is('admin/city*') ? 'open' : '' }}">
-                            <a href="javascript:void(0);" class="side-menu__item">City
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-                                <li class="slide {{ request()->routeIs('admin.city.index') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.city.index') }}" class="side-menu__item"> List</a>
-                                </li>
-                                <li class="slide {{ request()->routeIs('admin.city.create') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.city.create') }}" class="side-menu__item">Create</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                    </ul>
+        @can('view companies')
+        <li class="slide has-sub {{ request()->is('admin/companies*') ? 'open' : '' }}">
+            <a href="javascript:void(0);" class="side-menu__item">Companies
+                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+            <ul class="slide-menu child2">
+                <li class="slide {{ request()->routeIs('admin.companies.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.companies.index') }}" class="side-menu__item">List</a>
                 </li>
+                <li class="slide {{ request()->routeIs('admin.companies.create') ? 'active' : '' }}">
+                    <a href="{{ route('admin.companies.create') }}" class="side-menu__item">Create</a>
+                </li>
+            </ul>
+        </li>
+        @endcan
 
+        @can('view branches')
+        <li class="slide has-sub {{ request()->is('admin/branches*') ? 'open' : '' }}">
+            <a href="javascript:void(0);" class="side-menu__item">Branches
+                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+            <ul class="slide-menu child2">
+                <li class="slide {{ request()->routeIs('admin.branches.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.branches.index') }}" class="side-menu__item">List</a>
+                </li>
+                <li class="slide {{ request()->routeIs('admin.branches.create') ? 'active' : '' }}">
+                    <a href="{{ route('admin.branches.create') }}" class="side-menu__item">Create</a>
+                </li>
+            </ul>
+        </li>
+        @endcan
+
+        @can('view country')
+        <li class="slide has-sub {{ request()->is('admin/country*') ? 'open' : '' }}">
+            <a href="javascript:void(0);" class="side-menu__item">Country
+                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+            <ul class="slide-menu child2">
+                <li class="slide {{ request()->routeIs('admin.country.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.country.index') }}" class="side-menu__item">List</a>
+                </li>
+                <li class="slide {{ request()->routeIs('admin.country.create') ? 'active' : '' }}">
+                    <a href="{{ route('admin.country.create') }}" class="side-menu__item">Create</a>
+                </li>
+            </ul>
+        </li>
+        @endcan
+
+        @can('view city')
+        <li class="slide has-sub {{ request()->is('admin/city*') ? 'open' : '' }}">
+            <a href="javascript:void(0);" class="side-menu__item">City
+                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+            <ul class="slide-menu child2">
+                <li class="slide {{ request()->routeIs('admin.city.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.city.index') }}" class="side-menu__item">List</a>
+                </li>
+                <li class="slide {{ request()->routeIs('admin.city.create') ? 'active' : '' }}">
+                    <a href="{{ route('admin.city.create') }}" class="side-menu__item">Create</a>
+                </li>
+            </ul>
+        </li>
+        @endcan
+
+    </ul>
+</li>
+@endcanany
+
+                @endcanany
                 <li class="slide has-sub  ">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
@@ -645,6 +660,19 @@
                         </li>
                     </ul>
                 </li>
+                @canany([
+    'view staff', 'create staff',
+    'view holidays', 'create holidays',
+    'view leave types', 'create leave types',
+    'view leave entitlement', 'create leave entitlement',
+    'view leave requests', 'create leave requests',
+    'view leaves', 'create leaves',
+    'view leave statuses', 'create leave statuses',
+    'view loan plans', 'create loan plans',
+    'view loans', 'create loans',
+    'view work shifts', 'create work shifts',
+    'view work weeks', 'create work weeks'
+])
                 <li class="slide has-sub {{ request()->is('admin/holidays*') || request()->is('admin/hrm-leave-types*')  ||  request()->is('admin/staff*')  ||request()->is('admin/leave-entitlement*')  ||  request()->is('admin/hrm-leave-requests*') ||  request()->is('admin/hrm-leaves*') || request()->is('admin/loan-plans*')  || request()->is('admin/loans*')  || request()->is('admin/work-shifts*')  || request()->is('admin/work-weeks*') ? 'open' : '' }}">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
@@ -659,6 +687,7 @@
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child1">
+                        @can('view staff')
                         <li class="slide has-sub {{ request()->is('admin/staff*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Staff
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -672,6 +701,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('view holidays')
                         <li class="slide has-sub {{ request()->is('admin/holidays*')  ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Holidays
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -684,6 +715,9 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('view leave types')
+                      
                         <li class="slide has-sub {{ request()->is('admin/hrm-leave-types*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">leave Types
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -698,7 +732,8 @@
                                 </li>
                             </ul>
                         </li>
-
+                        @endcan
+                        @can('view leave entitlement')
                         <li class="slide has-sub {{ request()->is('admin/leave-entitlement*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Leave Entitlement
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -712,6 +747,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('view leave requests')                            
                         <li class="slide has-sub {{ request()->is('admin/hrm-leave-requests*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item"> leave Requests
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -725,6 +762,9 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('view leaves')
+
                         <li class="slide has-sub {{ request()->is('admin/hrm-leaves*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item"> Leaves
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -738,6 +778,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('view leave statuses')
                         <li class="slide has-sub {{ request()->is('admin/hrm-leave-statuses*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">leave statuses
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -750,7 +792,10 @@
                                     <a href="{{ route('admin.hrm-leave-statuses.create') }}" class="side-menu__item">Create</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>    
+                        @endcan
+
+                        @can('view loan plans')
 
                         <li class="slide has-sub {{ request()->is('admin/loan-plans*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Loan Plans
@@ -765,6 +810,9 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('view loans')
+
                         <li class="slide has-sub {{ request()->is('admin/loans*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Loans
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -778,6 +826,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('view work shifts')
                         <li class="slide has-sub {{ request()->is('admin/work-shifts*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Work Shifts
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -791,6 +841,9 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('view work weeks')
+                        
                         <li class="slide has-sub {{ request()->is('admin/work-weeks*') ? 'open' : '' }}">
                             <a href="javascript:void(0);" class="side-menu__item">Work Weeks
                                 <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -804,9 +857,11 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
 
                     </ul>
                 </li>
+                @endcanany
             </ul>
             <div class="slide-right" id="slide-right">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">
