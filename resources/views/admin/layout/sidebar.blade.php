@@ -682,7 +682,7 @@
 
                 {{-- @endcanany --}}
 
-                @canany(config('sideBarPermission.hr'))
+                {{-- @canany(config('sideBarPermission.hr')) --}}
                     <li
                         class="slide has-sub {{ request()->is('admin/holidays*') || request()->is('admin/hrm-leave-types*') || request()->is('admin/staff*') || request()->is('admin/leave-entitlement*') || request()->is('admin/hrm-leave-requests*') || request()->is('admin/hrm-leaves*') || request()->is('admin/loan-plans*') || request()->is('admin/loans*') || request()->is('admin/work-shifts*') || request()->is('admin/work-weeks*') ? 'open' : '' }}">
                         <a href="javascript:void(0);" class="side-menu__item">
@@ -888,7 +888,7 @@
 
                         </ul>
                     </li>
-                @endcanany
+                {{-- @endcanany --}}
             </ul>
             </ul>
             <div class="slide-right" id="slide-right">
