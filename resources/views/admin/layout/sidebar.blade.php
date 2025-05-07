@@ -571,7 +571,7 @@
 </li>
 @endcanany
 
-                @endcanany
+                
                 <li class="slide has-sub  ">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
@@ -660,6 +660,7 @@
                         </li>
                     </ul>
                 </li>
+                
                 @canany([
     'view staff', 'create staff',
     'view holidays', 'create holidays',
