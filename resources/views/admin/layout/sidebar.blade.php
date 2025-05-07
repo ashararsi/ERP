@@ -59,7 +59,7 @@
                         <ul class="slide-menu child1">
 
                             {{-- Roles --}}
-                            {{-- @can('View Roles List') --}}
+                            @can('View Roles List')
                                 <li class="slide has-sub {{ request()->is('admin/roles*') ? 'active open' : '' }}">
                                     <a href="javascript:void(0);" class="side-menu__item">Roles
                                         <i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -194,7 +194,7 @@
 
                 @endcanany
 
-                @canany(config('sideBarPermission.inventory'))
+                {{-- @canany(config('sideBarPermission.inventory')) --}}
 
                     <li
                         class="slide has-sub  {{ request()->is('admin/packing*') || request()->is('admin/inventory*') || request()->is('admin/batches*') || request()->is('admin/purchaseorders*') || request()->is('admin/goods-issuance*') || request()->is('admin/formulations*') || request()->is('admin/products*') || request()->is('admin/roles*') || request()->is('admin/grns*') || request()->is('admin/units*') || request()->is('admin/processes*') || request()->is('admin/raw-material*') ? 'active open' : '' }} ">
@@ -489,9 +489,9 @@
 
                         </ul>
                     </li>
-                @endcanany
+                {{-- @endcanany --}}
 
-                @canany(config('sideBarPermission.location'))
+                {{-- @canany(config('sideBarPermission.location')) --}}
                     <li
                         class="slide has-sub {{ request()->is('admin/companies*') || request()->is('admin/branches*') || request()->is('admin/country*') || request()->is('admin/city*') ? 'open' : '' }}">
                         <a href="javascript:void(0);" class="side-menu__item">
@@ -571,10 +571,10 @@
 
                         </ul>
                     </li>
-                @endcanany
+                {{-- @endcanany --}}
 
 
-                @canany(config('sideBarPermission.accounting'))
+                {{-- @canany(config('sideBarPermission.accounting')) --}}
 
                     <li class="slide has-sub">
                         <a href="javascript:void(0);" class="side-menu__item">
@@ -680,9 +680,9 @@
                         </ul>
                     </li>
 
-                @endcanany
+                {{-- @endcanany --}}
 
-                @canany(config('sideBarPermission.hr'))
+                {{-- @canany(config('sideBarPermission.hr')) --}}
                     <li
                         class="slide has-sub {{ request()->is('admin/holidays*') || request()->is('admin/hrm-leave-types*') || request()->is('admin/staff*') || request()->is('admin/leave-entitlement*') || request()->is('admin/hrm-leave-requests*') || request()->is('admin/hrm-leaves*') || request()->is('admin/loan-plans*') || request()->is('admin/loans*') || request()->is('admin/work-shifts*') || request()->is('admin/work-weeks*') ? 'open' : '' }}">
                         <a href="javascript:void(0);" class="side-menu__item">
@@ -888,7 +888,7 @@
 
                         </ul>
                     </li>
-                @endcanany
+                {{-- @endcanany --}}
             </ul>
             <div class="slide-right" id="slide-right">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24"
