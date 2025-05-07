@@ -1,5 +1,9 @@
-<?php
 
+<?php
+/**
+ * Author:Aziz
+ * Create side bar permissions if wanted to add new permissions add in the array
+ */
 return [
 
     'user_management' => [
@@ -11,38 +15,39 @@ return [
     ],
 
     'accounting' => [
-        'View Account Groups',
-        'Create Account Groups',
+        'View Groups',
+        'Create Groups',
         'View Ledgers',
         'Create Ledgers',
         'Create Vouchers',
         'View Entries',
+        'View Reports',
         'View Chart of Accounts',
     ],
 
     'hr' => [
-        'view staff',
-        'create staff',
-        'view holidays',
-        'create holidays',
-        'view leave types',
-        'create leave types',
-        'view leave entitlement',
-        'create leave entitlement',
-        'view leave requests',
-        'create leave requests',
-        'view leaves',
-        'create leaves',
-        'view leave statuses',
-        'create leave statuses',
-        'view loan plans',
-        'create loan plans',
-        'view loans',
-        'create loans',
-        'view Work Shifts',
-        'create Work Shifts',
-        'view work weeks',
-        'create work weeks',
+        'View Staff',
+        'Create Staff',
+        'View Holidays',
+        'Create Holidays',
+        'View Leave Types',
+        'Create Leave Types',
+        'View Leave Entitlement',
+        'Create Leave Entitlement',
+        'View Leave Requests',
+        'Create Leave Requests',
+        'View Leaves',
+        'Create Leaves',
+        'View Leave Statuses',
+        'Create Leave Statuses',
+        'View Loan Plans',
+        'Create Loan Plans',
+        'View Loans',
+        'Create Loans',
+        'View Work Shifts',
+        'Create Work Shifts',
+        'View Work Weeks',
+        'Create Work Weeks',
     ],
 
     'inventory' => [
@@ -54,20 +59,21 @@ return [
         'View Processes List',
         'View Raw List',
         'View Product List',
-        'view Categories',
+        'View Categories',
         'View Formulation',
         'View Batches',
         'View Goods-Issuance List',
-        'View Goods-Reciept',
+        'View Goods-Receipt',
         'View Packing',
         'View Inventory',
+        'View Packing Material',
     ],
 
     'location' => [
-        'view companies',
-        'view branches',
-        'view country',
-        'view city',
+        'View Companies',
+        'View Branches',
+        'View Countries',
+        'View City',
     ],
 
 ];
