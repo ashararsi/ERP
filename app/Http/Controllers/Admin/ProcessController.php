@@ -51,7 +51,7 @@ class ProcessController extends Controller
         try {
 
           $processes=  $this->ProcessesServices->edit($id);
-            return view('admin.processes.show',compact('processes'));
+            return view('admin.processes.view',compact('processes'));
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());

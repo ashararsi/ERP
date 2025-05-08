@@ -54,8 +54,12 @@ class ProductController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-        //
+    {   
+        $product = Product::findOrFail($id);
+        $units = Unit::all();
+        $packing = Packing::all(); 
+    
+        return view('admin.product.view', compact('product', 'units', 'packing'));
     }
 
     /**

@@ -41,6 +41,7 @@ class PosController extends Controller
     public function store(Request $request)
     {
         try {
+        
             $this->PosServices->store($request);
             return redirect()->route('admin.pos.index');
         } catch (\Exception $e) {

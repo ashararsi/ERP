@@ -55,7 +55,16 @@ class RawMaterialController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            
+            // $units = $this->RawMaterialServices->create();
+            $raw = $this->RawMaterialServices->edit($id);
+            $units = Unit::select("id","name")->get();
+            $suppliers = Supplier::select("id","name")->get();
+            return view('admin.raw-material.view', compact('raw', 'units','suppliers'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**

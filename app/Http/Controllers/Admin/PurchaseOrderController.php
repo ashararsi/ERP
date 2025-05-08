@@ -52,7 +52,14 @@ class PurchaseOrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = $this->PurchaseOrderServices->create();
+        $p = $this->PurchaseOrderServices->edit($id);
+        if ($p) {
+            return view('admin.purchase-order.view', compact('data', 'p'));
+
+        } else {
+            return redirect()->route('admin.purchaseorders.index');
+        }
     }
 
     /**

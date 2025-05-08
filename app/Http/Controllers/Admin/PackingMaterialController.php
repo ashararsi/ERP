@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PackingMaterial;
 use App\Services\PackingMaterialService;
 use Illuminate\Http\Request;
 
@@ -74,5 +75,12 @@ class PackingMaterialController extends Controller
     {
          $this->service->importdata($request);
          return redirect()->route('admin.packing-materials.index')->with('success', 'Data created successfully');
+    }
+
+    public function show($id)
+    {
+        $packingMaterial = PackingMaterial::with(['category', 'unit'])->findOrFail($id);
+
+        return view('admin.packing-materials.view', compact('packingMaterial'));
     }
 }
