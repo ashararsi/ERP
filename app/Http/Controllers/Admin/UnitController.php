@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Unit;
 use App\Services\UnitServices;
 use Illuminate\Http\Request;
 use function Symfony\Component\String\u;
@@ -55,7 +56,8 @@ class UnitController extends Controller
      */
     public function show(string $id)
     {
-        return view('admin.units.view');
+        $unit = Unit::with('parent')->findOrFail($id);
+        return view('admin.units.view',compact('unit'));
     }
 
     /**

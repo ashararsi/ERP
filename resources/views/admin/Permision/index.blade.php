@@ -10,10 +10,10 @@
             <h3 class="text-22 text-center text-bold w-100 mb-4"> Permissions </h3>
         </div>
         <div class="row    mt-4 mb-4 ">
-            <div class="col-12  " style="text-align: right">
+            {{-- <div class="col-12  " style="text-align: right">
                 <a href="{!! route('admin.permissions.create') !!}" class="btn btn-primary btn-sm ">Create
                     Permission</a>
-            </div>
+            </div> --}}
         </div>
         <div class="card">
             <div class="card-body">

@@ -1,38 +1,58 @@
 @extends('admin.layout.main')
 @section('title')
-    View   Book
+    Process View
 @stop
-h1
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="card ">
-                <div class="card ">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h3 class="text-22 text-midnight text-bold mb-4">Process Details</h3>
+                    </div>
                     <div class="card-body">
-                        <h3 class="text-22 text-midnight text-bold mb-4">View Book </h3>
-
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>Title</label>
-                                    </div>
-                                    <input readonly type="text" required class="form-control" value="{!! $book->title !!}"
-                                           name="title">
-                                </div>
-                            </div>
+                        <div class="mb-3">
+                            <strong>Name:</strong>
+                            <p>{{ $processes->name }}</p>
                         </div>
-                        <div class="row mb-3 mt-2">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>Description</label>
-                                    </div>
-                                    <textarea readonly class="form-control"
-                                              name="description">{!! $book->description !!}</textarea>
-                                </div>
-                            </div>
+
+                        <div class="mb-3">
+                            <strong>Description:</strong>
+                            <p>{{ $processes->description }}</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <strong>Sequence Order:</strong>
+                            <p>{{ $processes->sequence_order }}</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <strong>Image:</strong><br>
+                            @if($processes->image)
+                                <img src="{{ asset('storage/' . $processes->image) }}" alt="Process Image" width="150">
+                            @else
+                                <p>No image uploaded.</p>
+                            @endif
+                        </div>
+
+                        <div class="mb-3">
+                            <strong>Duration (Minutes):</strong>
+                            <p>{{ $processes->duration_minutes }}</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <strong>Remarks:</strong>
+                            <p>{{ $processes->remarks }}</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <strong>Requires Quality Check:</strong>
+                            <p>{{ $processes->requires_quality_check ? 'Yes' : 'No' }}</p>
+                        </div>
+
+                        <div class="text-right mt-4">
+                            {{-- <a href="{{ route('admin.processes.edit', $processes->id) }}" class="btn btn-sm btn-primary">Edit</a> --}}
+                            <a href="{{ route('admin.processes.index') }}" class="btn btn-sm btn-secondary">Back</a>
                         </div>
                     </div>
                 </div>
@@ -40,9 +60,3 @@ h1
         </div>
     </div>
 @stop
-@section('js')
-    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('description');
-    </script>
-@endsection

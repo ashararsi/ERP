@@ -82,7 +82,7 @@ class RawMaterialServices
             })
             ->addColumn('action', function ($row) {
                 $btn = '<form method="POST" onsubmit="return confirm(\'Are you sure you want to Delete this?\');" action="' . route("admin.raw-material.destroy", $row->id) . '">';
-                // $btn .= '<a href="' . route("admin.raw-material.show", $row->id) . '" class="ml-2"><i class="fas fa-eye"></i></a>';
+                $btn .= '<a href="' . route("admin.raw-material.show", $row->id) . '" class="ml-2"><i class="fas fa-eye"></i></a>';
                 $btn .= '<a href="' . route("admin.raw-material.edit", $row->id) . '" class="ml-2"><i class="fas fa-edit"></i></a>';
                 $btn .= method_field('DELETE') . csrf_field();
                 $btn .= '<button type="submit" class="ml-2"><i class="fas fa-trash"></i></button>';

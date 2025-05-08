@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Formulations;
 use App\Services\FormulationServices;
 use Illuminate\Http\Request;
 use PDF;
@@ -56,10 +57,16 @@ class FormulationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $f = Formulations::with('formulationDetail')->find($id);
+        $raw = $this->FormulationServices->Raw();
+        $users = $this->FormulationServices->getusers();
+        $process = $this->FormulationServices->getprocess();
+        $units = $this->FormulationServices->units();
+        return view('admin.formulation.view', compact('raw', 'users', 'process', 'units', 'f'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

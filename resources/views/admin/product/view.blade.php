@@ -1,48 +1,73 @@
 @extends('admin.layout.main')
+
 @section('title')
-    View   Book
+    View Product
 @stop
-h1
+
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="card ">
-                <div class="card ">
+                    <div class="card-header bg-light">
+                        <h3 class="text-22 text-midnight text-bold mb-4">Product Details</h3>
+                    </div>
                     <div class="card-body">
-                        <h3 class="text-22 text-midnight text-bold mb-4">View Book </h3>
 
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>Title</label>
-                                    </div>
-                                    <input readonly type="text" required class="form-control" value="{!! $book->title !!}"
-                                           name="title">
-                                </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <strong>Name:</strong>
+                                <p>{{ $product->name }}</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <strong>Product Code:</strong>
+                                <p>{{ $product->product_code }}</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <strong>Unit:</strong>
+                                <p>{{ $units->where('id', $product->unit_id)->first()?->name ?? 'N/A' }}</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <strong>Quantity:</strong>
+                                <p>{{ $product->quantity }}</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <strong>Price:</strong>
+                                <p>{{ number_format($product->price, 2) }}</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <strong>Packing:</strong>
+                                <p>{{ $packing->where('id', $product->packing_id)->first()?->display_name ?? 'N/A' }}</p>
+                            </div>
+
+                            <div class="col-md-12">
+                                <strong>Description:</strong>
+                                <p>{{ $product->description ?? 'N/A' }}</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <strong>Image:</strong><br>
+                                @if($product->image)
+                                    <img src="{{ asset('uploads/products/' . $product->image) }}" width="150" alt="Product Image">
+                                @else
+                                    <p>No image available.</p>
+                                @endif
                             </div>
                         </div>
-                        <div class="row mb-3 mt-2">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <div class="input-label">
-                                        <label>Description</label>
-                                    </div>
-                                    <textarea readonly class="form-control"
-                                              name="description">{!! $book->description !!}</textarea>
-                                </div>
-                            </div>
+
+                        <div class="text-right mt-3">
+                            {{-- <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-primary">Edit</a> --}}
+                            <a href="{{ route('admin.products.index') }}" class="btn btn-sm btn-secondary">Back</a>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @stop
-@section('js')
-    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('description');
-    </script>
-@endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Packing;
 use App\Services\PackingServices;
 use Illuminate\Http\Request;
 
@@ -52,7 +53,8 @@ class PackingController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $packing = Packing::with('units')->findOrFail($id);
+        return view('admin.packing.view', compact('packing'));
     }
 
     /**
