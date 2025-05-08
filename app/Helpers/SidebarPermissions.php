@@ -52,8 +52,6 @@ class SidebarPermissions
             ],
         
             'inventory' => [
-                'View Customers List',
-                'View POS Orders List',
                 'View Purchase Order List',
                 'View GRN List',
                 'View Units',
@@ -68,6 +66,11 @@ class SidebarPermissions
                 'View Packing',
                 'View Inventory',
                 'View Packing Material',
+            ],
+
+            'sale' => [
+                'View Customers List',
+                'View POS Orders List',
             ],
         
             'location' => [

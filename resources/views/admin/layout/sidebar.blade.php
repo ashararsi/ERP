@@ -440,6 +440,8 @@
                             @endcan
                         </ul>
                     </li>
+                @endcanany
+                @canany(SidebarPermissions::get('sale'))
                     <li
                         class="slide has-sub  {{ request()->is('admin/inventory*') || request()->is('admin/goods-issuance*') || request()->is('admin/formulations*') || request()->is('admin/products*') || request()->is('admin/roles*') || request()->is('admin/grns*') || request()->is('admin/units*') || request()->is('admin/processes*') || request()->is('admin/raw-material*') ? 'active open' : '' }} ">
 
