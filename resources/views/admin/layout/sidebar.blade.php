@@ -1,6 +1,6 @@
-{{-- @php
+@php
     use App\Helpers\SidebarPermissions;
-@endphp --}}
+@endphp
 <aside class="app-sidebar sticky" id="sidebar">
 
     <!-- Start::main-sidebar-header -->
@@ -44,7 +44,7 @@
 
                     </a>
                 </li>
-                {{-- @canany(SidebarPermissions::get('user_management')) --}}
+                @canany(SidebarPermissions::get('user_management'))
 
                     <li
                         class="slide has-sub {{ request()->is('admin/goods-receipt*') || request()->is('admin/permissions*') || request()->is('admin/users*') || request()->is('admin/suppliers*') || request()->is('admin/vendor*') ? 'active open' : '' }}">
@@ -195,9 +195,9 @@
                         </ul>
                     </li>
 
-                {{-- @endcanany --}}
+                @endcanany
 
-                {{-- @canany(SidebarPermissions::get('inventory')) --}}
+                @canany(SidebarPermissions::get('inventory'))
 
                     <li
                         class="slide has-sub  {{ request()->is('admin/packing*') || request()->is('admin/inventory*') || request()->is('admin/batches*') || request()->is('admin/purchaseorders*') || request()->is('admin/goods-issuance*') || request()->is('admin/formulations*') || request()->is('admin/products*') || request()->is('admin/roles*') || request()->is('admin/grns*') || request()->is('admin/units*') || request()->is('admin/processes*') || request()->is('admin/raw-material*') ? 'active open' : '' }} ">
@@ -440,8 +440,8 @@
                             @endcan
                         </ul>
                     </li>
-                {{-- @endcanany
-                @canany(SidebarPermissions::get('sale')) --}}
+                @endcanany
+                @canany(SidebarPermissions::get('sale'))
                     <li
                         class="slide has-sub  {{ request()->is('admin/inventory*') || request()->is('admin/goods-issuance*') || request()->is('admin/formulations*') || request()->is('admin/products*') || request()->is('admin/roles*') || request()->is('admin/grns*') || request()->is('admin/units*') || request()->is('admin/processes*') || request()->is('admin/raw-material*') ? 'active open' : '' }} ">
 
@@ -494,9 +494,9 @@
 
                         </ul>
                     </li>
-                {{-- @endcanany --}}
+                @endcanany
 
-                {{-- @canany(SidebarPermissions::get('location')) --}}
+                @canany(SidebarPermissions::get('location'))
                     <li
                         class="slide has-sub {{ request()->is('admin/companies*') || request()->is('admin/branches*') || request()->is('admin/country*') || request()->is('admin/city*') ? 'open' : '' }}">
                         <a href="javascript:void(0);" class="side-menu__item">
@@ -576,10 +576,10 @@
 
                         </ul>
                     </li>
-                {{-- @endcanany --}}
+                @endcanany
 
 
-                {{-- @canany(SidebarPermissions::get('accounting')) --}}
+                @canany(SidebarPermissions::get('accounting'))
 
                     <li class="slide has-sub">
                         <a href="javascript:void(0);" class="side-menu__item">
@@ -685,9 +685,9 @@
                         </ul>
                     </li>
 
-                {{-- @endcanany --}}
+                @endcanany
 
-                {{-- @canany(SidebarPermissions::get('hr')) --}}
+                @canany(SidebarPermissions::get('hr'))
                     <li
                         class="slide has-sub {{ request()->is('admin/holidays*') || request()->is('admin/hrm-leave-types*') || request()->is('admin/staff*') || request()->is('admin/leave-entitlement*') || request()->is('admin/hrm-leave-requests*') || request()->is('admin/hrm-leaves*') || request()->is('admin/loan-plans*') || request()->is('admin/loans*') || request()->is('admin/work-shifts*') || request()->is('admin/work-weeks*') ? 'open' : '' }}">
                         <a href="javascript:void(0);" class="side-menu__item">
@@ -893,7 +893,7 @@
 
                         </ul>
                     </li>
-                {{-- @endcanany --}}
+                @endcanany
             </ul>
             </ul>
             <div class="slide-right" id="slide-right">
