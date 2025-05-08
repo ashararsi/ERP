@@ -358,7 +358,7 @@
             </div>
         
             <div class="footer-images-full">
-                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/images/footer-2.png'))) }}" alt="Footer Stamp">
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('footer-2.png'))) }}" alt="Footer Stamp">
             </div>
         </div>
         
