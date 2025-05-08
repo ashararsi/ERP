@@ -64,25 +64,45 @@
         }
 
         .customer-details-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px; /* gap-x-6 */
-            padding-bottom: 8px;
-            margin-bottom: 8px;
-            border-bottom: 1px solid #e5e7eb;
-            font-size: 0.75rem; /* 12px */
-        }
-        .customer-details-section strong {
-            font-weight: 600;
-            color: #374151;
-        }
-        .customer-details-section p {
-            margin-bottom: 3px;
-            line-height: 1.3;
-        }
-        .customer-details-section .align-right {
-            text-align: right;
-        }
+        font-size: 0.75rem;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 8px;
+    }
+
+    .customer-details-section table {
+        width: 100%;
+    }
+
+    .customer-details-section strong {
+        font-weight: 600;
+        color: #374151;
+    }
+
+    .customer-details-section p {
+        margin-bottom: 3px;
+        line-height: 1.3;
+    }
+
+    .customer-details-section .align-right {
+        text-align: right;
+    }
+
+    .customer-details-section td {
+        padding: 2px 4px;
+    }
+
+    .customer-details-section td:nth-child(2n) {
+        text-align: left;
+    }
+
+    .customer-details-section td:nth-child(2n+1) {
+        text-align: left;
+    }
+
+    .data-cell {
+        border-bottom: 1px dotted black;
+    }
         .invoice-info {
             display: flex;
             justify-content: space-between;
@@ -148,27 +168,59 @@
         .totals p {
             margin: 3px 0;
         }
-        .footer-info {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-        .footer-info td {
-            border: 1px solid #000;
-            padding: 3px 6px;
-            vertical-align: top;
-        }
-        .warranty {
-            font-size: 11px;
-            margin-bottom: 15px;
-        W}
-        .signatures {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            margin-top: 20px;
-        }
+        .footer-block {
+    margin-top: 195px; /* Adjust this value as needed */
+}
+        .footer-container {
+    margin-bottom: 10px;
+}
+
+.footer-signatures {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.signature-table {
+    width: 100%;
+    font-size: 12px;
+    border-collapse: collapse;
+}
+
+.signature-table td {
+    padding: 10px 5px;
+    vertical-align: top;
+}
+
+.footer-info {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.footer-info td {
+    border: 1px solid #000;
+    padding: 3px 6px;
+    vertical-align: top;
+}
+
+.footer-images-full {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-images-full img {
+    width: 600px;
+    height: 120px;
+    object-fit: contain;
+    display: block; /* Or use 'cover' if you want it to fill the area */
+}
+
+
+
         .rep-person {
             margin-top: 15px;
             margin-bottom: 10px;
@@ -198,17 +250,32 @@
         </div>
     
         <div class="customer-details-section">
-            <div>
-                <p><strong>Customer Code:</strong> {!! $sale->customer->id ?? '103850' !!}</p>
-                <p><strong>Customer Name:</strong> @if($sale->customer) {!! $sale->customer->name !!} @else AHSAAN MEDICAL STORE. @endif</p>
-                <p><strong>Address:</strong> @if($sale->customer) {!! $sale->customer->address !!} @else Mitha Tawana @endif</p>
-                <p><strong>Party NTN:</strong> {!! $sale->customer->ntn ?? '' !!}</p>
-            </div>
-            <div class="align-right">
-                <p><strong>Order #:</strong> {!! $sale->order_number ?? '24-10486' !!}</p>
-                <p><strong>Date:</strong> {!! $sale->order_date ?? '11/03/2025' !!}</p>
-                <p><strong>Invoice #:</strong> {!! $sale->invoice_number ?? '250300242' !!}</p> <p><strong>CNIC:</strong> {!! $sale->customer->cnic ?? '' !!}</p>
-            </div>
+            <table>
+                <tr>
+                    <td><strong>Customer Code:</strong></td>
+                    <td class="data-cell">{!! $sale->customer->id ?? '103850' !!}</td>
+                    <td><strong>Order #:</strong></td>
+                    <td class="data-cell">{!! $sale->order_number ?? '24-10486' !!}</td>
+                </tr>
+                <tr>
+                    <td><strong>Customer Name:</strong></td>
+                    <td class="data-cell">@if($sale->customer) {!! trim(preg_replace('/\s+/', ' ', $sale->customer->name)) !!} @else AHSAAN MEDICAL STORE. @endif</td>
+                    <td><strong>Date:</strong></td>
+                    <td class="data-cell">{!! $sale->order_date ?? '11/03/2025' !!}</td>
+                </tr>
+                <tr>
+                    <td><strong>Address:</strong></td>
+                    <td class="data-cell">@if($sale->customer) {!! $sale->customer->address !!} @else Mitha Tawana @endif</td>
+                    <td><strong>Invoice #:</strong></td>
+                    <td class="data-cell">{!!  $sale->invoice_number ?? '250300242' !!}</td>
+                </tr>
+                 <tr>
+                    <td><strong>Party NTN:</strong></td>
+                    <td class="data-cell">{!! $sale->customer->ntn ?? '' !!}</td>
+                     <td><strong>CNIC:</strong></td>
+                     <td class="data-cell">{!! $sale->customer->cnic ?? '' !!}</td>
+                </tr>
+            </table>
         </div>
 
         <table class="table">
@@ -260,34 +327,42 @@
             <p><strong>Net Total:</strong> {!! $sale->net_total !!}</p>
         </div>
 
-        <div class="rep-person">
-            <strong>Rep Person:</strong> {!! $sale->salesRep->name !!}
-        </div>
+        <div class="footer-block">
+            <div class="rep-person">
+                <strong>Rep Person:</strong> {!! $sale->salesRep->name !!}
+            </div>
+        
+            <div class="footer-container">
+                <table class="footer-info">
+                    <tr>
+                        <td><strong>Goods Name:</strong> NA</td>
+                        <td><strong>Place:</strong> Mianwali</td>
+                        <td><strong>Bilty No:</strong> NA</td>
+                        <td><strong>Bilty Date:</strong> {!! $sale->order_date !!}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>Courier/Registry Date:</strong> 08/01/2002</td>
+                        <td><strong>Receipt No:</strong></td>
+                        <td><strong>Cartons:</strong> 0 | <strong>Fare Rs.:</strong> 0</td>
+                    </tr>
+                </table>
+            </div>
 
-        <table class="footer-info">
-            <tr>
-                <td><strong>Goods Name:</strong> NA</td>
-                <td><strong>Place:</strong> Mianwali</td>
-                <td><strong>Bilty No:</strong> NA</td>
-                <td><strong>Bilty Date:</strong> {!! $sale->order_date !!}</td>
-            </tr>
-            <tr>
-                <td colspan="2"><strong>Courier/Registry Date:</strong> 08/01/2002</td>
-                <td><strong>Receipt No:</strong></td>
-                <td><strong>Cartons:</strong> 0 | <strong>Fare Rs.:</strong> 0</td>
-            </tr>
-        </table>
-
-        <div class="warranty">
-            <p><strong>General Warranty</strong><br>
-                I declare that the goods manufactured and sold by Lasani Pharma Private Limited are pure unani (Herbal) product and manufactured according to unani (Herbal) system of medicine. That the drugs here described in this invoice do not contravene in anyway the provision section 23 drap act 2012.</p>
-            <p>Email: info@lasaniindustries.com</p>
+            <div class="footer-signatures">
+                <table class="signature-table">
+                    <tr>
+                        <td><strong>Prepared By:</strong> Irsa</td>
+                        <td><strong>Checked By:</strong> ______________________</td>
+                    </tr>
+                </table>
+            </div>
+        
+            <div class="footer-images-full">
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/images/footer-2.png'))) }}" alt="Footer Stamp">
+            </div>
         </div>
-
-        <div class="signatures">
-            <div><strong>Prepared By:</strong> Irsa</div>
-            <div><strong>Checked By:</strong> It is system generated document. It does not require signatures</div>
-        </div>
+        
+        
     </div>
 </body>
 </html>
