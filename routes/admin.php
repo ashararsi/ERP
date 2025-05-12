@@ -186,6 +186,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('customers', CustomerController::class);
     Route::post('/customers/getdata', [CustomerController::class, 'getdata'])->name('customers.getdata');
+    Route::get('/customers-data', [CustomerController::class, 'getCustomerData'])->name('fetch.customers_data');
+
+
+    // Route::get('/customers/data', [CustomerController::class, 'getCustomerData'])->name('fetch.customers_data');
 
 
     Route::get('chart-of-accounts', [EntriesController::class, 'chart_of_account'])->name('chart-of-accounts.index');
