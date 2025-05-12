@@ -130,4 +130,16 @@ class CustomerServise
 
     }
 
+    public function getCustomerData($request) {
+        $customer = Customer::findOrFail($request->customer_id);
+        // dd($customer);
+        return response()->json([
+            'city_name' => $customer->city_name,
+            'email' => $customer->email,
+            'ntn' => $customer->ntn,
+            'customer_code' => $customer->customer_code,
+        ]);
+    }
+   
+
 }

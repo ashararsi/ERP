@@ -27,27 +27,36 @@
                             <select name="customer_id" class="form-control" id="customerCode" required>
                                 <option value="">Select Customer</option>
                                 @foreach($data['customers'] as $item)
-                                    <option value="{!! $item->id !!}">{!! $item->name !!}</option>
+                                    <option value="{!! $item->id !!}"> {{ $item->customer_code }} - {!! $item->name !!}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                </div>
-
-                <div class="row g-3 mt-2">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label for="customerPO" class="form-label">Customer PO No</label>
                         <input type="text" class="form-control" id="customerPO" name="customerPO" value="">
                     </div>
-                    <div class="col-md-4">
+                </div>
+
+                <div class="row g-3 mt-2">
+                    <div class="col-md-3">
                         <label for="customerPODate" class="form-label">Customer PO Date</label>
                         <input type="date" class="form-control" id="customerPODate" name="customerPODate" value="">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label for="city" class="form-label required-field">City</label>
                         <input type="text" class="form-control" id="city" name="city" value="" required>
                     </div>
-                </div>
+                    <div class="col-md-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="">
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="ntn" class="form-label">NTN</label>
+                        <input type="text" class="form-control" id="ntn" name="ntn" value="">
+                    </div>
+                </div> 
             </div>
             <br/>
             <!-- Payment and Sales Information -->
@@ -293,8 +302,12 @@
                 const qty = parseFloat($(`#qty_${rowId}`).val()) || 0;
                 const rate = parseFloat($(`#rate_${rowId}`).val()) || 0;
                 const discPercent = parseFloat($(`#discPercent_${rowId}`).val()) || 0;
-                const taxPercent = parseFloat($(`#taxPercent_${rowId}`).val()) || 0;
-
+                // const taxPercent = parseFloat($(`#taxPercent_${rowId}`).val()) || 0;
+                let taxPercent = parseFloat($(`#taxPercent_${rowId}`).val());
+                if (isNaN(taxPercent) || taxPercent === 0) {
+                     taxPercent = 18;
+                    $(`#taxPercent_${rowId}`).val(18);
+                }
                 // Calculate amount
                 const amount = qty * rate;
                 $(`#amount_${rowId}`).val(amount);
@@ -392,4 +405,29 @@
 
         });
     </script>
+
+<script>
+    $(document).ready(function () {
+    $('#customerCode').on('change', function () {
+        const customerId = $(this).val();
+
+        if (!customerId) return;
+
+        $.ajax({
+            url: `{{ route('admin.fetch.customers_data') }}?customer_id=${customerId}`,
+            type: 'GET',
+            success: function (data) {
+                $('#city').val(data.city_name || '');
+                $('#email').val(data.email || '');
+                $('#ntn').val(data.ntn || '');
+                $('#customer_code').val(data.customer_code || '');
+            },
+            error: function () {
+                alert('Failed to fetch customer data.');
+            }
+        });
+    });
+});
+
+</script>
 @endsection

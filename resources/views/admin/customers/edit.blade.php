@@ -25,6 +25,13 @@
                         @method('PUT')
                         <div class="row">
                             <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>Customer Code</label>
+                                </div>
+                                <input type="text" class="form-control" name="customer_code" value="{{ $customer->customer_code }}" readonly>
+                            </div>
+                    
+                            <div class="col-md-6">
                                 <div class=" ">
                                     <div class="input-label">
                                         <label>Name</label>
@@ -66,6 +73,29 @@
                                         </option>
                                     </select>
                                 </div>
+                            </div>
+                             {{-- City Name --}}
+                            <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>City Name</label>
+                                </div>
+                                <input type="text" class="form-control" name="city_name" value="{{ $customer->city_name }}">
+                            </div>
+
+                            {{-- NTN --}}
+                            <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>NTN</label>
+                                </div>
+                                <input type="text" class="form-control" name="ntn" value="{{ $customer->ntn }}">
+                            </div>
+
+                            {{-- CNIC --}}
+                            <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>CNIC</label>
+                                </div>
+                                <input type="text" class="form-control" name="cnic" value="{{ $customer->cnic }}">
                             </div>
                             <div class="col-md-12">
                                 <div class=" ">

@@ -16,6 +16,7 @@ use App\Models\SalesOrderItem;
 use DB;
 
 use App\Models\RawMaterials;
+use Carbon\Carbon;
 use DataTables;
 
 use Config;
@@ -196,6 +197,12 @@ class PosServices
             ])
             ->orderBy('id', 'desc');
 
+            if ($request->filled('start_date') && $request->filled('end_date')) {
+                $start = Carbon::parse($request->start_date)->startOfDay();
+                $end = Carbon::parse($request->end_date)->endOfDay();
+                $orders->whereBetween('order_date', [$start, $end]);
+            }
+            
         return Datatables::of($orders)
             ->addIndexColumn()
             ->addColumn('order_number', function ($row) {

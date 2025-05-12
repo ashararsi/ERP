@@ -59,7 +59,7 @@
         <div class="col-12">
             <div class="card ">
                 <div class="card-header bg-light">
-                    <h3 class="text-22 text-midnight text-bold mb-4">Create City</h3>
+                    <h3 class="text-22 text-midnight text-bold mb-4">Create Customer</h3>
                 </div>
                 <div class="card-body">
                     @if ($errors->any())
@@ -120,6 +120,33 @@
                                     </select>
                                 </div>
                             </div>
+
+                              {{-- City Name --}}
+                              <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>City Name</label>
+                                </div>
+                                <input type="text" class="form-control" name="city_name" value="{{ old('city_name') }}">
+                            </div>
+
+                            {{-- NTN --}}
+                            <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>NTN</label>
+                                </div>
+                                <input type="text" class="form-control" name="ntn" value="{{ old('ntn') }}">
+                            </div>
+
+                            {{-- CNIC --}}
+                            <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>CNIC</label>
+                                </div>
+                                <input required name="cnic_card" id="cnic_card" type="text"
+                                class="form-control cnic_card"
+                                data-inputmask="'mask': '99999-9999999-9'"
+                                placeholder="XXXXX-XXXXXXX-X" onchange="checkCNIC(this)"
+                                value="{{old('cnic_card')}}"/>                            </div>
                             {{-- Address --}}
                             <div class="col-md-12">
                                 <div class=" ">
@@ -131,9 +158,6 @@
                                    </textarea>
                                 </div>
                             </div>
-
-                            {{-- Status --}}
-
 
                         </div>
                         <br>
@@ -187,6 +211,27 @@
 
         });
     </script>
+
+<script>
+    var checkCNIC = function (textBox) {
+
+        debugger;
+
+        var regexp = new RegExp('^[0-9+]{5}-[0-9+]{7}-[0-9]{1}$');
+        var check = textBox.value;
+        if (!regexp.test(check)) {
+
+            alert('Please Enter Valid 13 Digits CNIC with (-)');
+            $(textBox).css('border-color', 'red');
+            return false;
+
+        } else {
+            $(textBox).css('border-color', 'green');
+            $(textBox).value = check;
+            return true;
+        }
+    }
+</script>
 
     <script type="text/javascript">
         $(document).ready(function () {

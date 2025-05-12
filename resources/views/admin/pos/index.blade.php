@@ -14,6 +14,20 @@
                     @if (session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="start_date">Start Date</label>
+                            <input type="date" id="start_date" class="form-control">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="end_date">End Date</label>
+                            <input type="date" id="end_date" class="form-control">
+                        </div>
+                        <div class="col-md-3 d-flex align-items-end gap-2">
+                            <button id="filter" class="btn btn-primary mr-2">Filter</button>
+                            <button id="clear" class="btn btn-secondary">Clear</button>
+                        </div>
+                    </div>
                     <table class="table table-bordered" id="pos-orders-table">
                         <thead>
                         <tr>
@@ -54,61 +68,69 @@
     @include('admin.layout.datatable')
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#pos-orders-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('admin.pos.getdata') }}",
-                    type: "POST",
-                    data: {_token: "{{ csrf_token() }}"}
-                },
-                columns: [
-                    {data: 'order_number', name: 'order_number'},
-                    {data: 'order_date', name: 'order_date'},
-                    {data: 'customer', name: 'customer'},
-                    {data: 'items_count', name: 'items_count'},
-                    {data: 'net_total', name: 'net_total' },
-                    {data: 'status', name: 'status',
-                        render: function(data, type, row) {
-                            var statusClass = '';
-                            if (data === 'completed') statusClass = 'status-completed';
-                            else if (data === 'cancelled') statusClass = 'status-cancelled';
-                            else statusClass = 'status-pending';
-
-                            return '<span class="' + statusClass + '">' + data.charAt(0).toUpperCase() + data.slice(1) + '</span>';
-                        }
-                    },
-                    {data: 'action', name: 'action', orderable: false, searchable: false }
-                ],
-                dom: 'Bfrtip',
-                buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        title: 'POS Orders Data',
-                        className: 'btn btn-primary',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
-                        }
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        title: 'POS Orders Data',
-                        className: 'btn btn-primary',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
-                        }
-                    },
-                    {
-                        extend: 'print',
-                        title: 'POS Orders Data',
-                        className: 'btn btn-primary',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
-                        }
+            let table = $('#pos-orders-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('admin.pos.getdata') }}",
+                type: "POST",
+                data: function (d) {
+                    d._token = "{{ csrf_token() }}";
+                    d.start_date = $('#start_date').val();
+                    d.end_date = $('#end_date').val();
+                }
+            },
+            columns: [
+                {data: 'order_number', name: 'order_number'},
+                {data: 'order_date', name: 'order_date'},
+                {data: 'customer', name: 'customer'},
+                {data: 'items_count', name: 'items_count'},
+                {data: 'net_total', name: 'net_total'},
+                {
+                    data: 'status',
+                    name: 'status',
+                    render: function(data) {
+                        let cls = 'status-pending';
+                        if (data === 'completed') cls = 'status-completed';
+                        else if (data === 'cancelled') cls = 'status-cancelled';
+                        return '<span class="' + cls + '">' + data.charAt(0).toUpperCase() + data.slice(1) + '</span>';
                     }
-                ],
-                order: [[0, 'desc']] // Sort by order number descending by default
-            });
+                },
+                {data: 'action', name: 'action', orderable: false, searchable: false}
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: 'POS Orders Data',
+                    className: 'btn btn-primary',
+                    exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'POS Orders Data',
+                    className: 'btn btn-primary',
+                    exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
+                },
+                {
+                    extend: 'print',
+                    title: 'POS Orders Data',
+                    className: 'btn btn-primary',
+                    exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
+                }
+            ],
+            order: [[0, 'desc']]
+        });
+
+        $('#filter').on('click', function () {
+            table.ajax.reload();
+        });
+
+        $('#clear').on('click', function () {
+            $('#start_date').val('');
+            $('#end_date').val('');
+            table.ajax.reload();
+        });
 
             // Delete button handler
             $(document).on('click', '.delete-btn', function() {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Services\CustomerServise;
 use Illuminate\Http\Request;
 
@@ -90,5 +91,11 @@ class CustomerController extends Controller
     public function getdata(Request $request){
         return $this->CustomerServise->getdata($request);
 
+    }
+
+    public function getCustomerData(Request $request)
+    {
+
+        return $this->CustomerServise->getCustomerData($request);
     }
 }
