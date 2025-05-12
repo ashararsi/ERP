@@ -76,6 +76,15 @@
                         @csrf
                         <div class="row">
 
+                            <div class="col-md-6">
+                                <div class=" ">
+                                    <div class="input-label">
+                                        <label>Customer code</label>
+                                    </div>
+                                    <input type="text" required class="form-control" name="customer_code" value="{{ old('customer_code') }}">
+                                </div>
+                            </div>
+
                             {{-- Name --}}
                             <div class="col-md-6">
                                 <div class=" ">
@@ -135,6 +144,13 @@
                                     <label>NTN</label>
                                 </div>
                                 <input type="text" class="form-control" name="ntn" value="{{ old('ntn') }}">
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>STN</label>
+                                </div>
+                                <input type="text" class="form-control" name="stn" value="{{ old('stn') }}">
                             </div>
 
                             {{-- CNIC --}}

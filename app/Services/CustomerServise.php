@@ -138,6 +138,8 @@ class CustomerServise
             'email' => $customer->email,
             'ntn' => $customer->ntn,
             'customer_code' => $customer->customer_code,
+            'stn' => $customer->stn,
+            'name' => $customer->name
         ]);
     }
    

@@ -28,7 +28,7 @@
                                 <div class="input-label">
                                     <label>Customer Code</label>
                                 </div>
-                                <input type="text" class="form-control" name="customer_code" value="{{ $customer->customer_code }}" readonly>
+                                <input type="text" class="form-control" name="customer_code" value="{{ $customer->customer_code }}">
                             </div>
                     
                             <div class="col-md-6">
@@ -88,6 +88,14 @@
                                     <label>NTN</label>
                                 </div>
                                 <input type="text" class="form-control" name="ntn" value="{{ $customer->ntn }}">
+                            </div>
+
+                            {{-- NTN --}}
+                            <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>STN</label>
+                                </div>
+                                <input type="text" class="form-control" name="stn" value="{{ $customer->stn }}">
                             </div>
 
                             {{-- CNIC --}}
