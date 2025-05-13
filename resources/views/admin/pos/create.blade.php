@@ -129,12 +129,16 @@
                             <th width="30%">Product Description</th>
                             <th width="8%">Batch</th>
                             <th width="7%">Expiry</th>
-                            <th width="7%">Qty</th>
-                            <th width="8%">Rate</th>
-                            <th width="8%">Amount</th>
+                            <th width="4%">Qty</th>
+                            <th width="4%">Rate</th>
+                            <th width="6%">Amount</th>
                             <th width="7%">Disc %</th>
                             <th width="8%">Disc Amt</th>
                             <th width="7%">Tax %</th>
+                            <th width="8%">T.disc</th>
+                            <th width="8%">S.disc</th>
+                            <th width="8%">SS.disc</th>
+
                             <th width="8%">Tax Amt</th>
                             <th width="8%">Net Amount</th>
                             <th width="2%"></th>
@@ -273,6 +277,9 @@
                     <td><input type="number" id="discPercent_${rowId}" class="form-control disc-percent" name="discPercent[]" min="0" max="100" step="0.01" value="0"></td>
                     <td><input type="number" id="discAmt_${rowId}" class="form-control disc-amt" name="discAmt[]" value="0.00" readonly></td>
                     <td><input type="number" id="taxPercent_${rowId}" class="form-control tax-percent" name="taxPercent[]" min="0" step="0.01" value="0" required></td>
+                    <td><input type="number" id="tDisc_${rowId}" class="form-control t-disc-amt" name="tDisc[]"min="0" step="0.01" value="0" ></td>
+                    <td><input type="number" id="sDisc_${rowId}" class="form-control s-disc-amt" name="sDisc[]"min="0" step="0.01" value="0" ></td>
+                    <td><input type="number" id="sSDisc_${rowId}" class="form-control ss-disc-amt" name="sSDic[]"min="0" step="0.01" value="0"></td>
                     <td><input type="number" id="taxAmt_${rowId}" class="form-control tax-amt" name="taxAmt[]" value="0.00" readonly></td>
                     <td><input type="number" id="netAmt_${rowId}" class="form-control net-amt" name="netAmt[]" value="0.00" readonly></td>
                     <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="bi bi-trash"></i></button></td>
@@ -313,7 +320,7 @@
             });
 
             // Calculate row total when quantity, rate, discount or tax changes
-            $('#productsTable').on('input', '.qty, .rate, .disc-percent, .tax-percent', function () {
+            $('#productsTable').on('input', '.qty, .rate, .disc-percent, .tax-percent .t-disc-amt', function () {
                 const rowId = $(this).closest('tr').data('row-id');
                 calculateRowTotal(rowId);
             });
@@ -348,6 +355,15 @@
                 const netAmt = taxableAmt + taxAmt;
                 $(`#netAmt_${rowId}`).val(netAmt);
 
+                const Tdisc = amount * 0.15;
+                $(`#tDisc_${rowId}`).val(Tdisc.toFixed(2));
+
+                const Sdisc = amount * 0.03965;
+                $(`#sDisc_${rowId}`).val(Sdisc.toFixed(2));
+
+                // Calculate S.sd (9% of amount)
+                const Ssd = amount * 0.09;
+                $(`#sSDisc_${rowId}`).val(Ssd.toFixed(2));
                 // Update totals
                 calculateTotals();
             }
@@ -358,7 +374,6 @@
                 let totalDiscount = 0;
                 let totalTax = 0;
                 let netTotal = 0;
-
                 // Calculate row by row
                 $('#productsTable tbody tr').each(function () {
                     const rowId = $(this).data('row-id');
