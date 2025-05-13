@@ -131,7 +131,7 @@ class CustomerServise
     }
 
     public function getCustomerData($request) {
-        $customer = Customer::findOrFail($request->customer_id);
+        $customer = Customer::with('spo')->findOrFail($request->customer_id);
         // dd($customer);
         return response()->json([
             'city_name' => $customer->city_name,
@@ -139,7 +139,8 @@ class CustomerServise
             'ntn' => $customer->ntn,
             'customer_code' => $customer->customer_code,
             'stn' => $customer->stn,
-            'name' => $customer->name
+            'name' => $customer->name,
+            'spo_name' => optional($customer->spo)->name,
         ]);
     }
    

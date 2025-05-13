@@ -43,4 +43,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function locationAssignments()
+    {
+        return $this->hasMany(UserLocationAssignment::class);
+    }
+
 }

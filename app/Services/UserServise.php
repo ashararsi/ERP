@@ -9,6 +9,7 @@ use Config;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 use App\Models\CoachMember;
+use App\Models\UserLocationAssignment;
 use DataTables;
 
 use Illuminate\Support\Facades\Hash;
@@ -63,9 +64,20 @@ class UserServise
         $data['password'] = Hash::make($request->password);
         unset($data['role']);
         $user = User::create($data);
-
         $user->assignRole($roles_arrayy);
         $a = User::with('roles')->get();
+
+        $this->createSpoUser($user,$request);
+    }
+
+    public function createSpoUser($user,$request) 
+    {
+        UserLocationAssignment::create([
+            'user_id' => $user->id,
+            'company_id' => $request->company_id,
+            'area_id' => $request->area_id,
+            'city_id' => $request->city_id,
+        ]);
     }
 
     public function user_deactive($id)
