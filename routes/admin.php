@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ProcessController;
 use App\Http\Controllers\Admin\PurchaseOrderController;
 use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\AccountGroupController;
+use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\BranchesController;
 use App\Http\Controllers\Admin\LedgerController;
 use App\Http\Controllers\Admin\EntriesController;
@@ -250,7 +251,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::post('/packing-materials/getdata', [PackingMaterialController::class, 'getdata'])->name('packing-materials.getdata');
     Route::post('/packing-materials/importdata', [PackingMaterialController::class, 'importData'])->name('packing-materials.importdata');
 
-//    Route::get('/invoice', function () {
+
+    //areas crud
+    Route::get('/areas/by-company', [AreaController::class, 'getByCompany'])->name('areas.byCompany');
+
+    Route::resource('/areas',AreaController::class);
+    Route::post('/areas/getdata', [AreaController::class, 'getdata'])->name('areas.getdata');
+
+
+    //    Route::get('/invoice', function () {
 //        return view('invoice.invoice');
 //    });
 //    Route::get('/delivery', function () {

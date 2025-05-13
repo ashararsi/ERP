@@ -17,6 +17,11 @@ class BaseService
         $this->model = $model;
     }
 
+    public function getAll()
+    {
+        return $this->model::latest()->get();
+    }
+
     public function store(array $data): Model
     {
         return $this->model->create($data);

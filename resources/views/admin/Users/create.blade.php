@@ -108,6 +108,52 @@
 
 
                                 </div>
+
+                                <div id="spo-fields" style="display: none;">
+                                    <div class="row mt-3">
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <div class="input-label">
+                                                    <label>Company</label>
+                                                </div>
+                                                <select name="company_id" class="form-control" id="company-select">
+                                                    <option value="">Select Company</option>
+                                                    @foreach($companies as $company)
+                                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <div class="input-label">
+                                                    <label>Area</label>
+                                                </div>
+                                                <select name="area_id" class="form-control" id="area-select">
+                                                    <option value="">Select Area</option>
+                                                    {{-- Initially empty; will be filled dynamically --}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <div class="input-label">
+                                                    <label>City</label>
+                                                </div>
+                                                <select name="city_id" class="form-control">
+                                                    <option value="">Select City</option>
+                                                    @foreach($cities as $city)
+                                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
                                 <div class="row mt-5 mb-3">
                                     <div class="col-12">
                                         <div class="form-group text-right">
@@ -134,5 +180,52 @@
     <script type="text/javascript" src="{{ asset('dist/admin/assets/plugins/dropify/js/dropify.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('dist/admin/assets/js/pages/forms/dropify.js') }}"></script>
 
+    <script>
+        $(document).ready(function () {
+            const spoRoleId = '12'; //keep it hard for now
+    
+            $('#role').on('change', function () {
+                const selectedRoles = $(this).val() || [];
+    
+                if (selectedRoles.includes(spoRoleId)) {
+                    $('#spo-fields').show();
+                } else {
+                    $('#spo-fields').hide();
+                }
+            });
+    
+            $('#role').trigger('change');
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#company-select').on('change', function () {
+                let companyId = $(this).val();
+    
+                $('#area-select').empty().append('<option value="">Loading...</option>');
+    
+                if (companyId) {
+                    $.ajax({
+                        url: '{{ route('admin.areas.byCompany') }}',
+                        type: 'GET',
+                        data: { company_id: companyId },
+                        success: function (data) {
+                            $('#area-select').empty().append('<option value="">Select Area</option>');
+                            $.each(data, function (key, value) {
+                                $('#area-select').append('<option value="' + value.id + '">' + value.name + '</option>');
+                            });
+                        },
+                        error: function () {
+                            $('#area-select').empty().append('<option value="">Error loading</option>');
+                        }
+                    });
+                } else {
+                    $('#area-select').empty().append('<option value="">Select Area</option>');
+                }
+            });
+        });
+    </script>
+    
+    
 @endsection
 

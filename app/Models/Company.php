@@ -18,4 +18,9 @@ class Company extends Model
     {
         return $this->hasMany(Branch::class);
     }
+
+    public function areas()
+    {
+        return $this->hasMany(Area::class);
+    }
 }

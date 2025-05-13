@@ -12,7 +12,7 @@ class Customer extends Model
     protected $table = 'customers';
 
     protected $fillable = ['name', 'email', 'phone', 'address', 'created_by', 'agent_id', 'status'
-        ,'cnic','ntn','city_name','customer_code','stn'];
+        ,'cnic','ntn','city_name','customer_code','stn','spo_id'];
 
     public function agent()
     {
@@ -26,6 +26,11 @@ class Customer extends Model
     //         $customer->customer_code = self::generateCustomerCode();
     //     });
     // }
+
+    public function spo()
+    {
+        return $this->belongsTo(User::class, 'spo_id');
+    }
 
 
     // public static function generateCustomerCode()

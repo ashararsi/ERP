@@ -118,6 +118,19 @@
 
                                 </div>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>Assign SPO</label>
+                                </div>
+                                <select name="spo_id" class="form-control" required>
+                                    <option value="">Select SPO</option>
+                                    @foreach($spos as $spo)
+                                        <option value="{{ $spo->id }}">{{ $spo->name }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
                             <div class="col-md-6">
                                 <div class="">
                                     <div class="input-label">

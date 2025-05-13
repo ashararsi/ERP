@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use App\Helpers\GernalHelper;
+use App\Models\Area;
+use App\Models\City;
+use App\Models\Company;
 use Gate;
 class UserController extends Controller
 {
@@ -65,8 +68,11 @@ class UserController extends Controller
 //        if (!Gate::allows('User_create')) {
 //            return abort(503);
 //        }
+        $companies = Company::all();
+        $areas = Area::all();
+        $cities = City::all();
        $roles= $this->UserServise->create();
-        return view('admin.Users.create',compact('roles'));
+       return view('admin.Users.create', compact('roles', 'companies', 'areas', 'cities'));
     }
 
     /**

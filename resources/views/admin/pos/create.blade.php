@@ -70,6 +70,14 @@
                         <input type="text" class="form-control" id="stn" name="stn" value="">
                     </div>
                 </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <label for="spo" class="form-label">SPO</label>
+                        <input type="text" class="form-control" id="spo" name="spo" value="" readonly>
+                    </div>
+                    
+                </div>
             </div>
             <br/>
             <!-- Payment and Sales Information -->
@@ -436,7 +444,7 @@
                 $('#customer_code').val(data.customer_code || '');
                 $('#stn').val(data.stn || '');
                 $('#customer_name').val(data.name || '');
-
+                $('#spo').val(data.spo_name || '');
             },
             error: function () {
                 alert('Failed to fetch customer data.');

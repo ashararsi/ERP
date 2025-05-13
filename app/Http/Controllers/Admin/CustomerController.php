@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\User;
 use App\Services\CustomerServise;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('admin.customers.create');
+        $spos = User::role('SPO')->get();
+        return view('admin.customers.create', compact('spos'));
     }
 
     /**
@@ -59,8 +61,9 @@ class CustomerController extends Controller
     public function edit(string $id)
     {
         try {
+            $spos = User::role('SPO')->get();
             $customer=$this->CustomerServise->edit($id);
-            return view('admin.customers.edit',compact('customer'));
+            return view('admin.customers.edit',compact('customer','spos'));
         }catch (\Exception $exception){
             return redirect()->route('admin.customers.index');
         }
