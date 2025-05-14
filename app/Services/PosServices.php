@@ -123,6 +123,8 @@ class PosServices
                 'notes' => $request->notes,
                 'status' => 'pending',
                 'total_sale_tax' => $request->salesTax,
+                'total_cal_amount' => $request->total_cal_amount ?? 0,
+                'all_included_tax' => $request->all_included_tax,
             ]);
 
                      

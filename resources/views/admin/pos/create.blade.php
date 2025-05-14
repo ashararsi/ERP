@@ -180,6 +180,14 @@
                         <label>Further Sales Tax</label>
                         <input type="number" id="furtherSalesTax" class="form-control" name="furtherSalesTax" value="0.00" readonly>
                     </div>
+
+                    <div class="col-md-3">
+                        <label>All Included Tax</label>
+                        <input type="number" id="all_included_tax" class="form-control" name="all_included_tax" value="0.00" readonly>
+                    </div>
+
+                    <input type="hidden" id="total_amount" name="total_cal_amount">
+
                 </div>
                 {{-- <div class="row mt-3">
                     <div class="col-md-3">
@@ -300,6 +308,7 @@
                     <td><input type="number" id="netAmt_${rowId}" class="form-control net-amt" name="netAmt[]" value="0.00" readonly></td>
                     <td><input type="hidden" id="tPAmt_${rowId}" class="tp-amt" name="tpAmt[]" value="0.00"></td>
                     <td><input type="hidden" id="incSal_${rowId}" class="tp-amt" name="includedAmt[]" value="0.00"></td>
+                    <td><input type="hidden" id="excSal_${rowId}" class="excl-amt" name="exlcudedAmt[]" value="0.00"></td>
 
                     <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="bi bi-trash"></i></button></td>
                 </tr>`;
@@ -367,11 +376,10 @@
                 const taxableAmt = amount - discAmt;
 
                 // Calculate tax amount
-                const taxAmt = taxableAmt * (taxPercent / 100);
-                $(`#taxAmt_${rowId}`).val(taxAmt);
+                // const taxAmt = taxableAmt * (taxPercent / 100);
 
                 // Calculate net amount
-                const netAmt = taxableAmt + taxAmt;
+                const netAmt = taxableAmt;
                 $(`#netAmt_${rowId}`).val(netAmt);
 
                 const Tdisc = amount * 0.15;
@@ -385,14 +393,17 @@
                 $(`#sSDisc_${rowId}`).val(Ssd.toFixed(2));
 
                 const extraDisc = Tdisc + Sdisc + Ssd;
-                const tp = netAmt - extraDisc;
-                
+                const tp = amount - extraDisc;       
                 $(`#netAmt_${rowId}`).val(tp.toFixed(2));
-
+        
                 const tradePrice = tp/qty;
                 $(`#tPAmt_${rowId}`).val(tradePrice.toFixed(2));
 
-                const excl =  tradePrice * qty;
+                const excl = tradePrice * qty;
+                $(`#excSal_${rowId}`).val(excl.toFixed(2));
+                
+                const taxAmt = excl * (taxPercent / 100);
+                $(`#taxAmt_${rowId}`).val(taxAmt.toFixed(2));
 
                 const incl = excl + taxAmt;
                 $(`#incSal_${rowId}`).val(incl.toFixed(2));
@@ -409,6 +420,11 @@
                 let totalDiscount = 0;
                 let totalTax = 0;
                 let netTotal = 0;
+                let saleTaxAmount = 0;
+                let excludedSaleAmount = 0;
+                let includedSaleAmount = 0;
+
+
                 // Calculate row by row
                 $('#productsTable tbody tr').each(function () {
                     const rowId = $(this).data('row-id');
@@ -416,7 +432,13 @@
                     totalDiscount += parseFloat($(`#discAmt_${rowId}`).val()) || 0;
                     totalTax += parseFloat($(`#taxAmt_${rowId}`).val()) || 0;
                     netTotal += parseFloat($(`#netAmt_${rowId}`).val()) || 0;
+                    excludedSaleAmount += parseFloat($(`#excSal_${rowId}`).val()) || 0;
+                    includedSaleAmount += parseFloat($(`#incSal_${rowId}`).val()) || 0;
+
                 });
+
+                console.log(includedSaleAmount,"sale tax amount");
+                console.log(excludedSaleAmount,"excludedSaleAmount");
 
                 const hasNTN = $('#customerHasNTN').val() === '1';
                  const hasSTN = $('#customerHasSTN').val() === '1';
@@ -435,20 +457,31 @@
                     advanceTaxRate = 0.025;
                 }
 
-                const furtherSalesTax = subTotal * furtherSalesTaxRate;
-                const advanceTax = subTotal * advanceTaxRate;
+                const furtherSalesTax = excludedSaleAmount * furtherSalesTaxRate;
 
-                const finalNetTotal = netTotal + furtherSalesTax + advanceTax;
+                console.log("furtherer",furtherSalesTax);
+                const totalIncludedTax =  furtherSalesTax + includedSaleAmount;
 
-                
+                console.log("totalIncludedTax",totalIncludedTax);
+
+                const totalAdvanceNet = totalIncludedTax * advanceTaxRate;
+
+                console.log("totalAdvanceNet",totalAdvanceNet);
+
+                const totalAmount = totalIncludedTax + totalAdvanceNet;
+
+                console.log("totalAmount",totalAmount);
+
                 // Update summary fields
                 $('#subTotal').val(subTotal);
                 $('#totalDiscount').val(totalDiscount);
                 $('#totalTax').val(totalTax);
                 $('#salesTax').val(totalTax);
                 $('#furtherSalesTax').val(furtherSalesTax.toFixed(2));
-                $('#advanceTax').val(advanceTax.toFixed(2));
-                $('#netTotal').val(finalNetTotal.toFixed(2));
+                $('#advanceTax').val(totalAdvanceNet);
+                $('#netTotal').val(totalAmount.toFixed(2));
+                $('#total_amount').val(includedSaleAmount.toFixed(2));
+                $('#all_included_tax').val(totalIncludedTax.toFixed(2));
             }
 
             // Reset form button
