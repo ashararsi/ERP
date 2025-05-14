@@ -172,12 +172,12 @@
                         <input type="text" class="form-control" id="advanceTax" name="advanceTax" value="0.00" readonly>
                     </div>
                 </div>
-                <div class="row mt-3">
+                {{-- <div class="row mt-3">
                     <div class="col-md-3">
-                        <label for="advanceTax" class="form-label">Advance Tax</label>
+                        <label for="advanceTax" class="form-label">T</label>
                         <input type="text" class="form-control" id="advanceTax" name="advanceTax" value="0.00" readonly>
                     </div>
-                </div>
+                </div> --}}
                 <div class="row mt-3">
                     
                     <div class="col-md-3 offset-md-6">
@@ -289,6 +289,9 @@
                     <td><input type="number" id="sSDisc_${rowId}" class="form-control ss-disc-amt" name="scheme_discount[]"min="0" step="0.01" value="0" readonly></td>
                     <td><input type="number" id="taxAmt_${rowId}" class="form-control tax-amt" name="taxAmt[]" value="0.00" readonly></td>
                     <td><input type="number" id="netAmt_${rowId}" class="form-control net-amt" name="netAmt[]" value="0.00" readonly></td>
+                    <td><input type="hidden" id="tPAmt_${rowId}" class="tp-amt" name="tpAmt[]" value="0.00"></td>
+                    <td><input type="hidden" id="incSal_${rowId}" class="tp-amt" name="includedAmt[]" value="0.00"></td>
+
                     <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="bi bi-trash"></i></button></td>
                 </tr>`;
 
@@ -376,6 +379,16 @@
                 const tp = netAmt - extraDisc;
                 
                 $(`#netAmt_${rowId}`).val(tp.toFixed(2));
+
+                const tradePrice = tp/qty;
+                $(`#tPAmt_${rowId}`).val(tradePrice.toFixed(2));
+
+                const excl =  tradePrice * qty;
+
+                const incl = excl + taxAmt;
+                $(`#incSal_${rowId}`).val(incl.toFixed(2));
+
+                
 
                 // Update totals
                 calculateTotals();

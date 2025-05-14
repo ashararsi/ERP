@@ -327,10 +327,10 @@
                         <td>{!! $item->trade_discount !!}</td>
                         <td>{!! $item->special_discount !!}</td>
                         <td>{!! $item->scheme_discount !!}</td>
-                        <td>{!! $item->amount !!}</td>
-                        <td>{!! $item->amount * $item->quantity !!}</td>
+                        <td>{!! $item->tp_amount !!}</td>
+                        <td>{!! $item->tp_amount * $item->quantity !!}</td>
                         <td>{!! $item->tax_amount !!}</td>
-                        <td>{!! $sale->total_sale_tax !!}</td>
+                        <td>{!! $item->includedAmt !!}</td>
                     </tr>
                 @endforeach
             </tbody>
