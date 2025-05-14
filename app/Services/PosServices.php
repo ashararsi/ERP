@@ -102,6 +102,7 @@ class PosServices
         $data = $request->all();
 
         try {
+            // @dd($request->all());
             // Create the sales order
             $salesOrder = SalesOrder::create([
                 'order_number' => $request->sOrdNo,
@@ -119,7 +120,8 @@ class PosServices
                 'advance_tax' => $request->advanceTax,
                 'net_total' => $request->netTotal,
                 'notes' => $request->notes,
-                'status' => 'pending'
+                'status' => 'pending',
+                'total_sale_tax' => $request->salesTax,
             ]);
 
                      
