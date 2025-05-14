@@ -299,7 +299,7 @@
                 <tr>
                     <th>S#</th>
                     <th>Item Code</th>
-                    <th>Description</th>
+                    <th>Name</th>
                     <th>Batch#</th>
                     <th>QTY</th>
                     <th>R/Unit</th>
@@ -316,9 +316,10 @@
             <tbody>
                 @foreach($sale->items as $key => $item)
                     <tr>
+                        
                         <td>{!! $key + 1 !!}</td>
                         <td>@if($item->product) {!! $item->product->product_code !!} @endif</td>
-                        <td>@if($item->product) {!! $item->product->description !!} @endif</td>
+                        <td>@if($item->product) {!! $item->product->name !!} @endif</td>
                         <td>@if($item->batch) {!! $item->batch->batch_code !!} @endif</td>
                         <td>{!! $item->quantity !!}</td>
                         <td>{!! $item->rate !!}</td>
@@ -326,10 +327,10 @@
                         <td>{!! $item->trade_discount !!}</td>
                         <td>{!! $item->special_discount !!}</td>
                         <td>{!! $item->scheme_discount !!}</td>
-                        <td>{!! $item->amount !!}</td>
-                        <td>{!! $item->amount * $item->quantity !!}</td>
+                        <td>{!! $item->tp_amount !!}</td>
+                        <td>{!! $item->tp_amount * $item->quantity !!}</td>
                         <td>{!! $item->tax_amount !!}</td>
-                        <td>{!! $sale->total_sale_tax !!}</td>
+                        <td>{!! $item->includedAmt !!}</td>
                     </tr>
                 @endforeach
             </tbody>

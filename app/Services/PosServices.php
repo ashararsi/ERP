@@ -144,6 +144,8 @@ class PosServices
                     'trade_discount' => $request->trade_discount[$index],
                     'special_discount' => $request->special_discount[$index],
                     'scheme_discount' => $request->scheme_discount[$index],
+                    'tp_amount' => $request->tpAmt[$index],
+                    'includedAmt' => $request->includedAmt[$index],
                 ]);
             }
 
