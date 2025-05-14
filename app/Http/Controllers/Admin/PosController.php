@@ -17,8 +17,11 @@ class PosController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // $id = 5;
+        // return $this->PosServices->pdf($request,$id);
+
         return view('admin.pos.index');
     }
 
