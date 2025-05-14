@@ -327,7 +327,7 @@
                         <td>{!! $item->special_discount !!}</td>
                         <td>{!! $item->scheme_discount !!}</td>
                         <td>{!! $item->amount !!}</td>
-                        <td>{!! $item->excl_tax_amount !!}</td>
+                        <td>{!! $item->amount * $item->quantity !!}</td>
                         <td>{!! $item->tax_amount !!}</td>
                         <td>{!! $sale->total_sale_tax !!}</td>
                     </tr>
