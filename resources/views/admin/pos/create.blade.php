@@ -385,11 +385,16 @@
                 $(`#sSDisc_${rowId}`).val(Ssd.toFixed(2));
 
                 const extraDisc = Tdisc + Sdisc + Ssd;
-                const tp = netAmt - extraDisc;
+                console.log("net amb",netAmt);
+                console.log("extra amb",extraDisc);
+
+                const tp = amount - extraDisc;
                 
                 $(`#netAmt_${rowId}`).val(tp.toFixed(2));
-
+                console.log(tp,"tp");
+                console.log(qty,"qty");
                 const tradePrice = tp/qty;
+                console.log(tradePrice,"tradeProce");
                 $(`#tPAmt_${rowId}`).val(tradePrice.toFixed(2));
 
                 const excl =  tradePrice * qty;
