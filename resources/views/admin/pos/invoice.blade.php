@@ -317,7 +317,7 @@
                 @foreach($sale->items as $key => $item)
                     <tr>
                         <td>{!! $key + 1 !!}</td>
-                        <td>@if($item->product) {!! $item->product->code !!} @endif</td>
+                        <td>@if($item->product) {!! $item->product->product_code !!} @endif</td>
                         <td>@if($item->product) {!! $item->product->description !!} @endif</td>
                         <td>@if($item->batch) {!! $item->batch->batch_code !!} @endif</td>
                         <td>{!! $item->quantity !!}</td>
@@ -326,10 +326,10 @@
                         <td>{!! $item->trade_discount !!}</td>
                         <td>{!! $item->special_discount !!}</td>
                         <td>{!! $item->scheme_discount !!}</td>
-                        <td>{!! $item->trade_price !!}</td>
+                        <td>{!! $item->amount !!}</td>
                         <td>{!! $item->excl_tax_amount !!}</td>
                         <td>{!! $item->tax_amount !!}</td>
-                        <td>{!! $item->incl_tax_amount !!}</td>
+                        <td>{!! $sale->total_sale_tax !!}</td>
                     </tr>
                 @endforeach
             </tbody>
