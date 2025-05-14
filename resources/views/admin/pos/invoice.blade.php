@@ -338,9 +338,9 @@
 
         <div class="totals">
             <p><strong>Total:</strong> {!! $sale->net_total - $sale->total_tax !!}</p>
-            <p>Further Sales Tax @ 4.00 % Amount: {!! $sale->total_tax !!}</p>
+            <p>Further Sales Amount: {!! $sale->further_sale_tax !!}</p>
             <p><strong>Total Incl. Tax:</strong> {!! $sale->net_total !!}</p>
-            <p>Advance Tax @ 2.50 %: {{ number_format($sale->sub_total * 0.025, 2) }}</p>
+            <p>Advance Tax Amount: {{ $sale->advance_tax }}</p>
             <p><strong>Net Total:</strong> {!! $sale->net_total !!}</p>
         </div>
 

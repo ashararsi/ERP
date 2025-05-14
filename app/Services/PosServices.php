@@ -118,6 +118,7 @@ class PosServices
                 'total_discount' => $request->totalDiscount,
                 'total_tax' => $request->totalTax,
                 'advance_tax' => $request->advanceTax,
+                'further_sale_tax' => $request->furtherSalesTax,
                 'net_total' => $request->netTotal,
                 'notes' => $request->notes,
                 'status' => 'pending',

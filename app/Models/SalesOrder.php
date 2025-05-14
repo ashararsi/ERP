@@ -12,7 +12,7 @@ class SalesOrder extends Model
         'order_number', 'order_date', 'customer_id', 'customer_po_no',
         'customer_po_date', 'city', 'payment_terms', 'sales_rep_id',
         'delivery_date', 'sub_total', 'total_discount', 'total_tax',
-        'advance_tax', 'net_total', 'notes', 'status','total_sale_tax'
+        'advance_tax', 'net_total', 'notes', 'status','total_sale_tax','further_sale_tax'
     ];
 
     public function items()

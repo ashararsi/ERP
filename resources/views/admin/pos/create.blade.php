@@ -78,6 +78,10 @@
                     </div>
                     
                 </div>
+
+                <input type="hidden" id="customerHasNTN" value="0">
+                <input type="hidden" id="customerHasSTN" value="0">
+
             </div>
             <br/>
             <!-- Payment and Sales Information -->
@@ -170,6 +174,11 @@
                     <div class="col-md-3">
                         <label for="advanceTax" class="form-label">Advance Tax</label>
                         <input type="text" class="form-control" id="advanceTax" name="advanceTax" value="0.00" readonly>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Further Sales Tax</label>
+                        <input type="number" id="furtherSalesTax" class="form-control" name="furtherSalesTax" value="0.00" readonly>
                     </div>
                 </div>
                 {{-- <div class="row mt-3">
@@ -409,12 +418,37 @@
                     netTotal += parseFloat($(`#netAmt_${rowId}`).val()) || 0;
                 });
 
+                const hasNTN = $('#customerHasNTN').val() === '1';
+                 const hasSTN = $('#customerHasSTN').val() === '1';
+
+                let furtherSalesTaxRate = 0;
+                let advanceTaxRate = 0;
+
+                if (hasNTN && hasSTN) {
+                    furtherSalesTaxRate = 0;
+                    advanceTaxRate = 0.005;
+                } else if (hasNTN && !hasSTN) {
+                    furtherSalesTaxRate = 0.04;
+                    advanceTaxRate = 0.005;
+                } else if (!hasNTN && !hasSTN) {
+                    furtherSalesTaxRate = 0.04;
+                    advanceTaxRate = 0.025;
+                }
+
+                const furtherSalesTax = subTotal * furtherSalesTaxRate;
+                const advanceTax = subTotal * advanceTaxRate;
+
+                const finalNetTotal = netTotal + furtherSalesTax + advanceTax;
+
+                
                 // Update summary fields
                 $('#subTotal').val(subTotal);
                 $('#totalDiscount').val(totalDiscount);
                 $('#totalTax').val(totalTax);
                 $('#salesTax').val(totalTax);
-                $('#netTotal').val(netTotal);
+                $('#furtherSalesTax').val(furtherSalesTax.toFixed(2));
+                $('#advanceTax').val(advanceTax.toFixed(2));
+                $('#netTotal').val(finalNetTotal.toFixed(2));
             }
 
             // Reset form button
@@ -425,7 +459,7 @@
                     addProductRow();
                     $('input[type="text"], input[type="number"], input[type="date"], textarea').val('');
                     $('select').prop('selectedIndex', 0);
-                    $('#subTotal, #totalDiscount, #salesTax, #advanceTax, #totalTax, #netTotal').val('0.00');
+                    $('#subTotal, #totalDiscount, #salesTax, #advanceTax, #totalTax, #netTotal,#furtherSalesTax').val('0.00');
                 }
             });
 
@@ -486,6 +520,10 @@
                 $('#stn').val(data.stn || '');
                 $('#customer_name').val(data.name || '');
                 $('#spo').val(data.spo_name || '');
+
+                $('#customerHasNTN').val(data.ntn ? 1 : 0);
+                $('#customerHasSTN').val(data.stn ? 1 : 0);
+
             },
             error: function () {
                 alert('Failed to fetch customer data.');
