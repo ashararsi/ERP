@@ -138,7 +138,10 @@ class PosServices
                     'discount_amount' => $request->discAmt[$index],
                     'tax_percent' => $request->taxPercent[$index],
                     'tax_amount' => $request->taxAmt[$index],
-                    'net_amount' => $request->netAmt[$index]
+                    'net_amount' => $request->netAmt[$index],
+                    'trade_discount' => $request->trade_discount[$index],
+                    'special_discount' => $request->special_discount[$index],
+                    'scheme_discount' => $request->scheme_discount[$index],
                 ]);
             }
 
@@ -180,10 +183,12 @@ class PosServices
 
     public function pdf($request, $id)
     {
+      
         $sale = SalesOrder::with(['customer', 'items.product','items.batch','salesRep'])->where('id', $id)->first();
         $pdf = Pdf::loadView('admin.pos.invoice', compact('sale'));
-//        return view('admin.pos.invoice', compact('sale'));
-        return $pdf->download('pos_Report_'.$id.'.pdf');
+    //    return view('admin.pos.invoice', compact('sale'));
+    // return $pdf->stream('pos_Report_'.$id.'.pdf');
+return $pdf->download('pos_Report_'.$id.'.pdf');
 //        return view('admin.pos.invoice', compact('sale'));
 
     }

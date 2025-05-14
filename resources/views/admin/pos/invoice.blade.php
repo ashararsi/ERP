@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice</title>
     <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 13px;
-            margin: 40px;
-            color: #000;
-            background-color: #fff;
-        }
+       body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 13px;
+    margin: 0; /* <-- remove outer margin */
+    padding: 0;
+    color: #000;
+    background-color: #fff;
+}
+
         .invoice-container {
             width: 100%;
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             box-sizing: border-box;
         }
@@ -64,45 +66,41 @@
         }
 
         .customer-details-section {
-        font-size: 0.75rem;
-        margin-bottom: 8px;
-        border-bottom: 1px solid #e5e7eb;
-        padding-bottom: 8px;
-    }
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 8px;
+}
 
-    .customer-details-section table {
-        width: 100%;
-    }
+.customer-details-section table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
 
-    .customer-details-section strong {
-        font-weight: 600;
-        color: #374151;
-    }
+.customer-details-section td {
+    padding: 1px 4px;
+    white-space: nowrap;
+    vertical-align: top;
+}
 
-    .customer-details-section p {
-        margin-bottom: 3px;
-        line-height: 1.3;
-    }
+.customer-details-section .label {
+    font-weight: 600;
+    color: #374151;
+    text-align: left;
+    white-space: nowrap;
+}
 
-    .customer-details-section .align-right {
-        text-align: right;
-    }
+.customer-details-section .data-cell {
+    border-bottom: 1px dotted #000;
+    width: 100%;
+}
 
-    .customer-details-section td {
-        padding: 2px 4px;
-    }
+.customer-details-section .small {
+    width: 1%;
+    white-space: nowrap;
+}
 
-    .customer-details-section td:nth-child(2n) {
-        text-align: left;
-    }
-
-    .customer-details-section td:nth-child(2n+1) {
-        text-align: left;
-    }
-
-    .data-cell {
-        border-bottom: 1px dotted black;
-    }
         .invoice-info {
             display: flex;
             justify-content: space-between;
@@ -203,21 +201,21 @@
     padding: 3px 6px;
     vertical-align: top;
 }
-
 .footer-images-full {
     width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 15px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 0 10px;
 }
 
 .footer-images-full img {
-    width: 600px;
-    height: 120px;
-    object-fit: contain;
-    display: block; /* Or use 'cover' if you want it to fill the area */
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: scale-down;
+    display: block;
 }
+
 
 
 
@@ -252,31 +250,49 @@
         <div class="customer-details-section">
             <table>
                 <tr>
-                    <td><strong>Customer Code:</strong></td>
-                    <td class="data-cell">{!! $sale->customer->id ?? '103850' !!}</td>
-                    <td><strong>Order #:</strong></td>
-                    <td class="data-cell">{!! $sale->order_number ?? '24-10486' !!}</td>
+                    <td class="label">Customer Code:</td>
+                    <td class="data-cell">{!! $sale->customer->customer_code ?? '103850' !!}</td>
+                    <td class="label small">Order #:</td>
+                    <td class="data-cell small">{!! $sale->order_number ?? '24-10486' !!}</td>
                 </tr>
                 <tr>
-                    <td><strong>Customer Name:</strong></td>
-                    <td class="data-cell">@if($sale->customer) {!! trim(preg_replace('/\s+/', ' ', $sale->customer->name)) !!} @else AHSAAN MEDICAL STORE. @endif</td>
-                    <td><strong>Date:</strong></td>
-                    <td class="data-cell">{!! $sale->order_date ?? '11/03/2025' !!}</td>
+                    <td class="label">Customer Name:</td>
+                    <td class="data-cell">
+                        @if($sale->customer)
+                            {!! trim(preg_replace('/\s+/', ' ', $sale->customer->name)) !!}
+                        @else
+                            AHSAAN MEDICAL STORE.
+                        @endif
+                    </td>
+                    <td class="label small">Date:</td>
+                    <td class="data-cell small">{!! $sale->order_date ?? '11/03/2025' !!}</td>
                 </tr>
                 <tr>
-                    <td><strong>Address:</strong></td>
-                    <td class="data-cell">@if($sale->customer) {!! $sale->customer->address !!} @else Mitha Tawana @endif</td>
-                    <td><strong>Invoice #:</strong></td>
-                    <td class="data-cell">{!!  $sale->invoice_number ?? '250300242' !!}</td>
+                    <td class="label">Address:</td>
+                    <td class="data-cell">
+                        @if($sale->customer)
+                            {!! $sale->customer->address !!}
+                        @else
+                            Mitha Tawana
+                        @endif
+                    </td>
+                    <td class="label small">Invoice #:</td>
+                    <td class="data-cell small">{!! $sale->invoice_number ?? '250300242' !!}</td>
                 </tr>
-                 <tr>
-                    <td><strong>Party NTN:</strong></td>
+                <tr>
+                    <td class="label">Party NTN:</td>
                     <td class="data-cell">{!! $sale->customer->ntn ?? '' !!}</td>
-                     <td><strong>CNIC:</strong></td>
-                     <td class="data-cell">{!! $sale->customer->cnic ?? '' !!}</td>
+                    <td class="label small">CNIC:</td>
+                    <td class="data-cell small">{!! $sale->customer->cnic ?? '' !!}</td>
                 </tr>
             </table>
         </div>
+        
+        
+        
+        
+        
+        
 
         <table class="table">
             <thead>
@@ -348,14 +364,14 @@
                 </table>
             </div>
 
-            <div class="footer-signatures">
+            {{-- <div class="footer-signatures">
                 <table class="signature-table">
                     <tr>
                         <td><strong>Prepared By:</strong> Irsa</td>
                         <td><strong>Checked By:</strong> ______________________</td>
                     </tr>
                 </table>
-            </div>
+            </div> --}}
         
             <div class="footer-images-full">
                 <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('footer-2.png'))) }}" alt="Footer Stamp">

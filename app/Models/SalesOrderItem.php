@@ -13,7 +13,7 @@ class SalesOrderItem extends Model
     protected $fillable = [
         'sales_order_id', 'product_id', 'batch_id', 'expiry_date',
         'quantity', 'rate', 'amount', 'discount_percent', 'discount_amount',
-        'tax_percent', 'tax_amount', 'net_amount'
+        'tax_percent', 'tax_amount', 'net_amount','scheme_discount','trade_discount','special_discount'
     ];
 
     public function salesOrder()

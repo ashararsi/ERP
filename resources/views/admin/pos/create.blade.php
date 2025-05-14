@@ -173,6 +173,13 @@
                     </div>
                 </div>
                 <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label for="advanceTax" class="form-label">Advance Tax</label>
+                        <input type="text" class="form-control" id="advanceTax" name="advanceTax" value="0.00" readonly>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    
                     <div class="col-md-3 offset-md-6">
                         <label for="totalTax" class="form-label">Total Tax</label>
                         <input type="text" class="form-control" id="totalTax" name="totalTax" value="0.00" readonly>
@@ -277,9 +284,9 @@
                     <td><input type="number" id="discPercent_${rowId}" class="form-control disc-percent" name="discPercent[]" min="0" max="100" step="0.01" value="0"></td>
                     <td><input type="number" id="discAmt_${rowId}" class="form-control disc-amt" name="discAmt[]" value="0.00" readonly></td>
                     <td><input type="number" id="taxPercent_${rowId}" class="form-control tax-percent" name="taxPercent[]" min="0" step="0.01" value="0" required></td>
-                    <td><input type="number" id="tDisc_${rowId}" class="form-control t-disc-amt" name="tDisc[]"min="0" step="0.01" value="0" ></td>
-                    <td><input type="number" id="sDisc_${rowId}" class="form-control s-disc-amt" name="sDisc[]"min="0" step="0.01" value="0" ></td>
-                    <td><input type="number" id="sSDisc_${rowId}" class="form-control ss-disc-amt" name="sSDic[]"min="0" step="0.01" value="0"></td>
+                    <td><input type="number" id="tDisc_${rowId}" class="form-control t-disc-amt" name="trade_discount[]"min="0" step="0.01" value="0"readonly ></td>
+                    <td><input type="number" id="sDisc_${rowId}" class="form-control s-disc-amt" name="special_discount[]"min="0" step="0.01" value="0" readonly ></td>
+                    <td><input type="number" id="sSDisc_${rowId}" class="form-control ss-disc-amt" name="scheme_discount[]"min="0" step="0.01" value="0" readonly></td>
                     <td><input type="number" id="taxAmt_${rowId}" class="form-control tax-amt" name="taxAmt[]" value="0.00" readonly></td>
                     <td><input type="number" id="netAmt_${rowId}" class="form-control net-amt" name="netAmt[]" value="0.00" readonly></td>
                     <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="bi bi-trash"></i></button></td>
@@ -364,6 +371,12 @@
                 // Calculate S.sd (9% of amount)
                 const Ssd = amount * 0.09;
                 $(`#sSDisc_${rowId}`).val(Ssd.toFixed(2));
+
+                const extraDisc = Tdisc + Sdisc + Ssd;
+                const tp = netAmt - extraDisc;
+                
+                $(`#netAmt_${rowId}`).val(tp.toFixed(2));
+
                 // Update totals
                 calculateTotals();
             }
