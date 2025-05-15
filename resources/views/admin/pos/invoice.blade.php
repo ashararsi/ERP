@@ -347,12 +347,12 @@
                 <tr>
                     <th colspan="4" style="text-align: right;">Totals</th>
                     <th>{{ number_format($sale->items->sum('quantity'), 2) }}</th>
-                    <th>{{ number_format($sale->items->sum('rate'), 2) }}</th>
+                    <th>-</th>
                     <th>{{ number_format($sale->items->sum('amount'), 2) }}</th>
                     <th>{{ number_format($sale->items->sum('trade_discount'), 2) }}</th>
                     <th>{{ number_format($sale->items->sum('special_discount'), 2) }}</th>
                     <th>{{ number_format($sale->items->sum('scheme_discount'), 2) }}</th>
-                    <th>{{ number_format($sale->items->sum('tp_amount'), 2) }}</th>
+                    <th>-</th>
                     <th>{{ number_format($sale->items->sum(fn($i) => $i->tp_amount * $i->quantity), 2) }}</th>
                     <th>{{ number_format($sale->items->sum('tax_amount'), 2) }}</th>
                     <th>{{ number_format($sale->items->sum('includedAmt'), 2) }}</th>
