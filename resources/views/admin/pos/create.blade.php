@@ -120,40 +120,47 @@
             <!-- Order Details Section -->
             <div class="form-section">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4>Order Details</h4>
-                    <button type="button" class="btn btn-sm btn-success" id="addProductBtn">
-                        <i class="bi bi-plus-circle"></i> Add Product
-                    </button>
+                  <h4>Order Details</h4>
+                  <button type="button" class="btn btn-sm btn-success" id="addProductBtn">
+                    <i class="bi bi-plus-circle"></i> Add Product
+                  </button>
                 </div>
-
+              
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="productsTable">
-                        <thead class="table-primary">
-                        <tr>
-                            <th width="30%">Product Description</th>
-                            <th width="8%">Batch</th>
-                            <th width="7%">Expiry</th>
-                            <th width="4%">Qty</th>
-                            <th width="4%">Rate</th>
-                            <th width="6%">Amount</th>
-                            <th width="7%">Disc %</th>
-                            <th width="8%">Disc Amt</th>
-                            <th width="7%">Tax %</th>
-                            <th width="8%">T.disc</th>
-                            <th width="8%">S.disc</th>
-                            <th width="8%">SS.disc</th>
-
-                            <th width="8%">Tax Amt</th>
-                            <th width="8%">Net Amount</th>
-                            <th width="2%"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!-- Product rows will be added here dynamically -->
-                        </tbody>
-                    </table>
+                  <table class="table table-bordered table-hover" id="productsTable">
+                    <thead class="table-primary">
+                      <tr>
+                        <th width="20%">Product Description</th>
+                        <th width="10%">Batch</th>
+                        <th width="10%">Expiry</th>
+                        <th width="5%">Qty</th>
+                        <th width="5%">Rate</th>
+                        <th width="7%">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody id="mainRowsBody">
+                      <!-- Main product rows go here -->
+                    </tbody>
+              
+                    <thead class="table-secondary">
+                      <tr>
+                        <th width="10%">Disc %</th>
+                        <th width="10%">Disc Amt</th>
+                        <th width="10%">Tax %</th>
+                        <th width="10%">T.disc</th>
+                        <th width="10%">S.disc</th>
+                        <th width="10%">SS.disc</th>
+                        <th width="10%">Tax Amt</th>
+                        <th width="10%">Net Amount</th>
+                        <th width="5%"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="detailRowsBody">
+                      <!-- Detail rows go here -->
+                    </tbody>
+                  </table>
                 </div>
-            </div>
+              </div>
 
             <!-- Totals Section -->
             <div class="total-section">
@@ -267,235 +274,192 @@
 
             // Function to add a new product row
             function addProductRow() {
-                const rowId = rowCounter++;
-                const newRow = `
-                <tr class="medicine-input" data-row-id="${rowId}">
-                    <td>
-                        <select class="form-select product-select" id="product_${rowId}" name="product[]" required>
-                            <option value="">Select Product</option>
-                            @foreach($products as $item)
-                <option data-price="{{ $item->price }}" value="{{ $item->id }}">
-                                    {{ $item->product_code }} -        {{ $item->name }} - @if($item->packing) {{ $item->packing->display_name }} @endif
-               @if($item->packing && $item->packing->units)
-    -( unit {{ $item->packing->units->name }} )
-@endif
-
-                </option>
-@endforeach
-                </select>
-            </td>
-            <td>
-                <select class="form-select batch-select" id="batch_${rowId}" name="batch[]" required>
-                            <option value="">Select Batch</option>
-                            @foreach($Batches as $item)
-                <option value="{{ $item->id }}" data-expiry="{{ $item->expiry_date }}">
-                                     {{ $item->batch_code }}
-                </option>
-@endforeach
-                </select>
-            </td>
-            <td><input type="date" id="expiry_${rowId}" class="form-control expiry" name="expiry[]" required></td>
-                    <td><input type="number" id="qty_${rowId}" class="form-control qty" name="qty[]" min="1" value="1" required></td>
-                    <td><input type="number" id="rate_${rowId}" class="form-control rate" name="rate[]" step="0.01" min="0" required></td>
-                    <td><input type="number" id="amount_${rowId}" class="form-control amount" name="amount[]" value="0.00" readonly></td>
-                    <td><input type="number" id="discPercent_${rowId}" class="form-control disc-percent" name="discPercent[]" min="0" max="100" step="0.01" value="0"></td>
-                    <td><input type="number" id="discAmt_${rowId}" class="form-control disc-amt" name="discAmt[]" value="0.00" readonly></td>
-                    <td><input type="number" id="taxPercent_${rowId}" class="form-control tax-percent" name="taxPercent[]" min="0" step="0.01" value="0" required></td>
-                    <td><input type="number" id="tDisc_${rowId}" class="form-control t-disc-amt" name="trade_discount[]"min="0" step="0.01" value="0"readonly ></td>
-                    <td><input type="number" id="sDisc_${rowId}" class="form-control s-disc-amt" name="special_discount[]"min="0" step="0.01" value="0" readonly ></td>
-                    <td><input type="number" id="sSDisc_${rowId}" class="form-control ss-disc-amt" name="scheme_discount[]"min="0" step="0.01" value="0" readonly></td>
-                    <td><input type="number" id="taxAmt_${rowId}" class="form-control tax-amt" name="taxAmt[]" value="0.00" readonly></td>
-                    <td><input type="number" id="netAmt_${rowId}" class="form-control net-amt" name="netAmt[]" value="0.00" readonly></td>
-                    <td><input type="hidden" id="tPAmt_${rowId}" class="tp-amt" name="tpAmt[]" value="0.00"></td>
-                    <td><input type="hidden" id="incSal_${rowId}" class="tp-amt" name="includedAmt[]" value="0.00"></td>
-                    <td><input type="hidden" id="excSal_${rowId}" class="excl-amt" name="exlcudedAmt[]" value="0.00"></td>
-
-                    <td><button type="button" class="btn btn-sm btn-danger remove-row"><i class="bi bi-trash"></i></button></td>
+            const rowId = rowCounter++;
+            const mainRow = `
+                <tr class="product-main-row" data-row-id="${rowId}">
+                <td>
+                    <select class="form-select product-select" id="product_${rowId}" name="product[]" required>
+                    <option value="">Select Product</option>
+                    @foreach($products as $item)
+                        <option data-price="{{ $item->price }}" value="{{ $item->id }}">
+                        {{ $item->product_code }} - {{ $item->name }}
+                        @if($item->packing) - {{ $item->packing->display_name }} @endif
+                        @if($item->packing && $item->packing->units)
+                            (unit {{ $item->packing->units->name }})
+                        @endif
+                        </option>
+                    @endforeach
+                    </select>
+                </td>
+                <td>
+                    <select class="form-select batch-select" id="batch_${rowId}" name="batch[]" required>
+                    <option value="">Select Batch</option>
+                    @foreach($Batches as $item)
+                        <option value="{{ $item->id }}" data-expiry="{{ $item->expiry_date }}">
+                        {{ $item->batch_code }}
+                        </option>
+                    @endforeach
+                    </select>
+                </td>
+                <td><input type="date" id="expiry_${rowId}" class="form-control expiry" name="expiry[]" required></td>
+                <td><input type="number" id="qty_${rowId}" class="form-control qty" name="qty[]" min="1" value="1" required></td>
+                <td><input type="number" id="rate_${rowId}" class="form-control rate" name="rate[]" step="0.01" min="0" required></td>
+                <td><input type="number" id="amount_${rowId}" class="form-control amount" name="amount[]" value="0.00" readonly></td>
                 </tr>`;
 
-                $('#productsTable tbody').append(newRow);
-                $('#productsTable tbody tr:last .product-select').select2({
-                    placeholder: "Search for a product...",
-                    width: '100%',
-                    theme: 'bootstrap-5',
-                    dropdownParent: $('#productsTable')
-                });
+                const detailRow = `
+            <tr class="product-detail-row" data-row-id="${rowId}">
+                <td><input type="number" id="discPercent_${rowId}" class="form-control disc-percent" name="discPercent[]" min="0" max="100" step="0.01" value="0"></td>
+                <td><input type="number" id="discAmt_${rowId}" class="form-control disc-amt" name="discAmt[]" value="0.00" readonly></td>
+                <td><input type="number" id="taxPercent_${rowId}" class="form-control tax-percent" name="taxPercent[]" min="0" step="0.01" value="18" required></td>
+                <td><input type="number" id="tDisc_${rowId}" class="form-control t-disc-amt" name="trade_discount[]" value="0.00" readonly></td>
+                <td><input type="number" id="sDisc_${rowId}" class="form-control s-disc-amt" name="special_discount[]" value="0.00" readonly></td>
+                <td><input type="number" id="sSDisc_${rowId}" class="form-control ss-disc-amt" name="scheme_discount[]" value="0.00" readonly></td>
+                <td><input type="number" id="taxAmt_${rowId}" class="form-control tax-amt" name="taxAmt[]" value="0.00" readonly></td>
+                <td><input type="number" id="netAmt_${rowId}" class="form-control net-amt" name="netAmt[]" value="0.00" readonly></td>
+                <td>
+                <input type="hidden" id="tPAmt_${rowId}" class="tp-amt" name="tpAmt[]" value="0.00">
+                <input type="hidden" id="excSal_${rowId}" name="exlcudedAmt[]" value="0.00">
+                <input type="hidden" id="incSal_${rowId}" name="includedAmt[]" value="0.00">
+                <button type="button" class="btn btn-sm btn-danger remove-row"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>`;
+
+
+            $('#mainRowsBody').append(mainRow);
+            $('#detailRowsBody').append(detailRow);
+
+            $(`#product_${rowId}`).select2({
+                placeholder: "Search for a product...",
+                width: '100%',
+                theme: 'bootstrap-5',
+                dropdownParent: $('#productsTable')
+            });
             }
 
-            // Remove row on trash button click
             $('#productsTable').on('click', '.remove-row', function () {
-                $(this).closest('tr').remove();
-                calculateTotals();
+            const rowId = $(this).closest('tr').data('row-id');
+            $(`.product-main-row[data-row-id="${rowId}"]`).remove();
+            $(`.product-detail-row[data-row-id="${rowId}"]`).remove();
+            calculateTotals();
             });
 
-            // Product selection change - populate rate
             $('#productsTable').on('change', '.product-select', function () {
-                const selectedOption = $(this).find('option:selected');
-                const price = selectedOption.data('price') || 0;
-                const rowId = $(this).closest('tr').data('row-id');
-                $(`#rate_${rowId}`).val(price);
-                calculateRowTotal(rowId);
+            const selectedOption = $(this).find('option:selected');
+            const price = selectedOption.data('price') || 0;
+            const rowId = $(this).closest('tr').data('row-id');
+            $(`#rate_${rowId}`).val(price);
+            calculateRowTotal(rowId);
             });
 
-            // Batch selection change - populate expiry date
             $('#productsTable').on('change', '.batch-select', function () {
-                const selectedOption = $(this).find('option:selected');
-                const expiryDate = selectedOption.data('expiry');
-                const rowId = $(this).closest('tr').data('row-id');
-                if (expiryDate) {
-                    $(`#expiry_${rowId}`).val(expiryDate);
-                }
+            const expiryDate = $(this).find('option:selected').data('expiry');
+            const rowId = $(this).closest('tr').data('row-id');
+            if (expiryDate) {
+                $(`#expiry_${rowId}`).val(expiryDate);
+            }
             });
 
-            // Calculate row total when quantity, rate, discount or tax changes
-            $('#productsTable').on('input', '.qty, .rate, .disc-percent, .tax-percent .t-disc-amt', function () {
-                const rowId = $(this).closest('tr').data('row-id');
-                calculateRowTotal(rowId);
+            $('#productsTable').on('input', '.qty, .rate, .disc-percent, .tax-percent', function () {
+            const rowId = $(this).closest('tr').data('row-id');
+            calculateRowTotal(rowId);
             });
 
-            // Function to calculate row totals
             function calculateRowTotal(rowId) {
-                const qty = parseFloat($(`#qty_${rowId}`).val()) || 0;
-                const rate = parseFloat($(`#rate_${rowId}`).val()) || 0;
-                const discPercent = parseFloat($(`#discPercent_${rowId}`).val()) || 0;
-                // const taxPercent = parseFloat($(`#taxPercent_${rowId}`).val()) || 0;
-                let taxPercent = parseFloat($(`#taxPercent_${rowId}`).val());
-                if (isNaN(taxPercent) || taxPercent === 0) {
-                     taxPercent = 18;
-                    $(`#taxPercent_${rowId}`).val(18);
-                }
-                // Calculate amount
-                const amount = qty * rate;
-                $(`#amount_${rowId}`).val(amount);
+            const qty = parseFloat($(`#qty_${rowId}`).val()) || 0;
+            const rate = parseFloat($(`#rate_${rowId}`).val()) || 0;
+            const discPercent = parseFloat($(`#discPercent_${rowId}`).val()) || 0;
+            let taxPercent = parseFloat($(`#taxPercent_${rowId}`).val()) || 18;
+            $(`#taxPercent_${rowId}`).val(taxPercent);
 
-                // Calculate discount amount
-                const discAmt = amount * (discPercent / 100);
-                $(`#discAmt_${rowId}`).val(discAmt);
+            const amount = qty * rate;
+            $(`#amount_${rowId}`).val(amount.toFixed(2));
 
-                // Calculate taxable amount (after discount)
-                const taxableAmt = amount - discAmt;
+            const discAmt = amount * (discPercent / 100);
+            $(`#discAmt_${rowId}`).val(discAmt.toFixed(2));
 
-                // Calculate tax amount
-                // const taxAmt = taxableAmt * (taxPercent / 100);
+            const Tdisc = amount * 0.15;
+            $(`#tDisc_${rowId}`).val(Tdisc.toFixed(2));
 
-                // Calculate net amount
-                const netAmt = taxableAmt;
-                $(`#netAmt_${rowId}`).val(netAmt);
+            const Sdisc = amount * 0.03965;
+            $(`#sDisc_${rowId}`).val(Sdisc.toFixed(2));
 
-                const Tdisc = amount * 0.15;
-                $(`#tDisc_${rowId}`).val(Tdisc.toFixed(2));
+            const Ssd = amount * 0.09;
+            $(`#sSDisc_${rowId}`).val(Ssd.toFixed(2));
 
-                const Sdisc = amount * 0.03965;
-                $(`#sDisc_${rowId}`).val(Sdisc.toFixed(2));
+            const extraDisc = Tdisc + Sdisc + Ssd;
+            const tp = amount - extraDisc;
+            $(`#netAmt_${rowId}`).val(tp.toFixed(2));
 
-                // Calculate S.sd (9% of amount)
-                const Ssd = amount * 0.09;
-                $(`#sSDisc_${rowId}`).val(Ssd.toFixed(2));
+            const tradePrice = tp/qty;
+                            $(`#tPAmt_${rowId}`).val(tradePrice.toFixed(2));
 
-                const extraDisc = Tdisc + Sdisc + Ssd;
-                const tp = amount - extraDisc;       
-                $(`#netAmt_${rowId}`).val(tp.toFixed(2));
-        
-                const tradePrice = tp/qty;
-                $(`#tPAmt_${rowId}`).val(tradePrice.toFixed(2));
+                            const excl = tradePrice * qty;
+                            $(`#excSal_${rowId}`).val(excl.toFixed(2));
+                            
+                            const taxAmt = excl * (taxPercent / 100);
+                            $(`#taxAmt_${rowId}`).val(taxAmt.toFixed(2));
 
-                const excl = tradePrice * qty;
-                $(`#excSal_${rowId}`).val(excl.toFixed(2));
-                
-                const taxAmt = excl * (taxPercent / 100);
-                $(`#taxAmt_${rowId}`).val(taxAmt.toFixed(2));
+                            const incl = excl + taxAmt;
+                            $(`#incSal_${rowId}`).val(incl.toFixed(2));
 
-                const incl = excl + taxAmt;
-                $(`#incSal_${rowId}`).val(incl.toFixed(2));
-
-                
-
-                // Update totals
-                calculateTotals();
+            calculateTotals();
             }
 
-            // Function to calculate all totals
             function calculateTotals() {
-                let subTotal = 0;
-                let totalDiscount = 0;
-                let totalTax = 0;
-                let netTotal = 0;
-                let saleTaxAmount = 0;
-                let excludedSaleAmount = 0;
-                let includedSaleAmount = 0;
+            let subTotal = 0, totalDiscount = 0, totalTax = 0, netTotal = 0, excludedSaleAmount = 0, includedSaleAmount = 0;
 
-
-                // Calculate row by row
-                $('#productsTable tbody tr').each(function () {
-                    const rowId = $(this).data('row-id');
-                    subTotal += parseFloat($(`#amount_${rowId}`).val()) || 0;
-                    totalDiscount += parseFloat($(`#discAmt_${rowId}`).val()) || 0;
-                    totalTax += parseFloat($(`#taxAmt_${rowId}`).val()) || 0;
-                    netTotal += parseFloat($(`#netAmt_${rowId}`).val()) || 0;
-                    excludedSaleAmount += parseFloat($(`#excSal_${rowId}`).val()) || 0;
-                    includedSaleAmount += parseFloat($(`#incSal_${rowId}`).val()) || 0;
-
-                });
-
-                console.log(includedSaleAmount,"sale tax amount");
-                console.log(excludedSaleAmount,"excludedSaleAmount");
-
-                const hasNTN = $('#customerHasNTN').val() === '1';
-                 const hasSTN = $('#customerHasSTN').val() === '1';
-
-                let furtherSalesTaxRate = 0;
-                let advanceTaxRate = 0;
-
-                if (hasNTN && hasSTN) {
-                    furtherSalesTaxRate = 0;
-                    advanceTaxRate = 0.005;
-                } else if (hasNTN && !hasSTN) {
-                    furtherSalesTaxRate = 0.04;
-                    advanceTaxRate = 0.005;
-                } else if (!hasNTN && !hasSTN) {
-                    furtherSalesTaxRate = 0.04;
-                    advanceTaxRate = 0.025;
-                }
-
-                const furtherSalesTax = excludedSaleAmount * furtherSalesTaxRate;
-
-                console.log("furtherer",furtherSalesTax);
-                const totalIncludedTax =  furtherSalesTax + includedSaleAmount;
-
-                console.log("totalIncludedTax",totalIncludedTax);
-
-                const totalAdvanceNet = totalIncludedTax * advanceTaxRate;
-
-                console.log("totalAdvanceNet",totalAdvanceNet);
-
-                const totalAmount = totalIncludedTax + totalAdvanceNet;
-
-                console.log("totalAmount",totalAmount);
-
-                // Update summary fields
-                $('#subTotal').val(subTotal);
-                $('#totalDiscount').val(totalDiscount);
-                $('#totalTax').val(totalTax);
-                $('#salesTax').val(totalTax);
-                $('#furtherSalesTax').val(furtherSalesTax.toFixed(2));
-                $('#advanceTax').val(totalAdvanceNet);
-                $('#netTotal').val(totalAmount.toFixed(2));
-                $('#total_amount').val(includedSaleAmount.toFixed(2));
-                $('#all_included_tax').val(totalIncludedTax.toFixed(2));
-            }
-
-            // Reset form button
-            $('#resetFormBtn').click(function () {
-                if (confirm('Are you sure you want to clear the form?')) {
-                    $('#productsTable tbody').empty();
-                    rowCounter = 1;
-                    addProductRow();
-                    $('input[type="text"], input[type="number"], input[type="date"], textarea').val('');
-                    $('select').prop('selectedIndex', 0);
-                    $('#subTotal, #totalDiscount, #salesTax, #advanceTax, #totalTax, #netTotal,#furtherSalesTax').val('0.00');
-                }
+            $('#productsTable .product-main-row').each(function () {
+                const rowId = $(this).data('row-id');
+                subTotal += parseFloat($(`#amount_${rowId}`).val()) || 0;
+                totalDiscount += parseFloat($(`#discAmt_${rowId}`).val()) || 0;
+                totalTax += parseFloat($(`#taxAmt_${rowId}`).val()) || 0;
+                netTotal += parseFloat($(`#netAmt_${rowId}`).val()) || 0;
+                excludedSaleAmount += parseFloat($(`#excSal_${rowId}`).val()) || 0;
+                includedSaleAmount += parseFloat($(`#incSal_${rowId}`).val()) || 0;
             });
 
+            const hasNTN = $('#customerHasNTN').val() === '1';
+            const hasSTN = $('#customerHasSTN').val() === '1';
+
+            let furtherSalesTaxRate = 0, advanceTaxRate = 0;
+
+            if (hasNTN && hasSTN) {
+                advanceTaxRate = 0.005;
+            } else if (hasNTN && !hasSTN) {
+                furtherSalesTaxRate = 0.04;
+                advanceTaxRate = 0.005;
+            } else {
+                furtherSalesTaxRate = 0.04;
+                advanceTaxRate = 0.025;
+            }
+
+            const furtherSalesTax = excludedSaleAmount * furtherSalesTaxRate;
+            const totalIncludedTax = furtherSalesTax + includedSaleAmount;
+            const totalAdvanceNet = totalIncludedTax * advanceTaxRate;
+            const totalAmount = totalIncludedTax + totalAdvanceNet;
+
+            $('#subTotal').val(subTotal.toFixed(2));
+            $('#totalDiscount').val(totalDiscount.toFixed(2));
+            $('#salesTax').val(totalTax.toFixed(2));
+            $('#totalTax').val(totalTax.toFixed(2));
+            $('#furtherSalesTax').val(furtherSalesTax.toFixed(2));
+            $('#advanceTax').val(totalAdvanceNet.toFixed(2));
+            $('#netTotal').val(totalAmount.toFixed(2));
+            $('#total_amount').val(includedSaleAmount.toFixed(2));
+            $('#all_included_tax').val(totalIncludedTax.toFixed(2));
+            }
+
+            $('#resetFormBtn').click(function () {
+            if (confirm('Are you sure you want to clear the form?')) {
+                $('#mainRowsBody, #detailRowsBody').empty();
+                rowCounter = 1;
+                addProductRow();
+                $('input[type="text"], input[type="number"], input[type="date"], textarea').val('');
+                $('select').prop('selectedIndex', 0);
+                $('#subTotal, #totalDiscount, #salesTax, #advanceTax, #totalTax, #netTotal, #furtherSalesTax').val('0.00');
+            }
+            });
             // Form submission
             $('#salesOrderForm').submit(function (e) {
                 e.preventDefault();

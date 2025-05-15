@@ -167,9 +167,18 @@
             margin: 3px 0;
         }
         .footer-block {
-    margin-top: 195px; /* Adjust this value as needed */
-}
-        .footer-container {
+    position: fixed;
+    bottom: 150px; /* move footer 10px up from bottom */
+    left: 0;
+    right: 0;
+    height: 180px; /* adjust height if needed */
+    margin: 0;
+    padding: 5px 20px;
+    background: white;
+    border-top: none;
+    box-sizing: border-box;
+    z-index: 9999;
+}        .footer-container {
     margin-bottom: 10px;
 }
 
