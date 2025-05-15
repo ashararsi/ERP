@@ -88,7 +88,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::post('/branches/getdata', [BranchesController::class, 'getdata'])->name('branches.getdata');
     Route::get('/get-branches/{company_id}', [BranchesController::class, 'getBranches']);
 
-
     Route::resource('city', CityController::class);
     Route::post('/city/getdata', [CityController::class, 'getdata'])->name('city.getdata');
     Route::resource('country', CountryController::class);
@@ -188,6 +187,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::resource('customers', CustomerController::class);
     Route::post('/customers/getdata', [CustomerController::class, 'getdata'])->name('customers.getdata');
     Route::get('/customers-data', [CustomerController::class, 'getCustomerData'])->name('fetch.customers_data');
+    Route::get('/customers-file/importdata/file', [CustomerController::class, 'showImport'])->name('customers.import');
+    Route::post('/customers-file/importdata', [CustomerController::class, 'importCustomerData'])->name('customers.importdata');
 
 
     // Route::get('/customers/data', [CustomerController::class, 'getCustomerData'])->name('fetch.customers_data');
