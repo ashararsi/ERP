@@ -191,7 +191,7 @@ class PosServices
     public function pdf($request, $id)
     {
       
-        $sale = SalesOrder::with(['customer', 'items.product','items.batch','salesRep'])->where('id', $id)->first();
+        $sale = SalesOrder::with(['customer.spo', 'items.product','items.batch','salesRep'])->where('id', $id)->first();
         $pdf = Pdf::loadView('admin.pos.invoice', compact('sale'));
     //    return view('admin.pos.invoice', compact('sale'));
     // return $pdf->stream('pos_Report_'.$id.'.pdf');
