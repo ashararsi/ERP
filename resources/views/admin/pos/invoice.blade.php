@@ -327,27 +327,28 @@
                         <td>{!! $item->trade_discount !!}</td>
                         <td>{!! $item->special_discount !!}</td>
                         <td>{!! $item->scheme_discount !!}</td>
-                        <td>{!! $item->tp_amount !!}</td>
-                        <td>{!! $item->tp_amount * $item->quantity !!}</td>
+                        <td>{!! number_format($item->tp_amount,2) !!}</td>
+                        <td>{!! number_format($item->tp_amount * $item->quantity,2) !!}</td>
                         <td>{!! $item->tax_amount !!}</td>
-                        <td>{!! $item->includedAmt !!}</td>
+                        <td>{!! number_format($item->includedAmt ,2) !!}</td>
                     </tr>
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <th colspan="4" style="text-align: right;">Totals</th>
-                    <th>{{ $sale->items->sum('quantity') }}</th>
-                    <th> {{ $sale->items->sum('rate') }}</th>
-                    <th>{{ $sale->items->sum('amount') }}</th>
-                    <th>{{ $sale->items->sum('trade_discount') }}</th>
-                    <th>{{ $sale->items->sum('special_discount') }}</th>
-                    <th>{{ $sale->items->sum('scheme_discount') }}</th>
-                    <th>{{ $sale->items->sum('tp_amount') }}</th>
-                    <th>{{ $sale->items->sum(fn($i) => $i->tp_amount * $i->quantity) }}</th>
-                    <th>{{ $sale->items->sum('tax_amount') }}</th>
-                    <th>{{ $sale->items->sum('includedAmt') }}</th>
+                    <th>{{ number_format($sale->items->sum('quantity'), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum('rate'), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum('amount'), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum('trade_discount'), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum('special_discount'), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum('scheme_discount'), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum('tp_amount'), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum(fn($i) => $i->tp_amount * $i->quantity), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum('tax_amount'), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum('includedAmt'), 2) }}</th>
                 </tr>
+                
             </tfoot>
         </table>
 
