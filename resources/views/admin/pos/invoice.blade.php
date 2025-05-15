@@ -334,32 +334,74 @@
                     </tr>
                 @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="4" style="text-align: right;">Totals</th>
+                    <th>{{ $sale->items->sum('quantity') }}</th>
+                    <th> {{ $sale->items->sum('rate') }}</th>
+                    <th>{{ $sale->items->sum('amount') }}</th>
+                    <th>{{ $sale->items->sum('trade_discount') }}</th>
+                    <th>{{ $sale->items->sum('special_discount') }}</th>
+                    <th>{{ $sale->items->sum('scheme_discount') }}</th>
+                    <th>{{ $sale->items->sum('tp_amount') }}</th>
+                    <th>{{ $sale->items->sum(fn($i) => $i->tp_amount * $i->quantity) }}</th>
+                    <th>{{ $sale->items->sum('tax_amount') }}</th>
+                    <th>{{ $sale->items->sum('includedAmt') }}</th>
+                </tr>
+            </tfoot>
         </table>
 
-        <div class="totals">
-            <p><strong>Total:</strong> {!! $sale->total_cal_amount !!}</p>
-            <p>Further Sales Amount: {!! $sale->further_sale_tax !!}</p>
-            <p><strong>Total Incl. Tax:</strong> {!! $sale->all_included_tax !!}</p>
-            <p>Advance Tax Amount: {{ $sale->advance_tax }}</p>
-            <p><strong>Net Total:</strong> {!! $sale->net_total !!}</p>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 14px;">
+            <!-- Left: Rep Person -->
+            <div style="width: 35%;">
+                <p style="margin: 0 10px;"><strong>Rep Person:</strong> {{ $sale->customer->spo->name }}</p>
+            </div>
+        
+            <!-- Right: Totals -->
+            <div class="totals" style="width: 35%; padding: 0 15px 15px 15px; margin-left: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="padding: 5px 10px;"><strong>Total:</strong></td>
+                        <td style="padding: 5px 10px; text-align: right;">{{ number_format($sale->total_cal_amount, 2) }}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px 10px;">Further Sales Amount:</td>
+                        <td style="padding: 5px 10px; text-align: right;">{{ number_format($sale->further_sale_tax, 2) }}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px 10px;"><strong>Total Incl. Tax:</strong></td>
+                        <td style="padding: 5px 10px; text-align: right;">{{ number_format($sale->all_included_tax, 2) }}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px 10px;">Advance Tax Amount:</td>
+                        <td style="padding: 5px 10px; text-align: right;">{{ number_format($sale->advance_tax, 2) }}</td>
+                    </tr>
+                    <tr style="border-top: 1px solid #ccc;">
+                        <td style="padding: 10px 10px;"><strong>Net Total:</strong></td>
+                        <td style="padding: 10px 10px; text-align: right;"><strong>{{ number_format($sale->net_total, 2) }}</strong></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-
+        
+        
+        
         <div class="footer-block">
             <div class="rep-person">
-                <strong>Rep Person:</strong> {!! $sale->salesRep->name !!}
+                <strong>Prepared By:</strong> {!! $sale->salesRep->name !!}
             </div>
         
             <div class="footer-container">
                 <table class="footer-info">
                     <tr>
                         <td><strong>Goods Name:</strong> NA</td>
-                        <td><strong>Place:</strong> Mianwali</td>
+                        <td><strong>Place:</strong> N/A</td>
                         <td><strong>Bilty No:</strong> NA</td>
-                        <td><strong>Bilty Date:</strong> {!! $sale->order_date !!}</td>
+                        <td><strong>Bilty Date:</strong> N/A</td>
                     </tr>
                     <tr>
-                        <td colspan="2"><strong>Courier/Registry Date:</strong> 08/01/2002</td>
-                        <td><strong>Receipt No:</strong></td>
+                        <td colspan="2"><strong>Courier/Registry Date:</strong>N/A</td>
+                        <td><strong>Receipt No:</strong> N/A</td>
                         <td><strong>Cartons:</strong> 0 | <strong>Fare Rs.:</strong> 0</td>
                     </tr>
                 </table>
