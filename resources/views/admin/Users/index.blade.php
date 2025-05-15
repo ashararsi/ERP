@@ -24,6 +24,7 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Role</th>
                                 <th>verified</th>
                                 <th width="200px">Action</th>
                             </tr>
@@ -67,7 +68,8 @@
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
-                    {data: 'email_verified_at', name: 'verified'},
+                    {data: 'role', name: 'role'},
+                    {data: 'email_verified_at', name: 'email_verified_at'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
                 dom: 'Bfrtip', // Add this to enable buttons

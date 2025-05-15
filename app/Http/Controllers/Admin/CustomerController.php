@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\CustomerServise;
 use Illuminate\Http\Request;
 
+
 class CustomerController extends Controller
 {
 
@@ -39,8 +40,8 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
 //        try {
-            $this->CustomerServise->store($request);
-            return redirect()->route('admin.customers.index');
+        $this->CustomerServise->store($request);
+        return redirect()->route('admin.customers.index');
 //        } catch (\Exception $e) {
 //
 //            return redirect()->back()->with('error', $e->getMessage());
@@ -62,9 +63,9 @@ class CustomerController extends Controller
     {
         try {
             $spos = User::role('SPO')->get();
-            $customer=$this->CustomerServise->edit($id);
-            return view('admin.customers.edit',compact('customer','spos'));
-        }catch (\Exception $exception){
+            $customer = $this->CustomerServise->edit($id);
+            return view('admin.customers.edit', compact('customer', 'spos'));
+        } catch (\Exception $exception) {
             return redirect()->route('admin.customers.index');
         }
     }
@@ -76,8 +77,8 @@ class CustomerController extends Controller
     {
 
 //        try {
-            $customer=$this->CustomerServise->update($request,$id);
-            return redirect()->route('admin.customers.index');
+        $customer = $this->CustomerServise->update($request, $id);
+        return redirect()->route('admin.customers.index');
 //        }catch (\Exception $exception){
 //            return redirect()->route('admin.customers.index');
 //        }
@@ -91,7 +92,8 @@ class CustomerController extends Controller
         //
     }
 
-    public function getdata(Request $request){
+    public function getdata(Request $request)
+    {
         return $this->CustomerServise->getdata($request);
 
     }
@@ -101,15 +103,25 @@ class CustomerController extends Controller
 
         return $this->CustomerServise->getCustomerData($request);
     }
+
     public function showImport()
     {
-        // dd(2);
-        return view('admin.customers.import');
+
+        $data = User::with('roles')
+            ->select('id', 'email', 'name')
+            ->orderBy('id', 'desc')
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'Spo');
+            })->get();
+
+
+        return view('admin.customers.import', compact('data'));
     }
 
     public function importCustomerData(Request $request)
     {
-         $this->CustomerServise->importdata($request);
-         return redirect()->route('admin.customers.index')->with('success', 'Data created successfully');
+
+        $this->CustomerServise->importdata($request);
+        return redirect()->route('admin.customers.index')->with('success', 'Data created successfully');
     }
 }

@@ -67,10 +67,10 @@ class UserServise
         $user->assignRole($roles_arrayy);
         $a = User::with('roles')->get();
 
-        $this->createSpoUser($user,$request);
+        $this->createSpoUser($user, $request);
     }
 
-    public function createSpoUser($user,$request) 
+    public function createSpoUser($user, $request)
     {
         UserLocationAssignment::create([
             'user_id' => $user->id,
@@ -121,9 +121,12 @@ class UserServise
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('status', function ($row) {
                 return ($row->active == 1) ? 'Active' : 'Deactive';
+            })->addColumn('email_verified_at', function ($row) {
+                return ($row->email_verified_at) ? 'verified' : 'Not verified';
+            })->addColumn('role', function ($row) {
+                return $row->role->name ?? '';
             })
             ->addColumn('action', function ($row) {
-
                 $a = $row->active;
                 $admin = $row->is_admin;
                 $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.users.destroy", $row->id) . '"> ';
@@ -134,7 +137,7 @@ class UserServise
                 $btn = $btn . ' </form>';
                 return $btn;
             })
-            ->rawColumns(['action', 'status', 'email_verified_at'])
+            ->rawColumns(['action', 'status', 'email_verified_at', 'role'])
             ->make(true);
     }
 

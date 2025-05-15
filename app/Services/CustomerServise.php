@@ -9,9 +9,13 @@ use Config;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
+use App\Models\City;
+use App\Models\Area;
 
 use DataTables;
 
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -130,7 +134,8 @@ class CustomerServise
 
     }
 
-    public function getCustomerData($request) {
+    public function getCustomerData($request)
+    {
         $customer = Customer::with('spo')->findOrFail($request->customer_id);
         // dd($customer);
         return response()->json([
@@ -146,8 +151,82 @@ class CustomerServise
 
     public function importdata($request)
     {
-        return Excel::import(new CustomerImport(), $request->file('excel_file')); 
+        $sale_man = $request->sale_man;
+        $file = $request->file('file');
+        $path = $file->getRealPath();
+        $spreadsheet = IOFactory::load($path);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $isHeader = true;
+        foreach ($worksheet->getRowIterator() as $row) {
+            if ($isHeader) {
+                $isHeader = false;
+                continue;
+            }
+            $isEmptyRow = true;
+            $data = [];
+            foreach ($row->getCellIterator() as $cell) {
+                $value = $cell->getValue();
+
+                // Check if cell has value
+                if (!is_null($value) && trim($value) !== '') {
+                    $isEmptyRow = false;
+                }
+
+                // Handle RichText objects
+                if ($value instanceof RichText) {
+                    $value = $value->getPlainText();
+                }
+
+                $data[] = $value;
+            }
+            if ($isEmptyRow) {
+                break;
+            }
+            $mapped = [
+                'sr_no' => $data[0],
+                'code' => $data[1],
+                'name' => $data[2],
+                'address' => $data[3],
+                'ntn' => $data[4],
+                'cnic' => $data[5],
+                'salesman' => $data[6],
+                'city' => $data[7],
+                'area' => $data[8],
+            ];
+
+            // Create or get city
+            $city = City::firstOrCreate(
+                ['name' => trim($mapped['city'])],
+                ['country_id' => 1, 'status' => 1]
+            );
+
+            // Create or get area
+            $area = Area::firstOrCreate(
+                ['name' => trim($mapped['area'])],
+                ['company_id' => 1, 'status' => 1]
+            );
+            Customer::updateOrCreate(
+                ['customer_code' => $mapped['code']],
+                [
+                    'name' => $mapped['name'],
+                    'email' => null,
+                    'phone' => null,
+                    'address' => $mapped['address'],
+                    'created_by' => auth()->id() ?? 1,
+                    'agent_id' => null,
+                    'status' => 1,
+                    'cnic' => $mapped['cnic'],
+                    'ntn' => $mapped['ntn'],
+                    'city_name' => $city->name,
+                    'area_id' => $area->id,
+                    'stn' => null,
+                    'spo_id' => optional($sale_man)->id,
+                ]
+            );
+
+        }
+        return 0;
     }
-   
+
 
 }
