@@ -9,6 +9,8 @@
                 <div class="card-header bg-light">
                     <h3 class="text-22 text-midnight text-bold mb-4">Customers List</h3>
                     <a href="{{ route('admin.customers.create') }}" class="btn btn-primary btn-sm">Add New Customer</a>
+                    <a href="{!! route('admin.customers.import') !!}" class="btn btn-primary btn-sm ">Import Customer Data</a>
+
                 </div>
                 <div class="card-body">
                     @if (session('success'))

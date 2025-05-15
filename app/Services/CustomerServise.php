@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-
+use App\Imports\CustomerImport;
 use App\Models\Customer;
 
 use Config;
@@ -15,7 +15,7 @@ use DataTables;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerServise
 {
@@ -142,6 +142,11 @@ class CustomerServise
             'name' => $customer->name,
             'spo_name' => optional($customer->spo)->name,
         ]);
+    }
+
+    public function importdata($request)
+    {
+        return Excel::import(new CustomerImport(), $request->file('excel_file')); 
     }
    
 

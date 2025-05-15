@@ -101,4 +101,15 @@ class CustomerController extends Controller
 
         return $this->CustomerServise->getCustomerData($request);
     }
+    public function showImport()
+    {
+        // dd(2);
+        return view('admin.customers.import');
+    }
+
+    public function importCustomerData(Request $request)
+    {
+         $this->CustomerServise->importdata($request);
+         return redirect()->route('admin.customers.index')->with('success', 'Data created successfully');
+    }
 }
