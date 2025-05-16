@@ -213,6 +213,10 @@
                         <input type="text" class="form-control fw-bold" id="netTotal" name="netTotal" value="0.00"
                                readonly>
                     </div>
+
+                    <input type="hidden" name="further_sales_tax_rate" id="furtherSalesTaxRate">
+                    <input type="hidden" name="advance_tax_rate" id="advanceTaxRate">
+
                 </div>
             </div>
 
@@ -434,6 +438,9 @@
                 advanceTaxRate = 0.025;
             }
 
+            $('#furtherSalesTaxRate').val((furtherSalesTaxRate * 100).toFixed(2));
+            $('#advanceTaxRate').val((advanceTaxRate * 100).toFixed(2));  
+            
             const furtherSalesTax = excludedSaleAmount * furtherSalesTaxRate;
             const totalIncludedTax = furtherSalesTax + includedSaleAmount;
             const totalAdvanceNet = totalIncludedTax * advanceTaxRate;
