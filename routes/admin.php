@@ -43,6 +43,8 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Admin\BatchController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PackingMaterialController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RecoverySheetController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web']], function () {
 
@@ -192,11 +194,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
 
     // Route::get('/customers/data', [CustomerController::class, 'getCustomerData'])->name('fetch.customers_data');
-
+    Route::get('/payments/create/{order}', [PaymentController::class, 'create'])->name('payments.create');
+    Route::post('payments', [PaymentController::class, 'store'])->name('payments.store');
 
     Route::get('chart-of-accounts', [EntriesController::class, 'chart_of_account'])->name('chart-of-accounts.index');
     Route::post('chart-of-accounts/store', [EntriesController::class, 'chart_of_account_store'])->name('chart-of-accounts.store');
     Route::post('chart-of-accounts/pdf', [EntriesController::class, 'chart_of_account_pdf'])->name('chart-of-accounts.pdf');
+
+
+    Route::get('/recovery-sheet', [RecoverySheetController::class, 'index'])->name('recovery_sheet.index');
+    Route::post('/recovery-sheet/generate', [RecoverySheetController::class, 'generate'])->name('recovery.generate');
 
 
 //    Route::post('chart-of-accounts/pdf', [ChartOfAccountController::class, 'pdf'])->name('chart-of-accounts.pdf');

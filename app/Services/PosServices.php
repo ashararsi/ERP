@@ -256,9 +256,9 @@ return $pdf->download('pos_Report_'.$id.'.pdf');
                 $btn = $btn . '<a href=" ' . route("admin.pos.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
                 $btn = $btn . ' <a href="' . route("admin.pos.edit", $row->id) . '" class="ml-2 mr-2">  <i class="fas fa-edit"></i></a>';
                 $btn = $btn . ' <a href="' . route("admin.pos.pdf", $row->id) . '" class="ml-2 mr-2">  <i class="fas fa-print"></i></a>';
-                // if ($row->status !== 'paid') {
-                //     $btn .= '<a href="' . route("admin.payments.create", $row->id) . '" title="Pay" class="ms-4 me-2 text-success"><i class="fas fa-money-bill-wave"></i></a>';
-                // }
+                if ($row->status !== 'paid') {
+                    $btn .= '<a href="' . route("admin.payments.create", $row->id) . '" title="Pay" class="ms-4 me-2 text-success"><i class="fas fa-money-bill-wave"></i></a>';
+                }
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';
                 return $btn;
