@@ -13,7 +13,7 @@ class SalesOrder extends Model
         'customer_po_date', 'city', 'payment_terms', 'sales_rep_id',
         'delivery_date', 'sub_total', 'total_discount', 'total_tax',
         'advance_tax', 'net_total', 'notes', 'status','total_sale_tax','further_sale_tax','total_cal_amount'
-        ,'all_included_tax'
+        ,'all_included_tax','further_sales_tax_rate','advance_tax_rate'
     ];
 
     public function items()
@@ -30,6 +30,12 @@ class SalesOrder extends Model
     {
         return $this->belongsTo(User::class, 'sales_rep_id');
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
 
 
     public static function boot()
