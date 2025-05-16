@@ -374,16 +374,16 @@
                         <td style="padding: 5px 10px;"><strong>Total:</strong></td>
                         <td style="padding: 5px 10px; text-align: right;">{{ number_format($sale->total_cal_amount, 2) }}</td>
                     </tr>
-                    <tr>
-                        <td style="padding: 5px 10px;">Further Sales Amount:</td>
+                    <tr>  
+                        <td style="padding: 5px 10px;">Further Sales Amount @ {{ $sale->further_sales_tax_rate }} %:</td>
                         <td style="padding: 5px 10px; text-align: right;">{{ number_format($sale->further_sale_tax, 2) }}</td>
                     </tr>
                     <tr>
                         <td style="padding: 5px 10px;"><strong>Total Incl. Tax:</strong></td>
                         <td style="padding: 5px 10px; text-align: right;">{{ number_format($sale->all_included_tax, 2) }}</td>
                     </tr>
-                    <tr>
-                        <td style="padding: 5px 10px;">Advance Tax Amount:</td>
+                    <tr> 
+                        <td style="padding: 5px 10px;">Advance Tax Amount @ {{ $sale->advance_tax_rate }} %:</td>
                         <td style="padding: 5px 10px; text-align: right;">{{ number_format($sale->advance_tax, 2) }}</td>
                     </tr>
                     <tr style="border-top: 1px solid #ccc;">

@@ -125,6 +125,8 @@ class PosServices
                 'total_sale_tax' => $request->salesTax,
                 'total_cal_amount' => $request->total_cal_amount ?? 0,
                 'all_included_tax' => $request->all_included_tax,
+                'further_sales_tax_rate' => $request->further_sales_tax_rate,
+                'advance_tax_rate' => $request->advance_tax_rate,
             ]);
 
                      
@@ -235,6 +237,9 @@ return $pdf->download('pos_Report_'.$id.'.pdf');
             ->addColumn('status', function ($row) {
                 $statusClass = '';
                 switch ($row->status) {
+                    case 'paid':
+                        $statusClass = 'badge bg-success';
+                        break;
                     case 'completed':
                         $statusClass = 'status-completed';
                         break;
@@ -247,24 +252,13 @@ return $pdf->download('pos_Report_'.$id.'.pdf');
                 return '<span class="' . $statusClass . '">' . ucfirst($row->status) . '</span>';
             })
             ->addColumn('action', function ($row) {
-//                $btn = '<div class="">';
-//                $btn .= '<form method="POST" action="' . route('admin.pos.destroy', $row->id) . '">';
-//                $btn .= '<a href="' . route('admin.pos.show', $row->id) . '" class="btn     " title="View"><i class="fas fa-eye"></i></a>';
-//                $btn .= '<a href="' . route('admin.pos.edit', $row->id) . '" class="btn   " title="Edit"><i class="fas fa-edit"></i></a>';
-//                $btn .= '<a href="' . route('admin.pos.pdf', $row->id) . '" class="btn    " title="pdf"><i class="fas fa-print"></i></a>';
-//                $btn .= csrf_field();
-//                $btn .= method_field('DELETE');
-//                $btn .= '<button type="submit" class="" title="Delete" onclick="return confirm(\'Are you sure you want to delete this order?\')"><i class="fas fa-trash"></i></button>';
-//                $btn .= '</form>';
-//                $btn .= '</div>';
-//                return $btn;
-
-
                 $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.pos.destroy", $row->id) . '"> ';
                 $btn = $btn . '<a href=" ' . route("admin.pos.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
                 $btn = $btn . ' <a href="' . route("admin.pos.edit", $row->id) . '" class="ml-2 mr-2">  <i class="fas fa-edit"></i></a>';
                 $btn = $btn . ' <a href="' . route("admin.pos.pdf", $row->id) . '" class="ml-2 mr-2">  <i class="fas fa-print"></i></a>';
-//                $btn = $btn . '<button  type="submit" class="ml-2 mr-2" ><i class="fas fa-trash"></i></button>';
+                // if ($row->status !== 'paid') {
+                //     $btn .= '<a href="' . route("admin.payments.create", $row->id) . '" title="Pay" class="ms-4 me-2 text-success"><i class="fas fa-money-bill-wave"></i></a>';
+                // }
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';
                 return $btn;
