@@ -152,6 +152,7 @@ class CustomerServise
     public function importdata($request)
     {
         $sale_man = $request->sale_man;
+        // dd($sale_man);
         $file = $request->file('file');
         $path = $file->getRealPath();
         $spreadsheet = IOFactory::load($path);
@@ -220,7 +221,7 @@ class CustomerServise
                     'city_name' => $city->name,
                     'area_id' => $area->id,
                     'stn' => null,
-                    'spo_id' => optional($sale_man)->id,
+                    'spo_id' => $sale_man,
                 ]
             );
 
