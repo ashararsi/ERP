@@ -364,7 +364,7 @@
         <div style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 14px;">
             <!-- Left: Rep Person -->
             <div style="width: 35%;">
-                <p style="margin: 0 10px;"><strong>Rep Person:</strong> {{ $sale->customer->spo->name }}</p>
+                <p style="margin: 0 10px;"><strong>Rep Person:</strong> {{ $sale->customer->spo->name ?? 'N/A' }}</p>
             </div>
         
             <!-- Right: Totals -->
@@ -398,7 +398,7 @@
         
         <div class="footer-block">
             <div class="rep-person">
-                <strong>Prepared By:</strong> {!! $sale->salesRep->name !!}
+                <strong>Prepared By:</strong> {!! $sale->salesRep->name ?? 'N/A' !!}
             </div>
         
             <div class="footer-container">
