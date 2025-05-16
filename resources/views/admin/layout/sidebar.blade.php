@@ -492,6 +492,18 @@
                                 </li>
                             @endcan
 
+                            <li class="slide has-sub {{ request()->is('admin/recovery-sheet*') ? 'open' : '' }}">
+                                <a href="javascript:void(0);" class="side-menu__item">Recovery Sheet
+                                    <i class="fe fe-chevron-right side-menu__angle"></i>
+                                </a>
+                                <ul class="slide-menu child2">
+                                    <li class="slide {{ request()->routeIs('admin.recovery_sheet.index') ? 'active' : '' }}">
+                                        <a href="{!! route('admin.recovery_sheet.index') !!}" class="side-menu__item">Generate</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
                         </ul>
                     </li>
                 @endcanany

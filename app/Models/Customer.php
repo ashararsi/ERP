@@ -19,6 +19,11 @@ class Customer extends Model
         return $this->belongsTo(User::class, 'agent_id');
     }
 
+    public function salesOrders()
+    {
+        return $this->hasMany(SalesOrder::class);
+    }
+
     // public static function boot()
     // {
     //     parent::boot();
