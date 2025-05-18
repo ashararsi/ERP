@@ -205,6 +205,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::get('/recovery-sheet', [RecoverySheetController::class, 'index'])->name('recovery_sheet.index');
     Route::post('/recovery-sheet/generate', [RecoverySheetController::class, 'generate'])->name('recovery.generate');
 
+    Route::post('/get-areas-by-cities', [UserController::class, 'getAreasByCities'])->name('get-areas-by-cities');
+
 
 //    Route::post('chart-of-accounts/pdf', [ChartOfAccountController::class, 'pdf'])->name('chart-of-accounts.pdf');
 //    Route::get('bank-loan-details/{id}', [BankLoanController::class, 'show'])->name('bank-loan-details');
