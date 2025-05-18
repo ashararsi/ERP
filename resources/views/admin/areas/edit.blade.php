@@ -37,7 +37,7 @@
                                 </div>
 
                                 <!-- Company -->
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="form-group">
                                         <label for="company_id">Company</label>
                                         <select name="company_id" class="form-control" required>
@@ -45,6 +45,20 @@
                                             @foreach ($companies as $company)
                                                 <option value="{{ $company->id }}" {{ old('company_id', $area->company_id) == $company->id ? 'selected' : '' }}>
                                                     {{ $company->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div> --}}
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="city_id">City</label>
+                                        <select name="city_id" class="form-control" required>
+                                            <option value="">Select City</option>
+                                            @foreach ($cities as $item)
+                                                <option value="{{ $item->id }}" {{ old('city_id', $area->city_id) == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->name }}
                                                 </option>
                                             @endforeach
                                         </select>

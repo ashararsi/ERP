@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\City;
 use App\Models\Company;
 use App\Services\AreaService;
 use Illuminate\Http\Request;
@@ -30,7 +31,8 @@ class AreaController extends Controller
     public function create()
     {
         $companies = Company::all();
-        return view('admin.areas.create', compact('companies'));
+        $cities = City::all();
+        return view('admin.areas.create', compact('companies','cities'));
     }
 
     public function store(Request $request)
@@ -53,7 +55,8 @@ class AreaController extends Controller
         try {
             $area = $this->areaService->find($id);
             $companies = Company::all();
-            return view('admin.areas.edit', compact('area', 'companies'));
+            $cities = City::all();
+            return view('admin.areas.edit', compact('area', 'companies','cities'));
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -62,7 +65,7 @@ class AreaController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $this->areaService->update($request, $id);
+            $this->areaService->update($id, $request->all());
             return redirect()->route('admin.areas.index')->with('success', 'Area updated successfully.');
         } catch (\Exception $e) {
             return back()->withInput()->with('error', $e->getMessage());
