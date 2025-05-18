@@ -5,99 +5,107 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            font-size: 9px;
-            line-height: 1.1;
+            font-size: 10px;
+            line-height: 1.3;
+            margin: 0;
         }
 
         .header {
+            display: flex;
+            /* align-items: center; */
+            /* margin-bottom: 15px; */
+            /* padding: 10px; */
+            border-bottom: 1px solid #eee;
+        }
+
+        .header img {
+            height: 60px;
+            width: auto;
+            /* flex-shrink: 0; */
+        }
+
+        .header .title {
+            /* flex-grow: 1; */
             text-align: center;
-            margin-bottom: 10px;
         }
 
         .header h2 {
-            margin: 0;
-            font-size: 14px;
-            font-weight: bold;
+            margin: 0 0 5px 0;
+            font-size: 16px;
         }
 
         .header p {
             margin: 2px 0;
-            font-size: 9px;
         }
 
-        .table-container {
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 0 10px;
+        }
+
+        .table-wrapper {
+            width: 100%;
             overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 5px;
-            font-size: 9px;
+            margin-top: 10px;
         }
 
         th,
         td {
-            border: 1px solid #ddd;
-            padding: 4px 5px;
+            border: 1px solid #ccc;
+            padding: 6px 8px;
             text-align: left;
-            vertical-align: top;
         }
 
         thead {
-            background-color: #f9f9f9;
+            background-color: #87CEEB;
+            color: #000000;
         }
 
-        thead th {
+        tfoot td {
             font-weight: bold;
-            text-transform: uppercase;
-            border-bottom: 2px solid #ccc;
-        }
-
-        tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        .grand-total {
-            margin-top: 10px;
-            font-weight: bold;
-            text-align: right;
-            font-size: 10px;
         }
 
         .print-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
             text-align: right;
-            font-size: 8px;
-            padding: 5px 10px;
-            border-top: 1px solid #eee;
-            color: #777;
+            font-size: 9px;
+            margin-top: 20px;
+            color: #555;
+            padding: 0 10px;
         }
 
-        .no-wrap {
+        .nowrap {
             white-space: nowrap;
         }
 
         .address-cell {
+            max-width: 300px;
             word-wrap: break-word;
-            max-width: 150px;
         }
     </style>
 </head>
 
 <body>
-
     <div class="header">
-        <h2>Lasani Pharma (Pvt.) Ltd.</h2>
-        <h2>Recovery Sheet</h2>
-        <p class="no-wrap">Date: {{ $start->format('d/m/Y') }} - {{ $end->format('d/m/Y') }}</p>
-        <p class="no-wrap">Sales Person: {{ $salesPerson->name }} ({{ $salesPerson->phone ?? 'N/A' }})</p>
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('logo.png'))) }}" alt="Company Logo">
+        <div class="title">
+            <h2>Lasani Pharma (Pvt.) Ltd.</h2>
+            <h2>Recovery Sheet</h2>
+            <p class="nowrap">Date: {{ $start->format('d/m/Y') }} - {{ $end->format('d/m/Y') }}</p>
+        </div>
     </div>
 
-    <div class="table-container">
+    <div class="info-row">
+        <div>Sales Person: {{ $salesPerson->name }} ({{ $salesPerson->phone ?? 'N/A' }})</div>
+    </div>
+
+    <div class="table-wrapper">
         <table>
             <thead>
                 <tr>
@@ -107,46 +115,45 @@
                     <th>Date</th>
                     <th>Amount</th>
                     <th>Paid</th>
-                    <th>Rem.</th>
+                    <th>Remaining</th>
                 </tr>
             </thead>
             <tbody>
                 @php $grandTotal = 0; $counter = 1; @endphp
                 @foreach($customers as $customer)
-                @foreach($customer->salesOrders as $order)
-                @php
-                $paid = $order->payments->sum('amount');
-                $pending = $order->net_total - $paid;
-                $grandTotal += $pending;
-                @endphp
-                <tr>
-                    <td>{{ $counter++ }}</td>
-                    <td class="address-cell">{{ $customer->name }} <br> {{ $customer->address ?? '-' }}</td>
-                    <td class="no-wrap">{{ $order->order_number }}</td>
-                    <td class="no-wrap">{{ \Carbon\Carbon::parse($order->order_date)->format('d/m/Y') }}</td>
-                    <td class="no-wrap">{{ number_format($order->net_total, 2) }}</td>
-                    <td class="no-wrap"> {{ number_format($paid, 2) }}</td>                   
-                    <td class="no-wrap">{{ number_format($pending, 2) }}</td>
-                </tr>
-                @endforeach
+                    @foreach($customer->salesOrders as $order)
+                        @php
+                            $paid = $order->payments->sum('amount');
+                            $pending = $order->net_total - $paid;
+                            $grandTotal += $pending;
+                        @endphp
+                        <tr>
+                            <td>{{ $counter++ }}</td>
+                            <td class="address-cell">
+                                {{ $customer->name }}<br>
+                                {{ $customer->address ?? '-' }}
+                            </td>
+                            <td class="nowrap">{{ $order->order_number }}</td>
+                            <td class="nowrap">{{ \Carbon\Carbon::parse($order->order_date)->format('d/m/Y') }}</td>
+                            <td class="nowrap">{{ number_format($order->net_total, 2) }}</td>
+                            <td class="nowrap">{{ number_format($paid, 2) }}</td>
+                            <td class="nowrap">{{ number_format($pending, 2) }}</td>
+                        </tr>
+                    @endforeach
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4" style="text-align: right; font-weight: bold;">Grand Total Pending:</td>
-                    <td style="font-weight: bold;">{{ number_format($grandTotal, 2) }}</td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="6" style="text-align: right;">Grand Total Pending:</td>
+                    <td>{{ number_format($grandTotal, 2) }}</td>
                 </tr>
             </tfoot>
         </table>
     </div>
 
     <div class="print-footer">
-        <span class="no-wrap">Printing Date: {{ \Carbon\Carbon::now()->format('d/m/Y') }}</span> |
-        <span class="no-wrap">Printed By: {{ auth()->user()->name ?? 'System' }}</span>
+        Printing Date: {{ \Carbon\Carbon::now()->format('d/m/Y') }} | Printed By: {{ auth()->user()->name ?? 'System' }}
     </div>
-
 </body>
 
 </html>
