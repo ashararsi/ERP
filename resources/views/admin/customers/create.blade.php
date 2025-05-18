@@ -146,9 +146,23 @@
                               {{-- City Name --}}
                               <div class="col-md-6">
                                 <div class="input-label">
-                                    <label>City Name</label>
+                                    <label>Select City</label>
                                 </div>
-                                <input type="text" class="form-control" name="city_name" value="{{ old('city_name') }}">
+                                <select name="city_id" id="city_id" class="form-control">
+                                    <option value="">Select a city</option>
+                                    @foreach($cities as $city)
+                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label for="area_id">Select Area</label>
+                                    <select name="area_id" id="area_id" class="form-control" required>
+                                        <option value="">Select area</option>
+                                        {{-- Will be populated by JS --}}
+                                    </select>
                             </div>
 
                             {{-- NTN --}}
@@ -322,6 +336,34 @@
 
 
     </script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#city_id').on('change', function () {
+            const cityId = $(this).val();
+            $('#area_id').html('<option value="">Loading...</option>');
+            const getAreasUrl = "{{ route('admin.get-areas', ['city' => 'CITY_ID']) }}";
+
+            if (cityId) {
+                $.ajax({
+                    url: getAreasUrl.replace('CITY_ID', cityId),
+                    method: 'GET',
+                    success: function (data) {
+                        let options = '<option value="">Select area</option>';
+                        data.forEach(function (area) {
+                            options += `<option value="${area.id}">${area.name}</option>`;
+                        });
+                        $('#area_id').html(options);
+                    }
+                });
+            } else {
+                $('#area_id').html('<option value="">Select area</option>');
+            }
+        });
+    });
+</script>
+
 @stop
 
 

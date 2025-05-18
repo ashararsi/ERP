@@ -31,7 +31,7 @@
                     <table class="table table-bordered" id="pos-orders-table">
                         <thead>
                         <tr>
-                            <th>Order #</th>
+                            <th>invoice #</th>
                             <th>Date</th>
                             <th>Customer</th>
                             <th>Items</th>
@@ -81,7 +81,7 @@
                 }
             },
             columns: [
-                {data: 'order_number', name: 'order_number'},
+                {data: 'invoice_number', name: 'invoice_number'},
                 {data: 'order_date', name: 'order_date'},
                 {data: 'customer', name: 'customer'},
                 {data: 'items_count', name: 'items_count'},

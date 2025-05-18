@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
+use App\Models\City;
 use App\Models\Customer;
 use App\Models\User;
 use App\Services\CustomerServise;
@@ -30,8 +32,9 @@ class CustomerController extends Controller
      */
     public function create()
     {
+        $cities = City::all();
         $spos = User::role('SPO')->get();
-        return view('admin.customers.create', compact('spos'));
+        return view('admin.customers.create', compact('spos','cities'));
     }
 
     /**
@@ -64,7 +67,11 @@ class CustomerController extends Controller
         try {
             $spos = User::role('SPO')->get();
             $customer = $this->CustomerServise->edit($id);
-            return view('admin.customers.edit', compact('customer', 'spos'));
+            $cities = City::all();
+
+            $areas = Area::where('city_id', $customer->city_id)->get();
+
+            return view('admin.customers.edit', compact('customer', 'spos','areas','cities'));
         } catch (\Exception $exception) {
             return redirect()->route('admin.customers.index');
         }

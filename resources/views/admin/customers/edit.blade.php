@@ -89,12 +89,43 @@
                                 </div>
                             </div>
                              {{-- City Name --}}
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="input-label">
                                     <label>City Name</label>
                                 </div>
                                 <input type="text" class="form-control" name="city_name" value="{{ $customer->city_name }}">
+                            </div> --}}
+
+                            <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>City</label>
+                                </div>
+                                <select name="city_id" id="city-dropdown" class="form-control" required>
+                                    <option value="">Select City</option>
+                                    @foreach($cities as $city)
+                                        <option value="{{ $city->id }}" {{ $customer->city_id == $city->id ? 'selected' : '' }}>
+                                            {{ $city->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="input-label">
+                                    <label>Area</label>
+                                </div>
+                                <select name="area_id" id="area-dropdown" class="form-control" required>
+                                    <option value="">Select Area</option>
+                                    @if($areas)
+                                        @foreach($areas as $area)
+                                            <option value="{{ $area->id }}" {{ $customer->area_id == $area->id ? 'selected' : '' }}>
+                                                {{ $area->name }}
+                                            </option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            
 
                             {{-- NTN --}}
                             <div class="col-md-6">
@@ -140,3 +171,32 @@
         </div>
     </div>
 @stop
+
+@section('js')
+
+<script>
+    $(document).ready(function () {
+        $('#city-dropdown').on('change', function () {
+            var cityId = $(this).val();
+            $('#area-dropdown').html('<option value="">Loading...</option>');
+            const getAreasUrl = "{{ route('admin.get-areas', ['city' => 'CITY_ID']) }}";
+
+            if (cityId) {
+                $.ajax({
+                    url: getAreasUrl.replace('CITY_ID', cityId),
+                    type: 'GET',
+                    success: function (data) {
+                        let options = '<option value="">Select Area</option>';
+                        $.each(data, function (key, area) {
+                            options += '<option value="' + area.id + '">' + area.name + '</option>';
+                        });
+                        $('#area-dropdown').html(options);
+                    }
+                });
+            } else {
+                $('#area-dropdown').html('<option value="">Select Area</option>');
+            }
+        });
+    });
+</script>
+@endsection

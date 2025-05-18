@@ -92,4 +92,10 @@ class AreaController extends Controller
         $areas = Area::where('company_id', $request->company_id)->get(['id', 'name']);
         return response()->json($areas);
     }
+
+    public function getByCity($cityId)
+    {
+        $areas = Area::where('city_id', $cityId)->get(['id', 'name']);
+        return response()->json($areas);
+    }
 }
