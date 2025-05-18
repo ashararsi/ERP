@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  * Author: Aziz
@@ -22,7 +23,7 @@ class BaseService
         return $this->model::latest()->get();
     }
 
-    public function store(array $data): Model
+    public function store(array $data): Model|Collection
     {
         return $this->model->create($data);
     }
