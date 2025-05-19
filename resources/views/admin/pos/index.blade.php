@@ -23,19 +23,29 @@
                             <label for="end_date">End Date</label>
                             <input type="date" id="end_date" class="form-control">
                         </div>
+                        <div class="col-md-3">
+                            <label for="payment_status">Payment Status</label>
+                            <select id="payment_status" class="form-control">
+                                <option value="">All</option>
+                                <option value="paid">Paid</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
                         <div class="col-md-3 d-flex align-items-end gap-2">
                             <button id="filter" class="btn btn-primary mr-2">Filter</button>
                             <button id="clear" class="btn btn-secondary">Clear</button>
                         </div>
                     </div>
+                    
                     <table class="table table-bordered" id="pos-orders-table">
                         <thead>
                         <tr>
-                            <th>Order #</th>
+                            <th>invoice #</th>
                             <th>Date</th>
                             <th>Customer</th>
                             <th>Items</th>
                             <th>Total Amount</th>
+                            <th>Remaining</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -77,15 +87,18 @@
                 data: function (d) {
                     d._token = "{{ csrf_token() }}";
                     d.start_date = $('#start_date').val();
-                    d.end_date = $('#end_date').val();
+                    d.end_date = $('#end_date').val();       
+                    d.payment_status = $('#payment_status').val();
+
                 }
             },
             columns: [
-                {data: 'order_number', name: 'order_number'},
+                {data: 'invoice_number', name: 'invoice_number'},
                 {data: 'order_date', name: 'order_date'},
                 {data: 'customer', name: 'customer'},
                 {data: 'items_count', name: 'items_count'},
                 {data: 'net_total', name: 'net_total'},
+                {data: 'remaining_amount', name: 'remaining_amount'},                
                 {
                     data: 'status',
                     name: 'status',
@@ -129,6 +142,7 @@
         $('#clear').on('click', function () {
             $('#start_date').val('');
             $('#end_date').val('');
+            $('#payment_status').val('');
             table.ajax.reload();
         });
 

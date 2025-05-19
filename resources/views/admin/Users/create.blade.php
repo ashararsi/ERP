@@ -37,7 +37,7 @@
                                             <select required id="role"  name="role[]" multiple class="form-control select">
                                                 <option value="" disabled>Select Option</option>
                                                 @foreach($roles as $item)
-                                                    <option value="{!! $item->id !!}">{!! $item->name !!}</option>
+                                                    <option value="{!! $item->id !!}" data-name="{{ $item->name }}">{!! $item->name !!}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -124,32 +124,31 @@
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <div class="input-label">
+                                                    <label>City</label>
+                                                </div>
+                                                <select name="city_id[]" id="city-select" class="form-control" multiple>
+                                                    @foreach($cities as $city)
+                                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                    @endforeach
+                                                </select>                                             
+                                            </div>
+                                        </div>
                                         
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <div class="input-label">
                                                     <label>Area</label>
                                                 </div>
-                                                <select name="area_id" class="form-control" id="area-select">
+                                                <select name="area_id[]" id="area-select" class="form-control" multiple>
                                                     <option value="">Select Area</option>
-                                                    {{-- Initially empty; will be filled dynamically --}}
-                                                </select>
+                                                </select>                                                
                                             </div>
                                         </div>
                                         
-                                        <div class="col-4">
-                                            <div class="form-group">
-                                                <div class="input-label">
-                                                    <label>City</label>
-                                                </div>
-                                                <select name="city_id" class="form-control">
-                                                    <option value="">Select City</option>
-                                                    @foreach($cities as $city)
-                                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 
@@ -182,12 +181,18 @@
 
     <script>
         $(document).ready(function () {
-            const spoRoleId = '14'; //keep it hard for now
+            const targetRoleName = 'Spo';
     
             $('#role').on('change', function () {
-                const selectedRoles = $(this).val() || [];
+                let showSpoFields = false;
     
-                if (selectedRoles.includes(spoRoleId)) {
+                $('#role option:selected').each(function () {
+                    if ($(this).data('name') === targetRoleName) {
+                        showSpoFields = true;
+                    }
+                });
+    
+                if (showSpoFields) {
                     $('#spo-fields').show();
                 } else {
                     $('#spo-fields').hide();
@@ -197,35 +202,50 @@
             $('#role').trigger('change');
         });
     </script>
+    
+    
     <script>
         $(document).ready(function () {
-            $('#company-select').on('change', function () {
-                let companyId = $(this).val();
+            $('#city-select').select2({
+                placeholder: "Select Cities"
+            });
     
-                $('#area-select').empty().append('<option value="">Loading...</option>');
-    
-                if (companyId) {
-                    $.ajax({
-                        url: '{{ route('admin.areas.byCompany') }}',
-                        type: 'GET',
-                        data: { company_id: companyId },
-                        success: function (data) {
-                            $('#area-select').empty().append('<option value="">Select Area</option>');
-                            $.each(data, function (key, value) {
-                                $('#area-select').append('<option value="' + value.id + '">' + value.name + '</option>');
-                            });
-                        },
-                        error: function () {
-                            $('#area-select').empty().append('<option value="">Error loading</option>');
-                        }
-                    });
-                } else {
-                    $('#area-select').empty().append('<option value="">Select Area</option>');
-                }
+            $('#area-select').select2({
+                placeholder: "Select Area"
             });
         });
     </script>
     
+    <script>
+        $(document).ready(function () {
+            $('#city-select').on('change', function () {
+                const cityIds = $(this).val();
+    
+                // if (!cityIds.length) {
+                //     $('#area-select').html('<option value="">Select Area</option><option value="all">All</option>');
+                //     return;
+                // }
+    
+                $.ajax({
+                    url: '{{ route("admin.get-areas-by-cities") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        city_ids: cityIds
+                    },
+                    success: function (areas) {
+                        let options = '<option value="">Select Area</option><option value="all">All</option>';
+    
+                        areas.forEach(function (area) {
+                            options += `<option value="${area.id}">${area.name}</option>`;
+                        });
+    
+                        $('#area-select').html(options);
+                    }
+                });
+            });
+        });
+    </script>
     
 @endsection
 

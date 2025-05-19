@@ -142,7 +142,7 @@
         }
         .table th {
             background-color: #f0f0f0;
-            font-weight: bold;
+            font-weight: 100;
         }
         .table th:nth-child(1), .table td:nth-child(1) { width: 4%; }
         .table th:nth-child(2), .table td:nth-child(2) { width: 8%; }
@@ -331,31 +331,31 @@
                         <td>@if($item->product) {!! $item->product->name !!} @endif</td>
                         <td>@if($item->batch) {!! $item->batch->batch_code !!} @endif</td>
                         <td>{!! $item->quantity !!}</td>
-                        <td>{!! $item->rate !!}</td>
-                        <td>{!! $item->amount !!}</td>
-                        <td>{!! $item->trade_discount !!}</td>
-                        <td>{!! $item->special_discount !!}</td>
-                        <td>{!! $item->scheme_discount !!}</td>
-                        <td>{!! number_format($item->tp_amount,2) !!}</td>
-                        <td>{!! number_format($item->tp_amount * $item->quantity,2) !!}</td>
-                        <td>{!! $item->tax_amount !!}</td>
-                        <td>{!! number_format($item->includedAmt ,2) !!}</td>
+                        <td>{!! number_format($item->rate) !!}</td>
+                        <td>{!! number_format($item->amount) !!}</td>
+                        <td>{!! number_format($item->trade_discount) !!}</td>
+                        <td>{!! number_format($item->special_discount) !!}</td>
+                        <td>{!! number_format($item->scheme_discount) !!}</td>
+                        <td>{!! number_format($item->tp_amount) !!}</td>
+                        <td>{!! number_format($item->tp_amount * $item->quantity) !!}</td>
+                        <td>{!! number_format($item->tax_amount) !!}</td>
+                        <td>{!! number_format($item->includedAmt) !!}</td>
                     </tr>
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <th colspan="4" style="text-align: right;">Totals</th>
-                    <th>{{ number_format($sale->items->sum('quantity'), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum('quantity')) }}</th>
                     <th>-</th>
-                    <th>{{ number_format($sale->items->sum('amount'), 2) }}</th>
-                    <th>{{ number_format($sale->items->sum('trade_discount'), 2) }}</th>
-                    <th>{{ number_format($sale->items->sum('special_discount'), 2) }}</th>
-                    <th>{{ number_format($sale->items->sum('scheme_discount'), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum('amount')) }}</th>
+                    <th>{{ number_format($sale->items->sum('trade_discount')) }}</th>
+                    <th>{{ number_format($sale->items->sum('special_discount')) }}</th>
+                    <th>{{ number_format($sale->items->sum('scheme_discount')) }}</th>
                     <th>-</th>
-                    <th>{{ number_format($sale->items->sum(fn($i) => $i->tp_amount * $i->quantity), 2) }}</th>
-                    <th>{{ number_format($sale->items->sum('tax_amount'), 2) }}</th>
-                    <th>{{ number_format($sale->items->sum('includedAmt'), 2) }}</th>
+                    <th>{{ number_format($sale->items->sum(fn($i) => $i->tp_amount * $i->quantity)) }}</th>
+                    <th>{{ number_format($sale->items->sum('tax_amount')) }}</th>
+                    <th>{{ number_format($sale->items->sum('includedAmt')) }}</th>
                 </tr>
                 
             </tfoot>
@@ -372,7 +372,7 @@
                 <table style="width: 100%; border-collapse: collapse;">
                     <tr>
                         <td style="padding: 5px 10px;"><strong>Total:</strong></td>
-                        <td style="padding: 5px 10px; text-align: right;">{{ number_format($sale->total_cal_amount, 2) }}</td>
+                        <td style="padding: 5px 10px; text-align: right;">{{ number_format($sale->total_cal_amount) }}</td>
                     </tr>
                     <tr>  
                         <td style="padding: 5px 10px;">Further Sales Amount @ {{ $sale->further_sales_tax_rate }} %:</td>

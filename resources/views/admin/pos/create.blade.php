@@ -13,8 +13,8 @@
                 <div class="row g-3">
                     <div class="col-md-3">
                         <label for="sOrdNo" class="form-label required-field">Order Number</label>
-                        <input type="text" class="form-control" id="sOrdNo" name="sOrdNo" value="32017" required
-                               readonly>
+                        <input type="text" class="form-control" id="sOrdNo" name="sOrdNo" required
+                        >
                     </div>
                     <div class="col-md-3">
                         <label for="sOrdDate" class="form-label required-field">Order Date</label>

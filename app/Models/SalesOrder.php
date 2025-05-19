@@ -38,14 +38,23 @@ class SalesOrder extends Model
 
 
 
+    // public static function boot()
+    // {
+    //     parent::boot();
+    //     static::creating(function ($order) {
+    //         $lastOrder = self::orderBy('id', 'desc')->first();
+    //         $nextNumber = $lastOrder ? ((int) str_replace('SO-', '', $lastOrder->order_number)) + 1 : 1;
+    //         $order->invoice_number = 'SO-' . str_pad($nextNumber, 6, '0', STR_PAD_LEFT);
+    //     });
+    // }public static function boot()
+    
     public static function boot()
     {
         parent::boot();
 
-        static::creating(function ($order) {
-            $lastOrder = self::orderBy('id', 'desc')->first();
-            $nextNumber = $lastOrder ? ((int) str_replace('SO-', '', $lastOrder->order_number)) + 1 : 1;
-            $order->order_number = 'SO-' . str_pad($nextNumber, 6, '0', STR_PAD_LEFT);
+        static::creating(function ($model) {
+            $latestId = static::max('id') + 1;
+            $model->invoice_number = 'INV-' . str_pad($latestId, 6, '0', STR_PAD_LEFT);
         });
     }
 }

@@ -497,6 +497,9 @@
                                     <i class="fe fe-chevron-right side-menu__angle"></i>
                                 </a>
                                 <ul class="slide-menu child2">
+                                    <li class="slide {{ request()->routeIs('admin.recovery_sheet.list_filters') ? 'active' : '' }}">
+                                        <a href="{!! route('admin.recovery_sheets.list') !!}" class="side-menu__item">List</a>
+                                    </li>
                                     <li class="slide {{ request()->routeIs('admin.recovery_sheet.index') ? 'active' : '' }}">
                                         <a href="{!! route('admin.recovery_sheet.index') !!}" class="side-menu__item">Generate</a>
                                     </li>

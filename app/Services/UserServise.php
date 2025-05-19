@@ -72,13 +72,21 @@ class UserServise
 
     public function createSpoUser($user, $request)
     {
-        UserLocationAssignment::create([
-            'user_id' => $user->id,
-            'company_id' => $request->company_id,
-            'area_id' => $request->area_id,
-            'city_id' => $request->city_id,
-        ]);
+        $cityIds = $request->city_id;  // assuming it's an array
+        $areaIds = $request->area_id;  // assuming it's an array
+    
+        foreach ((array) $cityIds as $cityId) {
+            foreach ((array) $areaIds as $areaId) {
+                UserLocationAssignment::create([
+                    'user_id' => $user->id,
+                    'company_id' => $request->company_id,
+                    'city_id' => $cityId,
+                    'area_id' => $areaId,
+                ]);
+            }
+        }
     }
+    
 
     public function user_deactive($id)
     {

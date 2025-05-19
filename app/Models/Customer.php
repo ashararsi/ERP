@@ -12,7 +12,7 @@ class Customer extends Model
     protected $table = 'customers';
 
     protected $fillable = ['name', 'email', 'phone', 'address', 'created_by', 'agent_id', 'status'
-        ,'cnic','ntn','city_name','customer_code','stn','spo_id'];
+        ,'cnic','ntn','city_name','customer_code','stn','spo_id','city_id','area_id'];
 
     public function agent()
     {

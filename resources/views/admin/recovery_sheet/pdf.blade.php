@@ -114,7 +114,8 @@
                     <th>Bill #</th>
                     <th>Date</th>
                     <th>Amount</th>
-                    <th>Paid</th>
+                    <th>Collect</th>
+                    <th>Less</th>
                     <th>Remaining</th>
                 </tr>
             </thead>
@@ -135,9 +136,10 @@
                             </td>
                             <td class="nowrap">{{ $order->order_number }}</td>
                             <td class="nowrap">{{ \Carbon\Carbon::parse($order->order_date)->format('d/m/Y') }}</td>
-                            <td class="nowrap">{{ number_format($order->net_total, 2) }}</td>
-                            <td class="nowrap">{{ number_format($paid, 2) }}</td>
                             <td class="nowrap">{{ number_format($pending, 2) }}</td>
+                            <td class="nowrap"></td>
+                            <td class="nowrap"></td>
+                            <td class="nowrap"></td>
                         </tr>
                     @endforeach
                 @endforeach
@@ -146,6 +148,7 @@
                 <tr>
                     <td colspan="6" style="text-align: right;">Grand Total Pending:</td>
                     <td>{{ number_format($grandTotal, 2) }}</td>
+                    <td class="nowrap"></td>
                 </tr>
             </tfoot>
         </table>

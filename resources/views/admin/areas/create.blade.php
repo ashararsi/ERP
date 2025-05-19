@@ -30,20 +30,37 @@
                                 <!-- Name -->
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="name">Area Name</label>
+                                        <label for="name">
+                                            Area Name
+                                            <small class="text-muted">(you can add multiple, separated by commas e.g. Area1, Area2)</small>
+                                        </label>
                                         <input type="text" required class="form-control" name="name" value="{{ old('name') }}">
                                     </div>
                                 </div>
 
                                 <!-- Company -->
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="form-group">
                                         <label for="company_id">Company</label>
-                                        <select name="company_id" class="form-control" required>
+                                        <select name="company_id" class="form-control">
                                             <option value="">Select Company</option>
                                             @foreach ($companies as $company)
                                                 <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>
                                                     {{ $company->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div> --}}
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="city_id">City</label>
+                                        <select name="city_id" class="form-control" required>
+                                            <option value="">Select City</option>
+                                            @foreach ($cities as $item)
+                                                <option value="{{ $item->id }}" {{ old('city_id') == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->name }}
                                                 </option>
                                             @endforeach
                                         </select>

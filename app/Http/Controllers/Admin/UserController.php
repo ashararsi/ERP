@@ -174,4 +174,11 @@ class UserController extends Controller
         Session::flash('alert-class', 'bg-froly');
         return redirect()->route('admin.users.index');
     }
+
+
+    public function getAreasByCities(Request $request)
+    {
+        $areas = Area::whereIn('city_id', $request->city_ids)->get(['id', 'name']);
+        return response()->json($areas);
+    }
 }

@@ -201,10 +201,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::post('chart-of-accounts/store', [EntriesController::class, 'chart_of_account_store'])->name('chart-of-accounts.store');
     Route::post('chart-of-accounts/pdf', [EntriesController::class, 'chart_of_account_pdf'])->name('chart-of-accounts.pdf');
 
-
+    Route::get('/recovery-sheets/filters', [RecoverySheetController::class, 'listStoredFilters'])->name('recovery_sheets.list');
+    Route::post('/recovery-sheets/filters-data', [RecoverySheetController::class, 'filtersData'])->name('recovery_sheets.data');
+    
     Route::get('/recovery-sheet', [RecoverySheetController::class, 'index'])->name('recovery_sheet.index');
-    Route::post('/recovery-sheet/generate', [RecoverySheetController::class, 'generate'])->name('recovery.generate');
+    Route::post('/recovery-sheet/generate', [RecoverySheetController::class, 'generate'])->name('recovery_sheet.generate');
 
+    Route::post('/get-areas-by-cities', [UserController::class, 'getAreasByCities'])->name('get-areas-by-cities');
+    Route::post('/recovery/get-locations', [RecoverySheetController::class, 'getLocations'])->name('recovery.getLocations');
+    Route::get('/get-areas/{city}', [AreaController::class, 'getByCity'])->name('get-areas');
+
+    Route::get('/recovery-sheets/generate', [RecoverySheetController::class, 'generateRecvoerySheet'])->name('recovery_sheets_data.generate');
 
 //    Route::post('chart-of-accounts/pdf', [ChartOfAccountController::class, 'pdf'])->name('chart-of-accounts.pdf');
 //    Route::get('bank-loan-details/{id}', [BankLoanController::class, 'show'])->name('bank-loan-details');
