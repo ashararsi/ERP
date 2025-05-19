@@ -18,27 +18,27 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'sales_order_id' => 'required|exists:sales_orders,id',
             'amount' => 'required|numeric|min:0.01',
             'payment_date' => 'required|date',
         ]);
 
-        $sale = SalesOrder::with('customer')->findOrFail($request->sales_order_id);
-
         $sale = SalesOrder::with('customer', 'payments')->findOrFail($request->sales_order_id);
+
+        $alreadyPaid = $sale->payments->sum('amount');
+        $newPaymentAmount = $request->amount;
+        $remainingAmount = max($sale->net_total - ($alreadyPaid + $newPaymentAmount), 0);
 
         $payment = Payment::create([
             'sales_order_id' => $sale->id,
             'customer_id' => $sale->customer->id,
-            'amount' => $request->amount,
+            'amount' => $newPaymentAmount,
             'payment_date' => $request->payment_date,
+            'remaining_amount' => $remainingAmount,
         ]);
 
-        $totalPaid = $sale->payments->sum('amount') + $payment->amount;
-
-        if ($totalPaid >= $sale->net_total) {
+        if (($alreadyPaid + $newPaymentAmount) >= $sale->net_total) {
             $sale->update(['status' => 'paid']);
         }
 

@@ -2,44 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
-use App\Models\User;
-use Carbon\Carbon;
+use App\Services\RecoverySheetService;
 use Illuminate\Http\Request;
 use PDF;
 
-
 class RecoverySheetController extends Controller
 {
+    protected $service;
+
+    public function __construct(RecoverySheetService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-       
-        $salesPersons =  User::with('roles')
-        ->select('id', 'email', 'name')
-        ->orderBy('id', 'desc')
-        ->whereHas('roles', function ($query) {
-            $query->where('name', 'Spo');
-        })->get();;
+        $salesPersons = $this->service->getSalesPersons();
         return view('admin.recovery_sheet.index', compact('salesPersons'));
     }
 
     public function generate(Request $request)
     {
-        $start = Carbon::parse($request->start_date)->startOfDay();
-        $end = Carbon::parse($request->end_date)->endOfDay();
+        $data = $this->service->generateData($request->all());
 
-        $customers = Customer::where('spo_id', $request->sales_person_id)
-            ->with(['salesOrders' => function ($query) use ($start, $end) {
-                $query->whereBetween('order_date', [$start, $end])->with('payments');
-            }])
-            ->get()
-            ->filter(function ($customer) {
-                return $customer->salesOrders->isNotEmpty();
-            });
+        $pdf = PDF::loadView('admin.recovery_sheet.pdf', [
+            'customers' => $data['customers'],
+            'salesPerson' => $data['salesPerson'],
+            'start' => $data['start'],
+            'end' => $data['end'],
+        ]);
 
-        $salesPerson = User::find($request->sales_person_id);
+        return $pdf->stream('RecoverySheet_' . $data['salesPerson']->name . '.pdf');
+    }
 
-        $pdf = PDF::loadView('admin.recovery_sheet.pdf', compact('customers', 'salesPerson', 'start', 'end'));
-        return $pdf->download('RecoverySheet_' . $salesPerson->name . '.pdf');
+    public function getLocations(Request $request)
+    {
+        $salesPersonIds = $request->sales_person_ids;
+        $data = $this->service->getLocations($salesPersonIds);
+
+        return response()->json([
+            'cities' => $data['cities'],
+            'areas' => $data['areas'],
+        ]);
+    }
+
+    public function listStoredFilters()
+    {
+        return view('admin.recovery_sheet.list_filters');
+    }
+
+
+    public function filtersData(Request $request)
+    {
+        return $this->service->getFiltersDataTable();
+    }
+
+        public function generateRecvoerySheet(Request $request)
+    {
+        $filters =    $request->query();
+        $data = $this->service->generateData($request->all());
+
+        $pdf = PDF::loadView('admin.recovery_sheet.pdf', [
+            'customers' => $data['customers'],
+            'salesPerson' => $data['salesPerson'],
+            'start' => $data['start'],
+            'end' => $data['end'],
+        ]);
+
+        return $pdf->stream('RecoverySheet_' . $data['salesPerson']->name . '.pdf');
     }
 }

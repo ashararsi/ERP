@@ -204,7 +204,7 @@ return $pdf->download('pos_Report_'.$id.'.pdf');
 
     public function getdata($request)
     {
-        $orders = SalesOrder::with(['customer'])
+        $orders = SalesOrder::with(['customer','payments'])
             ->select([
                 'sales_orders.*',
                 DB::raw('(SELECT COUNT(*) FROM sales_order_items WHERE sales_order_items.sales_order_id = sales_orders.id) as items_count')
@@ -215,6 +215,14 @@ return $pdf->download('pos_Report_'.$id.'.pdf');
                 $start = Carbon::parse($request->start_date)->startOfDay();
                 $end = Carbon::parse($request->end_date)->endOfDay();
                 $orders->whereBetween('order_date', [$start, $end]);
+            }
+
+            if ($request->filled('payment_status')) {
+                if ($request->payment_status == 'paid') {
+                    $orders->where('status', 'paid');
+                } elseif ($request->payment_status == 'pending') {
+                    $orders->where('status', '!=', 'paid');
+                }
             }
             
         return Datatables::of($orders)
@@ -234,6 +242,13 @@ return $pdf->download('pos_Report_'.$id.'.pdf');
             ->addColumn('net_total', function ($row) {
                 return '₹' . number_format($row->net_total, 2);
             })
+            ->addColumn('remaining_amount', function ($row) {
+                $paid = $row->payments->sum('amount');
+                $remaining = max(0, $row->net_total - $paid);
+                return '₹' . number_format($remaining, 2);
+            })
+    
+    
             ->addColumn('status', function ($row) {
                 $statusClass = '';
                 switch ($row->status) {
