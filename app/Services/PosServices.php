@@ -7,6 +7,7 @@ use App\Models\BatchDetail;
 use App\Models\Batch as Batche;
 use App\Models\Customer;
 use App\Models\GoodsIssuance;
+use App\Models\Payment;
 use App\Models\Processe;
 use App\Models\Product;
 use App\Models\Unit;
@@ -274,6 +275,7 @@ return $pdf->download('pos_Report_'.$id.'.pdf');
                 if ($row->status !== 'paid') {
                     $btn .= '<a href="' . route("admin.payments.create", $row->id) . '" title="Pay" class="ms-4 me-2 text-success"><i class="fas fa-money-bill-wave"></i></a>';
                 }
+                $btn .= ' <a href="javascript:void(0);" class="text-info view-payments" data-id="' . $row->id . '" title="View Payments"><i class="fas fa-receipt"></i></a>';
                 $btn = $btn . method_field('DELETE') . '' . csrf_field();
                 $btn = $btn . ' </form>';
                 return $btn;
@@ -353,5 +355,31 @@ return $pdf->download('pos_Report_'.$id.'.pdf');
 
         return view('admin.goods-issuance.data', compact('batch', 'units', 'raw', 'users', 'process'));
 
+    }
+
+    public function getPaymentsBySaleOrderId($saleOrderId)
+    {
+        $order = SalesOrder::findOrFail($saleOrderId);
+        $payments = Payment::where('sales_order_id', $saleOrderId)
+            ->orderBy('payment_date')
+            ->get(['amount', 'payment_date']);
+
+        $netTotal = $order->net_total;
+        $runningTotal = $netTotal;
+
+        $paymentsTransformed = $payments->map(function ($payment) use (&$runningTotal) {
+            $runningTotal -= $payment->amount;
+            return [
+                'amount' => $payment->amount,
+                'payment_date' => Carbon::parse($payment->payment_date)->format('d M Y'),
+                'remaining_after' => number_format(max($runningTotal, 0), 2),
+            ];
+        });
+
+        return [
+            'net_total' => number_format($netTotal, 2),
+            'count' => $payments->count(),
+            'payments' => $paymentsTransformed,
+        ];
     }
 }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
+use App\Models\SalesOrder;
 use App\Services\PosServices;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PosController extends Controller
@@ -94,6 +97,12 @@ class PosController extends Controller
     {
 
         return $this->PosServices->pdf($request,$id);
+    }
+
+    public function getPayments($id)
+    {
+        $response = $this->PosServices->getPaymentsBySaleOrderId($id);
+        return response()->json($response);
     }
 
 }

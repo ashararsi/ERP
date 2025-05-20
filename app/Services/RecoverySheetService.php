@@ -66,7 +66,6 @@ class RecoverySheetService
 
         $lastSerial = RecoverySheetFilter::max('serial_no') ?? 0;
         $serialNo = $lastSerial + 1;
-
         RecoverySheetFilter::create([
             'serial_no' => $serialNo,
             'sales_person_id' => $filters['sales_person_id'],
@@ -78,14 +77,14 @@ class RecoverySheetService
     }
 
 
-    private function fetchFilteredCustomers(array $filters)
+    public function fetchFilteredCustomers(array $filters)
     {
         $start = Carbon::parse($filters['start_date'])->startOfDay();
         $end = Carbon::parse($filters['end_date'])->endOfDay();
 
         $query = Customer::where('spo_id', $filters['sales_person_id']);
 
-        if (!empty($filters['cities']) && is_array($filters['cities'])) {
+        if (!empty($filters['cities']) && !(count($filters['cities']) === 1 && $filters['cities'][0] === '0')) {
             $query->whereIn('city_id', $filters['cities']);
         }
 
@@ -100,7 +99,7 @@ class RecoverySheetService
         return $customers->filter(fn($customer) => $this->hasPendingPayments($customer));
     }
 
-    private function hasPendingPayments($customer): bool
+    public function hasPendingPayments($customer): bool
     {
         foreach ($customer->salesOrders as $order) {
             $totalPaid = $order->payments->sum('amount');

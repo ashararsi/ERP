@@ -23,6 +23,7 @@ class RecoverySheetController extends Controller
 
     public function generate(Request $request)
     {
+        // dd($ request->all());
         $data = $this->service->generateData($request->all());
 
         $pdf = PDF::loadView('admin.recovery_sheet.pdf', [
@@ -57,18 +58,22 @@ class RecoverySheetController extends Controller
         return $this->service->getFiltersDataTable();
     }
 
-        public function generateRecvoerySheet(Request $request)
+    public function generateRecvoerySheet(Request $request)
     {
-        $filters =    $request->query();
-        $data = $this->service->generateData($request->all());
+        // Use query() to get query parameters (like ?start_date=...&cities[]=...)
+        $filters = $request->query();
+    
+        $customers = $this->service->fetchFilteredCustomers($filters);
 
+      dd($customers);
         $pdf = PDF::loadView('admin.recovery_sheet.pdf', [
             'customers' => $data['customers'],
             'salesPerson' => $data['salesPerson'],
             'start' => $data['start'],
             'end' => $data['end'],
         ]);
-
+    
         return $pdf->stream('RecoverySheet_' . $data['salesPerson']->name . '.pdf');
     }
+    
 }

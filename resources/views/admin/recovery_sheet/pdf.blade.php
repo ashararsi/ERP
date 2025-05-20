@@ -134,7 +134,7 @@
                                 {{ $customer->name }}<br>
                                 {{ $customer->address ?? '-' }}
                             </td>
-                            <td class="nowrap">{{ $order->order_number }}</td>
+                            <td class="nowrap">{{ $order->invoice_number }}</td>
                             <td class="nowrap">{{ \Carbon\Carbon::parse($order->order_date)->format('d/m/Y') }}</td>
                             <td class="nowrap">{{ number_format($pending, 2) }}</td>
                             <td class="nowrap"></td>
