@@ -31,7 +31,15 @@
                                 <option value="pending">Pending</option>
                             </select>
                         </div>
-                        <div class="col-md-3 d-flex align-items-end gap-2">
+                        <div class="col-md-3">
+                            <label for="payment_status">select Spo</label>
+                            <select id="sales_person_id" name="sales_person_id" class="form-select">
+                                @foreach($salesPersons as $person)
+                                    <option value="{{ $person->id }}">{{ $person->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-end gap-2 mt-2">
                             <button id="filter" class="btn btn-primary mr-2">Filter</button>
                             <button id="clear" class="btn btn-secondary">Clear</button>
                         </div>
@@ -151,6 +159,7 @@
                     d.start_date = $('#start_date').val();
                     d.end_date = $('#end_date').val();       
                     d.payment_status = $('#payment_status').val();
+                    d.sales_person_id = $('#sales_person_id').val();                    
 
                 }
             },
@@ -205,6 +214,7 @@
             $('#start_date').val('');
             $('#end_date').val('');
             $('#payment_status').val('');
+            $('#sales_person_id').val('');
             table.ajax.reload();
         });
 
