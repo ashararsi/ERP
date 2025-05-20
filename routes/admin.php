@@ -234,6 +234,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 //    Route::get('balance-sheet-test/{g_id}', [ReportsController::class, 'test'])->name('test');
 //    Route::get('testBalance', [ReportsController::class, 'testBalance'])->name('testBalance');
 
+    Route::get('/pos/payments/{id}', [PosController::class, 'getPayments'])->name('pos.payments');
 
     Route::get('bpv-create', [EntriesController::class, 'bpvCreate'])->name('bpv-create');
     Route::get('cpv-create', [EntriesController::class, 'cpvCreate'])->name('cpv-create');

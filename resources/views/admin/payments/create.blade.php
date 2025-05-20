@@ -166,32 +166,40 @@
 
         const total = parseFloat({{ $sale->net_total }});
         const paid = parseFloat({{ $sale->payments->sum('amount') }});
+        const maxAmount = total - paid;
 
         function updateRemaining() {
             let newPayment = parseFloat(amountInput.value) || 0;
-            let remaining = total - paid - newPayment;
+
+            if (newPayment > maxAmount) {
+                alert(`Entered amount exceeds remaining balance. Maximum allowed is ${maxAmount.toFixed(2)}`);
+                newPayment = maxAmount;
+                amountInput.value = maxAmount.toFixed(2);
+            }
+
+            const remaining = total - paid - newPayment;
             remainingInput.value = remaining.toFixed(2);
         }
 
         amountInput.addEventListener('input', function () {
             if (fullPaymentCheck.checked) {
-                fullPaymentCheck.checked = false; 
+                fullPaymentCheck.checked = false;
             }
             updateRemaining();
         });
 
         fullPaymentCheck.addEventListener('change', function () {
             if (this.checked) {
-                const fullAmount = (total - paid).toFixed(2);
-                amountInput.value = fullAmount;
+                amountInput.value = maxAmount.toFixed(2);
                 remainingInput.value = '0.00';
             } else {
                 amountInput.value = '';
-                remainingInput.value = (total - paid).toFixed(2);
+                remainingInput.value = maxAmount.toFixed(2);
             }
         });
 
-        remainingInput.value = (total - paid).toFixed(2);
+        remainingInput.value = maxAmount.toFixed(2);
     });
 </script>
+
 @endsection

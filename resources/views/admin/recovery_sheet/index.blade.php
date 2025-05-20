@@ -20,14 +20,14 @@
                     </div>
                     <div class="col-md-4">
                         <label for="city_id" class="form-label">City:</label>
-                        <select id="city_id" name="city_id[]" class="form-select select2" multiple required>
+                        <select id="city_id" name="cities[]" class="form-select select2" multiple required>
                             <option value="all">All</option>
                             {{-- Dynamically filled --}}
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label for="area_id" class="form-label">Area:</label>
-                        <select id="area_id" name="area_id[]" class="form-select select2" multiple required>
+                        <select id="area_id" name="areas[]" class="form-select select2" multiple required>
                             <option value="all">All</option>
                             {{-- Dynamically filled --}}
                         </select>

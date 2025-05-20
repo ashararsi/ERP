@@ -52,6 +52,39 @@
                         </thead>
                     </table>
                 </div>
+                <!-- Payment History Modal -->
+                <div class="modal fade" id="paymentHistoryModal" tabindex="-1" role="dialog" aria-labelledby="paymentHistoryLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Payment History</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                            </div>
+                            <div class="modal-body">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <div><strong>Total Amount:</strong> ₹<span id="total-amount"></span></div>
+                                    <div><strong>Total Payments:</strong> <span id="payment-count"></span></div>
+                                </div>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Paid Amount</th>
+                                            <th>Payment Date</th>
+                                            <th>Remaining After Payment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="payment-history-body">
+                                        <!-- Payments will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -77,6 +110,35 @@
 @section('js')
     @include('admin.layout.datatable')
     <script type="text/javascript">
+       $(document).on('click', '.view-payments', function () {
+        const saleId = $(this).data('id');
+        $('#payment-history-body').html('<tr><td colspan="4">Loading...</td></tr>');
+        $('#paymentHistoryModal').modal('show');
+
+        $.get(`/admin/pos/payments/${saleId}`, function (response) {
+            let rows = '';
+            const payments = response.payments;
+
+            if (payments.length === 0) {
+                rows = '<tr><td colspan="4" class="text-center">No payments found</td></tr>';
+            } else {
+                payments.forEach((payment, index) => {
+                    rows += `<tr>
+                        <td>${index + 1}</td>
+                        <td>₹${parseFloat(payment.amount).toFixed(2)}</td>
+                        <td>${payment.payment_date}</td>
+                        <td>₹${payment.remaining_after}</td>
+                    </tr>`;
+                });
+            }
+
+            $('#total-amount').text(response.net_total);
+            $('#payment-count').text(response.count);
+            $('#payment-history-body').html(rows);
+        });
+    });
+
+
         $(document).ready(function () {
             let table = $('#pos-orders-table').DataTable({
             processing: true,
