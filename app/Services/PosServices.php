@@ -285,19 +285,36 @@ return $pdf->download('pos_Report_'.$id.'.pdf');
                 return '<span class="' . $statusClass . '">' . ucfirst($row->status) . '</span>';
             })
             ->addColumn('action', function ($row) {
-                $btn = ' <form  method="POST" onsubmit="return confirm(' . "'Are you sure you want to Delete this?'" . ');"  action="' . route("admin.pos.destroy", $row->id) . '"> ';
-                $btn = $btn . '<a href=" ' . route("admin.pos.show", $row->id) . '"  class="ml-2"><i class="fas fa-eye"></i></a>';
-                $btn = $btn . ' <a href="' . route("admin.pos.edit", $row->id) . '" class="ml-2 mr-2">  <i class="fas fa-edit"></i></a>';
-                $btn = $btn . ' <a href="' . route("admin.pos.pdf", $row->id) . '" class="ml-2 mr-2">  <i class="fas fa-print"></i></a>';
+                $viewUrl = route("admin.pos.show", $row->id);
+                $editUrl = route("admin.pos.edit", $row->id);
+                $pdfUrl = route("admin.pos.pdf", $row->id);
+                $deleteUrl = route("admin.pos.destroy", $row->id);
+                $paymentUrl = route("admin.payments.create", $row->id);
+            
+                $buttons = [];
+            
+                $buttons[] = '<a href="' . $viewUrl . '" class="text-primary" title="View"><i class="fas fa-eye"></i></a>';
+                $buttons[] = '<a href="' . $editUrl . '" class="text-warning" title="Edit"><i class="fas fa-edit"></i></a>';
+                $buttons[] = '<a href="' . $pdfUrl . '" class="text-danger" title="Print"><i class="fas fa-print"></i></a>';
+            
                 if ($row->status !== 'paid') {
-                    $btn .= '<a href="' . route("admin.payments.create", $row->id) . '" title="Pay" class="ms-4 me-2 text-success"><i class="fas fa-money-bill-wave"></i></a>';
+                    $buttons[] = '<a href="' . $paymentUrl . '" title="Pay" class="text-success"><i class="fas fa-money-bill-wave"></i></a>';
                 }
-                $btn .= ' <a href="javascript:void(0);" class="text-info view-payments" data-id="' . $row->id . '" title="View Payments"><i class="fas fa-receipt"></i></a>';
-                $btn = $btn . method_field('DELETE') . '' . csrf_field();
-                $btn = $btn . ' </form>';
-                return $btn;
-
+            
+                $buttons[] = '<a href="javascript:void(0);" class="text-info view-payments" data-id="' . $row->id . '" title="View Payments"><i class="fas fa-receipt"></i></a>';
+            
+                $buttonGroup = implode(' | ', $buttons);
+            
+                $form = '<form method="POST" action="' . $deleteUrl . '" onsubmit="return confirm(\'Are you sure you want to Delete this?\');" style="display:inline;">'
+                    . $buttonGroup
+                    . ' | '
+                    . '<button type="submit" class="text-danger border-0 bg-transparent" title="Delete"><i class="fas fa-trash"></i></button>'
+                    . method_field('DELETE') . csrf_field()
+                    . '</form>';
+            
+                return $form;
             })
+            
             ->rawColumns(['order_number', 'status', 'action'])
             ->make(true);
     }
