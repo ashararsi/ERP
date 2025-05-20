@@ -24,8 +24,8 @@ class PosController extends Controller
     {
         // $id = 5;
         // return $this->PosServices->pdf($request,$id);
-
-        return view('admin.pos.index');
+        $salesPersons = $this->PosServices->getSalesPersons();
+        return view('admin.pos.index',compact('salesPersons'));
     }
 
     /**

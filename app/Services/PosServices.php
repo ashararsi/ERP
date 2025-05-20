@@ -24,6 +24,17 @@ use Config;
 
 class PosServices
 {
+
+    public function getSalesPersons()
+    {
+        return User::with('roles')
+            ->select('id', 'email', 'name')
+            ->orderBy('id', 'desc')
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'Spo');
+            })->get();
+    }
+
     public function create()
     {
         $data['customers'] = Customer::all();
@@ -225,6 +236,12 @@ return $pdf->download('pos_Report_'.$id.'.pdf');
                     $orders->where('status', '!=', 'paid');
                 }
             }
+
+            if ($request->filled('sales_person_id')) {
+                $orders->whereHas('customer', function ($query) use ($request) {
+                    $query->where('spo_id', $request->sales_person_id);
+                });
+            }            
             
         return Datatables::of($orders)
             ->addIndexColumn()

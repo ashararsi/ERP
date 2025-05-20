@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\RecoverySheetService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -60,20 +62,22 @@ class RecoverySheetController extends Controller
 
     public function generateRecvoerySheet(Request $request)
     {
-        // Use query() to get query parameters (like ?start_date=...&cities[]=...)
         $filters = $request->query();
     
         $customers = $this->service->fetchFilteredCustomers($filters);
-
-      dd($customers);
+        $salesPerson = User::find($filters['sales_person_id']);
+        $start = Carbon::parse($filters['start_date'])->startOfDay();
+        $end = Carbon::parse($filters['end_date'])->endOfDay();
+    
         $pdf = PDF::loadView('admin.recovery_sheet.pdf', [
-            'customers' => $data['customers'],
-            'salesPerson' => $data['salesPerson'],
-            'start' => $data['start'],
-            'end' => $data['end'],
+            'customers' => $customers,
+            'salesPerson' => $salesPerson,
+            'start' => $start,
+            'end' => $end,
         ]);
     
-        return $pdf->stream('RecoverySheet_' . $data['salesPerson']->name . '.pdf');
+        return $pdf->stream('RecoverySheet_' . $salesPerson->name . '.pdf');
     }
+    
     
 }
