@@ -32,13 +32,14 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <label for="payment_status">select Spo</label>
+                            <label for="sales_person_id">Select Salesperson</label>
                             <select id="sales_person_id" name="sales_person_id" class="form-select">
+                                <option value="" selected disabled>Select Salesperson</option>
                                 @foreach($salesPersons as $person)
                                     <option value="{{ $person->id }}">{{ $person->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div>                        
                         <div class="col-md-3 d-flex align-items-end gap-2 mt-2">
                             <button id="filter" class="btn btn-primary mr-2">Filter</button>
                             <button id="clear" class="btn btn-secondary">Clear</button>
