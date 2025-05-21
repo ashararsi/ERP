@@ -506,6 +506,20 @@
 
                                 </ul>
                             </li>
+                            <li class="slide has-sub {{ request()->is('admin/bilties*') ? 'open' : '' }}">
+                                <a href="javascript:void(0);" class="side-menu__item">Bilties
+                                    <i class="fe fe-chevron-right side-menu__angle"></i>
+                                </a>
+                                <ul class="slide-menu child2">
+                                    <li class="slide {{ request()->routeIs('admin.bilties.index') ? 'active' : '' }}">
+                                        <a href="{!! route('admin.bilties.index') !!}" class="side-menu__item">List</a>
+                                    </li>
+                                    <li class="slide {{ request()->routeIs('admin.bilties.create') ? 'active' : '' }}">
+                                        <a href="{!! route('admin.bilties.create') !!}" class="side-menu__item">Create</a>
+                                    </li>
+
+                                </ul>
+                            </li>
 
                         </ul>
                     </li>

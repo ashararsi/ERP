@@ -36,6 +36,10 @@ class SalesOrder extends Model
         return $this->hasMany(Payment::class);
     }
 
+    public function bilty()
+    {
+        return $this->belongsTo(Bilty::class, 'bilty_id');
+    }
 
 
     // public static function boot()
