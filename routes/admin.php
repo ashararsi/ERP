@@ -41,6 +41,7 @@ use App\Models\Formulations;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Admin\BatchController;
+use App\Http\Controllers\Admin\BiltyController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PackingMaterialController;
 use App\Http\Controllers\PaymentController;
@@ -273,6 +274,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
 
     Route::resource('/areas',AreaController::class);
     Route::post('/areas/getdata', [AreaController::class, 'getdata'])->name('areas.getdata');
+
+   //bilties
+   Route::resource('/bilties',BiltyController::class);
+   Route::post('/bilties/getdata', [BiltyController::class, 'getdata'])->name('bilties.getdata');
 
 
     //    Route::get('/invoice', function () {

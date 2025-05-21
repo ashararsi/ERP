@@ -88,7 +88,7 @@
                                         <label for="invoice_ids">Invoices</label>
                                         <select class="form-control select2" name="invoice_ids[]" multiple required>
                                             @foreach($invoices as $invoice)
-                                                <option value="{{ $invoice->id }}">{{ $invoice->invoice_no }}</option>
+                                                <option value="{{ $invoice->id }}">{{ $invoice->invoice_number }}</option>
                                             @endforeach
                                         </select>
                                     </div>

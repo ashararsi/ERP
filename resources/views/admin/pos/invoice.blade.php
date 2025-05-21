@@ -404,18 +404,19 @@
             <div class="footer-container">
                 <table class="footer-info">
                     <tr>
-                        <td><strong>Goods Name:</strong> NA</td>
-                        <td><strong>Place:</strong> N/A</td>
-                        <td><strong>Bilty No:</strong> NA</td>
-                        <td><strong>Bilty Date:</strong> N/A</td>
+                        <td><strong>Goods Name:</strong> {{ $sale->bilty->goods_name ?? 'N/A' }}</td>
+                        <td><strong>Place:</strong> {{ $sale->bilty->place ?? 'N/A' }}</td>
+                        <td><strong>Bilty No:</strong> {{ $sale->bilty->bilty_no ?? 'N/A' }}</td>
+                        <td><strong>Bilty Date:</strong> {{ optional($sale->bilty->bilty_date)->format('Y-m-d') ?? 'N/A' }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"><strong>Courier/Registry Date:</strong>N/A</td>
-                        <td><strong>Receipt No:</strong> N/A</td>
-                        <td><strong>Cartons:</strong> 0 | <strong>Fare Rs.:</strong> 0</td>
+                        <td colspan="2"><strong>Courier/Registry Date:</strong> {{ optional($sale->bilty->courier_date)->format('Y-m-d') ?? 'N/A' }}</td>
+                        <td><strong>Receipt No:</strong> {{ $sale->bilty->receipt_no ?? 'N/A' }}</td>
+                        <td><strong>Cartons:</strong> {{ $sale->bilty->cartons ?? 0 }} | <strong>Fare Rs.:</strong> {{ number_format($sale->bilty->fare) ?? 0 }}</td>
                     </tr>
                 </table>
             </div>
+            
 
             {{-- <div class="footer-signatures">
                 <table class="signature-table">
