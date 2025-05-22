@@ -407,13 +407,19 @@
                         <td><strong>Goods Name:</strong> {{ $sale->bilty->goods_name ?? 'N/A' }}</td>
                         <td><strong>Place:</strong> {{ $sale->bilty->place ?? 'N/A' }}</td>
                         <td><strong>Bilty No:</strong> {{ $sale->bilty->bilty_no ?? 'N/A' }}</td>
-                        <td><strong>Bilty Date:</strong> {{ optional($sale->bilty->bilty_date)->format('Y-m-d') ?? 'N/A' }}</td>
-                    </tr>
+                        <td><strong>Bilty Date:</strong> 
+                            {{ data_get($sale, 'bilty.bilty_date') ? \Carbon\Carbon::parse($sale->bilty->bilty_date)->format('Y-m-d') : 'N/A' }}
+                        </td>                    </tr>
                     <tr>
-                        <td colspan="2"><strong>Courier/Registry Date:</strong> {{ optional($sale->bilty->courier_date)->format('Y-m-d') ?? 'N/A' }}</td>
-                        <td><strong>Receipt No:</strong> {{ $sale->bilty->receipt_no ?? 'N/A' }}</td>
-                        <td><strong>Cartons:</strong> {{ $sale->bilty->cartons ?? 0 }} | <strong>Fare Rs.:</strong> {{ number_format($sale->bilty->fare) ?? 0 }}</td>
-                    </tr>
+                    <td colspan="2"><strong>Courier/Registry Date:</strong> 
+                        {{ data_get($sale, 'bilty.courier_date') ? \Carbon\Carbon::parse($sale->bilty->courier_date)->format('Y-m-d') : 'N/A' }}
+                     </td>
+                            <td><strong>Receipt No:</strong> {{ $sale->bilty->receipt_no ?? 'N/A' }}</td>
+                            <td>
+                                <strong>Cartons:</strong> {{ optional($sale->bilty)->cartons ?? 0 }} | 
+                                <strong>Fare Rs.:</strong> {{ optional($sale->bilty)->fare ? number_format($sale->bilty->fare) : 0 }}
+                            </td>
+                        </tr>
                 </table>
             </div>
             
