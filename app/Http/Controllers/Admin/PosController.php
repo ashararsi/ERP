@@ -129,6 +129,12 @@ class PosController extends Controller
         return $this->PosServices->pdf($request,$id);
     }
 
+    public function orderPdf(Request $request,$id)
+    {
+
+        return $this->PosServices->orderPdf($request,$id);
+    }
+
     public function getPayments($id)
     {
         $response = $this->PosServices->getPaymentsBySaleOrderId($id);

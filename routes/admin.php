@@ -186,6 +186,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:web'
     Route::post('/pos/getdata', [PosController::class, 'getdata'])->name('pos.getdata');
     Route::get('/pos/pdf/{id}', [PosController::class, 'pdf'])->name('pos.pdf');
 
+    Route::get('/order/pdf/{id}', [PosController::class, 'orderPdf'])->name('order_delivery.pdf');
 
     Route::resource('customers', CustomerController::class);
     Route::post('/customers/getdata', [CustomerController::class, 'getdata'])->name('customers.getdata');
