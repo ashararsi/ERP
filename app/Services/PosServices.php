@@ -416,4 +416,13 @@ class PosServices
             'payments' => $paymentsTransformed,
         ];
     }
+
+    public function delete($id)
+    {
+        $salesOrder = SalesOrder::with('items')->findOrFail($id);
+        $salesOrder->items()->delete();    
+        return  $salesOrder->delete();
+        
+    }
+    
 }

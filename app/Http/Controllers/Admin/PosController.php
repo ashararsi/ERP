@@ -69,7 +69,32 @@ class PosController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = $this->PosServices->create();
+        $users = $this->PosServices->getusers();
+        $products = $this->PosServices->products();
+        $Batches = $this->PosServices->Batches();
+        $sale = SalesOrder::with('items')->find($id);
+        $saleItems = $sale->items->map(function ($item) {
+            return [
+                'productId' => $item->product_id,
+                'batchId' => $item->batch_id,
+                'expiry' => $item->expiry_date,
+                'qty' => $item->quantity,
+                'rate' => $item->rate,
+                'discPercent' => $item->discount_percent,
+                'taxPercent' => $item->tax_percent,
+                'tradeDiscount' => $item->trade_discount,
+                'specialDiscount' => $item->special_discount,
+                'schemeDiscount' => $item->scheme_discount,
+                'taxAmt' => $item->tax_amount,
+                'netAmt' => $item->net_amount,
+                'tpAmt' => $item->tp_amount,
+                'excludedAmt' => $item->excluded_amount,
+                'includedAmt' => $item->included_amount,
+            ];
+        })->toArray();
+        return view('admin.pos.edit', compact('data', 'users', 'products','Batches','sale','saleItems'));
+
     }
 
     /**
@@ -83,9 +108,14 @@ class PosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        try {
+            $this->PosServices->delete($id);
+            return redirect()->route('admin.pos.index')->with('success', 'Invoice deleted successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     public function getdata(Request $request)
