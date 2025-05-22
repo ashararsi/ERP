@@ -202,6 +202,18 @@ class PosServices
         }
     }
 
+    public function orderPdf($request, $id)
+    {
+      
+        $sale = SalesOrder::with(['customer.spo', 'items.product','items.batch','salesRep','bilty'])->where('id', $id)->first();
+        $pdf = Pdf::loadView('admin.pos.deleviry-date', compact('sale'));
+    //    return view('admin.pos.invoice', compact('sale'));
+    return $pdf->stream('order_pdf'.$id.'.pdf');
+// return $pdf->download('pos_Report_'.$id.'.pdf');
+//        return view('admin.pos.invoice', compact('sale'));
+
+    }
+
     public function pdf($request, $id)
     {
       
@@ -290,13 +302,15 @@ class PosServices
                 $pdfUrl = route("admin.pos.pdf", $row->id);
                 $deleteUrl = route("admin.pos.destroy", $row->id);
                 $paymentUrl = route("admin.payments.create", $row->id);
+                $orderUrl = route("admin.order_delivery.pdf",$row->id);
             
                 $buttons = [];
             
                 $buttons[] = '<a href="' . $viewUrl . '" class="text-primary" title="View"><i class="fas fa-eye"></i></a>';
                 $buttons[] = '<a href="' . $editUrl . '" class="text-warning" title="Edit"><i class="fas fa-edit"></i></a>';
                 $buttons[] = '<a href="' . $pdfUrl . '" class="text-danger" title="Print"><i class="fas fa-print"></i></a>';
-            
+                $buttons[] = '<a href="' . $orderUrl . '" class="text-danger" title="Order"><i class="fas fa-box"></i></a>';
+
                 if ($row->status !== 'paid') {
                     $buttons[] = '<a href="' . $paymentUrl . '" title="Pay" class="text-success"><i class="fas fa-money-bill-wave"></i></a>';
                 }
